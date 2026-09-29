@@ -10,7 +10,7 @@ jobs:
           name: Measure CPU, memory and free disk for a single Android ROM
           command: |
             mkdir -p evidence
-            python3 - <<'PY'
+            python3 - \<<'PY'
             import json, os, pathlib, shutil, subprocess
             d = shutil.disk_usage('.')
             report = {'cpu_count': os.cpu_count(), 'disk_total_bytes': d.total, 'disk_free_bytes': d.free, 'rom_started': False}
