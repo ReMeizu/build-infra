@@ -70,6 +70,8 @@ def main():
     log = publish/'kernel-build.log'
     with log.open('x') as stream:
         subprocess.run(base+[pins['defconfig']], check=True, stdout=stream, stderr=subprocess.STDOUT, timeout=90)
+        # Preserve the actual config even when the new environment differs.
+        shutil.copyfile(out/'.config', publish/'diagnostic-kernel.config')
         require(sha(out/'.config') == pins['accepted_a4_config_sha256'], 'generated config differs from accepted A4')
         # A direct leaf target bypasses parent subdir-ccflags. Carry only the
         # reviewed parent include paths and -Werror, not a new board/source patch.

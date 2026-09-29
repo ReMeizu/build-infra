@@ -11,6 +11,7 @@ on:
         default: probe
         options:
           - probe
+          - kernel
 
 permissions:
   contents: read
@@ -65,12 +66,30 @@ jobs:
         with:
           persist-credentials: false
       - name: Measure CPU, memory, disk, tools and public network endpoints
+        if: ${{ inputs.mode == 'probe' }}
         run: python3 -B scripts/probe.py
-      - name: Keep the probe evidence for seven days
+      - name: Provision a new ephemeral file-backed ext4 scratch volume
+        if: ${{ inputs.mode == 'kernel' }}
+        run: |
+          mkdir -p evidence
+          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" > evidence/scratch.json
+      - name: Build the pinned public M5s Yassy object through Forge
+        if: ${{ inputs.mode == 'kernel' }}
+        run: sudo -n timeout --signal=INT --kill-after=90s 50m python3 -B scripts/kernel_run.py --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/kernel-receipts"
+      - name: Make this job's kernel receipts readable for artifact collection
+        if: ${{ always() && inputs.mode == 'kernel' }}
+        run: |
+          if [ -d "$RUNNER_TEMP/kernel-receipts" ]; then
+            sudo -n chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/kernel-receipts"
+          fi
+      - name: Keep the evidence for seven days
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: blacksmith-probe-${{ github.run_id }}
-          path: evidence/
+          name: blacksmith-${{ inputs.mode }}-${{ github.run_id }}
+          path: |
+            evidence/
+            ${{ runner.temp }}/kernel-receipts/
           if-no-files-found: warn
           retention-days: 7
+          include-hidden-files: true

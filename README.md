@@ -52,7 +52,20 @@ pinned source/compiler inputs and explicit image identity. A relocated image or
 new runner is a new validation attempt. Compilation, a linked kernel, a packaged
 boot image and hardware acceptance remain separate evidence levels.
 
-The initial integration targets the previously compiled M5s Yassy panel object;
-its public source/toolchain packaging is being prepared. Do not interpret the
-runner probe as that kernel check passing. Full Android ROM jobs are not enabled
-by this workflow.
+Select `kernel` to validate the previously compiled M5s Yassy panel object from
+[pinned public inputs](recipes/M5S_YASSY_OBJECT.md). The 16-vCPU runner has a
+60-minute job limit and a 50-minute orchestration deadline with 90 seconds of
+cleanup grace, leaving time to upload evidence; actual Forge compilation uses two jobs and a 600-second
+limit. Input fetching and the new container image are separately bounded.
+The recipe creates no DTB, boot image or firmware package.
+
+The job formats only a newly created, exclusive 8-GiB sparse regular file in the
+runner temporary directory, then mounts that file as a separate ext4 filesystem
+for Forge. Its backing storage is the ephemeral runner root disk. It never
+formats an existing device/file, and does not use provider sticky storage.
+Receipts, logs, generated configuration and the object are uploaded for seven days;
+the container image is recorded as a new environment, not the previous GCE image.
+
+[The runner probe passed](https://github.com/ReMeizu/build-infra/actions/runs/36552629790).
+That establishes infrastructure access only. Kernel compilation remains a separate
+validation, and full Android ROM jobs are not enabled by this workflow.
