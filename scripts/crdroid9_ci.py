@@ -58,13 +58,14 @@ with log_path.open('w') as log:
         while process.poll() is None:
             free=shutil.disk_usage('/').free
             print(json.dumps({'phase':'forge','elapsed_seconds':int(time.time()-started),'free_gib':free//2**30,'log_bytes':log_path.stat().st_size}),flush=True)
-            if free<20*2**30 or shutil.disk_usage(mount).free<3*2**30:
+            deadline_reached=time.time()-started>=2700
+            if deadline_reached or free<20*2**30 or shutil.disk_usage(mount).free<3*2**30:
                 os.killpg(process.pid,signal.SIGINT)
                 try: process.wait(timeout=30)
                 except subprocess.TimeoutExpired:
                     status['stop_reason']='cleanup-unresolved'
                     raise RuntimeError('Forge did not stop after disk guard; checkpoint refused')
-                status['stop_reason']='disk-reserve'
+                status['stop_reason']='outer-deadline' if deadline_reached else 'disk-reserve'
                 break
             log.flush()
             diagnostic=io.BytesIO()
