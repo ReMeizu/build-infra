@@ -1,5 +1,18 @@
 {
-  "schema_version": "remeizu.blacksmith-budget.v1",
+  "months": {
+    "2026-09": {
+      "reservations": {
+        "36552103126": {
+          "mode": "probe",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T09:53:49.798258Z",
+          "reserved_normalized_minutes": 8,
+          "timeout_minutes": 5,
+          "vcpu": 2
+        }
+      }
+    }
+  },
   "repository": "ReMeizu/build-infra",
-  "months": {}
+  "schema_version": "remeizu.blacksmith-budget.v1"
 }
