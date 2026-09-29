@@ -2,6 +2,19 @@
 # Run only on an authorized disposable cloud worker. Never formats a disk.
 set -eu -o pipefail
 : "${BENCHMARK_ROOT:?explicit benchmark directory required}"
+ensure_compact_evidence() {
+  exit_status=$?
+  mkdir -p evidence
+  if [ ! -e evidence/benchmark.json ]; then
+    (set -C; printf '{"schema":1,"measurement_complete":false,"process_exit_code":%s}\n' "$exit_status" > evidence/benchmark.json) || true
+  fi
+  if [ ! -e evidence/benchmark-status.json ]; then
+    (set -C; printf '{"measurement_complete":false,"process_exit_code":%s}\n' "$exit_status" > evidence/benchmark-status.json) || true
+  fi
+}
+trap ensure_compact_evidence EXIT
+trap 'exit 143' TERM
+trap 'exit 130' INT
 installation_status=0
 (
 if ! /usr/bin/fio --version 2>/dev/null | /usr/bin/grep -Eq '^fio-[0-9]+([.][0-9]+)+'; then

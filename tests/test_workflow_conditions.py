@@ -1,5 +1,8 @@
 import pathlib
 import re
+import json
+import subprocess
+import tempfile
 import unittest
 
 ROOT = pathlib.Path(__file__).parents[1]
@@ -17,6 +20,21 @@ class WorkflowConditionTest(unittest.TestCase):
             self.assertEqual(len(identities), len(set(identities)), job_name)
             references = set(re.findall(r'\bsteps\.([A-Za-z_][A-Za-z0-9_-]*)\.', body))
             self.assertFalse(references - set(identities), (job_name, references, identities))
+
+    def test_circle_wrapper_exit_trap_retains_failure_and_existing_evidence(self):
+        wrapper = (ROOT / 'scripts/cloud_benchmark_job.sh').read_text()
+        function = wrapper.split('ensure_compact_evidence() {', 1)[1].split('trap ensure_compact_evidence EXIT', 1)[0]
+        script = 'ensure_compact_evidence() {' + function + 'trap ensure_compact_evidence EXIT\nexit 42\n'
+        with tempfile.TemporaryDirectory() as folder:
+            result = subprocess.run(['bash', '-c', script], cwd=folder, capture_output=True)
+            self.assertEqual(result.returncode, 42)
+            evidence = pathlib.Path(folder) / 'evidence'
+            self.assertEqual(json.loads((evidence / 'benchmark.json').read_text())['process_exit_code'], 42)
+            self.assertFalse(json.loads((evidence / 'benchmark-status.json').read_text())['measurement_complete'])
+            (evidence / 'benchmark.json').write_text('preserved original')
+            result = subprocess.run(['bash', '-c', script], cwd=folder, capture_output=True)
+            self.assertEqual(result.returncode, 42)
+            self.assertEqual((evidence / 'benchmark.json').read_text(), 'preserved original')
 
     def test_regression_wrong_job_checkout_id_is_rejected(self):
         workflow = (ROOT / '.github/workflows/blacksmith.yml').read_text()

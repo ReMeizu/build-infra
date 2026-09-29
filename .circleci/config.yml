@@ -22,6 +22,9 @@ jobs:
           destination: benchmark
 workflows:
   cloud-benchmark-only:
-    when: << pipeline.parameters.cloud_benchmark >>
+    when:
+      or:
+        - << pipeline.parameters.cloud_benchmark >>
+        - equal: [cloud-benchmarks, << pipeline.git.branch >>]
     jobs:
       - cloud-benchmark
