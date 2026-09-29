@@ -1,0 +1,57 @@
+{
+  "schema": "remeizu.m681-kernel-cloud.v1",
+  "ready": true,
+  "source_license_reviewed": true,
+  "source": {
+    "url": "https://github.com/nomorecoolnicknames/mtk-t-alps-release-q0-kernel-4.9-lc.git",
+    "commit": "978db3fd01b306035c80a64a933e5c14611cf61c",
+    "tree": "380b3dc93a48c88b3ea221cfae129130658e0959",
+    "files_sha256": {
+      "arch/arm64/configs/m681_49_a13_defconfig": "38b76b6a34b9ccc32b03933c359b5a9a2837e181a6eb0a2a6d9740d5aff72165",
+      "arch/arm64/configs/m681_49_components.config": "016a4b8b8ff6416eb35eca84a10d07e01ce6ce40d5e7f8599fc99f47564f4d5a"
+    }
+  },
+  "toolchain": {
+    "url": "https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9",
+    "commit": "7a28c220c2e9001825328dca6188ef0077a80a88",
+    "tree": "08369a4d09f1de92d6e5d35b5ecb33b94f735668",
+    "python_wrapper_rewrite": true,
+    "bin_sha256": {
+      "aarch64-linux-android-gcc": "6f98b69cdfe173d09bad3ecb4a9d006f0ac7f6c55741a8781f7c00596d1016be",
+      "aarch64-linux-android-g++": "6f98b69cdfe173d09bad3ecb4a9d006f0ac7f6c55741a8781f7c00596d1016be",
+      "real-aarch64-linux-android-gcc": "23895d4b4ac67701b56b7b278faad2bb02d78e8574ec3a041d92667c42db5b91",
+      "aarch64-linux-android-ld": "71412521a02f416d06167a1bcfa153c99ca0b808eee2b04a6aec37b2cdfc5fd9"
+    }
+  },
+  "config": {
+    "defconfig": "m681_49_a13_defconfig",
+    "fragment_path": "arch/arm64/configs/m681_49_components.config",
+    "fragment_sha256": "016a4b8b8ff6416eb35eca84a10d07e01ce6ce40d5e7f8599fc99f47564f4d5a",
+    "generated_sha256": null
+  },
+  "container": {
+    "image_tag": "androidforge/build-kernel:m681-kernel-gcc49",
+    "image_id": null,
+    "base_image_digest": "ubuntu@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214",
+    "dockerfile_sha256": "12364329d1ca938ed1c45fa124d2b9dddaac491fd2b75af8b02c642ff870a007"
+  },
+  "targets": [
+    "Image.gz-dtb",
+    "vmlinux"
+  ],
+  "required_objects": [
+    "sound/built-in.o",
+    "drivers/misc/mediatek/eccci1/ccci.o",
+    "drivers/misc/mediatek/ccci_util/ccci_util_lib.o",
+    "drivers/misc/mediatek/ccmni/eccmni.o",
+    "drivers/misc/mediatek/base/power/mt6755/mt_clkbuf_ctl.o",
+    "drivers/iio/imu/inv_mpu_m681/inv-mpu-iio.o",
+    "drivers/misc/mediatek/gud/302c/gud/mcDrvModule.o",
+    "drivers/misc/mediatek/gud/302c/gud/mcKernelApi.o",
+    "drivers/input/fingerprint/goodix/gf_spi_tee.o"
+  ],
+  "jobs": 8,
+  "timeout_seconds": 1800,
+  "flash_ready": false,
+  "runtime_verified": false
+}

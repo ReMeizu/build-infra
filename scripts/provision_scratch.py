@@ -19,7 +19,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runner-temp', type=Path, required=True)
     parser.add_argument('--run-id', required=True)
-    parser.add_argument('--size-gib', type=int, choices=(8, 600), default=8)
+    parser.add_argument('--size-gib', type=int, choices=(8, 32, 600), default=8)
     args = parser.parse_args()
     if os.geteuid() != 0 or not args.run_id.isdecimal():
         raise ValueError('root and a numeric GitHub run ID required')

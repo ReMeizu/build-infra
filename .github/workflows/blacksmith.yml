@@ -15,6 +15,15 @@ on:
           - kernel
           - rom
 
+      kernel_target:
+        description: Public kernel recipe (kernel mode only)
+        required: true
+        type: choice
+        default: yassy
+        options:
+          - yassy
+          - m681
+
 permissions:
   contents: read
 
@@ -38,6 +47,24 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+      - name: Validate the selected public kernel before admission
+        env:
+          REQUEST_MODE: ${{ inputs.mode }}
+          KERNEL_TARGET: ${{ inputs.kernel_target || 'yassy' }}
+        run: |
+          python3 - <<'PYSELECT'
+          import json, os, sys
+          sys.path.insert(0, 'scripts')
+          from m681_manifest import require, sha, validate
+          target = os.environ['KERNEL_TARGET']
+          if target not in ('yassy', 'm681'):
+              raise SystemExit('Unknown kernel selection')
+          if target == 'm681':
+              if os.environ['REQUEST_MODE'] != 'kernel':
+                  raise SystemExit('M681 selection requires kernel mode')
+              manifest = validate(json.load(open('recipes/m681-full-inputs.json')))
+              require(sha('recipes/kernel-gcc49.Dockerfile') == manifest['container']['dockerfile_sha256'], 'Pinned Dockerfile changed')
+          PYSELECT
       - name: Reserve the full bounded job cost before runner allocation
         id: reserve
         env:
@@ -108,10 +135,15 @@ jobs:
         if: ${{ inputs.mode == 'kernel' }}
         run: |
           mkdir -p evidence
-          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" > evidence/scratch.json
+          scratch_gib=8
+          if [ "${{ inputs.kernel_target }}" = m681 ]; then scratch_gib=32; fi
+          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib "$scratch_gib" > evidence/scratch.json
       - name: Build the pinned public M5s Yassy object through Forge
-        if: ${{ inputs.mode == 'kernel' }}
+        if: ${{ inputs.mode == 'kernel' && inputs.kernel_target != 'm681' }}
         run: sudo -n timeout --signal=INT --kill-after=90s 50m python3 -B scripts/kernel_run.py --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/kernel-receipts"
+      - name: Build the complete pinned public M681 kernel through Forge
+        if: ${{ inputs.mode == 'kernel' && inputs.kernel_target == 'm681' }}
+        run: sudo -n timeout --signal=INT --kill-after=90s 50m python3 -B scripts/m681_cloud_run.py --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/kernel-receipts"
       - name: Provision ROM scratch on the ephemeral runner disk
         if: ${{ inputs.mode == 'rom' }}
         run: |
