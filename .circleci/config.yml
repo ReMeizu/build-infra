@@ -1,0 +1,32 @@
+version: 2.1
+jobs:
+  rom-capacity:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: false
+    resource_class: xlarge
+    steps:
+      - run:
+          name: Measure CPU, memory and free disk for a single Android ROM
+          command: |
+            mkdir -p evidence
+            python3 - \<<'PY'
+            import json, os, pathlib, shutil, subprocess
+            d = shutil.disk_usage('.')
+            report = {'cpu_count': os.cpu_count(), 'disk_total_bytes': d.total, 'disk_free_bytes': d.free, 'rom_started': False}
+            report['memory'] = pathlib.Path('/proc/meminfo').read_text().splitlines()[:3]
+            report['filesystem'] = subprocess.check_output(['findmnt', '-n', '-o', 'FSTYPE', '-T', '.'], text=True).strip()
+            payload = json.dumps(report, indent=2)
+            pathlib.Path('evidence/capacity.json').write_text(payload + '\n')
+            print(payload)
+            PY
+      - store_artifacts:
+          path: evidence
+workflows:
+  rom-pilot-capacity:
+    jobs:
+      - approve-capacity:
+          type: approval
+      - rom-capacity:
+          requires:
+            - approve-capacity
