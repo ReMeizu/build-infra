@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="remeizu-public" fetch="https://github.com/nomorecoolnicknames/" />
+  <project name="android_device_meizu_m6-source" path="device/meizu/meizu_m6" remote="remeizu-public" revision="b31f1449e25129810cf9b6d239d8b466c4ec6f55" clone-depth="1" />
+  <project name="android_kernel_meizu_m6" path="kernel/meizu/meizu_m6" remote="remeizu-public" revision="888e2a4f5280de34ca398ed5e3e807a49805b056" clone-depth="1" />
+</manifest>
