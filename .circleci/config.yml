@@ -46,7 +46,7 @@ jobs:
               docker build -t androidforge/build-env:android-9 recipes/crdroid9
               docker save androidforge/build-env:android-9 | zstd -T2 -1 -o /home/circleci/public-image-cache/android9.tar.zst
             fi
-            python3 scripts/crdroid9_checkpoint.py
+            /usr/bin/python3 scripts/crdroid9_checkpoint.py
       - save_cache:
           key: crdroid9-image-v1-{{ checksum "recipes/crdroid9/Dockerfile" }}-{{ checksum "recipes/crdroid9/check-multilib.sh" }}
           paths:
@@ -54,12 +54,12 @@ jobs:
       - run:
           name: Build crDroid Pie M6 and encrypt checkpoint
           no_output_timeout: 15m
-          command: python3 scripts/crdroid9_ci.py
+          command: /usr/bin/python3 scripts/crdroid9_ci.py
       - store_artifacts:
           path: artifacts
       - run:
           name: Require a completed ROM
-          command: python3 -c 'import json; s=json.load(open("artifacts/status.json")); assert s["checkpoint_saved"], "checkpoint not saved"; assert s["rom_complete"], "ROM incomplete; inspect the encrypted checkpoint"'
+          command: /usr/bin/python3 -c 'import json; s=json.load(open("artifacts/status.json")); assert s["checkpoint_saved"], "checkpoint not saved"; assert s["rom_complete"], "ROM incomplete; inspect the encrypted checkpoint"'
   crdroid9-source:
     machine:
       image: ubuntu-2204:current
@@ -82,7 +82,7 @@ jobs:
       - run:
           name: Download crDroid Android 9 and M6 LOS16 sources
           no_output_timeout: 5m
-          command: python3 scripts/crdroid9_sync.py
+          command: /usr/bin/python3 scripts/crdroid9_sync.py
       - save_cache:
           key: crdroid9-m6-v1-{{ checksum "inputs/crdroid9-m6.xml" }}-{{ .BuildNum }}
           paths:
@@ -91,7 +91,7 @@ jobs:
           path: evidence/crdroid9
       - run:
           name: Require complete source sync
-          command: python3 -c 'import json; s=json.load(open("evidence/crdroid9/status.json")); assert s["sync_complete"], "Partial source cache saved; inspect sync.log before resuming"'
+          command: /usr/bin/python3 -c 'import json; s=json.load(open("evidence/crdroid9/status.json")); assert s["sync_complete"], "Partial source cache saved; inspect sync.log before resuming"'
 workflows:
   crdroid9-m6-rom:
     jobs:

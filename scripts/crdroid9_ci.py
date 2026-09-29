@@ -52,7 +52,7 @@ with log_path.open('w') as log:
              'GIT_CONFIG_COUNT=1','GIT_CONFIG_KEY_0=safe.directory','GIT_CONFIG_VALUE_0=*',
              'FORGE_SOURCE_PROOF_PATH='+str(mount/'source-proof.json'),
              'FORGE_RESUME_DIR='+str(mount/'resume'), 'FORGE_CURRENT_RECIPE='+str(recipe_path)]
-        process=subprocess.Popen(['sudo','env',*env,'python3',str(here/'scripts/crdroid9_forge.py'),'--recipe',str(recipe_path),'--verbose'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+        process=subprocess.Popen(['sudo','env',*env,'/usr/bin/python3',str(here/'scripts/crdroid9_forge.py'),'--recipe',str(recipe_path),'--verbose'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         while process.poll() is None:
             free=shutil.disk_usage('/').free
             print(json.dumps({'phase':'forge','elapsed_seconds':int(time.time()-started),'free_gib':free//2**30,'log_bytes':log_path.stat().st_size}),flush=True)
