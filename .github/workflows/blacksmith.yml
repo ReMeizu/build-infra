@@ -36,7 +36,6 @@ jobs:
       latest_start_utc: ${{ steps.reserve.outputs.latest_start_utc }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-        id: runner_checkout
         with:
           persist-credentials: false
       - name: Reserve the full bounded job cost before runner allocation
@@ -67,6 +66,7 @@ jobs:
               raise SystemExit('Reservation window expired; new manual dispatch required')
           PYGUARD
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        id: runner_checkout
         with:
           persist-credentials: false
       - name: Measure CPU, memory, disk, tools and public network endpoints
