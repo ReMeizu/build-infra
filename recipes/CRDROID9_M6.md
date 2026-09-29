@@ -27,3 +27,17 @@ and successful Forge validation. Hardware acceptance is a separate step.
 Encrypted checkpoints retain logs, scratch output and source identity for diagnosis.
 Warm continuation must verify source and image identity before reusing compiler output.
 Cache storage uses included credits; no payment method or paid plan is added.
+
+## Validated continuation
+
+A later control handoff may supply the previous encrypted Circle artifact URL and
+its SHA-256. The workflow authenticates AES-GCM before extracting a checkpoint.
+It compares source provenance and the complete build contract (including immutable
+image), allowing only timeout and invocation identity to change. Old container
+metadata must confirm cleanup. Only compiler output, ccache and build home move
+into the new scratch directory; the previous evidence is retained. Contract or
+source changes reject continuation. Tests cover image/source mismatches, pending
+cleanup and authenticated encryption tampering.
+
+Compact live diagnostics are encrypted with the same private key before entering
+CircleCI console output. Private logs are never printed in plaintext publicly.

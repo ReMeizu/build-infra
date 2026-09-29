@@ -9,6 +9,12 @@ import forge_ephemeral_build as forge
 original=forge.current_source_provenance
 def recorded_source_identity(path):
     proof=original(path)
+    resume=Path(os.environ.get('FORGE_RESUME_DIR','/nonexistent'))
+    if resume.is_dir() and not getattr(recorded_source_identity,'restored',False):
+        from crdroid9_resume import restore_compiler_output
+        recipe=json.loads(Path(os.environ['FORGE_CURRENT_RECIPE']).read_text())
+        restore_compiler_output(resume,proof,recipe,forge)
+        recorded_source_identity.restored=True
     Path(os.environ['FORGE_SOURCE_PROOF_PATH']).write_text(json.dumps(proof,indent=2)+'\n')
     return proof
 forge.current_source_provenance=recorded_source_identity

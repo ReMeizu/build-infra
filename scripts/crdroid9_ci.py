@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """One bounded CI attempt. Publish authenticated ciphertext, never vendor plaintext."""
-import hashlib,json,os,shutil,signal,subprocess,sys,time,traceback,urllib.request
+import base64,hashlib,io,json,os,shutil,signal,subprocess,sys,time,traceback,urllib.request
 from pathlib import Path
 from crdroid9_checkpoint import encrypt
 
@@ -43,26 +43,43 @@ with log_path.open('w') as log:
             'command':['bash','/workspace/src/.forge/run.sh'],
             'required_artifacts':['rom-version.txt','boot.img','rom.zip','SHA256SUMS'],
         }
+        if control.get('resume_url'):
+            from crdroid9_resume import download_resume
+            download_resume(control,private,mount,key,log)
         recipe_path=mount/'recipe.json'
         recipe_path.write_text(json.dumps(recipe,indent=2)+'\n')
         env=['FORGE_EPHEMERAL_BASE='+str(mount/'evidence'),'GIT_OPTIONAL_LOCKS=0',
              'GIT_CONFIG_COUNT=1','GIT_CONFIG_KEY_0=safe.directory','GIT_CONFIG_VALUE_0=*',
-             'FORGE_SOURCE_PROOF_PATH='+str(mount/'source-proof.json')]
+             'FORGE_SOURCE_PROOF_PATH='+str(mount/'source-proof.json'),
+             'FORGE_RESUME_DIR='+str(mount/'resume'), 'FORGE_CURRENT_RECIPE='+str(recipe_path)]
         process=subprocess.Popen(['sudo','env',*env,'python3',str(here/'scripts/crdroid9_forge.py'),'--recipe',str(recipe_path),'--verbose'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         while process.poll() is None:
             free=shutil.disk_usage('/').free
             print(json.dumps({'phase':'forge','elapsed_seconds':int(time.time()-started),'free_gib':free//2**30,'log_bytes':log_path.stat().st_size}),flush=True)
             if free<20*2**30 or shutil.disk_usage(mount).free<3*2**30:
                 os.killpg(process.pid,signal.SIGINT)
-                process.wait(timeout=30)
+                try: process.wait(timeout=30)
+                except subprocess.TimeoutExpired:
+                    status['stop_reason']='cleanup-unresolved'
+                    raise RuntimeError('Forge did not stop after disk guard; checkpoint refused')
                 status['stop_reason']='disk-reserve'
                 break
+            log.flush()
+            diagnostic=io.BytesIO()
+            with log_path.open('rb') as recent:
+                recent.seek(max(0,log_path.stat().st_size-3500))
+                encrypt(io.BytesIO(recent.read()),diagnostic,key)
+            print('PRIVATE_DIAGNOSTIC '+base64.b64encode(diagnostic.getvalue()).decode(),flush=True)
             time.sleep(20)
         status.update(build_exit=process.returncode,rom_complete=process.returncode==0,image_id=image_id,container_budget_seconds=budget)
     except Exception:
         traceback.print_exc(file=log)
 
 try:
+    assert status.get('stop_reason')!='cleanup-unresolved'
+    if mount.is_mount():
+        from crdroid9_resume import require_stopped
+        require_stopped(mount)
     tar=['sudo','tar','-I','zstd -T2 -1','-cf','-']
     if mount.is_mount(): tar+=['-C',str(mount),'.']
     tar+=['-C',str(private),'build.log']
