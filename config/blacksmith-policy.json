@@ -27,6 +27,12 @@
       "vcpu": 16,
       "timeout_minutes": 240,
       "reserved_normalized_minutes": 1944
+    },
+    "benchmark": {
+      "runner": "blacksmith-16vcpu-ubuntu-2404",
+      "vcpu": 16,
+      "timeout_minutes": 8,
+      "reserved_normalized_minutes": 88
     }
   }
 }

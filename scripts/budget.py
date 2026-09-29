@@ -23,6 +23,8 @@ POLICY_PATH = Path(__file__).resolve().parents[1] / 'config/blacksmith-policy.js
 LEDGER_SCHEMA = 'remeizu.blacksmith-budget.v1'
 MAX_BYTES = 1024 * 1024
 MODES = {
+    'benchmark': {'runner': 'blacksmith-16vcpu-ubuntu-2404', 'vcpu': 16,
+                  'timeout_minutes': 8, 'reserved_normalized_minutes': 88},
     'probe': {'runner': 'blacksmith-2vcpu-ubuntu-2404', 'vcpu': 2,
               'timeout_minutes': 5, 'reserved_normalized_minutes': 8},
     'kernel': {'runner': 'blacksmith-16vcpu-ubuntu-2404', 'vcpu': 16,
