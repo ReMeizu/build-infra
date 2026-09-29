@@ -73,6 +73,14 @@
           "reserved_normalized_minutes": 1944,
           "timeout_minutes": 240,
           "vcpu": 16
+        },
+        "36641761412": {
+          "mode": "rom-short",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T22:49:00.763970Z",
+          "reserved_normalized_minutes": 1464,
+          "timeout_minutes": 180,
+          "vcpu": 16
         }
       }
     }
