@@ -33,7 +33,7 @@ recipe = {
 launcher = infra / 'vendor/forge/forge_ephemeral_build.py'
 assert hashlib.sha256(launcher.read_bytes()).hexdigest() == '9a01d1c452ecf14674a9df1f7512176f30b1fe2949660e2ea743960e7d400bb8'
 env = dict(os.environ, FORGE_EPHEMERAL_BASE=str(mount / 'evidence'), GIT_CONFIG_COUNT='1',
-           GIT_CONFIG_KEY_0='safe.directory', GIT_CONFIG_VALUE_0='*')
+           GIT_CONFIG_KEY_0='safe.directory', GIT_CONFIG_VALUE_0='*', GIT_OPTIONAL_LOCKS='0')
 result = subprocess.run([sys.executable, str(launcher), '--recipe', str(mount / 'recipe.json'), '--verbose'], env=env)
 (mount / 'attempt-result.json').write_text(json.dumps({'forge_exit': result.returncode, 'rom_complete': result.returncode == 0}) + '\n')
 # Checkpoint stays private; the n8n controller retrieves this via existing SSH.
