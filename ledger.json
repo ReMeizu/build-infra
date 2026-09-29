@@ -17,6 +17,14 @@
           "reserved_normalized_minutes": 8,
           "timeout_minutes": 5,
           "vcpu": 2
+        },
+        "36553547835": {
+          "mode": "kernel",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T10:07:11.105043Z",
+          "reserved_normalized_minutes": 504,
+          "timeout_minutes": 60,
+          "vcpu": 16
         }
       }
     }
