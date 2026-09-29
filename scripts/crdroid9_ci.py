@@ -46,6 +46,8 @@ with log_path.open('w') as log:
         if control.get('resume_url'):
             from crdroid9_resume import download_resume
             download_resume(control,private,mount,key,log)
+            budget=min(1800,max(60,2700-int(time.time()-started)-240))
+            recipe['timeout_seconds']=budget
         recipe_path=mount/'recipe.json'
         recipe_path.write_text(json.dumps(recipe,indent=2)+'\n')
         env=['FORGE_EPHEMERAL_BASE='+str(mount/'evidence'),'GIT_OPTIONAL_LOCKS=0',
