@@ -66,3 +66,9 @@ def restore_compiler_output(root, current, recipe, forge):
         target.rename(destination/(name+'.empty'))
         shutil.move(str(source/name),str(target))
     print('VERIFIED_COMPILER_CHECKPOINT_RESTORED',flush=True)
+
+if __name__=='__main__':
+    import sys
+    assert len(sys.argv)==3 and sys.argv[1]=='--check-stopped'
+    require_stopped(Path(sys.argv[2]))
+    print('PASS: container lifecycle records confirm cleanup')

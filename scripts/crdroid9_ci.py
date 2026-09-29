@@ -81,8 +81,9 @@ with log_path.open('w') as log:
 try:
     assert status.get('stop_reason')!='cleanup-unresolved'
     if mount.is_mount():
-        from crdroid9_resume import require_stopped
-        require_stopped(mount)
+        # Forge lifecycle records are root-owned mode 0700; inspect as root.
+        subprocess.run(['sudo','/usr/bin/python3',str(here/'scripts/crdroid9_resume.py'),
+                        '--check-stopped',str(mount)],check=True)
     tar=['sudo','tar','-I','zstd -T2 -1','-cf','-']
     if mount.is_mount(): tar+=['-C',str(mount),'.']
     tar+=['-C',str(private),'build.log']
