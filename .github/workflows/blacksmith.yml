@@ -82,6 +82,19 @@ jobs:
         run: |
           mkdir -p evidence
           sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 600 > evidence/scratch.json
+      - name: Read the provider SSH endpoint
+        if: ${{ inputs.mode == 'rom' }}
+        env:
+          ROM_RUNNER_NAME: ${{ runner.name }}
+        run: python3 -B scripts/rom_connection.py
+      - name: Publish the connection endpoint before the long build step
+        if: ${{ inputs.mode == 'rom' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: blacksmith-connection-${{ github.run_id }}
+          path: connection/ssh.json
+          retention-days: 1
+          if-no-files-found: error
       - name: Run the bounded ROM worker
         if: ${{ inputs.mode == 'rom' }}
         run: sudo -n timeout --signal=INT --kill-after=90s 228m python3 -B scripts/rom_session.py --session-dir /mnt/forge/rom-session --report evidence/rom-session.json
