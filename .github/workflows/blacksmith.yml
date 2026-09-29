@@ -32,17 +32,6 @@ jobs:
       timeout_minutes: ${{ steps.reserve.outputs.timeout_minutes }}
       latest_start_utc: ${{ steps.reserve.outputs.latest_start_utc }}
     steps:
-      - name: Refuse a delayed start outside the reserved window
-        env:
-          LATEST_START_UTC: ${{ needs.budget.outputs.latest_start_utc }}
-        run: |
-          python3 - <<'PYGUARD'
-          import datetime, os
-          cutoff = datetime.datetime.fromisoformat(os.environ['LATEST_START_UTC'].replace('Z', '+00:00'))
-          now = datetime.datetime.now(datetime.timezone.utc)
-          if os.environ['GITHUB_RUN_ATTEMPT'] != '1' or now >= cutoff:
-              raise SystemExit('Reservation window expired; new manual dispatch required')
-          PYGUARD
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
@@ -61,6 +50,17 @@ jobs:
     permissions:
       contents: read
     steps:
+      - name: Refuse a delayed start outside the reserved window
+        env:
+          LATEST_START_UTC: ${{ needs.budget.outputs.latest_start_utc }}
+        run: |
+          python3 - <<'PYGUARD'
+          import datetime, os
+          cutoff = datetime.datetime.fromisoformat(os.environ['LATEST_START_UTC'].replace('Z', '+00:00'))
+          now = datetime.datetime.now(datetime.timezone.utc)
+          if os.environ['GITHUB_RUN_ATTEMPT'] != '1' or now >= cutoff:
+              raise SystemExit('Reservation window expired; new manual dispatch required')
+          PYGUARD
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
