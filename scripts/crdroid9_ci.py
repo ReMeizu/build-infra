@@ -21,7 +21,7 @@ with log_path.open('w') as log:
         assert url.startswith('https://release-assets.githubusercontent.com/')
         archive=private/'inputs.tar.gz'
         urllib.request.urlretrieve(url,archive)
-        expected='5b28402383ac9255fb2809b094fa8c837a18ae53db2efd2cca98dc0d367594e8'
+        expected='bc8bc975c0f89e461c63b2bb9b33abb746371be4618cea53931d77030e6129ca'
         assert hashlib.sha256(archive.read_bytes()).hexdigest()==expected
         subprocess.run([sys.executable,str(here/'scripts/crdroid9_prepare.py'),str(archive),expected],check=True,stdout=log,stderr=subprocess.STDOUT)
         subprocess.run(['sudo','mkdir','-p',str(mount)],check=True)

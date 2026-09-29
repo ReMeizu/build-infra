@@ -64,3 +64,11 @@ M6 preparation also verifies the private prebuilt image SHA-256 and connects
 `device/meizu/meizu_m6/radio/kernel` to `../prebuilt-kernel/Image.gz-dtb`, the
 existing M6 image. Pie's legacy prebuilt rule requires that input location.
 The image remains private and the sealed input archive stays unchanged.
+
+Private input revision c also includes the existing aarch64 camera TSF shim
+(`libm6_camera_tsf_bypass.so`, SHA-256
+`aa7647695c9999565422b39675d9488ee4be22f551573d878a76ef4eeaf9adb4`).
+Revision b omitted this device prebuilt. Job 22 passed both source proofs but
+Ninja stopped on its missing input. An audit of 613125 generated graph inputs
+found no other absent device/vendor/kernel inputs. The replacement archive
+preserves every previous payload and verifies the complete private manifest.
