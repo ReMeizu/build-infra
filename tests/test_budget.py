@@ -97,6 +97,19 @@ class BudgetTest(unittest.TestCase):
         self.assertEqual(result['reserved_normalized_minutes'], '504')
         self.assertEqual(result['timeout_minutes'], '60')
 
+    def test_rom_reserves_full_four_hour_session_before_allocation(self):
+        result = self.call('rom')
+        self.assertEqual(result['runner'], 'blacksmith-16vcpu-ubuntu-2404')
+        self.assertEqual(result['reserved_normalized_minutes'], '1944')
+        self.assertEqual(result['timeout_minutes'], '240')
+
+    def test_rom_cannot_exceed_existing_budget(self):
+        self.populate(kernels=15)
+        before = self.transport.raw
+        with self.assertRaisesRegex(B.BudgetError, 'monthly local stop'):
+            self.call('rom')
+        self.assertEqual(self.transport.raw, before)
+
     def test_exact_limit_allowed_but_following_reservation_denied(self):
         self.populate(kernels=17, probes=53)  # 8992 normalized minutes
         result = self.call()
@@ -143,7 +156,7 @@ class BudgetTest(unittest.TestCase):
                 with self.assertRaises(B.BudgetError):
                     self.call()
         with self.assertRaisesRegex(B.BudgetError, 'unknown mode'):
-            self.call('rom')
+            self.call('unbounded')
         self.assertEqual(self.transport.calls, [])
 
     def test_cas_conflict_is_not_retried_or_authorized(self):

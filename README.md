@@ -1,7 +1,7 @@
 # ReMeizu build infrastructure
 
-Manual CI for kernel development on older Meizu phones. Jobs use pinned public
-inputs, bounded execution and the Forge Docker launcher.
+Manual CI for kernel development and Android ROM build workers for older Meizu
+phones. Builds use bounded execution and the Forge Docker launcher.
 
 ## Run a job
 
@@ -12,11 +12,13 @@ choose **Run workflow**, and select a mode:
 |---|---|---|---|---|
 | `probe` | CPU, memory, disk, Docker and public endpoint checks | 2 vCPU | 5 minutes | 8 |
 | `kernel` | [M5s Yassy panel object](recipes/M5S_YASSY_OBJECT.md) | 16 vCPU | 60 minutes | 504 |
+| `rom` | [Private-input ROM worker](recipes/ROM_WORKER.md) | 16 vCPU | 240 minutes | 1,944 |
 
 There are no automatic triggers. Jobs run sequentially; GitHub may replace an
 older pending request with a newer queued request. Use a new dispatch to retry:
 workflow reruns are rejected before runner allocation. Logs and artifacts are
-kept for seven days, including failed jobs. Full Android ROM builds are not enabled.
+kept for seven days, including failed jobs. ROM mode uploads only worker metadata;
+the operator retrieves ROMs and private build logs over SSH before releasing it.
 
 ## Budget limits
 
@@ -40,6 +42,7 @@ the [Blacksmith documentation](https://docs.blacksmith.sh/blacksmith-runners/ove
 Kernel jobs create an exclusive 8-GiB sparse file in the runner's temporary
 directory and mount it as a separate ext4 scratch filesystem. Existing files
 and devices are never formatted; provider persistent storage is not used.
+ROM workers use a separate 600-GiB file on the same ephemeral runner storage.
 
 The kernel recipe builds a container image and records its immutable identity.
 Forge compilation runs without network access, as a non-root user, against
