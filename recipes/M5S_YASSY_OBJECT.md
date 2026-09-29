@@ -1,9 +1,9 @@
 # First public kernel workload: M5s own Yassy panel object
 
-Prepared integration, not a CI build result. Invoke only after the workflow's budget admission:
+Validated on Blacksmith in [run36553547835](https://github.com/ReMeizu/build-infra/actions/runs/36553547835): seven outputs rehashed; object and config match accepted A4 byte-for-byte. See [compact proof](../evidence/20260929-m5s-yassy.json). Invoke only after the workflow's budget admission:
 
 ```sh
-sudo -E python3 -B scripts/kernel_run.py \
+sudo -n python3 -B scripts/kernel_run.py \
   --scratch-mount /mnt/forge \
   --receipt-dir "$RUNNER_TEMP/kernel-receipts"
 ```
@@ -27,7 +27,7 @@ The exact reviewed launcher is vendored unchanged (SHA256 `9a01d1c452ecf14674a9d
 
 The old accepted image was local-only. This adapter builds a **new** small Ubuntu20.04/GCC9 host-tools image, resolves the base tag to a digest, records that digest, Dockerfile hash and actual immutable image ID, then uses only that ID in Forge. It requires new runner validation; it does not reuse or impersonate the old image digest. No Android/JDK environment is installed or claimed.
 
-Forge emits six required outputs: object, original Kbuild command/dependencies, generated config, build log, compiled-table proof and package versions. SUCCESS+manifest are rehashed again by the caller. Actual ELF64/AArch64 relocatable object and both panel command tables (192+5 rows,72bytes/row) are compared against pinned source; own panel descriptor must exist. Byte equality to historical object `2e5164dc...` is reported, not required on a new image/command environment. Source/config/table gates remain mandatory.
+Forge emits six required outputs, plus an early diagnostic configuration copy: object, original Kbuild command/dependencies, generated config, build log, compiled-table proof and package versions. SUCCESS+manifest are rehashed again by the caller. Actual ELF64/AArch64 relocatable object and both panel command tables (192+5 rows,72bytes/row) are compared against pinned source; own panel descriptor must exist. Byte equality to historical object `2e5164dc...` is reported, not required on a new image/command environment. Source/config/table gates remain mandatory.
 
 No full kernel, DTB, boot image, flash or runtime acceptance follows from this test. A5r's accepted warm full-link remains separate and requires its preserved private compiled cache; this small public workload deliberately starts without that cache.
 

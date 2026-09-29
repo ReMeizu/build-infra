@@ -23,7 +23,7 @@ Runner labels and normalized-minute conversion follow the
 
 A separate job on GitHub's standard public-repository runner reserves the full
 Blacksmith job timeout plus three minutes before scheduling paid-provider compute.
-The probe reserves **8 normalized x64 2-vCPU minutes**. The planned 16-vCPU,
+The probe reserves **8 normalized x64 2-vCPU minutes**. The 16-vCPU,
 60-minute kernel job reserves **504**. Reservations are never automatically
 refunded, including failures, cancellations and shorter successful jobs.
 
@@ -33,9 +33,10 @@ ledger fails closed. The workflow also has one repository-wide concurrency group
 The token with write permission is limited to the budget job; the Blacksmith job
 has read-only repository permission.
 
-Support confirmed a 10,000-minute account credit. This repository stops at
+Support confirmed a 10,000-minute monthly account credit. This repository stops at
 **9,000 reserved minutes per UTC month and 9,000 across all recorded months**,
-leaving headroom and avoiding an assumption that the coupon renews monthly.
+leaving headroom. The additional total cap remains a conservative pilot restriction,
+even after monthly renewal was confirmed; it needs a reviewed policy change to lift.
 A job whose full reservation could cross a month boundary is refused.
 A future allowance change requires explicit verification and policy review.
 
@@ -66,6 +67,9 @@ formats an existing device/file, and does not use provider sticky storage.
 Receipts, logs, generated configuration and the object are uploaded for seven days;
 the container image is recorded as a new environment, not the previous GCE image.
 
-[The runner probe passed](https://github.com/ReMeizu/build-infra/actions/runs/36552629790).
-That establishes infrastructure access only. Kernel compilation remains a separate
-validation, and full Android ROM jobs are not enabled by this workflow.
+On 29 September 2026, both the [runner probe](https://github.com/ReMeizu/build-infra/actions/runs/36552629790)
+and the [first kernel-object build](https://github.com/ReMeizu/build-infra/actions/runs/36553547835)
+passed. All seven build outputs were downloaded and rehashed. The ARM64 Yassy
+object and generated configuration are byte-identical to the accepted GCE result;
+[the compact proof](evidence/20260929-m5s-yassy.json) records exact inputs and hashes.
+Full Android ROM jobs are not enabled by this workflow.
