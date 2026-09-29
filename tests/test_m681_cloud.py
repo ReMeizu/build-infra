@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 import m681_manifest as M
 import m681_compile as C
 import m681_cloud_run as R
+import provision_scratch as P
 
 
 def complete_manifest():
@@ -115,7 +116,7 @@ class M681CloudTest(unittest.TestCase):
             with self.assertRaises(ValueError): C.elf64_arm(path)
 
     def test_actual_compile_driver_config_only_and_drift_stop_before_full_make(self):
-        for case in ('config-only', 'drift', 'factory-enabled', 'full-drift'):
+        for case in ('config-only', 'drift', 'factory-enabled', 'full-drift', 'full-success', 'full-missing-object', 'full-missing-cmd'):
             with self.subTest(case=case), tempfile.TemporaryDirectory() as directory:
                 fixture = Path(directory)
                 source, out, publish = fixture / 'source', fixture / 'out', fixture / 'publish'
@@ -126,7 +127,7 @@ class M681CloudTest(unittest.TestCase):
                              'CONFIG_INV_MPU_IIO=y\n# CONFIG_INV_MPU_M681_FACTORY_CALIBRATION is not set\n')
                 fragment = 'CONFIG_INV_MPU_IIO=y\n# CONFIG_INV_MPU_M681_FACTORY_CALIBRATION is not set\n'
                 m = complete_manifest()
-                m['config']['generated_sha256'] = ('9' * 64 if case == 'drift' else (__import__('hashlib').sha256(generated.encode()).hexdigest() if case == 'full-drift' else None))
+                m['config']['generated_sha256'] = ('9' * 64 if case == 'drift' else (__import__('hashlib').sha256(generated.encode()).hexdigest() if case.startswith('full-') else None))
                 m['config']['fragment_sha256'] = __import__('hashlib').sha256(fragment.encode()).hexdigest()
                 for name in m['source']['files_sha256']:
                     p = source / 'kernel' / name; p.parent.mkdir(parents=True, exist_ok=True)
@@ -149,7 +150,7 @@ class M681CloudTest(unittest.TestCase):
 
                 def make(command, **kwargs):
                     calls.append(command)
-                    if case != 'full-drift':
+                    if not case.startswith('full-'):
                         self.assertNotIn('Image.gz-dtb', command)
                     # All commands are mocked: this fixture never invokes make.
                     data = generated
@@ -158,22 +159,75 @@ class M681CloudTest(unittest.TestCase):
                     if case == 'full-drift' and command[-1] == 'vmlinux':
                         data += 'CONFIG_UNEXPECTED_DRIFT=y\n'
                     (out / '.config').write_text(data)
+                    if case in ('full-success', 'full-missing-object', 'full-missing-cmd') and command[-1] == 'vmlinux':
+                        header = bytearray(64); header[:6] = b'\x7fELF\x02\x01'
+                        header[16:18] = (1).to_bytes(2, 'little'); header[18:20] = (183).to_bytes(2, 'little')
+                        for obj in M.OBJECTS:
+                            if case == 'full-missing-object' and obj == M.OBJECTS[-1]: continue
+                            p = out / obj; p.parent.mkdir(parents=True, exist_ok=True); p.write_bytes(header)
+                            if case != 'full-missing-cmd' or obj != M.OBJECTS[-1]:
+                                p.with_name('.' + p.name + '.cmd').write_text('synthetic command fixture\n')
+                        header[16:18] = (2).to_bytes(2, 'little'); (out / 'vmlinux').write_bytes(header)
+                        (out / 'System.map').write_text('synthetic symbol fixture\n')
+                        gz = out / 'arch/arm64/boot/Image.gz'; gz.parent.mkdir(parents=True, exist_ok=True)
+                        gz.write_bytes(b'\x1f\x8bsynthetic gzip fixture')
+                        dtb = out / ('arch/arm64/boot/dts/' + M.DTB + '.dtb'); dtb.parent.mkdir(parents=True, exist_ok=True)
+                        dtb.write_bytes(b'\xd0\x0d\xfe\xed' + (40).to_bytes(4, 'big') + bytes(32))
+                        (out / 'arch/arm64/boot/Image.gz-dtb').write_bytes(gz.read_bytes() + dtb.read_bytes())
                     return subprocess.CompletedProcess(command, 0)
 
-                argv = ['m681_compile.py'] + ([] if case in ('drift', 'full-drift') else ['--config-only'])
-                with patch.object(C, 'Path', side_effect=mapped_path), patch.object(C, '__file__', '/workspace/src/.forge/m681_compile.py'), patch.object(C.subprocess, 'run', side_effect=make), patch.object(sys, 'argv', argv):
-                    if case == 'config-only': C.main()
+                argv = ['m681_compile.py'] + ([] if case == 'drift' or case.startswith('full-') else ['--config-only'])
+                with patch.object(C, 'Path', side_effect=mapped_path), patch.object(C, '__file__', '/workspace/src/.forge/m681_compile.py'), patch.object(C.subprocess, 'run', side_effect=make), patch.object(C.subprocess, 'check_output', return_value='synthetic package fixture\n'), patch.object(sys, 'argv', argv):
+                    if case in ('config-only', 'full-success'): C.main()
+                    elif case == 'full-missing-object':
+                        with self.assertRaises(FileNotFoundError): C.main()
+                    elif case == 'full-missing-cmd':
+                        with self.assertRaisesRegex(ValueError, 'missing normal Kbuild output'): C.main()
                     elif case == 'full-drift':
                         with self.assertRaisesRegex(ValueError, 'full make changed'): C.main()
                     else:
                         with self.assertRaises(ValueError): C.main()
-                self.assertEqual([c[-1] for c in calls], ['m681_49_a13_defconfig', 'olddefconfig'] + (['vmlinux'] if case == 'full-drift' else []))
+                self.assertEqual([c[-1] for c in calls], ['m681_49_a13_defconfig', 'olddefconfig'] + (['vmlinux'] if case.startswith('full-') else []))
                 self.assertTrue((publish / 'kernel.config').is_file())
                 if case == 'config-only':
                     proof = json.loads((publish / 'config-proof.json').read_text())
                     self.assertEqual(proof['config_sha256'], M.sha(publish / 'kernel.config'))
                     self.assertEqual(proof['container_image_id'], m['container']['image_id'])
-                self.assertFalse((publish / 'vmlinux').exists())
+                if case == 'full-success':
+                    proof = json.loads((publish / 'kernel-proof.json').read_text())
+                    self.assertEqual(set(proof['required_objects']), set(M.OBJECTS))
+                    self.assertFalse(proof['runtime_verified']); self.assertFalse(proof['flash_ready'])
+                    self.assertTrue(all((publish / p).is_file() for p in M.artifacts()))
+                else:
+                    self.assertFalse((publish / 'kernel-proof.json').exists())
+
+    def test_actual_scratch_parser_accepts_m681_size_without_provisioning(self):
+        for size in ('8', '32', '600'):
+            with self.subTest(size=size), patch.object(sys, 'argv', ['provision_scratch.py', '--runner-temp', '/tmp', '--run-id', '123', '--size-gib', size]), patch.object(P.os, 'geteuid', return_value=1000), patch.object(P.os, 'open') as opened, patch.object(P.subprocess, 'run') as executed:
+                # Parsing must succeed, then the real privilege guard stops all writes.
+                with self.assertRaisesRegex(ValueError, 'root and a numeric GitHub run ID required'):
+                    P.main()
+                opened.assert_not_called(); executed.assert_not_called()
+        for size in ('0', '16', '2048'):
+            with self.subTest(size=size), patch.object(sys, 'argv', ['provision_scratch.py', '--runner-temp', '/tmp', '--run-id', '123', '--size-gib', size]), patch.object(P.os, 'open') as opened, patch.object(P.subprocess, 'run') as executed:
+                with self.assertRaises(SystemExit): P.main()
+                opened.assert_not_called(); executed.assert_not_called()
+
+    def test_actual_32gib_scratch_headroom_refuses_before_any_file_write(self):
+        from types import SimpleNamespace
+        with tempfile.TemporaryDirectory() as directory:
+            parent = Path(directory)
+            target = parent / 'mount-parent/forge'; target.parent.mkdir()
+            original_path = Path
+
+            def mapped_path(value):
+                return target if str(value) == '/mnt/forge' else original_path(value)
+
+            with patch.object(sys, 'argv', ['provision_scratch.py', '--runner-temp', str(parent), '--run-id', '123', '--size-gib', '32']), patch.object(P, 'Path', side_effect=mapped_path), patch.object(P.os, 'geteuid', return_value=0), patch.object(P.shutil, 'disk_usage', return_value=SimpleNamespace(free=43 * 1024**3)), patch.object(P.os, 'open') as opened, patch.object(P.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1)) as executed:
+                with self.assertRaisesRegex(ValueError, 'insufficient ephemeral disk headroom'): P.main()
+                opened.assert_not_called()
+                self.assertEqual(executed.call_count, 1)  # Read-only findmnt, no mkfs/mount.
+                self.assertEqual(executed.call_args.args[0][0], 'findmnt')
 
     def test_workflow_default_yassy_and_stub_fail_before_reservation(self):
         workflow = (ROOT / '.github/workflows/blacksmith.yml').read_text()
