@@ -109,6 +109,25 @@ class BudgetTest(unittest.TestCase):
             self.assertEqual(observed[run_id], row)
         self.assertEqual([c[0] for c in self.transport.calls], ['GET', 'PUT', 'GET'])
 
+    def test_existing_modes_accept_new_benchmark_rows_under_updated_policy(self):
+        self.call('benchmark')
+        expected = 88
+        for index, mode in enumerate(('kernel', 'probe', 'rom')):
+            with self.subTest(mode=mode):
+                self.env['GITHUB_RUN_ID'] = str(1000000 + index)
+                result = self.call(mode)
+                expected += B.MODES[mode]['reserved_normalized_minutes']
+                self.assertEqual(int(result['monthly_reserved_normalized_minutes']), expected)
+                self.assertEqual(json.loads(self.transport.raw)['months']['2026-09']['reservations']['999999']['mode'], 'benchmark')
+
+    def test_old_policy_rejects_benchmark_rows_fail_closed(self):
+        self.call('benchmark')
+        ledger = json.loads(self.transport.raw)
+        old_policy = copy.deepcopy(self.policy)
+        del old_policy['modes']['benchmark']
+        with self.assertRaisesRegex(B.BudgetError, 'unknown reserved mode'):
+            B.validate_ledger(ledger, old_policy)
+
     def test_benchmark_exact_monthly_ceiling_then_denies_without_write(self):
         self.populate(kernels=17, probes=43)  # 8912 + 88 == 9000
         self.assertEqual(self.call('benchmark')['monthly_reserved_normalized_minutes'], '9000')
