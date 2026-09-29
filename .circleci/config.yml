@@ -4,7 +4,7 @@ jobs:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
-    resource_class: xlarge
+    resource_class: large
     steps:
       - run:
           name: Measure CPU, memory and free disk for a single Android ROM
