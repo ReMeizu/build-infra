@@ -18,7 +18,7 @@ Cache storage uses included credits; no paid plan or payment method is added.
 
 `repo-launcher` is the official Google git-repo launcher downloaded from
 https://storage.googleapis.com/git-repo-downloads/repo . SHA-256:
-`7d00bf3d5c55f74d63bf8a29ccb91aa8247876b7449b1680b133763e8a7aefa5`.
+`1211b57b57e4122a9c546295a59b37d24068f1164d0e87bef096d5323c413e4f`.
 Git LFS downloads are deferred and must be hydrated and verified before building.
 
 The published M6 product is `lineage_meizu_m6-userdebug` at
