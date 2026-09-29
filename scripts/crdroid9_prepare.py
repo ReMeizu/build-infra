@@ -45,6 +45,7 @@ def hydrate(rel):
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
     list(pool.map(hydrate, (root / '.repo/project.list').read_text().splitlines()))
+subprocess.run([sys.executable, str(infra / 'scripts/crdroid9_scope_kernel.py')], check=True)
 mk = root / 'device/meizu/meizu_m6/lineage.mk'
 old = mk.read_text()
 # The product must inherit the crDroid version values, not override them with LOS16.
