@@ -2,7 +2,7 @@
 """Authenticate checkpoints and reuse compiler output only for identical inputs."""
 import hashlib,json,shutil,subprocess,tarfile,urllib.request
 from pathlib import Path
-from crdroid9_checkpoint import decrypt
+from crdroid9_checkpoint import decrypt_stream
 
 def require_stopped(root):
     for path in root.glob('**/.forge-container/*.json'):
@@ -11,14 +11,10 @@ def require_stopped(root):
 def download_resume(control, private, mount, key, log):
     url=control['resume_url']
     assert url.startswith('https://output.circle-artifacts.com/')
-    cipher=private/'resume.rmc'
-    urllib.request.urlretrieve(url,cipher)
-    digest=hashlib.sha256()
-    with cipher.open('rb') as f:
-        while chunk:=f.read(1024*1024): digest.update(chunk)
-    assert digest.hexdigest()==control['resume_sha256'], 'checkpoint hash mismatch'
     pending=private/'resume.pending.zst'
-    with cipher.open('rb') as source,pending.open('wb') as target: decrypt(source,target,key)
+    with urllib.request.urlopen(url) as source,pending.open('xb') as target:
+        pending.chmod(0o600)
+        decrypt_stream(source,target,key,control['resume_sha256'])
     verified=private/'resume.authenticated.zst'
     pending.rename(verified) # No extraction before GCM authentication completes.
     root=mount/'resume'
