@@ -1,0 +1,26 @@
+{
+  "schema_version": "remeizu.blacksmith-policy.v1",
+  "provider": "blacksmith",
+  "repository": "ReMeizu/build-infra",
+  "ledger_branch": "blacksmith-budget",
+  "ledger_path": "ledger.json",
+  "allowance_normalized_minutes": 10000,
+  "local_stop_normalized_minutes": 9000,
+  "lifetime_reservation_limit": 9000,
+  "billing_unit_vcpus": 2,
+  "overhead_minutes": 3,
+  "modes": {
+    "probe": {
+      "runner": "blacksmith-2vcpu-ubuntu-2404",
+      "vcpu": 2,
+      "timeout_minutes": 5,
+      "reserved_normalized_minutes": 8
+    },
+    "kernel": {
+      "runner": "blacksmith-16vcpu-ubuntu-2404",
+      "vcpu": 16,
+      "timeout_minutes": 60,
+      "reserved_normalized_minutes": 504
+    }
+  }
+}

@@ -1,0 +1,76 @@
+name: Blacksmith manual pilot
+run-name: Blacksmith ${{ inputs.mode }} by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Bounded task to run
+        required: true
+        type: choice
+        default: probe
+        options:
+          - probe
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blacksmith-monthly-serial
+  cancel-in-progress: false
+
+jobs:
+  budget:
+    if: ${{ github.run_attempt == 1 }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    permissions:
+      contents: write
+    outputs:
+      authorized: ${{ steps.reserve.outputs.authorized }}
+      runner: ${{ steps.reserve.outputs.runner }}
+      timeout_minutes: ${{ steps.reserve.outputs.timeout_minutes }}
+      latest_start_utc: ${{ steps.reserve.outputs.latest_start_utc }}
+    steps:
+      - name: Refuse a delayed start outside the reserved window
+        env:
+          LATEST_START_UTC: ${{ needs.budget.outputs.latest_start_utc }}
+        run: |
+          python3 - <<'PYGUARD'
+          import datetime, os
+          cutoff = datetime.datetime.fromisoformat(os.environ['LATEST_START_UTC'].replace('Z', '+00:00'))
+          now = datetime.datetime.now(datetime.timezone.utc)
+          if os.environ['GITHUB_RUN_ATTEMPT'] != '1' or now >= cutoff:
+              raise SystemExit('Reservation window expired; new manual dispatch required')
+          PYGUARD
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Reserve the full bounded job cost before runner allocation
+        id: reserve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUEST_MODE: ${{ inputs.mode }}
+        run: python3 -B scripts/budget.py --mode "$REQUEST_MODE"
+
+  runner:
+    needs: budget
+    if: ${{ github.run_attempt == 1 && needs.budget.outputs.authorized == 'true' }}
+    runs-on: ${{ needs.budget.outputs.runner }}
+    timeout-minutes: ${{ fromJSON(needs.budget.outputs.timeout_minutes) }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Measure CPU, memory, disk, tools and public network endpoints
+        run: python3 -B scripts/probe.py
+      - name: Keep the probe evidence for seven days
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: blacksmith-probe-${{ github.run_id }}
+          path: evidence/
+          if-no-files-found: warn
+          retention-days: 7
