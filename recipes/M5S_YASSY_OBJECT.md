@@ -50,7 +50,7 @@ and both command tables matching source. Historical byte equality is reported;
 source, config and table checks are mandatory.
 
 Run local interface tests with `python3 -B scripts/kernel_tests.py`. Current
-[build results](https://github.com/nomorecoolnicknames/remeizu/blob/docs/project-status/BUILD_INFRASTRUCTURE.md)
+[build results](https://github.com/nomorecoolnicknames/remeizu/blob/main/BUILD_INFRASTRUCTURE.md)
 are recorded with the project documentation.
 
 The inherited BSP keeps its per-file notices; public availability does not change

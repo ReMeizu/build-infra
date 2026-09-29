@@ -46,6 +46,6 @@ Forge compilation runs without network access, as a non-root user, against
 read-only inputs. The orchestration deadline is 50 minutes with 90 seconds for
 cleanup; the object build uses two jobs and a 600-second Forge limit.
 
-[Project build status](https://github.com/nomorecoolnicknames/remeizu/blob/docs/project-status/BUILD_INFRASTRUCTURE.md)
+[Project build status](https://github.com/nomorecoolnicknames/remeizu/blob/main/BUILD_INFRASTRUCTURE.md)
 records the successful probe and kernel-object run. An object build does not
 establish a working boot image or device support.
