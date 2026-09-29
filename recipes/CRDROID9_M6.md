@@ -41,3 +41,13 @@ cleanup and authenticated encryption tampering.
 
 Compact live diagnostics are encrypted with the same private key before entering
 CircleCI console output. Private logs are never printed in plaintext publicly.
+
+## Source proof scheduling
+
+Independent Git project snapshots may run concurrently inside each of the two
+original Forge proof passes. The preserved algorithm still hashes and encodes
+all paths in the same order, with identical source identities and original dirty
+submodule/index checks. Results are never reused between passes. Tests compare
+serial and parallel identities, including dirty tracked files, ignored payloads,
+symlinks and rejected assume-unchanged index entries. This changes scheduling,
+not the set of checked inputs. The vendored Forge file remains unchanged.
