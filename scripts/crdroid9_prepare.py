@@ -3,6 +3,7 @@
 import concurrent.futures
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -15,6 +16,18 @@ bundle = Path(sys.argv[1])
 assert hashlib.sha256(bundle.read_bytes()).hexdigest() == sys.argv[2]
 assert json.loads((root / 'sync-status.json').read_text())['sync_complete']
 assert subprocess.check_output(['git', '-C', str(root / 'device/meizu/meizu_m6'), 'rev-parse', 'HEAD'], text=True).strip() == 'b31f1449e25129810cf9b6d239d8b466c4ec6f55'
+def hydrate(rel):
+    path = root / rel
+    listed = subprocess.check_output(['git', '-C', str(path), 'lfs', 'ls-files'], text=True)
+    if listed.strip():
+        print('LFS hydration:', rel, flush=True)
+        subprocess.run(['git', '-C', str(path), 'lfs', 'pull'], check=True, timeout=900)
+        subprocess.run(['git', '-C', str(path), 'lfs', 'fsck'], check=True, timeout=300)
+    return rel
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+    list(pool.map(hydrate, (root / '.repo/project.list').read_text().splitlines()))
+
 with tarfile.open(bundle) as tf:
     for entry in tf:
         p = root / entry.name
@@ -34,17 +47,6 @@ for rel, expected in inputs['files'].items():
     actual = {'symlink': str(p.readlink())} if p.is_symlink() else {'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
     assert actual == expected, rel
 
-def hydrate(rel):
-    path = root / rel
-    listed = subprocess.check_output(['git', '-C', str(path), 'lfs', 'ls-files'], text=True)
-    if listed.strip():
-        print('LFS hydration:', rel, flush=True)
-        subprocess.run(['git', '-C', str(path), 'lfs', 'pull'], check=True, timeout=900)
-        subprocess.run(['git', '-C', str(path), 'lfs', 'fsck'], check=True, timeout=300)
-    return rel
-
-with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-    list(pool.map(hydrate, (root / '.repo/project.list').read_text().splitlines()))
 subprocess.run([sys.executable, str(infra / 'scripts/crdroid9_scope_kernel.py')], check=True)
 mk = root / 'device/meizu/meizu_m6/lineage.mk'
 old = mk.read_text()
@@ -66,5 +68,5 @@ subprocess.run(['git', 'init', str(root)], check=True)
 subprocess.run(['git', '-C', str(root), 'config', 'user.name', 'ReMeizu CI'], check=True)
 subprocess.run(['git', '-C', str(root), 'config', 'user.email', 'ci@users.noreply.github.com'], check=True)
 subprocess.run(['git', '-C', str(root), 'add', '-f', 'sync-status.json', 'm6-private-inputs.json', '.forge/run.sh'], check=True)
-subprocess.run(['git', '-C', str(root), 'commit', '-m', 'Record crDroid M6 private build inputs'], check=True)
+subprocess.run(['git', '-C', str(root), 'commit', '-m', 'Record crDroid M6 private build inputs'], check=True, env={**os.environ, 'GIT_AUTHOR_DATE':'2026-09-29T00:00:00Z', 'GIT_COMMITTER_DATE':'2026-09-29T00:00:00Z'})
 print('CRDROID_M6_INPUTS_READY', flush=True)
