@@ -28,3 +28,29 @@ still need to be selected. The published vendor repository has no LOS16 branch;
 do not silently substitute its Oreo branch. crDroid uses `vendor/lineage`, but
 the M6 product hardcodes Lineage version strings and packages such as Trebuchet;
 review those against the actual crDroid product definitions before graph/build.
+
+## M6 ROM trial
+
+`export_m6_private.py` freezes the matching M6 common trees, MediaTek sources,
+vendor snapshot and prebuilt kernel on n8n. Its archive and file hashes remain
+private. Stale stock app-JNI symlinks are materialized from the corresponding
+libraries already present in that vendor snapshot; the active LOS16 tree is untouched.
+
+After the public source-cache upload finishes, `crdroid9_prepare.py` verifies the
+private archive, hydrates Git LFS, and adapts the isolated M6 product. PROPER-FIX:
+remove the hardcoded LOS16 version so crDroid's common product controls branding;
+select Launcher3QuickStep, the actual module in crDroidHome's pinned Android.mk.
+No hardware feature is disabled by this adaptation. Roll back the overlay if the
+product reports a different device, Android version, or launcher module.
+
+`crdroid9_launch.py` uses the preserved Forge launcher, an immutable Android 9
+container image, non-root execution, offline compilation, read-only sources and
+a separate 60 GiB ext4 scratch filesystem. One trial runs for at most 20 minutes
+of container time; all scratch output and evidence are then archived for private
+retrieval to n8n. A timeout is not ROM success. Acceptance requires the Forge
+SUCCESS marker, boot.img, ROM ZIP and matching SHA256SUMS. Checkpoint reuse must
+also verify source/image/recipe identity before another invocation.
+
+Bootstrap commands are not part of the source-download workflow. Do not add
+private inputs to its public cache or public artifacts. Runtime graph acceptance
+and the first ROM compilation remain pending until recorded in the progress file.
