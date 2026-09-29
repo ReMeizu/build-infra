@@ -12,6 +12,7 @@ on:
         options:
           - probe
           - kernel
+          - rom
 
 permissions:
   contents: read
@@ -76,6 +77,14 @@ jobs:
       - name: Build the pinned public M5s Yassy object through Forge
         if: ${{ inputs.mode == 'kernel' }}
         run: sudo -n timeout --signal=INT --kill-after=90s 50m python3 -B scripts/kernel_run.py --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/kernel-receipts"
+      - name: Provision ROM scratch on the ephemeral runner disk
+        if: ${{ inputs.mode == 'rom' }}
+        run: |
+          mkdir -p evidence
+          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 600 > evidence/scratch.json
+      - name: Run the bounded ROM worker
+        if: ${{ inputs.mode == 'rom' }}
+        run: sudo -n timeout --signal=INT --kill-after=90s 228m python3 -B scripts/rom_session.py --session-dir /mnt/forge/rom-session --report evidence/rom-session.json
       - name: Make this job's kernel receipts readable for artifact collection
         if: ${{ always() && inputs.mode == 'kernel' }}
         run: |

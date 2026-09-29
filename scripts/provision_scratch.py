@@ -19,6 +19,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runner-temp', type=Path, required=True)
     parser.add_argument('--run-id', required=True)
+    parser.add_argument('--size-gib', type=int, choices=(8, 600), default=8)
     args = parser.parse_args()
     if os.geteuid() != 0 or not args.run_id.isdecimal():
         raise ValueError('root and a numeric GitHub run ID required')
@@ -35,7 +36,7 @@ def main():
         raise ValueError('cannot inspect existing mount')
     if target.exists() and (not target.is_dir() or any(target.iterdir())):
         raise ValueError('existing nonempty path must not be reused')
-    size = 8 * 1024**3
+    size = args.size_gib * 1024**3
     if shutil.disk_usage(parent).free < size + 12 * 1024**3:
         raise ValueError('insufficient ephemeral disk headroom')
     image = parent / ('remeizu-scratch-' + args.run_id + '.ext4')
