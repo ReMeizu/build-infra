@@ -11,6 +11,7 @@ on:
         default: probe
         options:
           - probe
+          - benchmark
           - kernel
           - rom
 
@@ -53,6 +54,7 @@ jobs:
       contents: read
     steps:
       - name: Refuse a delayed start outside the reserved window
+        id: start_guard
         env:
           LATEST_START_UTC: ${{ needs.budget.outputs.latest_start_utc }}
         run: |
@@ -64,11 +66,44 @@ jobs:
               raise SystemExit('Reservation window expired; new manual dispatch required')
           PYGUARD
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        id: runner_checkout
         with:
           persist-credentials: false
       - name: Measure CPU, memory, disk, tools and public network endpoints
         if: ${{ inputs.mode == 'probe' }}
         run: python3 -B scripts/probe.py
+      - name: Install Flexible I/O Tester with bounded package operations
+        if: ${{ inputs.mode == 'benchmark' }}
+        run: |
+          if ! /usr/bin/fio --version 2>/dev/null | /usr/bin/grep -Eq '^fio-[0-9]+([.][0-9]+)+'; then
+            sudo -n timeout --signal=TERM --kill-after=5s 90s apt-get update
+            sudo -n timeout --signal=TERM --kill-after=5s 90s env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends fio
+          fi
+      - name: Measure bounded CPU, memory and ephemeral disk throughput
+        if: ${{ always() && inputs.mode == 'benchmark' && steps.start_guard.outcome == 'success' && steps.runner_checkout.outcome == 'success' }}
+        env:
+          BENCHMARK_ROOT: ${{ runner.temp }}
+        run: |
+          mkdir -p evidence
+          set +e
+          PATH=/usr/bin:/bin:/usr/sbin:/sbin timeout --signal=TERM --kill-after=10s 150s python3 -B scripts/cloud_benchmark.py --root "$BENCHMARK_ROOT" --file-mib 512 --seconds 8 --output evidence/benchmark.json
+          benchmark_status=$?
+          set -e
+          python3 - "$benchmark_status" <<'PYRESULT'
+          import json, pathlib, sys
+          output = pathlib.Path('evidence/benchmark.json')
+          if not output.exists():
+              output.write_text(json.dumps({'schema': 1, 'measurement_complete': False, 'process_exit_code': int(sys.argv[1])}) + '\n')
+          data = json.loads(output.read_text())
+          complete = (int(sys.argv[1]) == 0 and data.get('fio', {}).get('available') is True
+                      and all(data.get(k, {}).get('workers_completed', 0) > 0
+                              and not data[k].get('errors') for k in ('cpu_single', 'cpu_parallel', 'memory'))
+                      and len(data.get('disks', [])) == 1 and data['disks'][0].get('complete') is True
+                      and data['disks'][0].get('owned_payload_removed') is True)
+          pathlib.Path('evidence/benchmark-status.json').write_text(json.dumps({'measurement_complete': complete, 'process_exit_code': int(sys.argv[1])}) + '\n')
+          if not complete:
+              raise SystemExit('Incomplete benchmark; compact evidence retained')
+          PYRESULT
       - name: Provision a new ephemeral file-backed ext4 scratch volume
         if: ${{ inputs.mode == 'kernel' }}
         run: |

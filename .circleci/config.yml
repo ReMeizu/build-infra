@@ -1,32 +1,30 @@
 version: 2.1
+parameters:
+  cloud_benchmark:
+    type: boolean
+    default: false
 jobs:
-  rom-capacity:
+  cloud-benchmark:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     steps:
+      - checkout
       - run:
-          name: Measure CPU, memory and free disk for a single Android ROM
+          name: Bounded CPU memory and ephemeral disk benchmark
+          no_output_timeout: 10m
           command: |
-            mkdir -p evidence
-            python3 - \<<'PY'
-            import json, os, pathlib, shutil, subprocess
-            d = shutil.disk_usage('.')
-            report = {'cpu_count': os.cpu_count(), 'disk_total_bytes': d.total, 'disk_free_bytes': d.free, 'rom_started': False}
-            report['memory'] = pathlib.Path('/proc/meminfo').read_text().splitlines()[:3]
-            report['filesystem'] = subprocess.check_output(['findmnt', '-n', '-o', 'FSTYPE', '-T', '.'], text=True).strip()
-            payload = json.dumps(report, indent=2)
-            pathlib.Path('evidence/capacity.json').write_text(payload + '\n')
-            print(payload)
-            PY
+            export BENCHMARK_ROOT="$PWD"
+            timeout --signal=TERM --kill-after=10s 8m bash scripts/cloud_benchmark_job.sh
       - store_artifacts:
           path: evidence
+          destination: benchmark
 workflows:
-  rom-pilot-capacity:
+  cloud-benchmark-only:
+    when:
+      or:
+        - << pipeline.parameters.cloud_benchmark >>
+        - equal: [cloud-benchmarks, << pipeline.git.branch >>]
     jobs:
-      - approve-capacity:
-          type: approval
-      - rom-capacity:
-          requires:
-            - approve-capacity
+      - cloud-benchmark
