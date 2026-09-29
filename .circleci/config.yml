@@ -1,5 +1,65 @@
 version: 2.1
 jobs:
+  crdroid9-rom:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: false
+    resource_class: large
+    retention:
+      caches: "1d"
+    steps:
+      - run:
+          name: Fetch pinned build orchestration
+          command: |
+            date +%s > /home/circleci/ci-start
+            git init .
+            git remote add origin https://github.com/ReMeizu/build-infra.git
+            git fetch --depth=1 origin "$CIRCLE_SHA1"
+            git checkout --detach FETCH_HEAD
+            mkdir -m 700 -p /home/circleci/m6-private
+      - run:
+          name: Wait for private input access from n8n
+          command: |
+            for i in $(seq 1 60); do
+              test -s /home/circleci/m6-private/control.json && exit 0
+              echo "Waiting for private build input handoff"
+              sleep 10
+            done
+            echo "No private input handoff received"
+            exit 1
+      - restore_cache:
+          keys:
+            - crdroid9-m6-v1-{{ checksum "inputs/crdroid9-m6.xml" }}-
+      - restore_cache:
+          keys:
+            - crdroid9-image-v1-{{ checksum "recipes/crdroid9/Dockerfile" }}-{{ checksum "recipes/crdroid9/check-multilib.sh" }}
+      - run:
+          name: Prepare Android 9 container and checkpoint tools
+          no_output_timeout: 10m
+          command: |
+            sudo apt-get update -qq
+            sudo apt-get install -y git-lfs zstd python3-cryptography
+            mkdir -p /home/circleci/public-image-cache
+            if test -s /home/circleci/public-image-cache/android9.tar.zst; then
+              zstd -dc /home/circleci/public-image-cache/android9.tar.zst | docker load
+            else
+              docker build -t androidforge/build-env:android-9 recipes/crdroid9
+              docker save androidforge/build-env:android-9 | zstd -T2 -1 -o /home/circleci/public-image-cache/android9.tar.zst
+            fi
+            python3 scripts/crdroid9_checkpoint.py
+      - save_cache:
+          key: crdroid9-image-v1-{{ checksum "recipes/crdroid9/Dockerfile" }}-{{ checksum "recipes/crdroid9/check-multilib.sh" }}
+          paths:
+            - /home/circleci/public-image-cache
+      - run:
+          name: Build crDroid Pie M6 and encrypt checkpoint
+          no_output_timeout: 15m
+          command: python3 scripts/crdroid9_ci.py
+      - store_artifacts:
+          path: artifacts
+      - run:
+          name: Require a completed ROM
+          command: python3 -c 'import json; s=json.load(open("artifacts/status.json")); assert s["checkpoint_saved"], "checkpoint not saved"; assert s["rom_complete"], "ROM incomplete; inspect the encrypted checkpoint"'
   crdroid9-source:
     machine:
       image: ubuntu-2204:current
@@ -33,10 +93,10 @@ jobs:
           name: Require complete source sync
           command: python3 -c 'import json; s=json.load(open("evidence/crdroid9/status.json")); assert s["sync_complete"], "Partial source cache saved; inspect sync.log before resuming"'
 workflows:
-  crdroid9-m6-sources:
+  crdroid9-m6-rom:
     jobs:
-      - approve-source-download:
+      - approve-rom-trial:
           type: approval
-      - crdroid9-source:
+      - crdroid9-rom:
           requires:
-            - approve-source-download
+            - approve-rom-trial
