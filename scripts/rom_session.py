@@ -33,8 +33,14 @@ def read_completion(path):
     return data
 
 
-def expiration(now, started, heartbeat):
-    if now - started >= MAX_SECONDS:
+def session_budget(minutes):
+    if not 1 <= minutes <= MAX_SECONDS // 60:
+        raise ValueError('session must fit the existing maximum')
+    return minutes * 60
+
+
+def expiration(now, started, heartbeat, max_seconds=MAX_SECONDS):
+    if now - started >= max_seconds:
         return 'session_deadline'
     if now - max(started, heartbeat) >= IDLE_SECONDS:
         return 'idle_deadline'
@@ -45,7 +51,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--session-dir', type=Path, required=True)
     parser.add_argument('--report', type=Path, required=True)
+    parser.add_argument('--max-minutes', type=int, default=MAX_SECONDS // 60)
     args = parser.parse_args()
+    max_seconds = session_budget(args.max_minutes)
     folder = args.session_dir
     if os.geteuid() != 0 or folder != Path('/mnt/forge/rom-session'):
         raise ValueError('use the allocated ROM scratch mount')
@@ -65,7 +73,7 @@ def main():
     started_utc = datetime.datetime.now(datetime.timezone.utc)
     report = {'schema': 'remeizu.rom-session.v1', 'state': 'ready',
               'started_at': started_utc.isoformat(),
-              'deadline': (started_utc + datetime.timedelta(seconds=MAX_SECONDS)).isoformat(),
+              'deadline': (started_utc + datetime.timedelta(seconds=max_seconds)).isoformat(),
               'cpus': os.cpu_count(), 'scratch_free_bytes': shutil.disk_usage(mount).free,
               'public_artifact_upload': False, 'rom_verified': False}
     args.report.parent.mkdir(parents=True, exist_ok=True)
@@ -90,7 +98,7 @@ def main():
                 last_beat = now
         except FileNotFoundError:
             pass
-        reason = expiration(now, started, last_beat)
+        reason = expiration(now, started, last_beat, max_seconds)
         if reason:
             break
         try:

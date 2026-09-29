@@ -8,11 +8,11 @@ import re
 
 def endpoint(env, setup):
     runner = env.get('ROM_RUNNER_NAME', '')
-    if not re.fullmatch(r'blacksmith-[a-z0-9-]+', runner):
+    if not re.fullmatch(r'blacksmith-[A-Za-z0-9-]+', runner):
         raise ValueError('unexpected runner identity')
-    host = runner + '.vm.blacksmith.sh'
+    host = runner.lower() + '.vm.blacksmith.sh'
     ports = set()
-    literal = re.compile(r'ssh\s+-p\s+([0-9]{1,5})\s+runner@' + re.escape(host) + r'(?![a-z0-9.-])')
+    literal = re.compile(r'ssh\s+-p\s+([0-9]{1,5})\s+runner@' + re.escape(host) + r'(?![a-z0-9.-])', re.IGNORECASE)
     ports.update(int(x) for x in literal.findall(setup))
     for key, value in env.items():
         if re.fullmatch(r'(?:BLACKSMITH_)?SSH_PORT', key) and re.fullmatch(r'[0-9]{1,5}', value):
