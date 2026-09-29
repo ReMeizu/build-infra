@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Compare complete Forge identities for serial and parallel snapshots on Linux."""
-import os,subprocess,sys,tempfile
+import os,subprocess,sys,tempfile,time,threading
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'vendor/forge'))
 import forge_ephemeral_build as forge
@@ -36,3 +36,30 @@ with tempfile.TemporaryDirectory() as temporary:
         except RuntimeError: pass
         else: raise AssertionError('Unsafe Git index accepted')
 print('PASS: serial/parallel identities match; dirty/ignored bytes and unsafe indexes retain checks')
+
+# Reproduce Git/LFS transient metadata during concurrent child checks. Root
+# metadata must be inspected only once those locks have been released.
+from types import SimpleNamespace
+with tempfile.TemporaryDirectory() as temporary:
+    root=Path(temporary)
+    (root/'.repo/projects').mkdir(parents=True)
+    (root/'.repo/project.list').write_text('a\nb\nc\n')
+    started=threading.Event()
+    for name in ('a','b','c'):
+        (root/name/'.git').mkdir(parents=True)
+    def transient_snapshot(path,progress=None):
+        path=Path(path)
+        if path==root:
+            assert started.wait(2), 'Child checks did not execute'
+            assert not list((root/'.repo/projects').glob('*.lock')), 'Root raced Git metadata writer'
+            return {'root':'stable'}
+        lock=root/'.repo/projects'/(path.name+'.lock')
+        lock.write_text('temporary Git metadata')
+        started.set()
+        try: time.sleep(0.1)
+        finally: lock.unlink()
+        return {'child':path.name}
+    fixture=SimpleNamespace(_source_provenance_snapshot=transient_snapshot)
+    install(fixture,root)
+    assert fixture._source_provenance_snapshot(root)=={'root':'stable'}
+print('PASS: root metadata traversal waits for transient Git locks to disappear')

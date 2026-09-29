@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Parallelize independent Git snapshots within each original Forge proof pass."""
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, wait
 from pathlib import Path
 import threading
 
@@ -40,6 +40,10 @@ def install(forge,source_root,workers=4):
         futures={p:pool.submit(worker,p) for p in projects}
         local.cache=futures
         try:
+            # Git/LFS may briefly create metadata locks even with optional
+            # index refresh disabled. Finish Git readers before the original
+            # root traversal inventories .repo metadata and hashes its files.
+            wait(futures.values())
             # The original algorithm still encodes every path in its original order.
             # Each consumed child receives the unchanged original snapshot result.
             return original(path,progress)

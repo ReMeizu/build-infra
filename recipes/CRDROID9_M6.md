@@ -51,3 +51,6 @@ submodule/index checks. Results are never reused between passes. Tests compare
 serial and parallel identities, including dirty tracked files, ignored payloads,
 symlinks and rejected assume-unchanged index entries. This changes scheduling,
 not the set of checked inputs. The vendored Forge file remains unchanged.
+All project readers finish before root metadata traversal, so temporary Git/LFS
+lock files cannot disappear between its inventory and hashing. The transient
+lock regression and exact serial/parallel identity tests cover this ordering.
