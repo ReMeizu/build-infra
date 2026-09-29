@@ -66,9 +66,12 @@ with log_path.open('w') as log:
                 break
             log.flush()
             diagnostic=io.BytesIO()
-            with log_path.open('rb') as recent:
-                recent.seek(max(0,log_path.stat().st_size-3500))
-                encrypt(io.BytesIO(recent.read()),diagnostic,key)
+            tail=b''
+            for recent_path in [log_path,*sorted((mount/'evidence').glob('*/run.log'))]:
+                with recent_path.open('rb') as recent:
+                    recent.seek(max(0,recent_path.stat().st_size-5500))
+                    tail+=recent.read()+b'\n'
+            encrypt(io.BytesIO(tail),diagnostic,key)
             print('PRIVATE_DIAGNOSTIC '+base64.b64encode(diagnostic.getvalue()).decode(),flush=True)
             time.sleep(20)
         status.update(build_exit=process.returncode,rom_complete=process.returncode==0,image_id=image_id,container_budget_seconds=budget)
