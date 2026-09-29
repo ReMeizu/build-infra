@@ -48,6 +48,7 @@ for rel, expected in inputs['files'].items():
     assert actual == expected, rel
 
 subprocess.run([sys.executable, str(infra / 'scripts/crdroid9_scope_kernel.py')], check=True)
+subprocess.run([sys.executable, str(infra / 'scripts/crdroid9_kernel_input.py'),str(root)], check=True)
 mk = root / 'device/meizu/meizu_m6/lineage.mk'
 old = mk.read_text()
 # The product must inherit the crDroid version values, not override them with LOS16.

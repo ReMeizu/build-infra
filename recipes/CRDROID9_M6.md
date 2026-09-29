@@ -59,3 +59,8 @@ finish initial Git/LFS metadata normalization. Its result is discarded. Forge
 then computes its original two fresh acceptance snapshots and still requires
 their identities to match. A one-time metadata mutation regression confirms
 that a cold identity change is rejected and prepared inputs pass both checks.
+
+M6 preparation also verifies the private prebuilt image SHA-256 and connects
+`device/meizu/meizu_m6/radio/kernel` to `../prebuilt-kernel/Image.gz-dtb`, the
+existing M6 image. Pie's legacy prebuilt rule requires that input location.
+The image remains private and the sealed input archive stays unchanged.
