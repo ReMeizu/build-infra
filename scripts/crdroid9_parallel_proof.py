@@ -4,6 +4,17 @@ from concurrent.futures import ThreadPoolExecutor, wait
 from pathlib import Path
 import threading
 
+def warm_metadata(forge,source_root):
+    """Finish initial Git/LFS metadata normalization before the two proof passes."""
+    progress=forge._SourceProvenanceProgress(Path(source_root),0)
+    try:
+        forge._source_provenance_snapshot(Path(source_root),progress)
+    except BaseException:
+        progress.finish('failed')
+        raise
+    progress.finish('prepared')
+    # Never accept or reuse this result. Forge computes both fresh checks itself.
+
 class Counter:
     def __init__(self): self.files=0; self.bytes_read=0
     def visit(self,path): pass

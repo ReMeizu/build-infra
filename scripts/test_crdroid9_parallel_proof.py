@@ -4,7 +4,7 @@ import os,subprocess,sys,tempfile,time,threading
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'vendor/forge'))
 import forge_ephemeral_build as forge
-from crdroid9_parallel_proof import install
+from crdroid9_parallel_proof import install,warm_metadata
 os.environ['GIT_OPTIONAL_LOCKS']='0'
 def git(path,*args):
     return subprocess.check_output(['git','-C',str(path),*args],stderr=subprocess.DEVNULL)
@@ -63,3 +63,29 @@ with tempfile.TemporaryDirectory() as temporary:
     install(fixture,root)
     assert fixture._source_provenance_snapshot(root)=={'root':'stable'}
 print('PASS: root metadata traversal waits for transient Git locks to disappear')
+
+# A Git reader can normalize metadata once after the root has inventoried it.
+# Preconditioning must keep two fresh acceptance passes, never accept warmup.
+with tempfile.TemporaryDirectory() as temporary:
+    root=Path(temporary);repo(root);repo(root/'late')
+    (root/'.repo').mkdir()
+    metadata=root/'.repo/metadata';metadata.write_text('cold')
+    git_output=forge._git_output
+    normalized=False
+    def normalize_once(path,*args):
+        global normalized
+        if Path(path)==root/'late' and not normalized:
+            metadata.write_text('warm')
+            normalized=True
+        return git_output(path,*args)
+    forge._git_output=normalize_once
+    try:
+        try: forge.current_source_provenance(root)
+        except RuntimeError as error: assert 'source tree changed' in str(error)
+        else: raise AssertionError('One-time metadata mutation was not rejected')
+        metadata.write_text('cold');normalized=False
+        warm_metadata(forge,root)
+        proof=forge.current_source_provenance(root)
+        assert proof==forge.current_source_provenance(root)
+    finally: forge._git_output=git_output
+print('PASS: one-time metadata preparation retains both fresh acceptance checks')

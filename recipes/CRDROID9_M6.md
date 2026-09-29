@@ -54,3 +54,8 @@ not the set of checked inputs. The vendored Forge file remains unchanged.
 All project readers finish before root metadata traversal, so temporary Git/LFS
 lock files cannot disappear between its inventory and hashing. The transient
 lock regression and exact serial/parallel identity tests cover this ordering.
+The restored and hydrated checkout also receives one preparation snapshot to
+finish initial Git/LFS metadata normalization. Its result is discarded. Forge
+then computes its original two fresh acceptance snapshots and still requires
+their identities to match. A one-time metadata mutation regression confirms
+that a cold identity change is rejected and prepared inputs pass both checks.
