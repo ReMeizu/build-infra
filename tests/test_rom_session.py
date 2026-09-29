@@ -10,6 +10,14 @@ spec.loader.exec_module(worker)
 
 
 class SessionTest(unittest.TestCase):
+    def test_short_session_heartbeat_cannot_extend_reserved_deadline(self):
+        limit = worker.session_budget(165)
+        self.assertEqual(worker.expiration(limit, 0, limit, limit), 'session_deadline')
+        self.assertIsNone(worker.expiration(limit - 1, 0, limit - 1, limit))
+        for minutes in (0, 226):
+            with self.assertRaises(ValueError):
+                worker.session_budget(minutes)
+
     def test_activity_cannot_extend_hard_deadline(self):
         self.assertEqual(worker.expiration(worker.MAX_SECONDS, 0, worker.MAX_SECONDS), 'session_deadline')
 

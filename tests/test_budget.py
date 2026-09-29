@@ -163,6 +163,23 @@ class BudgetTest(unittest.TestCase):
             self.call('rom')
         self.assertEqual(self.transport.raw, before)
 
+    def test_short_rom_preserves_old_reservations_and_stays_under_existing_cap(self):
+        original = self.populate(kernels=10, probes=58)
+        original['months']['2026-09']['reservations']['700'] = reservation('rom')
+        self.transport.raw = json.dumps(original).encode()
+        result = self.call('rom-short')
+        self.assertEqual(result['timeout_minutes'], '180')
+        self.assertEqual(result['reserved_normalized_minutes'], '1464')
+        self.assertEqual(result['monthly_reserved_normalized_minutes'], '8912')
+        observed = json.loads(self.transport.raw)['months']['2026-09']['reservations']
+        for run_id, row in original['months']['2026-09']['reservations'].items():
+            self.assertEqual(observed[run_id], row)
+        before = self.transport.raw
+        self.env['GITHUB_RUN_ID'] = '1000000'
+        with self.assertRaisesRegex(B.BudgetError, 'monthly local stop'):
+            self.call('rom-short')
+        self.assertEqual(self.transport.raw, before)
+
     def test_exact_limit_allowed_but_following_reservation_denied(self):
         self.populate(kernels=17, probes=53)  # 8992 normalized minutes
         result = self.call()

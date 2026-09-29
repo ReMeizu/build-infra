@@ -4,6 +4,11 @@ The manual `rom` mode allocates a 16-vCPU worker with a 600-GiB ext4 scratch
 filesystem on its ephemeral disk. The full four-hour job reserves 1,944
 normalized minutes before allocation. The monthly and total limits still apply.
 
+The `rom-short` mode uses the same runner and scratch volume with a three-hour
+job cap and a 1,464-minute reservation. Its session expires after 165 minutes,
+leaving the same 15-minute setup and cleanup allowance. Earlier reservations
+remain charged to the ledger; the 9,000-minute caps stay in place.
+
 This is an SSH-operated build worker. Dispatch alone does not build a ROM.
 Only the triggering GitHub account can connect using its registered SSH key;
 the connection command appears in the provider's runner setup log.
