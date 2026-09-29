@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "name": "m5s-public-a4-yassy-object",
+  "kernel_url": "https://github.com/nomorecoolnicknames/mtk-t-alps-release-q0-kernel-4.9-lc.git",
+  "kernel_commit": "e2a0b2e51b87ce7aca65775d92c9269df8f27201",
+  "toolchain_url": "https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9",
+  "toolchain_commit": "7a28c220c2e9001825328dca6188ef0077a80a88",
+  "toolchain_tree": "08369a4d09f1de92d6e5d35b5ecb33b94f735668",
+  "source_sha256": {
+    "arch/arm64/configs/m5s_yassy_defconfig": "d994c86c681b0965b54be70b8f870cbec23cefc19996fedef5a51488390e47fe",
+    "drivers/misc/mediatek/lcm/ili9881_CA_hd720_dsi_vdo_yassy/Makefile": "08b858f52fac2d28900c232caa05a45f8a0c5bb50ce6b0bfb835912038b8980f",
+    "drivers/misc/mediatek/lcm/ili9881_CA_hd720_dsi_vdo_yassy/ili9881_CA_hd720_dsi_vdo_yassy.c": "14f70c6ceec56e7745ca0d69a99b807cb6d756bae7752de3c59dd07fcf39d9ba",
+    "drivers/misc/mediatek/lcm/mt65xx_lcm_list.c": "8fb9b998d5eb661388f784584b24ad5a15850c58b5c1419e556af5938925a83a",
+    "drivers/misc/mediatek/lcm/mt65xx_lcm_list.h": "1d605b0121d3aa751d9d59622e238382ad9ccdda165567bda9aae770bfab31d4"
+  },
+  "toolchain_sha256": {
+    "aarch64-linux-android-gcc": "6f98b69cdfe173d09bad3ecb4a9d006f0ac7f6c55741a8781f7c00596d1016be",
+    "aarch64-linux-android-g++": "6f98b69cdfe173d09bad3ecb4a9d006f0ac7f6c55741a8781f7c00596d1016be",
+    "real-aarch64-linux-android-gcc": "23895d4b4ac67701b56b7b278faad2bb02d78e8574ec3a041d92667c42db5b91",
+    "aarch64-linux-android-ld": "71412521a02f416d06167a1bcfa153c99ca0b808eee2b04a6aec37b2cdfc5fd9"
+  },
+  "accepted_a4_config_sha256": "f9b7eb86f827e3ef04a72c9d74f16cf142acb2454b8326b1e93f6e9dc808de73",
+  "historical_object_sha256": "2e5164dcaf871fc0a39362995930efec356442becb18b257b5b3eee0f56b488a",
+  "historical_forge_recipe": "f47cd1c3c138cd97e49c2824f1dcdc1be74f7ac01fa8a9ef8eac41f7cd6c6c26",
+  "defconfig": "m5s_yassy_defconfig",
+  "target": "drivers/misc/mediatek/lcm/ili9881_CA_hd720_dsi_vdo_yassy/ili9881_CA_hd720_dsi_vdo_yassy.o",
+  "inherit_include_dirs": [
+    "drivers/misc/mediatek/include",
+    "drivers/misc/mediatek/include/mt-plat/mt6735/include",
+    "drivers/misc/mediatek/include/mt-plat",
+    "drivers/mmc/host/mediatek/mt6735",
+    "drivers/misc/mediatek/lcm/inc",
+    "drivers/misc/mediatek/video/mt6735/dispsys",
+    "drivers/misc/mediatek/video/mt6735/dispsys/mt6735",
+    "drivers/misc/mediatek/video/mt6735/videox",
+    "drivers/misc/mediatek/video/include"
+  ],
+  "timeout_seconds": 600,
+  "jobs": 2,
+  "new_environment_requires_validation": true,
+  "flash_ready": false
+}

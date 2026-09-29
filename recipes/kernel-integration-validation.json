@@ -1,0 +1,21 @@
+{
+  "status": "local-interface-and-reference-checks-pass",
+  "at_utc": "2026-09-29T09:58:45.028882+00:00",
+  "unit_tests_passed": 5,
+  "vendored_launcher_byte_identical": true,
+  "kernel_compilation_launched": false,
+  "ci_launched": false,
+  "accepted_reference_object_sha256": "2e5164dcaf871fc0a39362995930efec356442becb18b257b5b3eee0f56b488a",
+  "reference_tables_verified": {
+    "lcm_initialization_setting1": {
+      "bytes": 13824,
+      "sha256": "e647870e9e2d78af1d9e940e496bf678a0f56c85e1f260c4652e2370c44b4ab2"
+    },
+    "lcm_deep_sleep_mode_in_setting": {
+      "bytes": 360,
+      "sha256": "5a4b06eab64a7b25fe20c567c717cbfa43172f2efa1792dc0ccc2e9106d9aa36"
+    }
+  },
+  "new_runner_build_acceptance": false,
+  "runtime_verified": false
+}
