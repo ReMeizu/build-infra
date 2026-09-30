@@ -156,6 +156,77 @@ class BudgetTest(unittest.TestCase):
         self.assertEqual(result['reserved_normalized_minutes'], '1944')
         self.assertEqual(result['timeout_minutes'], '240')
 
+    def test_mx6_kernel_reserves_4vcpu_full_40_minute_job_and_overhead(self):
+        result = self.call('mx6-kernel')
+        self.assertEqual(result['runner'], 'blacksmith-4vcpu-ubuntu-2404')
+        self.assertEqual(result['vcpu'], '4')
+        self.assertEqual(result['timeout_minutes'], '40')
+        self.assertEqual(result['reserved_normalized_minutes'], '86')
+        self.assertEqual((40 + self.policy['overhead_minutes']) * 4 // self.policy['billing_unit_vcpus'], 86)
+
+    def test_mx6_fits_current_remaining_budget_without_rewriting_old_reservations(self):
+        prior = self.populate(kernels=17, probes=43)
+        result = self.call('mx6-kernel')
+        self.assertEqual(result['monthly_reserved_normalized_minutes'], '8998')
+        self.assertEqual(result['lifetime_reserved_normalized_minutes'], '8998')
+        observed = json.loads(self.transport.raw)['months']['2026-09']['reservations']
+        for run_id, row in prior['months']['2026-09']['reservations'].items():
+            self.assertEqual(observed[run_id], row)
+        self.env['GITHUB_RUN_ID'] = '1000000'
+        before = self.transport.raw
+        for mode in ('probe', 'mx6-kernel', 'kernel', 'rom'):
+            with self.subTest(mode=mode), self.assertRaisesRegex(B.BudgetError, 'monthly local stop'):
+                self.call(mode)
+            self.assertEqual(self.transport.raw, before)
+
+    def test_mx6_denied_when_only_80_minutes_remain(self):
+        self.populate(kernels=17, probes=44)
+        before = self.transport.raw
+        with self.assertRaisesRegex(B.BudgetError, 'monthly local stop'):
+            self.call('mx6-kernel')
+        self.assertEqual(self.transport.raw, before)
+        self.assertEqual([c[0] for c in self.transport.calls], ['GET'])
+
+    def test_mx6_limit_does_not_reset_at_next_month(self):
+        self.populate(kernels=17, probes=43, month='2026-08')
+        self.call('mx6-kernel')
+        self.env['GITHUB_RUN_ID'] = '1000000'
+        before = self.transport.raw
+        with self.assertRaisesRegex(B.BudgetError, 'lifetime grant stop'):
+            self.call('mx6-kernel', utc('2026-10-01T12:00:00Z'))
+        self.assertEqual(self.transport.raw, before)
+
+    def test_mx6_refuses_month_boundary_before_any_api_request(self):
+        with self.assertRaisesRegex(B.BudgetError, 'month boundary'):
+            self.call('mx6-kernel', utc('2026-09-30T23:17:00Z'))
+        self.assertEqual(self.transport.calls, [])
+        result = self.call('mx6-kernel', utc('2026-09-30T23:16:59Z'))
+        self.assertEqual(result['latest_start_utc'], '2026-09-30T23:17:00Z')
+
+    def test_mx6_rerun_cannot_reserve_again(self):
+        self.env['GITHUB_RUN_ATTEMPT'] = '2'
+        with self.assertRaisesRegex(B.BudgetError, 'reruns are not authorized'):
+            self.call('mx6-kernel')
+        self.assertEqual(self.transport.calls, [])
+
+    def test_policy_rejects_mx6_runner_timeout_cost_and_allowance_changes(self):
+        variants = []
+        for key, value in [('runner', 'blacksmith-16vcpu-ubuntu-2404'), ('timeout_minutes', 41),
+                           ('reserved_normalized_minutes', 85), ('vcpu', True)]:
+            bad = copy.deepcopy(self.policy)
+            bad['modes']['mx6-kernel'][key] = value
+            variants.append(bad)
+        bad = copy.deepcopy(self.policy)
+        bad['local_stop_normalized_minutes'] = 10000
+        variants.append(bad)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'policy.json'
+            for policy in variants:
+                with self.subTest(policy=policy):
+                    path.write_text(json.dumps(policy))
+                    with self.assertRaises(B.BudgetError):
+                        B.read_policy(path)
+
     def test_rom_cannot_exceed_existing_budget(self):
         self.populate(kernels=15)
         before = self.transport.raw

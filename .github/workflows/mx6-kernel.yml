@@ -1,0 +1,80 @@
+name: MX6 Wi-Fi kernel
+run-name: MX6 Wi-Fi kernel by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blacksmith-monthly-serial
+  cancel-in-progress: false
+
+jobs:
+  budget:
+    if: ${{ github.run_attempt == 1 && github.ref == 'refs/heads/mx6-wifi-kernel' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    permissions:
+      contents: write
+    outputs:
+      authorized: ${{ steps.reserve.outputs.authorized }}
+      runner: ${{ steps.reserve.outputs.runner }}
+      timeout_minutes: ${{ steps.reserve.outputs.timeout_minutes }}
+      latest_start_utc: ${{ steps.reserve.outputs.latest_start_utc }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Reserve the bounded kernel job
+        id: reserve
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -B scripts/budget.py --mode mx6-kernel
+
+  runner:
+    needs: budget
+    if: ${{ github.run_attempt == 1 && github.ref == 'refs/heads/mx6-wifi-kernel' && needs.budget.outputs.authorized == 'true' }}
+    runs-on: ${{ needs.budget.outputs.runner }}
+    timeout-minutes: ${{ fromJSON(needs.budget.outputs.timeout_minutes) }}
+    permissions:
+      contents: read
+    steps:
+      - name: Verify reservation window
+        env:
+          LATEST_START_UTC: ${{ needs.budget.outputs.latest_start_utc }}
+        run: |
+          python3 - <<'PYGUARD'
+          import datetime, os
+          cutoff = datetime.datetime.fromisoformat(os.environ['LATEST_START_UTC'].replace('Z', '+00:00'))
+          now = datetime.datetime.now(datetime.timezone.utc)
+          if os.environ['GITHUB_RUN_ATTEMPT'] != '1' or now >= cutoff:
+              raise SystemExit('Reservation window expired; new manual dispatch required')
+          PYGUARD
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Provision kernel scratch
+        run: |
+          mkdir -p evidence
+          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 64 > evidence/scratch.json
+      - name: Compile the pinned MX6 kernel through Forge
+        run: sudo -n timeout --signal=INT --kill-after=90s 35m python3 -B scripts/mx6_kernel_run.py --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/mx6-receipts"
+      - name: Make receipts readable
+        if: ${{ always() }}
+        run: |
+          if [ -d "$RUNNER_TEMP/mx6-receipts" ]; then
+            sudo -n chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/mx6-receipts"
+          fi
+      - name: Keep build evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: mx6-kernel-${{ github.run_id }}
+          path: |
+            evidence/
+            ${{ runner.temp }}/mx6-receipts/
+          if-no-files-found: warn
+          retention-days: 7
+          include-hidden-files: true

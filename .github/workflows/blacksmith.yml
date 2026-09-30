@@ -13,6 +13,7 @@ on:
           - probe
           - benchmark
           - kernel
+          - mx6-kernel
           - rom
           - rom-short
 
@@ -25,7 +26,7 @@ concurrency:
 
 jobs:
   budget:
-    if: ${{ github.run_attempt == 1 }}
+    if: ${{ github.run_attempt == 1 && (inputs.mode != 'mx6-kernel' || github.ref == 'refs/heads/mx6-wifi-kernel') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 3
     permissions:
@@ -106,13 +107,20 @@ jobs:
               raise SystemExit('Incomplete benchmark; compact evidence retained')
           PYRESULT
       - name: Provision a new ephemeral file-backed ext4 scratch volume
-        if: ${{ inputs.mode == 'kernel' }}
+        if: ${{ inputs.mode == 'kernel' || inputs.mode == 'mx6-kernel' }}
+        env:
+          KERNEL_MODE: ${{ inputs.mode }}
         run: |
           mkdir -p evidence
-          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" > evidence/scratch.json
+          size=8
+          if [ "$KERNEL_MODE" = 'mx6-kernel' ]; then size=64; fi
+          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib "$size" > evidence/scratch.json
       - name: Build the pinned public M5s Yassy object through Forge
         if: ${{ inputs.mode == 'kernel' }}
         run: sudo -n timeout --signal=INT --kill-after=90s 50m python3 -B scripts/kernel_run.py --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/kernel-receipts"
+      - name: Compile the pinned MX6 kernel through Forge
+        if: ${{ inputs.mode == 'mx6-kernel' }}
+        run: sudo -n timeout --signal=INT --kill-after=90s 35m python3 -B scripts/mx6_kernel_run.py --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/mx6-receipts"
       - name: Provision ROM scratch on the ephemeral runner disk
         if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' }}
         run: |
@@ -140,10 +148,13 @@ jobs:
           process_minutes=$((session_minutes + 3))
           sudo -n timeout --signal=INT --kill-after=90s "${process_minutes}m" python3 -B scripts/rom_session.py --session-dir /mnt/forge/rom-session --report evidence/rom-session.json --max-minutes "$session_minutes"
       - name: Make this job's kernel receipts readable for artifact collection
-        if: ${{ always() && inputs.mode == 'kernel' }}
+        if: ${{ always() && (inputs.mode == 'kernel' || inputs.mode == 'mx6-kernel') }}
         run: |
           if [ -d "$RUNNER_TEMP/kernel-receipts" ]; then
             sudo -n chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/kernel-receipts"
+          fi
+          if [ -d "$RUNNER_TEMP/mx6-receipts" ]; then
+            sudo -n chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/mx6-receipts"
           fi
       - name: Keep the evidence for seven days
         if: ${{ always() }}
@@ -153,6 +164,7 @@ jobs:
           path: |
             evidence/
             ${{ runner.temp }}/kernel-receipts/
+            ${{ runner.temp }}/mx6-receipts/
           if-no-files-found: warn
           retention-days: 7
           include-hidden-files: true

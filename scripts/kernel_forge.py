@@ -11,9 +11,9 @@ if hashlib.sha256((VENDOR / 'forge_ephemeral_build.py').read_bytes()).hexdigest(
 sys.path.insert(0, str(VENDOR))
 import forge_ephemeral_build as forge
 forge.BUILD_ENV_CONTRACTS['kernel-gcc49'] = {
-    'kernel_versions': ['4.9'], 'jdk': None, 'python': 'python3',
+    'kernel_versions': ['3.18', '4.9'], 'jdk': None, 'python': 'python3',
     'tools': ['make', 'gcc', 'binutils', 'bc', 'flex', 'bison', 'pinned AOSP GCC 4.9'],
-    'scope': 'kernel object only; no Android ROM or firmware package',
+    'scope': 'kernel objects or full kernel; no Android ROM or firmware package',
 }
 if __name__ == '__main__':
     raise SystemExit(forge.main())
