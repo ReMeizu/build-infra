@@ -1,7 +1,8 @@
 # M6 public source preparation
 
 This branch prepares the 701 exact Android 9 public revisions on CircleCI. The
-workflow has a manual approval and is restricted to `m6-circle-cloud-only`.
+workflow has separate approvals for a small cloud inventory and public source
+preparation, and is restricted to `m6-circle-cloud-only`.
 It does not compile Android. The source controller also rejects execution outside
 the admitted CircleCI organization/project/branch.
 
@@ -27,7 +28,11 @@ is unchanged. No old output checkpoint, container image or private compiler
 cache is published by this workflow.
 
 Before approving a source job, inspect current cloud account balance and active
-jobs. Full compilation still requires a fresh cloud capacity admission, exact
+jobs. The preceding inventory measures CPU, memory and free space and records
+disk descriptors without starting Android, Docker or a benchmark. It explicitly
+leaves physical SSD proof unresolved: virtual rotational flags are insufficient.
+The source job stays on hold until storage backing has been checked.
+Full compilation still requires a fresh cloud capacity admission, exact
 private inputs/image, source proof, an empty output directory on a distinct
 ext4 filesystem, and an evidence-based ART correction. Source-job success is
 not ROM acceptance.

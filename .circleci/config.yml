@@ -1,5 +1,24 @@
 version: 2.1
 jobs:
+  m6-cloud-capacity:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: false
+    resource_class: large
+    steps:
+      - run:
+          name: Fetch exact public capacity controller
+          command: |
+            git init .
+            git remote add origin https://github.com/ReMeizu/build-infra.git
+            git fetch --depth=1 origin "$CIRCLE_SHA1"
+            git checkout --detach FETCH_HEAD
+            test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
+      - run:
+          name: Inspect cloud CPU memory and disk descriptors
+          command: /usr/bin/python3 scripts/m6_cloud_capacity.py
+      - store_artifacts:
+          path: evidence/m6-cloud-capacity
   m6-cloud-public-source:
     machine:
       image: ubuntu-2204:current
@@ -44,8 +63,21 @@ jobs:
 workflows:
   m6-cloud-source-preparation:
     jobs:
+      - approve-cloud-inventory:
+          type: approval
+          filters:
+            branches:
+              only: m6-circle-cloud-only
+      - m6-cloud-capacity:
+          requires:
+            - approve-cloud-inventory
+          filters:
+            branches:
+              only: m6-circle-cloud-only
       - approve-public-source:
           type: approval
+          requires:
+            - m6-cloud-capacity
           filters:
             branches:
               only: m6-circle-cloud-only
