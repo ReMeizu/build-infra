@@ -29,6 +29,8 @@ MODES = {
               'timeout_minutes': 5, 'reserved_normalized_minutes': 8},
     'kernel': {'runner': 'blacksmith-16vcpu-ubuntu-2404', 'vcpu': 16,
                'timeout_minutes': 60, 'reserved_normalized_minutes': 504},
+    'mx6-kernel': {'runner': 'blacksmith-4vcpu-ubuntu-2404', 'vcpu': 4,
+                   'timeout_minutes': 40, 'reserved_normalized_minutes': 86},
     'rom': {'runner': 'blacksmith-16vcpu-ubuntu-2404', 'vcpu': 16,
             'timeout_minutes': 240, 'reserved_normalized_minutes': 1944},
     'rom-short': {'runner': 'blacksmith-16vcpu-ubuntu-2404', 'vcpu': 16,
