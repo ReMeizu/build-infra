@@ -1,0 +1,29 @@
+{
+  "toolchain_url": "https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9",
+  "toolchain_commit": "7a28c220c2e9001825328dca6188ef0077a80a88",
+  "toolchain_tree": "08369a4d09f1de92d6e5d35b5ecb33b94f735668",
+  "toolchain_sha256": {
+    "aarch64-linux-android-gcc": "6f98b69cdfe173d09bad3ecb4a9d006f0ac7f6c55741a8781f7c00596d1016be",
+    "aarch64-linux-android-g++": "6f98b69cdfe173d09bad3ecb4a9d006f0ac7f6c55741a8781f7c00596d1016be",
+    "real-aarch64-linux-android-gcc": "23895d4b4ac67701b56b7b278faad2bb02d78e8574ec3a041d92667c42db5b91",
+    "aarch64-linux-android-ld": "71412521a02f416d06167a1bcfa153c99ca0b808eee2b04a6aec37b2cdfc5fd9"
+  },
+  "schema": 1,
+  "name": "mx6-public-wifi-full-kernel",
+  "kernel_url": "https://github.com/nomorecoolnicknames/android_kernel_meizu_m95.git",
+  "kernel_commit": "6654eec758bd8652be30f26744a6aaa82fcb1473",
+  "kernel_tree": "182f821aef94b4ac7856b4e6fb0881aece31e8a5",
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/wlan/gen3/include/mgmt/rlm.h": "48c0f8b5e4a6420490d1531b3bffc674c55c7e5beb084a89735a244a48630c7e",
+    "drivers/misc/mediatek/connectivity/wlan/gen3/mgmt/rlm.c": "1af52076080ff2dd1fdd8c359f94c43ece5ae0be4c78f0e6a81df86ebe1cd9c1",
+    "drivers/misc/mediatek/connectivity/wlan/gen3/os/linux/gl_init.c": "9fda375b24b6b517a5b62e21c53cbcdb51267ee9afafe762676253032db68d76",
+    "arch/arm64/configs/lineage_m95_defconfig": "6df9fc0808b395c34bc2755d80c668bf1db913de4465baf92f6920cf45116625"
+  },
+  "defconfig": "lineage_m95_defconfig",
+  "target": "Image.gz-dtb",
+  "jobs": 4,
+  "timeout_seconds": 1320,
+  "new_environment_requires_validation": true,
+  "flash_ready": false,
+  "runtime_verified": false
+}
