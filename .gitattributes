@@ -1,0 +1,6 @@
+inputs/crdroid9-m6-resolved.xml -text
+inputs/ccache-original.mk -text
+inputs/m6-corrections-20260930/** -text
+scripts/*.py text eol=lf
+tests/*.py text eol=lf
+.circleci/config.yml text eol=lf

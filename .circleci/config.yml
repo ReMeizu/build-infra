@@ -1,66 +1,25 @@
 version: 2.1
 jobs:
-  crdroid9-rom:
+  m6-cloud-capacity:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
-    retention:
-      caches: "1d"
     steps:
       - run:
-          name: Fetch pinned build orchestration
+          name: Fetch exact public capacity controller
           command: |
-            date +%s > /home/circleci/ci-start
             git init .
             git remote add origin https://github.com/ReMeizu/build-infra.git
             git fetch --depth=1 origin "$CIRCLE_SHA1"
             git checkout --detach FETCH_HEAD
-            mkdir -m 700 -p /home/circleci/m6-private
+            test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
       - run:
-          name: Wait for private input access from n8n
-          command: |
-            for i in $(seq 1 60); do
-              test -s /home/circleci/m6-private/control.json && exit 0
-              echo "Waiting for private build input handoff"
-              sleep 10
-            done
-            echo "No private input handoff received"
-            exit 1
-      - restore_cache:
-          keys:
-            - crdroid9-m6-v1-{{ checksum "inputs/crdroid9-m6.xml" }}-
-      - restore_cache:
-          keys:
-            - crdroid9-image-v1-{{ checksum "recipes/crdroid9/Dockerfile" }}-{{ checksum "recipes/crdroid9/check-multilib.sh" }}
-      - run:
-          name: Prepare Android 9 container and checkpoint tools
-          no_output_timeout: 10m
-          command: |
-            sudo apt-get update -qq
-            sudo apt-get install -y git-lfs zstd python3-cryptography
-            mkdir -p /home/circleci/public-image-cache
-            if test -s /home/circleci/public-image-cache/android9.tar.zst; then
-              zstd -dc /home/circleci/public-image-cache/android9.tar.zst | docker load
-            else
-              docker build -t androidforge/build-env:android-9 recipes/crdroid9
-              docker save androidforge/build-env:android-9 | zstd -T2 -1 -o /home/circleci/public-image-cache/android9.tar.zst
-            fi
-            /usr/bin/python3 scripts/crdroid9_checkpoint.py
-      - save_cache:
-          key: crdroid9-image-v1-{{ checksum "recipes/crdroid9/Dockerfile" }}-{{ checksum "recipes/crdroid9/check-multilib.sh" }}
-          paths:
-            - /home/circleci/public-image-cache
-      - run:
-          name: Build crDroid Pie M6 and encrypt checkpoint
-          no_output_timeout: 15m
-          command: /usr/bin/python3 scripts/crdroid9_ci.py
+          name: Inspect cloud CPU memory and disk descriptors
+          command: /usr/bin/python3 scripts/m6_cloud_capacity.py
       - store_artifacts:
-          path: artifacts
-      - run:
-          name: Require a completed ROM
-          command: /usr/bin/python3 -c 'import json; s=json.load(open("artifacts/status.json")); assert s["checkpoint_saved"], "checkpoint not saved"; assert s["rom_complete"], "ROM incomplete; inspect the encrypted checkpoint"'
-  crdroid9-source:
+          path: evidence/m6-cloud-capacity
+  m6-cloud-public-source:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
@@ -69,8 +28,9 @@ jobs:
       caches: "1d"
     steps:
       - run:
-          name: Fetch the exact public build-infra commit
+          name: Fetch exact public orchestration commit
           command: |
+            date +%s > /home/circleci/m6-source-ci-start
             git init .
             git remote add origin https://github.com/ReMeizu/build-infra.git
             git fetch --depth=1 origin "$CIRCLE_SHA1"
@@ -78,25 +38,52 @@ jobs:
             test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
       - restore_cache:
           keys:
-            - crdroid9-m6-v1-{{ checksum "inputs/crdroid9-m6.xml" }}-
+            - m6-public-pinned-v2-{{ checksum "inputs/crdroid9-m6-resolved.xml" }}-
       - run:
-          name: Download crDroid Android 9 and M6 LOS16 sources
+          name: Install public source transport
+          command: |
+            sudo apt-get update -qq
+            sudo apt-get install -y git-lfs
+      - run:
+          name: Verify preparation guards
+          command: /usr/bin/python3 -m unittest discover -s tests -p test_m6_cloud_source.py
+      - run:
+          name: Fresh sync of 701 exact public revisions and public LFS
           no_output_timeout: 5m
-          command: /usr/bin/python3 scripts/crdroid9_sync.py
+          command: /usr/bin/python3 scripts/m6_cloud_source.py
       - save_cache:
-          key: crdroid9-m6-v1-{{ checksum "inputs/crdroid9-m6.xml" }}-{{ .BuildNum }}
+          key: m6-public-pinned-v2-{{ checksum "inputs/crdroid9-m6-resolved.xml" }}-{{ .BuildNum }}
           paths:
-            - /home/circleci/crdroid9-m6
+            - /home/circleci/m6-public-pinned
       - store_artifacts:
-          path: evidence/crdroid9
+          path: evidence/m6-cloud-source
       - run:
-          name: Require complete source sync
-          command: /usr/bin/python3 -c 'import json; s=json.load(open("evidence/crdroid9/status.json")); assert s["sync_complete"], "Partial source cache saved; inspect sync.log before resuming"'
+          name: Require complete pinned source and verified LFS
+          command: /usr/bin/python3 -c 'import json; s=json.load(open("evidence/m6-cloud-source/status.json")); assert s["sync_complete"] and s["public_revisions_verified"] == 701 and s["lfs_payloads_verified"], "Partial public downloads retained; source not admitted"'
 workflows:
-  crdroid9-m6-rom:
+  m6-cloud-source-preparation:
     jobs:
-      - approve-rom-trial:
+      - approve-cloud-inventory:
           type: approval
-      - crdroid9-rom:
+          filters:
+            branches:
+              only: m6-circle-cloud-only
+      - m6-cloud-capacity:
           requires:
-            - approve-rom-trial
+            - approve-cloud-inventory
+          filters:
+            branches:
+              only: m6-circle-cloud-only
+      - approve-public-source:
+          type: approval
+          requires:
+            - m6-cloud-capacity
+          filters:
+            branches:
+              only: m6-circle-cloud-only
+      - m6-cloud-public-source:
+          requires:
+            - approve-public-source
+          filters:
+            branches:
+              only: m6-circle-cloud-only
