@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive LANG=C.UTF-8 LC_ALL=C.UTF-8
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential bc bison flex git ca-certificates python3 file binutils \
     libncurses5 libncurses5-dev libssl-dev zlib1g-dev \
+    libglib2.0-0 libgl1 libx11-6 libxext6 \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /workspace
 CMD ["bash"]
