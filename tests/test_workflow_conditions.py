@@ -14,7 +14,7 @@ class WorkflowConditionTest(unittest.TestCase):
         workflow = (ROOT / '.github/workflows/blacksmith.yml').read_text()
         jobs = workflow.split('\njobs:\n', 1)[1]
         sections = re.split(r'^  ([A-Za-z_][A-Za-z0-9_-]*):\n', jobs, flags=re.M)
-        self.assertEqual(set(sections[1::2]), {'budget', 'runner'})
+        self.assertEqual(set(sections[1::2]), {'budget', 'runner', 'component'})
         for job_name, body in zip(sections[1::2], sections[2::2]):
             identities = re.findall(r'^        id: ([A-Za-z_][A-Za-z0-9_-]*)$', body, re.M)
             self.assertEqual(len(identities), len(set(identities)), job_name)
@@ -42,6 +42,16 @@ class WorkflowConditionTest(unittest.TestCase):
         self.assertNotIn('id: runner_checkout', budget)
         self.assertIn('id: runner_checkout', runner)
         self.assertIn("steps.runner_checkout.outcome == 'success'", runner)
+
+    def test_public_kernel_job_does_not_reserve_blacksmith(self):
+        workflow = (ROOT / '.github/workflows/blacksmith.yml').read_text()
+        budget = workflow.split('\n  budget:\n', 1)[1].split('\n  runner:\n', 1)[0]
+        component = workflow.split('\n  component:\n', 1)[1]
+        self.assertIn("inputs.mode != 'component'", budget)
+        self.assertIn('github.event.repository.private == false', component)
+        self.assertIn('runs-on: ubuntu-24.04', component)
+        self.assertNotIn('needs: budget', component)
+        self.assertNotIn('contents: write', component)
 
 
 if __name__ == '__main__':

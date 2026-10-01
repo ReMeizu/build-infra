@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "device": "m5c",
+  "platform": "mt6735",
+  "arch": "arm64",
+  "kernel_version": "4.9",
+  "build_variant": "userdebug",
+  "target": "Image.gz-dtb",
+  "jobs": 4,
+  "timeout_seconds": 3600,
+  "source": {
+    "url": "https://github.com/nomorecoolnicknames/mtk-t-alps-release-q0-kernel-4.9-lc.git",
+    "commit": "f17982bc7724eae22945e504f77127e550f02e27",
+    "tree": "1408b1641114b70da46f66eae24f98c1b52b2614",
+    "files_sha256": {
+      "Makefile": "c8bf48b45ef1654ac1ee98bab81c582ac8812b71493dd37a4d14894a8cdf1b5b",
+      "scripts/Makefile.lib": "45405dd18482d66d413c8e3804d4c3b38bd06e2d41e5d1270ebe871f0d8a071e",
+      "arch/arm64/configs/m5c_a13_verified.config": "6f158365e8e0d84d0bfcb22d96099e384f6a85215621a1e36e597ebb8e90236d",
+      "arch/arm64/boot/dts/mediatek/m5c-stock.dts": "0c71ffea71f788a101d90af2cf2a8f6507f2012f16f946494b3423441f2b0653",
+      "drivers/input/touchscreen/mediatek/mtk_tpd.c": "8bcb58bfb2380ee88f8237be10d9592baecabcda816c5ef9a6930e6f3b63771d",
+      "drivers/input/touchscreen/mediatek/GT9XXTB_hotknot/gt9xx_driver.c": "0478ef008f4872e7170d7b01cc6670d9f2d94b6a466f6f5927471475db3c5c29",
+      "drivers/misc/mediatek/video/mt6735/videox/primary_display.c": "84fc43e42f26992a942f79298ab4ba8da8e6c2c37cca1bf9a7a84176252d6143",
+      "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_sync_49.c": "f24aeafee1e0e4c00f218b3bd56707c424640a9a89617c272a8428debe87babe",
+      "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_jd.c": "8fa8613227d6d3a78f08bad09c2cb304f716d6111a0b34a8974dc14cbccaad52",
+      "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_jm_hw.c": "ef1948ca82fb9da994893fd663b0c302f2c07a42eb70caf8238ecee669cfe334",
+      "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_jm_rb.c": "cdcdbcfc8fa9bdd1c0ae7e624b570eba23ffd4000401dcda9aaae09785008b17",
+      "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_softjobs.c": "bed9a313233e46b4aab1269c8d666d4c78c956ca8c725167aac45ac352aefc4d",
+      "drivers/cpufreq/cpufreq_stats.c": "b1da492f4b8b2aff506ede53779d90577e8fc66a573d93ef230ce3d714dd5c95",
+      "drivers/cpufreq/cpufreq.c": "0b0829c35e46acb9ad465000d843af849ddac32fb26819a756e70e5d9bfbc8dd"
+    }
+  },
+  "toolchain": {
+    "url": "https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9",
+    "commit": "6ca6746f5fafd7d1b162451dce2ae40741529e9e",
+    "tree": "3311b02f35d3264e4038d94f732a1c141e7dba0c",
+    "preparation": "elf-gcc-bfd",
+    "bin_sha256": {
+      "aarch64-linux-android-gcc": "43e72f9b69a8dbd2b77a68695b329bb87f5b0dec29345f48f64d35721d4df830",
+      "aarch64-linux-android-ld.bfd": "416d8ca35255a91ec1c731af4c77f2b3ee30404872ac5ae1dfcaf6c9446de434"
+    }
+  },
+  "config_file": "arch/arm64/configs/m5c_a13_verified.config",
+  "expected_config_sha256": "6f158365e8e0d84d0bfcb22d96099e384f6a85215621a1e36e597ebb8e90236d",
+  "dtb_file": "arch/arm64/boot/dts/mediatek/m5c-stock.dtb",
+  "baseline_dtb_sha256": "671d3410a1cc33eaf22917d1c5408713c1dbf6ec1c6672f77d309408c22c5c6f",
+  "required_objects": [
+    "drivers/input/touchscreen/mediatek/mtk_tpd.o",
+    "drivers/input/touchscreen/mediatek/GT9XXTB_hotknot/gt9xx_driver.o",
+    "drivers/misc/mediatek/video/mt6735/videox/primary_display.o",
+    "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_sync_49.o",
+    "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_jd.o",
+    "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_jm_hw.o",
+    "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_jm_rb.o",
+    "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_softjobs.o",
+    "drivers/cpufreq/cpufreq_stats.o",
+    "drivers/cpufreq/cpufreq.o"
+  ]
+}
