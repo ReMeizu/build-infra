@@ -26,6 +26,7 @@ on:
           - m2note-native
           - mx6-sync-fence
           - u20-native
+          - u10-native
 
 permissions:
   contents: read

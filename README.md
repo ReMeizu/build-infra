@@ -22,7 +22,8 @@ Compilation runs without network access, under an unprivileged UID, with bounded
 CPU, memory and time. This job produces a kernel, not a ROM or a flashable boot
 image; hardware testing remains a separate step. Its outputs expire after three
 days. Only reviewed public source profiles are accepted. Select `component_profile`
-for a device; distinct profiles can run concurrently, while each profile serializes
+for a device (`m5c-cpu-stats`, `mx6-sync-fence`, `m5s-native`, `m2note-native`,
+`u20-native`, `u10-native`); distinct profiles can run concurrently, while each profile serializes
 its own requests. Every profile binds its own configuration, DTB and driver objects.
 A shared BSP directory name does not identify the physical chipset.
 The component scratch volume is 12 GiB, with at least 2 GiB of host disk headroom;
