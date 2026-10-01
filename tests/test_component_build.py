@@ -40,7 +40,7 @@ class ComponentAdmissionTest(unittest.TestCase):
         self.assertIs(validate(valid), valid)
         for key, value in [('jobs', 128), ('jobs', True), ('timeout_seconds', 86400),
                            ('target', 'Image.gz-dtb;curl'), ('arch', 'x86'),
-                           ('kernel_version', '3.18'), ('config_file', 'unhashed.config')]:
+                           ('kernel_version', '5.10'), ('config_file', 'unhashed.config')]:
             m = copy.deepcopy(valid); m[key] = value
             with self.subTest(key=key), self.assertRaises(ValueError):
                 validate(m)
@@ -53,6 +53,30 @@ class ComponentAdmissionTest(unittest.TestCase):
             with self.subTest(url=value), self.assertRaises(ValueError):
                 validate(m)
         m = copy.deepcopy(valid); m['source']['commit'] = 'main'
+        with self.assertRaises(ValueError):
+            validate(m)
+
+    def test_original_real_gcc_requires_pinned_compiler_and_linker(self):
+        m = profile(); m['device'] = 'mx6'; m['platform'] = 'mt6797'
+        m['kernel_version'] = '3.18'; m['toolchain']['preparation'] = 'elf-real-gcc'
+        with self.assertRaises(ValueError):
+            validate(m)
+        m['toolchain']['bin_sha256'] = {'real-aarch64-linux-android-gcc': 'f' * 64,
+                                       'aarch64-linux-android-ld': '0' * 64}
+        self.assertIs(validate(m), m)
+        del m['toolchain']['bin_sha256']['aarch64-linux-android-ld']
+        with self.assertRaises(ValueError):
+            validate(m)
+
+    def test_hardware_family_and_kbuild_layout_are_distinct(self):
+        m = profile(); m.update(device='m5s', platform='mt6753', kernel_version='3.18', kbuild_platform='mt6735')
+        self.assertIs(validate(m), m)
+        m['kbuild_platform'] = 'mt6753'
+        with self.assertRaises(ValueError):
+            validate(m)
+        m.update(device='u10', platform='mt6750', kbuild_platform='mt6755')
+        self.assertIs(validate(m), m)
+        m['device'] = 'm3s'
         with self.assertRaises(ValueError):
             validate(m)
 

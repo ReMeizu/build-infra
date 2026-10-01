@@ -10,11 +10,11 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/nomorecoolnicknames/mtk-t-alps-release-q0-kernel-4.9-lc.git",
-    "commit": "1872e18e6497a7b6448df99f4a95726a7a7aa48f",
-    "tree": "d8cc6c1487f0bc2822124024d813070b6086106e",
+    "commit": "b79584f2610a7e68f8ffa4577f7826af84203455",
+    "tree": "6189727b33b4d2297b6e435c0a3f7287a8094a42",
     "files_sha256": {
       "Makefile": "c8bf48b45ef1654ac1ee98bab81c582ac8812b71493dd37a4d14894a8cdf1b5b",
-      "scripts/Makefile.lib": "45405dd18482d66d413c8e3804d4c3b38bd06e2d41e5d1270ebe871f0d8a071e",
+      "scripts/Makefile.lib": "cd4766d7dc18c6f5a76744ea9d0fe834dffce912df0d509d573c3da1573553f6",
       "arch/arm64/configs/m5c_a13_verified.config": "6f158365e8e0d84d0bfcb22d96099e384f6a85215621a1e36e597ebb8e90236d",
       "arch/arm64/boot/dts/mediatek/m5c-stock.dts": "0c71ffea71f788a101d90af2cf2a8f6507f2012f16f946494b3423441f2b0653",
       "drivers/input/touchscreen/mediatek/mtk_tpd.c": "8bcb58bfb2380ee88f8237be10d9592baecabcda816c5ef9a6930e6f3b63771d",

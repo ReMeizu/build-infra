@@ -38,18 +38,28 @@ def main():
     require(version == m['kernel_version'], 'kernel version differs from compiler contract')
     shutil.copyfile(source / 'kernel' / m['config_file'], out / '.config')
     base = ['make', '-C', str(source / 'kernel'), 'O=' + str(out), 'ARCH=arm64',
-            'MTK_PLATFORM=' + m['platform'], 'V=0',
+            'MTK_PLATFORM=' + m.get('kbuild_platform', m['platform']), 'V=0',
             'TARGET_BUILD_VARIANT=' + m['build_variant'], 'HOSTCFLAGS=-fcommon',
             'CROSS_COMPILE=' + str(source / 'toolchain/bin/aarch64-linux-android-')]
     if m['toolchain']['preparation'] == 'elf-gcc-bfd':
         base.append('LD=' + str(source / 'toolchain/bin/aarch64-linux-android-ld.bfd'))
-    commands = [base + ['olddefconfig'], base + ['-j' + str(m['jobs']), m['target']]]
+    elif m['toolchain']['preparation'] == 'elf-real-gcc':
+        base.extend(['CC=' + str(source / 'toolchain/bin/real-aarch64-linux-android-gcc'),
+                     'LD=' + str(source / 'toolchain/bin/aarch64-linux-android-ld')])
+    if m['kernel_version'] == '3.18':
+        base.append('HOSTLDFLAGS=-no-pie')
+    commands = [base + ['olddefconfig']]
+    if m.get('board_preparation') == 'copy-tracked':
+        commands.append(base + ['drvgen'])
+    commands.append(base + ['-j' + str(m['jobs']), m['target']])
     with (publish / 'kernel-build.log').open('x') as log:
         log.write(json.dumps(commands) + '\n'); log.flush()
         subprocess.run(commands[0], check=True, stdout=log, stderr=subprocess.STDOUT, timeout=180)
         publish_file(out / '.config', publish / 'kernel.config')
         require(sha(out / '.config') == m['expected_config_sha256'], 'generated config differs from reviewed board pin')
-        subprocess.run(commands[1], check=True, stdout=log, stderr=subprocess.STDOUT, timeout=m['timeout_seconds'])
+        for cmd in commands[1:-1]:
+            subprocess.run(cmd, check=True, stdout=log, stderr=subprocess.STDOUT, timeout=180)
+        subprocess.run(commands[-1], check=True, stdout=log, stderr=subprocess.STDOUT, timeout=m['timeout_seconds'])
     require(sha(out / '.config') == sha(publish / 'kernel.config') == m['expected_config_sha256'], 'full make changed configuration')
     elf(out / 'vmlinux', linked=True)
     for obj in m['required_objects']:

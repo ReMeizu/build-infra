@@ -38,8 +38,17 @@ def validate(m):
                  'u10': {'mt6750'}, 'u20': {'mt6755'}, 'm3s': {'mt6750'},
                  'm5s': {'mt6753'}, 'm2note': {'mt6753'}, 'mx6': {'mt6797'}}
     require(m['platform'] in platforms[m['device']], 'board/platform mismatch')
+    kbuild_platform = m.get('kbuild_platform', m['platform'])
+    reviewed_kbuild = {'mt6735'} if m['platform'] == 'mt6753' else {m['platform']}
+    if m['device'] == 'u10' and m['kernel_version'] == '3.18':
+        reviewed_kbuild = {'mt6755'}
+    require(kbuild_platform in reviewed_kbuild, 'unreviewed Kbuild platform mapping')
     require(m['arch'] == 'arm64' and m['target'] == 'Image.gz-dtb', 'unsupported kernel target')
-    require(m['kernel_version'] == '4.9', 'initial compiler contract supports 4.9 only')
+    require(m['kernel_version'] in {'3.18', '4.9'}, 'unsupported reviewed GCC4.9 kernel version')
+    require(m.get('board_preparation', 'kbuild') in {'kbuild', 'copy-tracked'}, 'unreviewed board data preparation')
+    if m.get('board_preparation') == 'copy-tracked':
+        require(m['kernel_version'] == '3.18' and 'scripts/drvgen/drvgen.mk' in m['source']['files_sha256'],
+                'unhashed board data preparation rule')
     require(type(m['jobs']) is int and 1 <= m['jobs'] <= 4, 'unbounded compile jobs')
     require(type(m['timeout_seconds']) is int and 600 <= m['timeout_seconds'] <= 3600, 'unbounded compile duration')
     source = m['source']
@@ -47,11 +56,17 @@ def validate(m):
     for item in (source, m['toolchain']):
         digest(item['commit'], 40); digest(item['tree'], 40)
     require(m['toolchain']['url'] == 'https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9', 'unsupported toolchain origin')
-    require(m['toolchain']['preparation'] in {'python3-wrappers', 'elf-gcc-bfd'}, 'unreviewed toolchain preparation')
+    require(m['toolchain']['preparation'] in {'python3-wrappers', 'elf-gcc-bfd', 'elf-real-gcc'}, 'unreviewed toolchain preparation')
     for paths in (source['files_sha256'], m['toolchain']['bin_sha256']):
         require(isinstance(paths, dict) and bool(paths), 'missing pinned input files')
         for name, value in paths.items():
             relative(name); digest(value)
+    if m['toolchain']['preparation'] == 'elf-real-gcc':
+        require({'real-aarch64-linux-android-gcc', 'aarch64-linux-android-ld'}
+                <= m['toolchain']['bin_sha256'].keys(), 'unhashed real compiler or linker')
+    if m['toolchain']['preparation'] == 'elf-gcc-bfd':
+        require({'aarch64-linux-android-gcc', 'aarch64-linux-android-ld.bfd'}
+                <= m['toolchain']['bin_sha256'].keys(), 'unhashed ELF compiler or BFD linker')
     relative(m['config_file']); relative(m['dtb_file'])
     require(m['config_file'] in source['files_sha256'], 'unhashed board config')
     require(m['dtb_file'].startswith('arch/arm64/boot/dts/') and m['dtb_file'].endswith('.dtb'), 'invalid board DTB target')

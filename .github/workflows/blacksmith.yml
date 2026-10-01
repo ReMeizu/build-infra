@@ -16,12 +16,22 @@ on:
           - rom
           - rom-short
           - component
+      component_profile:
+        description: Reviewed kernel profile (component mode only)
+        type: choice
+        default: m5c-cpu-stats
+        options:
+          - m5c-cpu-stats
+          - m5s-native
+          - m2note-native
+          - mx6-sync-fence
+          - u20-native
 
 permissions:
   contents: read
 
 concurrency:
-  group: ${{ inputs.mode == 'component' && 'kernel-components' || 'blacksmith-monthly-serial' }}
+  group: ${{ inputs.mode == 'component' && format('kernel-component-{0}', inputs.component_profile || 'm5c-cpu-stats') || 'blacksmith-monthly-serial' }}
   cancel-in-progress: false
 
 jobs:
@@ -172,8 +182,10 @@ jobs:
         run: |
           mkdir -p evidence
           sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 12 --headroom-gib 2 > evidence/scratch.json
-      - name: Compile the pinned complete M5c kernel
-        run: sudo -n timeout --signal=INT --kill-after=90s 80m python3 -B scripts/component_run.py --profile m5c-cpu-stats --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/component-receipts"
+      - name: Compile the pinned complete kernel
+        env:
+          COMPONENT_PROFILE: ${{ inputs.component_profile || 'm5c-cpu-stats' }}
+        run: sudo -n timeout --signal=INT --kill-after=90s 80m python3 -B scripts/component_run.py --profile "$COMPONENT_PROFILE" --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/component-receipts"
       - name: Make this job's receipts readable
         if: ${{ always() }}
         run: |
@@ -184,7 +196,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: kernel-component-m5c-${{ github.run_id }}
+          name: kernel-component-${{ inputs.component_profile || 'm5c-cpu-stats' }}-${{ github.run_id }}
           path: |
             evidence/
             ${{ runner.temp }}/component-receipts/

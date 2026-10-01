@@ -2,7 +2,7 @@
 from kernel_forge import forge
 
 forge.BUILD_ENV_CONTRACTS['component-kernel-gcc49'] = {
-    'kernel_versions': ['4.9'], 'jdk': None, 'python': 'python3',
+    'kernel_versions': ['3.18', '4.9'], 'jdk': None, 'python': 'python3',
     'tools': ['make', 'gcc', 'binutils', 'bc', 'flex', 'bison', 'pinned AOSP GCC 4.9'],
     'scope': 'full public kernel only; no ROM, proprietary firmware or flashing',
 }

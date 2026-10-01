@@ -65,8 +65,11 @@ def main():
                 data = path.read_bytes()
                 require(data.startswith(b'#!/usr/bin/python\n'), 'compiler wrapper differs from reviewed original')
                 path.write_bytes(data.replace(b'#!/usr/bin/python\n', b'#!/usr/bin/env python3\n', 1))
-        else:
+        elif m['toolchain']['preparation'] == 'elf-gcc-bfd':
             require((source / 'toolchain/bin/aarch64-linux-android-gcc').read_bytes()[:4] == b'\x7fELF', 'expected original ELF compiler')
+        else:
+            require((source / 'toolchain/bin/real-aarch64-linux-android-gcc').read_bytes()[:4] == b'\x7fELF', 'expected original real ELF compiler')
+            require((source / 'toolchain/bin/aarch64-linux-android-ld').read_bytes()[:4] == b'\x7fELF', 'expected original ELF linker')
         for name, digest in m['toolchain']['bin_sha256'].items():
             require(sha(source / 'toolchain/bin' / name) == digest, 'compiler pin differs')
         tooling = source / '.forge'; tooling.mkdir()
