@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "device": "mx6",
+  "platform": "mt6797",
+  "arch": "arm64",
+  "kernel_version": "3.18",
+  "build_variant": "userdebug",
+  "target": "Image.gz-dtb",
+  "jobs": 4,
+  "timeout_seconds": 3600,
+  "source": {
+    "url": "https://github.com/nomorecoolnicknames/android_kernel_meizu_m95.git",
+    "commit": "0bc075a80798832181e3772cc047757fe442a9ad",
+    "tree": "88dfc0434c4f056cc43d1ab75aa8789d17cccba5",
+    "files_sha256": {
+      "Makefile": "aac2661107013772c98c94fa3183698af553f9b3f53526d03407b3018a96127a",
+      "arch/arm64/Makefile": "ed72ec57087bdd09d68e20d317bb3b057b4aab26d0584e7aa3181cb308939882",
+      "scripts/drvgen/drvgen.mk": "d9187fbc2cbc5c5dea6040a4d8171bedeb09ee703bf296fba4d659a6cdf6d14e",
+      "scripts/Makefile.lib": "b4db3c20eec0bfb4756dbcd0e92be877b68fbba7e4e3183dbaf158ff7c4a4b4c",
+      "arch/arm64/configs/mx6_verified.config": "93886c236fc3e4728bbfdef10181f4aba4e8ffaef61d71d5d2c940c41ba5297d",
+      "arch/arm64/boot/dts/meizu6797_6c_m_flat.dts": "756bed439bb26dd9475e9c146e7c81655c5cde067f1cccb4d920cca8803d59e7",
+      "drivers/staging/android/sync.c": "a1cadf05881e51e66eae7afd8c6e64551f0846fc09ad621a797f4395e6d83c36",
+      "drivers/staging/android/Makefile": "912d9ff0c19f4bb67233c9f05763f27a1787e1499ea670d110cc8c4e2b34af60",
+      "drivers/iio/imu/st_lsm6ds3/Makefile": "d476685570cd3e9e0ebbdcd32789275ac4649b57052559278fdeb327d53e1d3c",
+      "drivers/iio/imu/st_lsm6ds3/st_lsm6ds3_core.c": "110886cce28ed92b21af358a150245d8e161894befe6bdb320d721281c8e338d",
+      "drivers/input/touchscreen/mediatek/Mz_ft8716/Makefile": "7921f0da10ce8234b4e29ebe33f46e5a8226a9333e2c50247fc05b2cb52f8499"
+    }
+  },
+  "toolchain": {
+    "url": "https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9",
+    "commit": "7a28c220c2e9001825328dca6188ef0077a80a88",
+    "tree": "08369a4d09f1de92d6e5d35b5ecb33b94f735668",
+    "preparation": "elf-real-gcc",
+    "bin_sha256": {
+      "real-aarch64-linux-android-gcc": "23895d4b4ac67701b56b7b278faad2bb02d78e8574ec3a041d92667c42db5b91",
+      "aarch64-linux-android-ld": "71412521a02f416d06167a1bcfa153c99ca0b808eee2b04a6aec37b2cdfc5fd9"
+    }
+  },
+  "config_file": "arch/arm64/configs/mx6_verified.config",
+  "expected_config_sha256": "93886c236fc3e4728bbfdef10181f4aba4e8ffaef61d71d5d2c940c41ba5297d",
+  "dtb_file": "arch/arm64/boot/dts/meizu6797_6c_m_flat.dtb",
+  "baseline_dtb_sha256": "fdb55490fdba9d78f4a2d1eedf04091f8b67d0d6253e3852d117402f94303b52",
+  "required_objects": [
+    "drivers/staging/android/sync.o",
+    "drivers/iio/imu/st_lsm6ds3/st_lsm6ds3_core.o",
+    "drivers/iio/imu/st_lsm6ds3/st_lsm6ds3_trigger.o",
+    "drivers/iio/imu/st_lsm6ds3/st_lsm6ds3_buffer.o",
+    "drivers/iio/imu/st_lsm6ds3/st_lsm6ds3.o",
+    "drivers/input/touchscreen/mediatek/mtk_tpd.o",
+    "drivers/input/touchscreen/mediatek/Mz_ft8716/focaltech_core.o",
+    "drivers/misc/mediatek/lcm/ft8716_fhd_vdo_sharp/ft8716_fhd_vdo_sharp.o"
+  ]
+}

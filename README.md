@@ -13,7 +13,7 @@ choose **Run workflow**, and select a mode:
 | `probe` | CPU, memory, disk, Docker and public endpoint checks | 2 vCPU | 5 minutes | 8 |
 | `kernel` | [M5s Yassy panel object](recipes/M5S_YASSY_OBJECT.md) | 16 vCPU | 60 minutes | 504 |
 | `rom` | [Private-input ROM worker](recipes/ROM_WORKER.md) | 16 vCPU | 240 minutes | 1,944 |
-| `component` | Complete pinned M5c kernel, CPU frequency statistics | Standard GitHub Ubuntu | 90 minutes | No Blacksmith reservation |
+| `component` | Complete pinned board kernel (3.18 or 4.9) | Standard GitHub Ubuntu | 90 minutes | No Blacksmith reservation |
 
 The component job uses a standard GitHub-hosted runner in this public repository.
 It keeps the source commit/tree, compiler hashes, actual generated configuration,
@@ -21,7 +21,10 @@ compiled board DTB, linked kernel, selected driver objects and Forge receipts.
 Compilation runs without network access, under an unprivileged UID, with bounded
 CPU, memory and time. This job produces a kernel, not a ROM or a flashable boot
 image; hardware testing remains a separate step. Its outputs expire after three
-days. Only reviewed public source profiles are accepted.
+days. Only reviewed public source profiles are accepted. Select `component_profile`
+for a device; distinct profiles can run concurrently, while each profile serializes
+its own requests. Every profile binds its own configuration, DTB and driver objects.
+A shared BSP directory name does not identify the physical chipset.
 The component scratch volume is 12 GiB, with at least 2 GiB of host disk headroom;
 it uses a new file on the disposable runner and leaves existing storage untouched.
 
