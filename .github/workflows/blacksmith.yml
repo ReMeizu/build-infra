@@ -1,5 +1,5 @@
 name: Manual kernel and ROM builds
-run-name: ${{ inputs.mode == 'component' && 'Kernel component' || 'Blacksmith' }} ${{ inputs.mode }} by @${{ github.actor }}
+run-name: ${{ inputs.mode == 'component' && format('Kernel {0}', inputs.component_profile || 'm5c-cpu-stats') || format('Blacksmith {0}', inputs.mode) }} by @${{ github.actor }}
 
 on:
   workflow_dispatch:
