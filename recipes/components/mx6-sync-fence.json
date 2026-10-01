@@ -9,7 +9,7 @@
   "jobs": 4,
   "timeout_seconds": 3600,
   "source": {
-    "url": "https://github.com/nomorecoolnicknames/android_kernel_meizu_m95.git",
+    "url": "https://github.com/ReMeizu/android_kernel_meizu_mt6797.git",
     "commit": "0bc075a80798832181e3772cc047757fe442a9ad",
     "tree": "88dfc0434c4f056cc43d1ab75aa8789d17cccba5",
     "files_sha256": {

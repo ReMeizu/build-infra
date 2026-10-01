@@ -10,6 +10,7 @@ import subprocess
 import sys
 from component_manifest import artifacts, require, sha, validate
 from component_forge import forge
+from component_public import check_public_source
 from kernel_run import extract, fetch, output, run, verify_receipt
 
 HERE = Path(__file__).resolve().parents[1]
@@ -55,6 +56,8 @@ def main():
     record = {'device': m['device'], 'profile_sha256': sha(profile),
               'full_kernel_linked': False, 'flash_ready': False, 'runtime_verified': False}
     try:
+        record['anonymous_source_preflight'] = check_public_source(
+            m['source']['url'], m['source']['commit'], m['source']['tree'])
         for name, key in (('kernel', 'source'), ('toolchain', 'toolchain')):
             item = m[key]
             archive, provenance = fetch(downloads, name, item['url'], item['commit'], item['tree'])

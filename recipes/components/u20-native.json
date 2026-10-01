@@ -9,7 +9,7 @@
   "jobs": 4,
   "timeout_seconds": 3600,
   "source": {
-    "url": "https://github.com/nomorecoolnicknames/android_kernel_meizu_m6.git",
+    "url": "https://github.com/ReMeizu/android_kernel_meizu_mt675x.git",
     "commit": "08c8fecd08774afb6cb19f86e330325e903c90f6",
     "tree": "b0c6004a6e84407cc9447bc8b60a15aec41567d8",
     "files_sha256": {

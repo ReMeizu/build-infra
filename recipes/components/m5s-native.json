@@ -10,7 +10,7 @@
   "jobs": 4,
   "timeout_seconds": 3600,
   "source": {
-    "url": "https://github.com/nomorecoolnicknames/android_kernel_meizu_m2note.git",
+    "url": "https://github.com/ReMeizu/android_kernel_meizu_mt6753.git",
     "commit": "6cda79976b16c1adf1b555c5a487891ae708a85d",
     "tree": "e98995faf8b694dbd74e68431cee01701041d249",
     "files_sha256": {
