@@ -10,14 +10,14 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt675x.git",
-    "commit": "702d23c391561dd2125dee064b3a8e4c032321bd",
-    "tree": "046df6f08179a0ac2a183ee85636edde7c4d653c",
+    "commit": "217f8cbf86ac166351237a957255b5918e1d779b",
+    "tree": "be1e9c2142b494f3c54ac9e98d8cbc118fef476a",
     "files_sha256": {
       "Makefile": "ce44c62c91de8f8d5e6ee1e8f91e51fc61726c54a427417add743d85daed9297",
       "arch/arm64/configs/u20_los16_verified.config": "6bbf88aeb428ff8b3ade332cc3d6d7e352afdff20c387997ef28f1c13e95e287",
       "arch/arm64/boot/dts/hq6755_66_1ma_m.dts": "7a1e814d21dc6492ab4122d8157c3d9c381727cf175d99d5f0c15e70bd70300a",
       "drivers/input/touchscreen/mediatek/Kconfig": "237575998c331e0742dc0eefb073e4dcaae13ab46420aac90336967f943e7889",
-      "drivers/input/touchscreen/mediatek/GT9XX_MZ/Makefile": "e630fabfecdb3963057b4b5db18ffc39ff8102eee0942f6698b8741cbed85467",
+      "drivers/input/touchscreen/mediatek/GT9XX_MZ/Makefile": "b941778eafdb261599171f51babb1bada6dc148fa990869fd8a7fabf3d5dce2e",
       "drivers/input/touchscreen/mediatek/GT9XX_MZ/gt9xx_driver.c": "562d0dea58d964f83e851f3394ecf1da48094fd4fe121cc4d216118cdaac83d9",
       "drivers/input/touchscreen/mediatek/GT9XX_MZ/tpd_custom_gt9xx.h": "72ddc577304b8787c11aa5174bce42d94243c5b61461a82d82ffcefac6fda86b",
       "drivers/input/touchscreen/mediatek/GT9XX_MZ/config_u20/gt9xx_u20_stock_config.h": "322e2ed9f8b3920161317a43a6bdbffba1db48a6dc9f76a8f2adf011750a8bf8",
