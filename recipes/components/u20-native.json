@@ -10,8 +10,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt675x.git",
-    "commit": "08c8fecd08774afb6cb19f86e330325e903c90f6",
-    "tree": "b0c6004a6e84407cc9447bc8b60a15aec41567d8",
+    "commit": "702d23c391561dd2125dee064b3a8e4c032321bd",
+    "tree": "046df6f08179a0ac2a183ee85636edde7c4d653c",
     "files_sha256": {
       "Makefile": "ce44c62c91de8f8d5e6ee1e8f91e51fc61726c54a427417add743d85daed9297",
       "arch/arm64/configs/u20_los16_verified.config": "6bbf88aeb428ff8b3ade332cc3d6d7e352afdff20c387997ef28f1c13e95e287",
@@ -27,7 +27,11 @@
       "firmware/keyspan_pda/keyspan_pda.S": "04dbd3a524e41b5835082ba43ae5672091188cc2da2f6077e7146989828102a3",
       "firmware/keyspan_pda/xircom_pgs.S": "2a247827ecfc070820da8bf4052fea4bb8e574a9c458907de3345cf44ab9e4b1",
       "firmware/README.AddingFirmware": "192f4a06e122daee072f0a8df436daa1758f0cc259cb3fca3030ad31cced3971",
-      "firmware/WHENCE": "6af70c56990df3e3a809f06561e4025140dfcd10a17017d47644c649b6a9914b"
+      "firmware/WHENCE": "6af70c56990df3e3a809f06561e4025140dfcd10a17017d47644c649b6a9914b",
+      "sound/sound_firmware.c": "f9cf3cbe40996d5a55d05d3db2207333cfa8515d814b3a1379d9428f41935724",
+      "sound/oss/sound_firmware.h": "e3664fb27f2ab3e13972036966f3aace5b6f7b9867741cabca51a167944f461e",
+      "drivers/base/firmware_class.c": "60e963ce2d5f9ecbbdbff485257b7d777901d38b0144541147108baab03cde67",
+      "include/linux/firmware-map.h": "1351b95e65a530245b9fba458864d657be6ee049ab7393afeca328b40ffeb05c"
     }
   },
   "toolchain": {
@@ -49,7 +53,9 @@
     "drivers/input/touchscreen/mediatek/GT9XX_MZ/gt9xx_update.o",
     "drivers/input/touchscreen/mediatek/GT9XX_MZ/goodix_tool.o",
     "drivers/misc/mediatek/lcm/u20_lcd_bias.o",
-    "drivers/misc/mediatek/lcm/ili9885a_fhd_dsi_vdo_dj_asi_al1518/ili9885a_fhd_dsi_vdo_dj_asi_al1518.o"
+    "drivers/misc/mediatek/lcm/ili9885a_fhd_dsi_vdo_dj_asi_al1518/ili9885a_fhd_dsi_vdo_dj_asi_al1518.o",
+    "sound/sound_firmware.o",
+    "drivers/base/firmware_class.o"
   ],
   "build_variant": "userdebug"
 }
