@@ -10,8 +10,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/nomorecoolnicknames/mtk-t-alps-release-q0-kernel-4.9-lc.git",
-    "commit": "f17982bc7724eae22945e504f77127e550f02e27",
-    "tree": "1408b1641114b70da46f66eae24f98c1b52b2614",
+    "commit": "1872e18e6497a7b6448df99f4a95726a7a7aa48f",
+    "tree": "d8cc6c1487f0bc2822124024d813070b6086106e",
     "files_sha256": {
       "Makefile": "c8bf48b45ef1654ac1ee98bab81c582ac8812b71493dd37a4d14894a8cdf1b5b",
       "scripts/Makefile.lib": "45405dd18482d66d413c8e3804d4c3b38bd06e2d41e5d1270ebe871f0d8a071e",
@@ -26,7 +26,8 @@
       "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_jm_rb.c": "cdcdbcfc8fa9bdd1c0ae7e624b570eba23ffd4000401dcda9aaae09785008b17",
       "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_softjobs.c": "bed9a313233e46b4aab1269c8d666d4c78c956ca8c725167aac45ac352aefc4d",
       "drivers/cpufreq/cpufreq_stats.c": "b1da492f4b8b2aff506ede53779d90577e8fc66a573d93ef230ce3d714dd5c95",
-      "drivers/cpufreq/cpufreq.c": "0b0829c35e46acb9ad465000d843af849ddac32fb26819a756e70e5d9bfbc8dd"
+      "drivers/cpufreq/cpufreq.c": "0b0829c35e46acb9ad465000d843af849ddac32fb26819a756e70e5d9bfbc8dd",
+      "scripts/drvgen/drvgen.mk": "553f594725ade5a0199fe347774fb3a00add24119eb05706a0a1eaaf44f5f1c4"
     }
   },
   "toolchain": {

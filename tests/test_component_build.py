@@ -1,12 +1,16 @@
 import copy
+import contextlib
+import io
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from component_manifest import relative, validate
 from component_forge import forge, bounded_argv
+from component_run import report_failure
 
 
 def profile():
@@ -67,6 +71,16 @@ class ComponentAdmissionTest(unittest.TestCase):
         self.assertIn('sha256:' + 'a' * 64, argv)
         self.assertNotIn('--privileged', argv)
         self.assertEqual(argv[-2:], ['python3', '/workspace/src/.forge/component_compile.py'])
+
+    def test_first_kbuild_fatal_visible_without_artifact_download(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)
+            (path / 'kernel-build.log').write_text('CC first.o\n/bin/sh: helper: not found\nmake: Error 127\n' + 'later noise\n' * 1000)
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                report_failure(path)
+            self.assertIn('helper: not found', output.getvalue())
+            self.assertLess(len(output.getvalue()), 500)
 
 
 if __name__ == '__main__':

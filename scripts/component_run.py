@@ -6,12 +6,27 @@ import os
 from pathlib import Path
 import re
 import shutil
+import subprocess
 import sys
 from component_manifest import artifacts, require, sha, validate
 from component_forge import forge
 from kernel_run import extract, fetch, output, run, verify_receipt
 
 HERE = Path(__file__).resolve().parents[1]
+
+
+def report_failure(path):
+    """Keep a bounded first-fatal context visible even before artifact download."""
+    log = path / 'kernel-build.log'
+    if log.is_file():
+        lines = log.read_text(errors='replace').splitlines()
+        for index, line in enumerate(lines):
+            if re.search(r'error:|Error [0-9]|No rule|not found|fatal:', line):
+                print('Kbuild failure context:\n' + '\n'.join(lines[max(0, index - 2):index + 5])[:4096], flush=True)
+                return
+    failure = path / 'FAILURE'
+    if failure.is_file():
+        print('Forge failure:\n' + failure.read_text()[:4096], flush=True)
 
 
 def main():
@@ -81,9 +96,13 @@ def main():
         model = forge.recipe_from_dict(recipe); record['recipe_hash'] = model.recipe_hash()
         recipe_path = destination / 'kernel-recipe.json'
         recipe_path.write_text(json.dumps(recipe, indent=2) + '\n')
-        run([sys.executable, HERE / 'scripts/component_forge.py', '--recipe', recipe_path, '--no-resume'],
-            env=dict(os.environ, FORGE_EPHEMERAL_BASE=str(job / 'evidence')), timeout=m['timeout_seconds'] + 600)
         completed = job / 'evidence' / model.recipe_hash()
+        try:
+            run([sys.executable, HERE / 'scripts/component_forge.py', '--recipe', recipe_path, '--no-resume'],
+                env=dict(os.environ, FORGE_EPHEMERAL_BASE=str(job / 'evidence')), timeout=m['timeout_seconds'] + 600)
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+            report_failure(completed)
+            raise
         record['success'] = verify_receipt(completed)
         proof = json.loads((completed / 'kernel-proof.json').read_text())
         require(proof['source'] == m['source'] and proof['full_kernel_linked'] is True, 'kernel proof identity differs')
