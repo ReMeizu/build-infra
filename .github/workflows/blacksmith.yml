@@ -171,7 +171,7 @@ jobs:
       - name: Provision new ephemeral kernel scratch
         run: |
           mkdir -p evidence
-          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 24 > evidence/scratch.json
+          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 12 --headroom-gib 2 > evidence/scratch.json
       - name: Compile the pinned complete M5c kernel
         run: sudo -n timeout --signal=INT --kill-after=90s 80m python3 -B scripts/component_run.py --profile m5c-cpu-stats --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/component-receipts"
       - name: Make this job's receipts readable

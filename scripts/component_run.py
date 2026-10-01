@@ -30,7 +30,7 @@ def main():
     mounts = forge._mount_filesystems()
     require(mount in mounts and mounts[mount][1] in {'ext4', 'xfs'}
             and mounts[mount][0] != mounts[Path('/')][0], 'distinct ext4/xfs mounted scratch required')
-    require(shutil.disk_usage(mount).free >= 12 * 1024**3, 'less than12GiB free scratch')
+    require(shutil.disk_usage(mount).free >= 8 * 1024**3, 'less than8GiB free scratch')
     require(destination.is_absolute() and destination.resolve() == destination and not destination.exists(), 'new canonical receipt directory required')
     destination.mkdir(parents=True)
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '-' + str(os.getpid())

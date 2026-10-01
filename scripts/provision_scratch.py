@@ -19,8 +19,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runner-temp', type=Path, required=True)
     parser.add_argument('--run-id', required=True)
-    parser.add_argument('--size-gib', type=int, choices=(8, 24, 600), default=8)
+    parser.add_argument('--size-gib', type=int, choices=(8, 12, 600), default=8)
+    parser.add_argument('--headroom-gib', type=int, choices=(2, 12), default=12)
     args = parser.parse_args()
+    if args.headroom_gib == 2 and args.size_gib != 12:
+        raise ValueError('reduced headroom is only supported for the bounded public component volume')
     if os.geteuid() != 0 or not args.run_id.isdecimal():
         raise ValueError('root and a numeric GitHub run ID required')
     parent = args.runner_temp
@@ -37,7 +40,7 @@ def main():
     if target.exists() and (not target.is_dir() or any(target.iterdir())):
         raise ValueError('existing nonempty path must not be reused')
     size = args.size_gib * 1024**3
-    if shutil.disk_usage(parent).free < size + 12 * 1024**3:
+    if shutil.disk_usage(parent).free < size + args.headroom_gib * 1024**3:
         raise ValueError('insufficient ephemeral disk headroom')
     image = parent / ('remeizu-scratch-' + args.run_id + '.ext4')
     fd = os.open(image, os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW | os.O_WRONLY, 0o600)

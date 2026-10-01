@@ -22,6 +22,8 @@ Compilation runs without network access, under an unprivileged UID, with bounded
 CPU, memory and time. This job produces a kernel, not a ROM or a flashable boot
 image; hardware testing remains a separate step. Its outputs expire after three
 days. Only reviewed public source profiles are accepted.
+The component scratch volume is 12 GiB, with at least 2 GiB of host disk headroom;
+it uses a new file on the disposable runner and leaves existing storage untouched.
 
 There are no automatic triggers. Jobs run sequentially; GitHub may replace an
 older pending request with a newer queued request. Use a new dispatch to retry:
