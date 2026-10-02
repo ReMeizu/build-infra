@@ -14,9 +14,15 @@ class SessionTest(unittest.TestCase):
         limit = worker.session_budget(165)
         self.assertEqual(worker.expiration(limit, 0, limit, limit), 'session_deadline')
         self.assertIsNone(worker.expiration(limit - 1, 0, limit - 1, limit))
-        for minutes in (0, 226):
+        for minutes in (0, 346):
             with self.assertRaises(ValueError):
                 worker.session_budget(minutes)
+
+    def test_six_hour_job_reserves_fifteen_minutes_for_cleanup(self):
+        limit = worker.session_budget(345)
+        self.assertEqual(limit, (360 - 15) * 60)
+        self.assertIsNone(worker.expiration(limit - 1, 0, limit - 1, limit))
+        self.assertEqual(worker.expiration(limit, 0, limit, limit), 'session_deadline')
 
     def test_activity_cannot_extend_hard_deadline(self):
         self.assertEqual(worker.expiration(worker.MAX_SECONDS, 0, worker.MAX_SECONDS), 'session_deadline')

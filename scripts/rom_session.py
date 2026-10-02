@@ -15,7 +15,7 @@ import stat
 import subprocess
 import time
 
-MAX_SECONDS = 225 * 60
+MAX_SECONDS = 345 * 60
 IDLE_SECONDS = 35 * 60
 
 
@@ -51,7 +51,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--session-dir', type=Path, required=True)
     parser.add_argument('--report', type=Path, required=True)
-    parser.add_argument('--max-minutes', type=int, default=MAX_SECONDS // 60)
+    parser.add_argument('--max-minutes', type=int, default=225)
     args = parser.parse_args()
     max_seconds = session_budget(args.max_minutes)
     folder = args.session_dir

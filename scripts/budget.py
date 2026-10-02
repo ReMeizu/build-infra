@@ -31,6 +31,8 @@ MODES = {
                'timeout_minutes': 60, 'reserved_normalized_minutes': 504},
     'rom': {'runner': 'blacksmith-16vcpu-ubuntu-2404', 'vcpu': 16,
             'timeout_minutes': 240, 'reserved_normalized_minutes': 1944},
+    'rom-long': {'runner': 'blacksmith-16vcpu-ubuntu-2404', 'vcpu': 16,
+                 'timeout_minutes': 360, 'reserved_normalized_minutes': 2904},
     'rom-short': {'runner': 'blacksmith-16vcpu-ubuntu-2404', 'vcpu': 16,
                   'timeout_minutes': 180, 'reserved_normalized_minutes': 1464},
 }
@@ -93,7 +95,7 @@ def read_policy(path=POLICY_PATH):
     expected = {'schema_version': 'remeizu.blacksmith-policy.v1', 'provider': 'blacksmith',
                 'repository': REPOSITORY, 'ledger_branch': 'blacksmith-budget', 'ledger_path': 'ledger.json',
                 'allowance_normalized_minutes': 10000, 'local_stop_normalized_minutes': 9000,
-                'lifetime_reservation_limit': 9000,
+                'lifetime_reservation_limit': 18000,
                 'billing_unit_vcpus': 2, 'overhead_minutes': 3, 'modes': MODES}
     # An altered grant, repository, runner or timeout needs a reviewed gate change.
     require(policy == expected, 'policy differs from the reviewed allowance/scope/modes')
@@ -124,8 +126,17 @@ def validate_ledger(ledger, policy):
             all_runs.add(run_id)
             exact_keys(row, ('mode', 'vcpu', 'timeout_minutes', 'overhead_minutes',
                              'reserved_normalized_minutes', 'reserved_at'), 'unknown reservation schema')
-            require(isinstance(row['mode'], str) and row['mode'] in policy['modes'], 'unknown reserved mode')
-            mode = policy['modes'][row['mode']]
+            require(isinstance(row['mode'], str), 'unknown reserved mode')
+            if row['mode'] == 'mx6-kernel':
+                # Historical separately reviewed worker; never a dispatch mode.
+                require(run_id == '36723209887' and month == '2026-09'
+                        and row['reserved_at'] == '2026-09-30T13:39:24.867873Z',
+                        'unknown legacy reservation')
+                mode = {'vcpu': 4, 'timeout_minutes': 40,
+                        'reserved_normalized_minutes': 86}
+            else:
+                require(row['mode'] in policy['modes'], 'unknown reserved mode')
+                mode = policy['modes'][row['mode']]
             for key in ('vcpu', 'timeout_minutes', 'reserved_normalized_minutes'):
                 require(type(row[key]) is int and row[key] == mode[key], 'invalid reserved cost')
             require(type(row['overhead_minutes']) is int and row['overhead_minutes'] == policy['overhead_minutes'],
@@ -213,6 +224,9 @@ def reserve(mode_name, env, policy, api, now_fn=utc_now):
     require(re.fullmatch(r'[1-9][0-9]{0,19}', run_id), 'invalid GitHub run ID')
     mode = policy['modes'][mode_name]
     month, latest_start = check_window(now_fn(), mode, policy)
+    # Reviewed recurring monthly grant renewed through October only.
+    # Historical reservations are retained; a November job needs fresh review.
+    require(month <= '2026-10', 'grant renewal unverified for this month')
     ledger, old_sha = api.get()
     totals, runs = validate_ledger(ledger, policy)
     require(run_id not in runs, 'run ID already reserved; no refunds or duplicate authorization')

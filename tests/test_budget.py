@@ -62,6 +62,8 @@ class MemoryREST:
 class BudgetTest(unittest.TestCase):
     def setUp(self):
         self.policy = B.read_policy()
+        # Legacy fixtures continue to verify the old unrenewed lifetime cap.
+        self.policy['lifetime_reservation_limit'] = 9000
         self.env = {'GITHUB_REPOSITORY': B.REPOSITORY, 'GITHUB_RUN_ID': '999999',
                     'GITHUB_RUN_ATTEMPT': '1', 'GITHUB_ACTIONS': 'true',
                     'GITHUB_EVENT_NAME': 'workflow_dispatch', 'GH_TOKEN': 'DO-NOT-LOG-THIS-SECRET'}
@@ -81,6 +83,55 @@ class BudgetTest(unittest.TestCase):
         ledger['months'][month] = {'reservations': rows}
         self.transport.raw = json.dumps(ledger).encode()
         return ledger
+
+    def test_existing_mx6_ledger_row_is_accounted_but_cannot_be_reused(self):
+        old = seed()
+        row = {'mode': 'mx6-kernel', 'vcpu': 4, 'timeout_minutes': 40,
+               'overhead_minutes': 3, 'reserved_normalized_minutes': 86,
+               'reserved_at': '2026-09-30T13:39:24.867873Z'}
+        old['months']['2026-09'] = {'reservations': {'36723209887': row}}
+        self.transport.raw = json.dumps(old).encode()
+        self.policy = B.read_policy()
+        result = self.call('rom-long', utc('2026-10-02T12:00:00Z'))
+        self.assertEqual(result['lifetime_reserved_normalized_minutes'], '2990')
+        self.assertEqual(json.loads(self.transport.raw)['months']['2026-09'], old['months']['2026-09'])
+        with self.assertRaisesRegex(B.BudgetError, 'unknown mode'):
+            self.call('mx6-kernel')
+        bad = copy.deepcopy(old)
+        bad['months']['2026-09']['reservations']['36723209888'] = row
+        with self.assertRaisesRegex(B.BudgetError, 'unknown legacy'):
+            B.validate_ledger(bad, self.policy)
+        bad = copy.deepcopy(old)
+        bad['months']['2026-09']['reservations']['36723209887']['reserved_normalized_minutes'] = 85
+        with self.assertRaisesRegex(B.BudgetError, 'invalid reserved cost'):
+            B.validate_ledger(bad, self.policy)
+
+    def test_october_renewal_retains_september_and_reserves_six_hour_rom(self):
+        old = self.populate(kernels=17, probes=53)
+        self.policy = B.read_policy()
+        result = self.call('rom-long', utc('2026-10-02T12:00:00Z'))
+        self.assertEqual(result['timeout_minutes'], '360')
+        self.assertEqual(result['monthly_reserved_normalized_minutes'], '2904')
+        self.assertEqual(result['lifetime_reserved_normalized_minutes'], '11896')
+        observed = json.loads(self.transport.raw)
+        self.assertEqual(observed['months']['2026-09'], old['months']['2026-09'])
+        before = self.transport.raw
+        self.env['GITHUB_RUN_ID'] = '1000000'
+        with self.assertRaisesRegex(B.BudgetError, 'renewal unverified'):
+            self.call('rom-long', utc('2026-11-02T12:00:00Z'))
+        self.assertEqual(self.transport.raw, before)
+
+    def test_three_long_roms_fit_month_and_fourth_is_denied(self):
+        self.policy = B.read_policy()
+        for run in range(3):
+            self.env['GITHUB_RUN_ID'] = str(1000000 + run)
+            result = self.call('rom-long', utc('2026-10-02T12:00:00Z'))
+        self.assertEqual(result['monthly_reserved_normalized_minutes'], '8712')
+        before = self.transport.raw
+        self.env['GITHUB_RUN_ID'] = '1000003'
+        with self.assertRaisesRegex(B.BudgetError, 'monthly local stop'):
+            self.call('rom-long', utc('2026-10-02T12:00:00Z'))
+        self.assertEqual(self.transport.raw, before)
 
     def test_probe_records_exact_cost_then_verifies_readback(self):
         result = self.call()

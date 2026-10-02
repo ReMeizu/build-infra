@@ -14,6 +14,7 @@ on:
           - benchmark
           - kernel
           - rom
+          - rom-long
           - rom-short
           - component
       component_profile:
@@ -126,17 +127,17 @@ jobs:
         if: ${{ inputs.mode == 'kernel' }}
         run: sudo -n timeout --signal=INT --kill-after=90s 50m python3 -B scripts/kernel_run.py --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/kernel-receipts"
       - name: Provision ROM scratch on the ephemeral runner disk
-        if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' }}
+        if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' || inputs.mode == 'rom-long' }}
         run: |
           mkdir -p evidence
           sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 600 > evidence/scratch.json
       - name: Read the provider SSH endpoint
-        if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' }}
+        if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' || inputs.mode == 'rom-long' }}
         env:
           ROM_RUNNER_NAME: ${{ runner.name }}
         run: python3 -B scripts/rom_connection.py
       - name: Publish the connection endpoint before the long build step
-        if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' }}
+        if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' || inputs.mode == 'rom-long' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: blacksmith-connection-${{ github.run_id }}
@@ -144,7 +145,7 @@ jobs:
           retention-days: 1
           if-no-files-found: error
       - name: Run the bounded ROM worker
-        if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' }}
+        if: ${{ inputs.mode == 'rom' || inputs.mode == 'rom-short' || inputs.mode == 'rom-long' }}
         env:
           ROM_JOB_MINUTES: ${{ needs.budget.outputs.timeout_minutes }}
         run: |

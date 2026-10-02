@@ -6,7 +6,7 @@
   "ledger_path": "ledger.json",
   "allowance_normalized_minutes": 10000,
   "local_stop_normalized_minutes": 9000,
-  "lifetime_reservation_limit": 9000,
+  "lifetime_reservation_limit": 18000,
   "billing_unit_vcpus": 2,
   "overhead_minutes": 3,
   "modes": {
@@ -39,6 +39,12 @@
       "vcpu": 16,
       "timeout_minutes": 8,
       "reserved_normalized_minutes": 88
+    },
+    "rom-long": {
+      "runner": "blacksmith-16vcpu-ubuntu-2404",
+      "vcpu": 16,
+      "timeout_minutes": 360,
+      "reserved_normalized_minutes": 2904
     }
   }
 }
