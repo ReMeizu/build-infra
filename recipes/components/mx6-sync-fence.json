@@ -10,8 +10,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt6797.git",
-    "commit": "0bc075a80798832181e3772cc047757fe442a9ad",
-    "tree": "88dfc0434c4f056cc43d1ab75aa8789d17cccba5",
+    "commit": "c8f8956e84549bdbc43c22070cf18518ba9eaa10",
+    "tree": "c2b307dbd55ae2e739d072478dcb6c13b6c93733",
     "files_sha256": {
       "Makefile": "aac2661107013772c98c94fa3183698af553f9b3f53526d03407b3018a96127a",
       "arch/arm64/Makefile": "ed72ec57087bdd09d68e20d317bb3b057b4aab26d0584e7aa3181cb308939882",
@@ -23,7 +23,15 @@
       "drivers/staging/android/Makefile": "912d9ff0c19f4bb67233c9f05763f27a1787e1499ea670d110cc8c4e2b34af60",
       "drivers/iio/imu/st_lsm6ds3/Makefile": "d476685570cd3e9e0ebbdcd32789275ac4649b57052559278fdeb327d53e1d3c",
       "drivers/iio/imu/st_lsm6ds3/st_lsm6ds3_core.c": "110886cce28ed92b21af358a150245d8e161894befe6bdb320d721281c8e338d",
-      "drivers/input/touchscreen/mediatek/Mz_ft8716/Makefile": "7921f0da10ce8234b4e29ebe33f46e5a8226a9333e2c50247fc05b2cb52f8499"
+      "drivers/input/touchscreen/mediatek/Mz_ft8716/Makefile": "7921f0da10ce8234b4e29ebe33f46e5a8226a9333e2c50247fc05b2cb52f8499",
+      "drivers/irqchip/irq-gic-v3.c": "3785ae113db6fb216ac1d395942f2322029117d9b5d3896e93bbedbb871d49d5",
+      "drivers/irqchip/Makefile": "572865772075b47bb321aa9f6ec0959dc278628db5be77349083a12b5fe9e2e2",
+      "drivers/staging/android/binder_alloc.c": "93c40ae4f3e9a0af39de6517e98209258053f756d3a19bec51c10c273b0439ff",
+      "drivers/clocksource/Makefile": "3217ecb71b7dcfe4327b8ef97b98bc90396ca2d41a091b6127a5e9f0981ba94e",
+      "drivers/clocksource/cpuxgpt_mt6797.c": "271d8aebf75457ea0ac239db910943f980c7e12eed8916107b995716bcd10980",
+      "drivers/misc/mediatek/ext_gic/Makefile": "a578a5588cccd68d741a429bf2c3658db8181cd3cf6d24f9ba39115dbb330d29",
+      "drivers/misc/mediatek/ext_gic/mtk-gic-v3-extend.c": "2977e50cbd3147769e884d2902f790de4de563f95f634fcd9b8ff6f8387641c8",
+      "arch/arm64/kernel/irq.c": "b7e6fb8bbaeefde613829285167132c35f3d0c69dc466c5bbed5a180d5e82368"
     }
   },
   "toolchain": {
@@ -48,6 +56,11 @@
     "drivers/iio/imu/st_lsm6ds3/st_lsm6ds3.o",
     "drivers/input/touchscreen/mediatek/mtk_tpd.o",
     "drivers/input/touchscreen/mediatek/Mz_ft8716/focaltech_core.o",
-    "drivers/misc/mediatek/lcm/ft8716_fhd_vdo_sharp/ft8716_fhd_vdo_sharp.o"
+    "drivers/misc/mediatek/lcm/ft8716_fhd_vdo_sharp/ft8716_fhd_vdo_sharp.o",
+    "drivers/irqchip/irq-gic-v3.o",
+    "drivers/staging/android/binder_alloc.o",
+    "drivers/clocksource/cpuxgpt_mt6797.o",
+    "drivers/misc/mediatek/ext_gic/mtk-gic-v3-extend.o",
+    "arch/arm64/kernel/irq.o"
   ]
 }
