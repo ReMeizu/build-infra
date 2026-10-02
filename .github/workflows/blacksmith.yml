@@ -1,5 +1,5 @@
-name: Blacksmith manual pilot
-run-name: Blacksmith ${{ inputs.mode }} by @${{ github.actor }}
+name: Manual kernel and ROM builds
+run-name: ${{ inputs.mode == 'component' && format('Kernel {0}', inputs.component_profile || 'm5c-cpu-stats') || format('Blacksmith {0}', inputs.mode) }} by @${{ github.actor }}
 
 on:
   workflow_dispatch:
@@ -15,17 +15,29 @@ on:
           - kernel
           - rom
           - rom-short
+          - component
+      component_profile:
+        description: Reviewed kernel profile (component mode only)
+        type: choice
+        default: m5c-cpu-stats
+        options:
+          - m5c-cpu-stats
+          - m5s-native
+          - m2note-native
+          - mx6-sync-fence
+          - u20-native
+          - u10-native
 
 permissions:
   contents: read
 
 concurrency:
-  group: blacksmith-monthly-serial
+  group: ${{ inputs.mode == 'component' && format('kernel-component-{0}', inputs.component_profile || 'm5c-cpu-stats') || 'blacksmith-monthly-serial' }}
   cancel-in-progress: false
 
 jobs:
   budget:
-    if: ${{ github.run_attempt == 1 }}
+    if: ${{ github.run_attempt == 1 && inputs.mode != 'component' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 3
     permissions:
@@ -155,4 +167,40 @@ jobs:
             ${{ runner.temp }}/kernel-receipts/
           if-no-files-found: warn
           retention-days: 7
+          include-hidden-files: true
+
+  component:
+    if: ${{ github.run_attempt == 1 && inputs.mode == 'component' && github.event.repository.private == false }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Provision new ephemeral kernel scratch
+        run: |
+          mkdir -p evidence
+          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 12 --headroom-gib 2 > evidence/scratch.json
+      - name: Compile the pinned complete kernel
+        env:
+          COMPONENT_PROFILE: ${{ inputs.component_profile || 'm5c-cpu-stats' }}
+        run: sudo -n timeout --signal=INT --kill-after=90s 80m python3 -B scripts/component_run.py --profile "$COMPONENT_PROFILE" --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/component-receipts"
+      - name: Make this job's receipts readable
+        if: ${{ always() }}
+        run: |
+          if [ -d "$RUNNER_TEMP/component-receipts" ]; then
+            sudo -n chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/component-receipts"
+          fi
+      - name: Retain kernel outputs and failure evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: kernel-component-${{ inputs.component_profile || 'm5c-cpu-stats' }}-${{ github.run_id }}
+          path: |
+            evidence/
+            ${{ runner.temp }}/component-receipts/
+          retention-days: 3
+          if-no-files-found: warn
           include-hidden-files: true
