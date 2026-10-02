@@ -10,8 +10,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt6797.git",
-    "commit": "d6edce89b410ebbac2b280cfde58d62c67adc56b",
-    "tree": "90c642bdb0ee5b75a395526dc9596363f5978204",
+    "commit": "8d1c76b44836489109646cdbc654f4f6abc8eaeb",
+    "tree": "88a5a4f1917a3c28e5fd64188144225820034969",
     "files_sha256": {
       "Makefile": "aac2661107013772c98c94fa3183698af553f9b3f53526d03407b3018a96127a",
       "arch/arm64/Makefile": "ed72ec57087bdd09d68e20d317bb3b057b4aab26d0584e7aa3181cb308939882",
@@ -32,7 +32,17 @@
       "drivers/misc/mediatek/ext_gic/Makefile": "a578a5588cccd68d741a429bf2c3658db8181cd3cf6d24f9ba39115dbb330d29",
       "drivers/misc/mediatek/ext_gic/mtk-gic-v3-extend.c": "2977e50cbd3147769e884d2902f790de4de563f95f634fcd9b8ff6f8387641c8",
       "arch/arm64/kernel/irq.c": "b7e6fb8bbaeefde613829285167132c35f3d0c69dc466c5bbed5a180d5e82368",
-      "drivers/staging/android/ashmem.c": "21917a4d218b5ba30bd231dde36bdf2ca6df8890cce4749ac251a109d5bad239"
+      "drivers/staging/android/ashmem.c": "21917a4d218b5ba30bd231dde36bdf2ca6df8890cce4749ac251a109d5bad239",
+      "drivers/misc/mediatek/connectivity/wlan/gen3/include/mgmt/rlm.h": "48c0f8b5e4a6420490d1531b3bffc674c55c7e5beb084a89735a244a48630c7e",
+      "drivers/misc/mediatek/connectivity/wlan/gen3/mgmt/rlm.c": "1af52076080ff2dd1fdd8c359f94c43ece5ae0be4c78f0e6a81df86ebe1cd9c1",
+      "drivers/misc/mediatek/connectivity/wlan/gen3/os/linux/gl_init.c": "9fda375b24b6b517a5b62e21c53cbcdb51267ee9afafe762676253032db68d76",
+      "drivers/misc/mediatek/connectivity/wlan/gen3/include/precomp.h": "5da7c8b10a500d8283141dd454f4d7e9c2d5216929253f3ed8cd6e01808b02a2",
+      "drivers/misc/mediatek/connectivity/wlan/gen3/include/nic/mac.h": "f2ea0b810e34de1abe2576cdd9a0ea172a61bca64e9d7890d130d872bebc5506",
+      "drivers/misc/mediatek/connectivity/wlan/gen3/os/linux/include/gl_os.h": "2b258805d26a5a9fd937a38b4384bd0205dc767362374a7574f5cdedb9f6e4c8",
+      "drivers/misc/mediatek/connectivity/wlan/gen3/Makefile": "d351c7d8cf606552cf382555deb0c9cb2694e64211baaea6783fe2fce918730b",
+      "drivers/misc/mediatek/connectivity/wlan/Makefile": "f2095d558441b8734bc50d3911e39288a38332426aa4b7d579bea2270706b93f",
+      "drivers/misc/mediatek/connectivity/Makefile": "9d0fe64e511fd92837adf527e7a339bf07ea4bc88ec29e23774f00b387a8ebdf",
+      "drivers/misc/mediatek/connectivity/Kconfig": "33c25642b60fcb8214d6077ba5fda531c86641ced2944a0a4f50ce4c17f6f2d8"
     }
   },
   "toolchain": {
@@ -63,6 +73,9 @@
     "drivers/clocksource/cpuxgpt_mt6797.o",
     "drivers/misc/mediatek/ext_gic/mtk-gic-v3-extend.o",
     "arch/arm64/kernel/irq.o",
-    "drivers/staging/android/ashmem.o"
+    "drivers/staging/android/ashmem.o",
+    "drivers/misc/mediatek/connectivity/wlan/gen3/mgmt/rlm.o",
+    "drivers/misc/mediatek/connectivity/wlan/gen3/os/linux/gl_init.o",
+    "drivers/misc/mediatek/connectivity/wlan/gen3/wlan_gen3.o"
   ]
 }
