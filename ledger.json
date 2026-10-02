@@ -91,6 +91,18 @@
           "vcpu": 4
         }
       }
+    },
+    "2026-10": {
+      "reservations": {
+        "37012925613": {
+          "mode": "rom-long",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-10-02T13:25:54.798278Z",
+          "reserved_normalized_minutes": 2904,
+          "timeout_minutes": 360,
+          "vcpu": 16
+        }
+      }
     }
   },
   "repository": "ReMeizu/build-infra",
