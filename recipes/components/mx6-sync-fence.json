@@ -10,8 +10,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt6797.git",
-    "commit": "c8f8956e84549bdbc43c22070cf18518ba9eaa10",
-    "tree": "c2b307dbd55ae2e739d072478dcb6c13b6c93733",
+    "commit": "d6edce89b410ebbac2b280cfde58d62c67adc56b",
+    "tree": "90c642bdb0ee5b75a395526dc9596363f5978204",
     "files_sha256": {
       "Makefile": "aac2661107013772c98c94fa3183698af553f9b3f53526d03407b3018a96127a",
       "arch/arm64/Makefile": "ed72ec57087bdd09d68e20d317bb3b057b4aab26d0584e7aa3181cb308939882",
@@ -31,7 +31,8 @@
       "drivers/clocksource/cpuxgpt_mt6797.c": "271d8aebf75457ea0ac239db910943f980c7e12eed8916107b995716bcd10980",
       "drivers/misc/mediatek/ext_gic/Makefile": "a578a5588cccd68d741a429bf2c3658db8181cd3cf6d24f9ba39115dbb330d29",
       "drivers/misc/mediatek/ext_gic/mtk-gic-v3-extend.c": "2977e50cbd3147769e884d2902f790de4de563f95f634fcd9b8ff6f8387641c8",
-      "arch/arm64/kernel/irq.c": "b7e6fb8bbaeefde613829285167132c35f3d0c69dc466c5bbed5a180d5e82368"
+      "arch/arm64/kernel/irq.c": "b7e6fb8bbaeefde613829285167132c35f3d0c69dc466c5bbed5a180d5e82368",
+      "drivers/staging/android/ashmem.c": "21917a4d218b5ba30bd231dde36bdf2ca6df8890cce4749ac251a109d5bad239"
     }
   },
   "toolchain": {
@@ -61,6 +62,7 @@
     "drivers/staging/android/binder_alloc.o",
     "drivers/clocksource/cpuxgpt_mt6797.o",
     "drivers/misc/mediatek/ext_gic/mtk-gic-v3-extend.o",
-    "arch/arm64/kernel/irq.o"
+    "arch/arm64/kernel/irq.o",
+    "drivers/staging/android/ashmem.o"
   ]
 }
