@@ -10,8 +10,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt6797.git",
-    "commit": "9866c51b3a94c6e54189253ae9c7fa0dfa6c1e53",
-    "tree": "7ef32413948a192f51de73b2031f5c6e247d6a2c",
+    "commit": "56c36fdf665af1daa2ab79b2d25c3112c7a5c4eb",
+    "tree": "b0062fe804c532e45b02e7160cc403820a69e65c",
     "files_sha256": {
       "Makefile": "aac2661107013772c98c94fa3183698af553f9b3f53526d03407b3018a96127a",
       "arch/arm64/Makefile": "ed72ec57087bdd09d68e20d317bb3b057b4aab26d0584e7aa3181cb308939882",
@@ -43,13 +43,15 @@
       "drivers/misc/mediatek/connectivity/wlan/Makefile": "f2095d558441b8734bc50d3911e39288a38332426aa4b7d579bea2270706b93f",
       "drivers/misc/mediatek/connectivity/Makefile": "9d0fe64e511fd92837adf527e7a339bf07ea4bc88ec29e23774f00b387a8ebdf",
       "drivers/misc/mediatek/connectivity/Kconfig": "33c25642b60fcb8214d6077ba5fda531c86641ced2944a0a4f50ce4c17f6f2d8",
-      "kernel/stop_machine.c": "a91331ce82b09fd23ab7ab705f1d16653fe1090f85517493e29a9176611bd8de",
+      "kernel/stop_machine.c": "38fed8814c0c89166ef6f8340c2c80fe1104437854e281ba130654256ca89778",
       "kernel/Makefile": "f618a0b245363138dca053659a809d4e5db9e5eca8dcbbb75fc97e03384d8414",
-      "kernel/cpu.c": "5398456421a8949614fafc50d3ce90a9a45afc241ff246af005b61aeb027ed8e",
+      "kernel/cpu.c": "3935fdf4605fcd7fdac307a075cad1432916d5cc7e76371815c18695c06a04c9",
       "kernel/kthread.c": "fc02c6f535cb0d92a7b99338caa38f801bfc90cce20dbed931bcb4bc66871128",
-      "include/linux/stop_machine.h": "80348e2c983a8a1689f521e1f3333f4fb9070794db32f4088f9a2e8d466f7704",
+      "include/linux/stop_machine.h": "05179c9584e617f0be17454dda7db0981b4cd9ed33f9bae6840aae579b227e40",
       "include/linux/list.h": "318069846d60c6b6402c7ead147eec670c52942c0d8d262e791fdaa7385bf676",
-      "include/linux/completion.h": "2970b6e2990459fdf2bb09d84a65d34f1c21bb5ed0e2660a600466634e9b4571"
+      "include/linux/completion.h": "2970b6e2990459fdf2bb09d84a65d34f1c21bb5ed0e2660a600466634e9b4571",
+      "kernel/smpboot.c": "e5ce3217d24ebef9a80c17f4360fabf89ac84574c9c106a7c839094aea0c291e",
+      "include/linux/smpboot.h": "cfc2c8c3401c39853896910bfc3115c77e1164210a96814b569931d109eecab5"
     }
   },
   "toolchain": {
@@ -84,6 +86,9 @@
     "drivers/misc/mediatek/connectivity/wlan/gen3/mgmt/rlm.o",
     "drivers/misc/mediatek/connectivity/wlan/gen3/os/linux/gl_init.o",
     "drivers/misc/mediatek/connectivity/wlan/gen3/wlan_gen3.o",
-    "kernel/stop_machine.o"
+    "kernel/stop_machine.o",
+    "kernel/cpu.o",
+    "kernel/smpboot.o",
+    "kernel/kthread.o"
   ]
 }
