@@ -11,8 +11,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt6753.git",
-    "commit": "6cda79976b16c1adf1b555c5a487891ae708a85d",
-    "tree": "e98995faf8b694dbd74e68431cee01701041d249",
+    "commit": "6a4373fd09b75f1ca4025a9311a2c5b97cb810f6",
+    "tree": "b47949856bcd75a24f72a2bd88b531d95396964e",
     "files_sha256": {
       "Makefile": "2c2860e843d293ff826bc194d8aa1520032d839954b630704eb1134d26963fca",
       "scripts/Makefile.host": "393463499219ff765ef6d33f8b546f46fbd4b7a613702579db619e98322f9f56",
@@ -35,7 +35,14 @@
       "arch/arm64/configs/m5s_verified.config": "67f88c6f0bdfed48c4d3fc46896d0a991b0e2f0eb11db3391bc440fef88856af",
       "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_core_linux.c": "c187649615fcbe9347b4101d536f50352b3c03c0cdf756fd8a5a24a38fcf6be6",
       "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_jd.c": "dd0f51fea98e767dbe74afe1a01c5051940debb04a2cc257b9ca43b536374edb",
-      "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_sync.c": "71e81282a1fc7ea02715629c246fd5af38cdcd62cab32e682f50ab7428aefc30"
+      "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_sync.c": "71e81282a1fc7ea02715629c246fd5af38cdcd62cab32e682f50ab7428aefc30",
+      "drivers/staging/android/ashmem.c": "21917a4d218b5ba30bd231dde36bdf2ca6df8890cce4749ac251a109d5bad239",
+      "mm/shmem.c": "21ea0147bbe0edbbbd090a1d92e5e62797833c16e4eab6f493e8b85c8c406c71",
+      "fs/read_write.c": "ed093cdcc1eeb055271586837e1b0165bd423f3c822c4bbb2a763ec9ffe4179e",
+      "fs/file_table.c": "ae111e31c49f01b3581f19c281ae8c5455ce7f0b21b88b5bf558b9334d32b608",
+      "drivers/staging/android/Makefile": "912d9ff0c19f4bb67233c9f05763f27a1787e1499ea670d110cc8c4e2b34af60",
+      "drivers/staging/android/Kconfig": "e27b645c0f8e1b972e42aecb4266a937b4e3878f58844ba2fc9364f637992759",
+      "include/linux/fs.h": "520b43e124fed9d55d15b513cd12e3bb4d42a1f84980686668c1c67ac6cbb1e2"
     }
   },
   "toolchain": {
@@ -67,7 +74,8 @@
     "drivers/misc/mediatek/magnetometer/qmcX983/qmcX983.o",
     "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_core_linux.o",
     "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_jd.o",
-    "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_sync.o"
+    "drivers/misc/mediatek/gpu/gpu_mali/mali_midgard/mali-r7p0/drivers/gpu/arm/midgard/mali_kbase_sync.o",
+    "drivers/staging/android/ashmem.o"
   ],
   "board_preparation": "copy-tracked"
 }
