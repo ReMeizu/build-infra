@@ -1,24 +1,28 @@
 name: Mainline toolchain checks
-run-name: Linux 6.18 / ${{ inputs.toolchain }}
+run-name: Linux 6.18 toolchain checks
 
 on:
   workflow_dispatch:
-    inputs:
-      toolchain:
-        description: ARM64 compiler
-        required: true
-        type: choice
-        options: [gcc13, clang18]
+  push:
+    branches: [ci/mainline-toolchains]
+    paths:
+      - .github/workflows/mainline.yml
+      - scripts/mainline_*.py
+      - recipes/mainline.Dockerfile
 
 permissions:
   contents: read
 
 concurrency:
-  group: mainline-${{ inputs.toolchain }}
+  group: mainline-toolchains
   cancel-in-progress: false
 
 jobs:
   kernel:
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [gcc13, clang18]
     runs-on: ubuntu-24.04
     timeout-minutes: 85
     steps:
@@ -29,7 +33,7 @@ jobs:
         run: sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 12 --headroom-gib 2
       - name: Build the common ARM64 Image
         env:
-          TOOLCHAIN: ${{ inputs.toolchain }}
+          TOOLCHAIN: ${{ matrix.toolchain }}
         run: sudo -n timeout --signal=INT --kill-after=90s 75m python3 -B scripts/mainline_run.py --toolchain "$TOOLCHAIN" --receipt-dir "$RUNNER_TEMP/mainline-receipts"
       - name: Collect receipts
         if: always()
@@ -40,7 +44,7 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: mainline-${{ inputs.toolchain }}-${{ github.run_id }}
+          name: mainline-${{ matrix.toolchain }}-${{ github.run_id }}
           path: ${{ runner.temp }}/mainline-receipts/
           if-no-files-found: error
           retention-days: 3
