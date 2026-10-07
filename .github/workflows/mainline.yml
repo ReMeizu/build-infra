@@ -1,0 +1,47 @@
+name: Mainline toolchain checks
+run-name: Linux 6.18 / ${{ inputs.toolchain }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      toolchain:
+        description: ARM64 compiler
+        required: true
+        type: choice
+        options: [gcc13, clang18]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mainline-${{ inputs.toolchain }}
+  cancel-in-progress: false
+
+jobs:
+  kernel:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Prepare ephemeral scratch
+        run: sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 12 --headroom-gib 2
+      - name: Build the common ARM64 Image
+        env:
+          TOOLCHAIN: ${{ inputs.toolchain }}
+        run: sudo -n timeout --signal=INT --kill-after=90s 75m python3 -B scripts/mainline_run.py --toolchain "$TOOLCHAIN" --receipt-dir "$RUNNER_TEMP/mainline-receipts"
+      - name: Collect receipts
+        if: always()
+        run: |
+          if [ -d "$RUNNER_TEMP/mainline-receipts" ]; then
+            sudo -n chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/mainline-receipts"
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: mainline-${{ inputs.toolchain }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/mainline-receipts/
+          if-no-files-found: error
+          retention-days: 3
+          include-hidden-files: true
