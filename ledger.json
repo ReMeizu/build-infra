@@ -101,6 +101,14 @@
           "reserved_normalized_minutes": 2904,
           "timeout_minutes": 360,
           "vcpu": 16
+        },
+        "37774631156": {
+          "mode": "rom",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-10-08T12:07:14.809654Z",
+          "reserved_normalized_minutes": 1944,
+          "timeout_minutes": 240,
+          "vcpu": 16
         }
       }
     }
