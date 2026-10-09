@@ -10,8 +10,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt675x.git",
-    "commit": "55d3cc8014909e744b2151a25ac9809797ff0baa",
-    "tree": "a7c9c33c49c6064fbd0a4ff512467477715d0556",
+    "commit": "9008fe978c5ac41234c10106f954ff2f64bfc335",
+    "tree": "4a0a0b997903a5e8ebd647d3177f30e5c2f6d984",
     "files_sha256": {
       "Makefile": "ce44c62c91de8f8d5e6ee1e8f91e51fc61726c54a427417add743d85daed9297",
       "arch/arm64/boot/dts/u10.dts": "e7bc4fb66d22ac85e380cf6a8434f7dc354b966a1ca431f2368342013ece8eb5",
@@ -36,7 +36,7 @@
       "drivers/misc/mediatek/ccci_util/ccci_util_lib_sys.c": "08adefe573c82dbc0000d122f30ba6b95995bdab429e731538b8b71292b441b7",
       "drivers/misc/mediatek/connectivity/fmradio/core/fm_main.c": "339ade2af31c003d54e7069265b0acc39c0704d22f9bfdee54f85f04517a3d5f",
       "drivers/misc/mediatek/devapc/Kconfig": "f96a1279853003c8d25c96eb034e7129f4a11ca7e676944df0c67c3d1606c9b0",
-      "drivers/misc/mediatek/devapc/mt6755/devapc.c": "b5323dc344bfe6857d1a1285e0a41f8ec740515273d1a7057a6d2ca51a3568f6",
+      "drivers/misc/mediatek/devapc/mt6755/devapc.c": "89c46d0a790dce2bcf3f8fa2cd707bd19c6e777f5953a8dc2021e3fc5284c987",
       "drivers/misc/mediatek/eccci/Kconfig": "b08ce682054e1e077fcd7d1b97567de486af5a29ea7382e1e613645c12feb935",
       "drivers/misc/mediatek/imgsensor/src/mt6755/hi553_mipi_raw/hi553mipiraw_Sensor.c": "44841781a8b773bd461e8cd84943421949be51d55a0beb02f9ec36bcc4b392fe",
       "drivers/misc/mediatek/imgsensor/src/mt6755/imx258_mipi_raw/imx258mipiraw_Sensor.c": "b94215a60cdb7d69a70cc54d747ada2e5f9a05a8afe131f7d5c8059a7c9e8fee",
