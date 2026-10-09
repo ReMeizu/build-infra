@@ -115,3 +115,23 @@ The source controls include actual original worker preservation and a real
 owned-process timeout/reap with retained RAM logs. Crypto owner independently
 ran actual roundtrip/tamper/refusal controls. Live resource/compiler/output
 acceptance still requires the reviewed first cloud run.
+
+
+## Exact measured production successor
+
+FACT: authenticated run37986122430 passed the original88/72 source/tool/image
+admission, then GN requested relational_store:native_rdb. The new reviewed
+successor adds13 pinned mandatory production providers, preserving all88 original
+projects,144407 source rows and72 normalized part feature/syscap maps. Actual
+source is101 projects /85 parts /174299 files /1843410795 source bytes; expanded
+inputs5249408474 bytes. Source lockcd0fd17d93ddf0c7f4cd2da211fafb746cca9aaf8e16e8a9f4867e9700cce4c0
+and GNIbc5b4da2894494c066978098d9e811cb208fca87588c1e73c0dea4f45e4d4e06
+are admitted by exact guards, not an arbitrary count range. Rust layout, SDK,
+wheels, original feature values, target labels, j2 and RAM floors are unchanged.
+
+The [source/runtime guard state](MEASURED_COHORT_GUARD_STATE.a1.md) and its frozen
+verification table bind the production witnesses and three independently passed
+positive/refusal controls. Full GN closure, target compilation, full375 images
+and hardware acceptance remain false until their real producer gates pass.
+Historical source freezes above remain historical; this successor replaces
+only the reviewed cohort execution admission.

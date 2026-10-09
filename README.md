@@ -43,7 +43,11 @@ The [public native route](docs/free-hosted-route/RESOURCE_AND_SOURCE_PLAN.md)
 uses a standard GitHub runner, anonymous pinned public sources, two compiler
 jobs and RAM build outputs. Its push trigger accepts only
 `codex/free-native-20261009`; the first reviewed run uses 88 source projects and
-72 selected parts. The job allows 330 minutes including bounded acquisition,
+72 selected parts. The current reviewed successor has 101 projects /85 parts,
+adding the genuinely required database/framework providers while preserving all
+prior source, feature and SDK bindings. See the
+[measured cohort](docs/free-hosted-route/MEASURED_COHORT_GUARD_STATE.a1.md).
+The job allows 330 minutes including bounded acquisition,
 compilation and encrypted Release retention. It has no Blacksmith reservation.
 
 This is an intermediate build. The full 375-component GUI phone profile,

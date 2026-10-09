@@ -65,8 +65,8 @@ def prepare(original, target, lock):
     if sha(inp) != lock['gn_inputs_sha256']:
         raise ValueError('real public GN inputs differ')
     inputs = json.loads(inp.read_text())
-    if len(inputs['projects']) != 88 or lock['source_projects'] != 88 or lock['selected_part_count'] != 72:
-        raise ValueError('actual libusb intermediate 88/72 cohort required')
+    from acquire import validate_lock,validate_cohort_proof
+    validate_lock(lock,inputs);validate_cohort_proof(lock,inputs,original)
     target.mkdir(parents=True)
     names = {'layout_native_rust.py', 'worker.sh'}
     names.update(x['path'] for x in inputs['patches'] + inputs['overlay_files'])
@@ -113,8 +113,8 @@ def prepare(original, target, lock):
         (target / name / '.mount-target').write_text('readonly public input mount\n')
     receipt = {'schema': 'remeizu.free-hosted-j2-source-successor.v1', 'parent_gn_inputs_sha256': sha(inp),
                'parent_worker_sha256': parent_worker_sha, 'worker_sha256': inputs['worker_sha256'],
-               'gn_inputs_sha256': sha(target / 'GN_INPUTS.json'), 'source_projects': 88,
-               'selected_part_count': 72, 'rust_layout_bytes': inputs['free_hosted_rust_layout_bytes'],
+               'gn_inputs_sha256': sha(target / 'GN_INPUTS.json'), 'source_projects': len(inputs['projects']),
+               'selected_part_count': lock['selected_part_count'], 'rust_layout_bytes': inputs['free_hosted_rust_layout_bytes'],
                'jobs': 2, 'original_source_mutated': False, 'full375_phone': False, 'runtime': False}
     (target / 'J2_SOURCE_SUCCESSOR.json').write_text(json.dumps(receipt, indent=2) + '\n')
     for cmd in (['git', 'init', '-q', str(target)], ['git', '-C', str(target), 'add', '--'] + sorted(x.name for x in target.iterdir() if x.name != '.git'),

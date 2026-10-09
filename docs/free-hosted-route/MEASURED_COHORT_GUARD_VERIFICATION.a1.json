@@ -1,0 +1,23 @@
+{
+  "schema": "remeizu.exact-measured-cohort-guard-verification.v1",
+  "checked_at": "2026-10-09T21:03:33.799268+00:00",
+  "cohort_projects": 101,
+  "selected_parts": 85,
+  "source_files": 174299,
+  "source_bytes": 1843410795,
+  "focused_controls": 3,
+  "focused_exit_code": 0,
+  "source_owner_lock_and_GNI_unchanged": true,
+  "source_lock_sha256": "cd0fd17d93ddf0c7f4cd2da211fafb746cca9aaf8e16e8a9f4867e9700cce4c0",
+  "gn_inputs_sha256": "bc5b4da2894494c066978098d9e811cb208fca87588c1e73c0dea4f45e4d4e06",
+  "genuine_full375_images_proven": false,
+  "runtime": false,
+  "files": {
+    "docs/free-hosted-route/acquire.py": "e4ad2ec97cdd75f74a0ff8117c400f918db293c7fac95b888c9af9b1358f21b7",
+    "docs/free-hosted-route/make_j2_successor.py": "fc49a990999915506986d7655266b59f593acb931c655d88d66f56abb2141294",
+    "docs/free-hosted-route/free_native_run.py": "ff353f12013552ba59649ee345695b50028ef92fd278eac4c23498fd1b18c817",
+    "docs/free-hosted-route/test_route.py": "75c6a449864f02e2bc90b07dd534ee4081f179413bde520223568540ab738fcc",
+    "docs/free-hosted-route/MEASURED_COHORT_GUARD_STATE.a1.md": "17382d8b0601902158f38f49ae4319650ed77120ad0ddda5fdd540ffcde8d89f",
+    ".github/workflows/openharmony-native-public.yml": "09c0213569c22a3e93c8068b52816581a2f2857cd646ab53db75c4826b327b72"
+  }
+}

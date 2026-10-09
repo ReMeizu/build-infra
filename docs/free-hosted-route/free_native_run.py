@@ -25,6 +25,7 @@ DOCKER_SHA='bdaa70b28298b269a8009335a9e90987fde0dd1ff08dad5369d133aeb0aadf3b'
 RECIPIENT='959CA39B8C9D913EF17718CAE1615C4DD15366ED'
 PUBLIC_KEY_SHA='281c6c5992653a27b00592b33aeececcf2affd5d108f46db8f8199a3124730c5'
 RETENTION_HELPER_SHA='aff04c7b6ac6e5b98ecfceb0843cbc5bc30ffc33a198ff37617ac66e66d8fd3e'
+APPROVED_LOCK_SHA='cd0fd17d93ddf0c7f4cd2da211fafb746cca9aaf8e16e8a9f4867e9700cce4c0'
 
 def command(argv,**kwargs):
     return subprocess.run([str(x) for x in argv],check=True,capture_output=True,timeout=kwargs.pop('timeout',1200),**kwargs)
@@ -61,6 +62,7 @@ def main():
     args=parser.parse_args()
     checked_public_job(os.environ)
     started=time.monotonic()
+    if sha(args.lock)!=APPROVED_LOCK_SHA:raise ValueError('exact reviewed production source lock differs')
     lock=json.loads(args.lock.read_text())
     thin=ROOT/lock['controller_path']
     thin.resolve().relative_to(ROOT.resolve())
@@ -127,7 +129,7 @@ def main():
                 'env':{'GN_INPUTS_SHA256':sha(controller/'GN_INPUTS.json'),'PYTHONDONTWRITEBYTECODE':'1',
                        'CCACHE_BASE':'/workspace/out','CCACHE_LOCAL_DIR':'native-ccache','CCACHE_TEMPDIR':'/workspace/out/native-tmp','CCACHE_MAXSIZE':'256M'},
                 'timeout_seconds':fresh_lock['execution_seconds']+120,
-                'idempotency_key':'public-native72-'+run+'-'+successor['worker_sha256'][:16]}
+                'idempotency_key':'public-native'+str(lock['selected_part_count'])+'-'+run+'-'+successor['worker_sha256'][:16]}
         model=forge.recipe_from_dict(recipe)
         recipe_path=job/'recipe.json';recipe_path.write_text(json.dumps(recipe,indent=2)+'\n')
         record['recipe_hash']=model.recipe_hash()

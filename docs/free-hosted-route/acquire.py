@@ -112,8 +112,13 @@ def verify(root,row,diagnostic_member=None):
 def validate_lock(lock,inputs):
     if lock.get('schema')!='remeizu.free-hosted-native-public-inputs.v1' or lock.get('public_sources_only') is not True or lock.get('private_android_inputs') is not False:
         raise ValueError('reviewed source-only public acquisition lock required')
-    if lock.get('source_projects')!=88 or lock.get('selected_part_count')!=72 or len(inputs['projects'])!=88:
-        raise ValueError('genuine 88/72 intermediate required; full375 not admitted')
+    if lock.get('source_projects')!=101 or lock.get('selected_part_count')!=85 or len(inputs['projects'])!=101 or lock.get('source_bytes')!=inputs.get('source_bytes'):
+        raise ValueError('genuine reviewed 101/85 intermediate required; full375 not admitted')
+    if lock.get('gn_inputs_sha256')!='bc5b4da2894494c066978098d9e811cb208fca87588c1e73c0dea4f45e4d4e06':
+        raise ValueError('reviewed measured cohort GN identity differs')
+    proof_row=lock.get('cohort_proof',{})
+    if proof_row!={'path':'inputs/RELATIONAL_PROVIDER_COHORT_PROOF.a1.json','sha256':'8f92eec4f3e22a3afa1a91d3c08a555dc04b9bf7507f69f063eec09e03c5af9e'}:
+        raise ValueError('reviewed production cohort proof identity missing')
     actual={p['path']:p for p in inputs['projects']}
     if {x['path'] for x in lock['projects']}!=set(actual):raise ValueError('public source project coverage differs')
     for p in lock['projects']:
@@ -125,11 +130,49 @@ def validate_lock(lock,inputs):
         raise ValueError('offline wheel coverage differs')
     for item in lock['tools']+lock['wheels']:public_url(item['url'])
 
+
+def validate_cohort_proof(lock,inputs,thin):
+    if sha(thin/'GN_INPUTS.json')!=lock['gn_inputs_sha256']:raise ValueError('reviewed measured GN inventory bytes differ')
+    row=lock['cohort_proof'];path=thin/safe(row['path'])
+    if sha(path)!=row['sha256']:raise ValueError('reviewed measured cohort proof bytes differ')
+    proof=json.loads(path.read_text())
+    if proof.get('schema')!='remeizu.public-native-cohort-successor.v1' or proof.get('parent_gn_inputs_sha256')!='6e222d71be39e5ae6282ae6abca56d86be3aa0ac8af99f9f22a9428f71f53e6a' or proof.get('parent_public_lock_sha256')!='b1155bfed25503b75b6ea9bf19e92601c94b064ae8e16bbc3e1ba1759f1a3e36':
+        raise ValueError('reviewed cohort original parent binding differs')
+    baseline=proof['baseline_selected_parts'];actual=proof['actual_selected_parts']
+    if len(baseline)!=72 or len(actual)!=lock['selected_part_count'] or any(actual.get(k)!=v for k,v in baseline.items()):
+        raise ValueError('reviewed original parts/features/syscaps were not retained')
+    if not proof.get('all_parent_source_rows_retained_unchanged') or not proof.get('all_parent_project_rows_retained_unchanged') or proof.get('full375_phone') or proof.get('runtime'):
+        raise ValueError('reviewed cohort preservation boundary differs')
+    for key,expected in [('baseline_source_files_sha256','01905ce5a7abac83939231a00251fc731428438055e7bcaf393a2ac04c3acd54'),('baseline_tools_sha256','433cc8f1fa9b567bfe4367c18bc184b22c720d90f56ada12732f7d40abb9aecf'),('baseline_python_wheels_sha256','f8fffec8e9bae98bc13784d72c9e7a43670c8451eaf7b480b923c7aa503a243c')]:
+        if proof.get(key)!=expected:raise ValueError('reviewed original source/SDK/wheels identity differs')
+    canonical=lambda value:hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    if canonical(inputs['tools'])!=proof['baseline_tools_sha256'] or canonical(inputs['python_wheels'])!=proof['baseline_python_wheels_sha256']:
+        raise ValueError('actual original SDK/wheel members changed')
+    old_paths=[p['path'] for p in proof['baseline_source_projects']]
+    old_rows={r['path']:r for r in inputs['source_files'] if r['path']=='.gn' or any(r['path'].startswith(p+'/') for p in old_paths)}
+    if canonical(old_rows)!=proof['baseline_source_files_sha256']:raise ValueError('actual original source bytes/modes/links changed')
+    project_map={p['path']:(p['head'],p['git_tree']) for p in inputs['projects']}
+    for p in proof['baseline_source_projects']+proof['added_projects']:
+        if project_map.get(p['path'])!=(p['head'],p['git_tree']):raise ValueError('reviewed production project identity differs')
+    if len(proof['baseline_source_projects'])+len(proof['added_projects'])!=len(project_map) or proof['source_bytes']!=inputs['source_bytes'] or proof['source_file_count']!=len(inputs['source_files']):
+        raise ValueError('reviewed measured production source inventory differs')
+    for key in ('baseline_selector','final_selector'):
+        r=proof[key]
+        if sha(thin/safe(r['path']))!=r['sha256']:raise ValueError('reviewed production selector bytes differ')
+    source_map={r['path']:r for r in inputs['source_files']}
+    for r in proof['inherit_inputs']:
+        if source_map.get(r['path'],{}).get('sha256')!=r['sha256']:raise ValueError('reviewed inherited selection source differs')
+    final=[r for r in inputs['overlay_files'] if r['target']=='vendor/oniro/m5c/config.json'][-1]
+    if final['path']!=proof['final_selector']['path'] or final['sha256']!=proof['final_selector']['sha256']:
+        raise ValueError('reviewed actual final selector overlay differs')
+    return proof
+
 def acquire(lock,thin,dest):
     if dest.exists():raise ValueError('fresh public source acquisition root required')
     inputs=json.loads((thin/'GN_INPUTS.json').read_text())
     if sha(thin/'GN_INPUTS.json')!=lock['gn_inputs_sha256']:raise ValueError('public GN inventory hash differs')
     validate_lock(lock,inputs)
+    validate_cohort_proof(lock,inputs,thin)
     floor=lock['expanded_bytes']+sum(x['archive_bytes'] for x in lock['tools'])+2*inputs['source_bytes']+3*1024**3
     if shutil.disk_usage(dest.parent).free<floor:raise ValueError('actual disk cannot retain verified source/tools/downloads/Docker headroom')
     dest.mkdir(); original=dest/'original';shutil.copytree(thin,original)
@@ -192,7 +235,7 @@ def acquire(lock,thin,dest):
     print('PUBLIC_NATIVE_ALL_SOURCE_TOOL_WHEEL_INVENTORY_PASS',flush=True)
     (dest/'PUBLIC_ACQUISITION.json').write_text(json.dumps({'schema':'remeizu.free-hosted-public-acquisition.v1','projects':proofs,
         'declared_lfs_materialization':lfs_materialization,
-        'source_projects':88,'selected_part_count':72,'all_source_tool_wheel_inventory_pass':True,
+        'source_projects':len(inputs['projects']),'selected_part_count':lock['selected_part_count'],'all_source_tool_wheel_inventory_pass':True,
         'gn_inputs_sha256':sha(thin/'GN_INPUTS.json'),'private_android_inputs':False,'full375_phone':False,'runtime':False},indent=2)+'\n')
     return original
 

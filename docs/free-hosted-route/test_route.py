@@ -11,7 +11,7 @@ import unittest
 sys.dont_write_bytecode=True
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
-from acquire import public_url, validate_lock, extract_tool,verify
+from acquire import public_url, validate_lock, extract_tool,verify,validate_cohort_proof
 from make_j2_successor import transformed_worker
 from resource import GIB, admit_values
 from retain_release import actual_policy,cipher_upper_bound,complete_snapshot
@@ -47,6 +47,24 @@ class ResourceControls(unittest.TestCase):
             admit_values({'cpu_affinity':4,'cpu_quota':2,'available_bytes':13*GIB,'tmpfs_free_bytes':10*GIB},'prepare',5*GIB,349008915)
 
 class PublicInputControls(unittest.TestCase):
+    def test_actual_reviewed_production_cohort_preserves_original_members_and_features(self):
+        import json
+        lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
+        validate_lock(lock,gni);proof=validate_cohort_proof(lock,gni,HERE/'controller')
+        self.assertEqual(len(proof['actual_selected_parts']),85)
+        self.assertTrue(all(proof['actual_selected_parts'][k]==v for k,v in proof['baseline_selected_parts'].items()))
+    def test_unreviewed_production_proof_or_counts_refused(self):
+        import json,copy
+        lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
+        for mutated in (dict(lock,selected_part_count=84),dict(lock,cohort_proof={}),dict(lock,gn_inputs_sha256='0'*64)):
+            with self.assertRaises(ValueError):validate_lock(mutated,gni)
+    def test_changed_original_sdk_or_source_row_refused(self):
+        import json,copy
+        lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
+        bad=copy.deepcopy(gni);bad['tools'][0]['members'][0]['sha256']='0'*64
+        with self.assertRaisesRegex(ValueError,'SDK/wheel'):validate_cohort_proof(lock,bad,HERE/'controller')
+        bad=copy.deepcopy(gni);bad['source_files'][0]['sha256']='0'*64
+        with self.assertRaisesRegex(ValueError,'source bytes/modes/links'):validate_cohort_proof(lock,bad,HERE/'controller')
     def test_lfs_timeout_kills_owned_descendant_holding_stdout_pipe(self):
         import os,time,subprocess
         code="import os,time,signal; p=os.fork(); signal.signal(signal.SIGTERM,signal.SIG_IGN); time.sleep(30)"
@@ -132,7 +150,7 @@ class PublicInputControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'source-only public acquisition'):
             validate_lock({'schema':'fake','public_sources_only':False},{})
     def test_exact_intermediate_count_required(self):
-        with self.assertRaisesRegex(ValueError,'88/72'):
+        with self.assertRaisesRegex(ValueError,'101/85'):
             validate_lock({'schema':'remeizu.free-hosted-native-public-inputs.v1','public_sources_only':True,'private_android_inputs':False,'source_projects':87,'selected_part_count':71},{'projects':[]})
     def test_actual_public_88_72_lock_matches_exact_gn_inventory(self):
         import json
