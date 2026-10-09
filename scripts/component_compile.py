@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
-from component_manifest import require, sha, validate
+from component_manifest import validate_config_seed, require, sha, validate
 
 
 def elf(path, linked=False):
@@ -46,7 +46,7 @@ def main():
     seed = source / 'kernel' / m['config_file']
     if m.get('config_seed'):
         seed = source / '.forge/config-seed.config'
-        require(sha(seed) == m['config_seed']['sha256'], 'changed config seed')
+        validate_config_seed(m, seed.read_bytes())
     shutil.copyfile(seed, out / '.config')
     base = ['make', '-C', str(source / 'kernel'), 'O=' + str(out), 'ARCH=arm64',
             'MTK_PLATFORM=' + m.get('kbuild_platform', m['platform']), 'V=0',

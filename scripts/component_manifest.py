@@ -80,15 +80,32 @@ def validate(m):
     if m.get('config_seed'):
         require(m['device'] == 'u10' and m['jobs'] == 2, 'config seed is U10-only')
         relative(m['config_seed']['file']); digest(m['config_seed']['sha256'])
-        require(m['config_seed']['file'] == 'recipes/u10-devapc-selected.config'
-                and m['config_seed']['sha256'] == m['expected_config_sha256']
-                and m['config_seed']['sha256'] == '06e84cb1b7540e8e715a25b472b0ae4f33a72d434fe8034de1ec6b6ba769cf4e', 'unreviewed U10 config seed')
+        reviewed_seeds = {
+            'recipes/u10-devapc-selected.config': '06e84cb1b7540e8e715a25b472b0ae4f33a72d434fe8034de1ec6b6ba769cf4e',
+            'recipes/u10-upright-selected.config': '930341e6f7558b4f2d05a903b82f14309295e363f26e80a9c2ee0b57c3eec854',
+        }
+        require(reviewed_seeds.get(m['config_seed']['file']) == m['config_seed']['sha256']
+                == m['expected_config_sha256'], 'unreviewed U10 config seed')
     if m.get('required_symbol_table'):
         require(m['device'] == 'u10' and m['required_symbol_table'] == {'symbol': 'devapc_devices', 'bytes': 157 * 16}
                 and 'drivers/misc/mediatek/devapc/mt6755/devapc.o' in m['required_objects'], 'unreviewed compiled table requirement')
     for field in ('retain_raw_image', 'require_baseline_dtb'):
         require(type(m.get(field, False)) is bool, 'nonboolean output requirement')
     return m
+
+
+def validate_config_seed(m, data):
+    validate(m)
+    require(isinstance(data, bytes) and hashlib.sha256(data).hexdigest() == m['config_seed']['sha256'],
+            'changed reviewed config seed')
+    rows = data.decode().splitlines()
+    required = ['CONFIG_MTK_CCCI_LEGACY_PORT_ABI5=y', 'CONFIG_MEIZU_U10_DEVAPC_STOCK_LAYOUT=y',
+                'CONFIG_MTK_DEVAPC_DRIVER=y', 'CONFIG_MTK_LCM_PHYSICAL_ROTATION="0"', 'CONFIG_MTK_FB=y']
+    rotation = ('# CONFIG_MTK_LCM_PHYSICAL_ROTATION_HW is not set'
+                if m['config_seed']['file'] == 'recipes/u10-upright-selected.config'
+                else 'CONFIG_MTK_LCM_PHYSICAL_ROTATION_HW=y')
+    require(all(rows.count(row) == 1 for row in required + [rotation]), 'U10 board configuration differs')
+    return data
 
 
 def artifacts(m):

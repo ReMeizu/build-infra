@@ -8,7 +8,7 @@ import re
 import shutil
 import subprocess
 import sys
-from component_manifest import artifacts, require, sha, validate
+from component_manifest import validate_config_seed, artifacts, require, sha, validate
 from component_forge import forge
 from component_public import check_public_source
 from kernel_run import extract, fetch, output, run, verify_receipt
@@ -81,7 +81,7 @@ def main():
         shutil.copyfile(profile, tooling / 'profile.json')
         if m.get('config_seed'):
             seed = HERE / m['config_seed']['file']
-            require(sha(seed) == m['config_seed']['sha256'], 'changed reviewed config seed')
+            validate_config_seed(m, seed.read_bytes())
             shutil.copyfile(seed, tooling / 'config-seed.config')
         run(['git', 'init', '-q', source]); run(['git', '-C', source, 'add', '.forge'])
         run(['git', '-C', source, '-c', 'user.name=ReMeizu', '-c', 'user.email=build@remeizu.invalid',
