@@ -12,7 +12,10 @@ _original_argv = forge.build_docker_argv
 def bounded_argv(recipe, output_dir, container_name):
     argv = _original_argv(recipe, output_dir, container_name)
     if recipe.build_env_key == 'component-kernel-gcc49':
-        argv[2:2] = ['--cpus=4', '--memory=5g', '--memory-swap=6g', '--pids-limit=1024']
+        jobs = recipe.env.get('FORGE_KERNEL_JOBS')
+        if jobs not in {'1', '2', '3', '4'}:
+            raise ValueError('invalid component CPU bound')
+        argv[2:2] = ['--cpus=' + jobs, '--memory=5g', '--memory-swap=6g', '--pids-limit=1024']
     return argv
 
 

@@ -84,7 +84,7 @@ class ComponentAdmissionTest(unittest.TestCase):
         recipe = forge.recipe_from_dict({'image_tag': 'androidforge/build-component:component-kernel-gcc49',
             'image_id': 'sha256:' + 'a' * 64, 'build_env_key': 'component-kernel-gcc49',
             'source_mount_path': '/mnt/forge/source', 'output_dir_in_container': '/workspace/out',
-            'command': ['python3', '/workspace/src/.forge/component_compile.py'], 'env': {},
+            'command': ['python3', '/workspace/src/.forge/component_compile.py'], 'env': {'FORGE_KERNEL_JOBS': '4'},
             'idempotency_key': 'fixture', 'timeout_seconds': 3840, 'execution_profile': 'cloud-mounted',
             'scratch_mount_path': '/mnt/forge', 'container_user': '1001:1001',
             'required_artifacts': ['vmlinux', 'kernel-proof.json']})

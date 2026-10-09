@@ -22,6 +22,13 @@ def publish_file(src, dst):
         shutil.copyfileobj(r, w)
 
 
+def verify_symbol_table(symbols, table):
+    rows = [line.split() for line in symbols.splitlines() if line.split()[-1:] == [table['symbol']]]
+    require(len(rows) == 1 and len(rows[0]) == 4 and rows[0][2] in {'d', 'D', 'r', 'R'}
+            and int(rows[0][1], 16) == table['bytes'], 'compiled DEVAPC table differs')
+    return {'symbol_row': rows[0], 'bytes': table['bytes'], 'count': 157, 'runtime_verified': False}
+
+
 def main():
     source, out, publish = Path('/workspace/src'), Path('/workspace/scratch/out'), Path('/workspace/out')
     require(Path('/.dockerenv').exists() and Path(__file__).resolve() == source / '.forge/component_compile.py', 'Forge container only')
@@ -36,7 +43,11 @@ def main():
     version = '.'.join(re.search(r'^' + key + r'\s*=\s*(\d+)\s*$', makefile, re.M)[1]
                        for key in ('VERSION', 'PATCHLEVEL'))
     require(version == m['kernel_version'], 'kernel version differs from compiler contract')
-    shutil.copyfile(source / 'kernel' / m['config_file'], out / '.config')
+    seed = source / 'kernel' / m['config_file']
+    if m.get('config_seed'):
+        seed = source / '.forge/config-seed.config'
+        require(sha(seed) == m['config_seed']['sha256'], 'changed config seed')
+    shutil.copyfile(seed, out / '.config')
     base = ['make', '-C', str(source / 'kernel'), 'O=' + str(out), 'ARCH=arm64',
             'MTK_PLATFORM=' + m.get('kbuild_platform', m['platform']), 'V=0',
             'TARGET_BUILD_VARIANT=' + m['build_variant'], 'HOSTCFLAGS=-fcommon',
@@ -70,16 +81,29 @@ def main():
     paths = ['arch/arm64/boot/Image.gz-dtb', 'arch/arm64/boot/Image.gz', m['dtb_file'], 'vmlinux', 'System.map']
     for name in paths:
         publish_file(out / name, publish / name)
+    if m.get('retain_raw_image'):
+        name = 'arch/arm64/boot/Image'
+        publish_file(out / name, publish / name)
+        paths.append(name)
     image, compressed, dtb = [(out / p).read_bytes() for p in paths[:3]]
     require(compressed[:2] == b'\x1f\x8b' and dtb[:4] == b'\xd0\x0d\xfe\xed'
             and int.from_bytes(dtb[4:8], 'big') == len(dtb) and image == compressed + dtb,
             'kernel image is not gzip plus the selected compiled board DTB')
+    if m.get('require_baseline_dtb'):
+        require(sha(out / m['dtb_file']) == m['baseline_dtb_sha256'], 'compiled own DTB differs')
+    table_proof = None
+    if m.get('required_symbol_table'):
+        table = m['required_symbol_table']
+        symbols = subprocess.check_output([str(source / 'toolchain/bin/aarch64-linux-android-nm'), '-S', str(out / 'vmlinux')], text=True)
+        table_proof = verify_symbol_table(symbols, table)
+        (publish / 'compiled-devapc-table.json').write_text(json.dumps(table_proof, indent=2) + '\n')
     proof = {'device': m['device'], 'platform': m['platform'], 'source': m['source'],
              'toolchain': m['toolchain'], 'commands': commands,
              'full_kernel_linked': True, 'image_dtb_concatenation_verified': True,
              'config_sha256': sha(out / '.config'), 'dtb_sha256': sha(out / m['dtb_file']),
              'dtb_identical_to_baseline': sha(out / m['dtb_file']) == m['baseline_dtb_sha256'],
              'artifact_hashes': {p: sha(out / p) for p in paths + m['required_objects']},
+             'compiled_symbol_table': table_proof,
              'boot_image_created': False, 'flash_ready': False, 'runtime_verified': False}
     (publish / 'kernel-proof.json').write_text(json.dumps(proof, indent=2) + '\n')
     (publish / 'tool-versions.txt').write_text(subprocess.check_output(['dpkg-query', '-W'], text=True))

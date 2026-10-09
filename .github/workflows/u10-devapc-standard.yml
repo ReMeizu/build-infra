@@ -1,0 +1,41 @@
+name: U10 kernel on standard runner
+run-name: U10 DEVAPC kernel by @${{ github.actor }}
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: u10-devapc-kernel
+  cancel-in-progress: false
+jobs:
+  kernel:
+    if: ${{ github.run_attempt == 1 && github.event.repository.private == false }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Provision fresh ephemeral kernel scratch
+        run: |
+          mkdir -p evidence
+          sudo -n python3 -B scripts/provision_scratch.py --runner-temp "$RUNNER_TEMP" --run-id "$GITHUB_RUN_ID" --size-gib 12 --headroom-gib 2 > evidence/scratch.json
+      - name: Build the pinned U10 kernel through Forge
+        run: sudo -n timeout --signal=INT --kill-after=90s 80m env -u PYTHONOPTIMIZE python3 -B scripts/component_run.py --profile u10-devapc-native --scratch-mount /mnt/forge --receipt-dir "$RUNNER_TEMP/u10-devapc-receipts"
+      - name: Make this job's receipts readable
+        if: ${{ always() }}
+        run: |
+          if [ -d "$RUNNER_TEMP/u10-devapc-receipts" ]; then
+            sudo -n chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/u10-devapc-receipts"
+          fi
+      - name: Retain kernel outputs and first failure evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: u10-devapc-kernel-${{ github.run_id }}
+          path: |
+            evidence/
+            ${{ runner.temp }}/u10-devapc-receipts/
+          retention-days: 1
+          if-no-files-found: warn
+          include-hidden-files: true

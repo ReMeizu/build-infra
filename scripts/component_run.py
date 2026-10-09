@@ -79,6 +79,10 @@ def main():
         for name in ('component_manifest.py', 'component_compile.py'):
             shutil.copyfile(HERE / 'scripts' / name, tooling / name)
         shutil.copyfile(profile, tooling / 'profile.json')
+        if m.get('config_seed'):
+            seed = HERE / m['config_seed']['file']
+            require(sha(seed) == m['config_seed']['sha256'], 'changed reviewed config seed')
+            shutil.copyfile(seed, tooling / 'config-seed.config')
         run(['git', 'init', '-q', source]); run(['git', '-C', source, 'add', '.forge'])
         run(['git', '-C', source, '-c', 'user.name=ReMeizu', '-c', 'user.email=build@remeizu.invalid',
              'commit', '-qm', 'Pin public board kernel build inputs'])

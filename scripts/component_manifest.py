@@ -77,11 +77,23 @@ def validate(m):
     for obj in objects:
         relative(obj); require(obj.endswith('.o'), 'not a Kbuild object')
     require(m['build_variant'] == 'userdebug', 'initial public component variant is userdebug')
+    if m.get('config_seed'):
+        require(m['device'] == 'u10' and m['jobs'] == 2, 'config seed is U10-only')
+        relative(m['config_seed']['file']); digest(m['config_seed']['sha256'])
+        require(m['config_seed']['file'] == 'recipes/u10-devapc-selected.config'
+                and m['config_seed']['sha256'] == m['expected_config_sha256']
+                and m['config_seed']['sha256'] == '06e84cb1b7540e8e715a25b472b0ae4f33a72d434fe8034de1ec6b6ba769cf4e', 'unreviewed U10 config seed')
+    if m.get('required_symbol_table'):
+        require(m['device'] == 'u10' and m['required_symbol_table'] == {'symbol': 'devapc_devices', 'bytes': 157 * 16}
+                and 'drivers/misc/mediatek/devapc/mt6755/devapc.o' in m['required_objects'], 'unreviewed compiled table requirement')
+    for field in ('retain_raw_image', 'require_baseline_dtb'):
+        require(type(m.get(field, False)) is bool, 'nonboolean output requirement')
     return m
 
 
 def artifacts(m):
-    return ['arch/arm64/boot/Image.gz-dtb', 'arch/arm64/boot/Image.gz', m['dtb_file'],
+    extra = (['arch/arm64/boot/Image'] if m.get('retain_raw_image') else []) + (['compiled-devapc-table.json'] if m.get('required_symbol_table') else [])
+    return extra + ['arch/arm64/boot/Image.gz-dtb', 'arch/arm64/boot/Image.gz', m['dtb_file'],
             'vmlinux', 'System.map', 'kernel.config', 'kernel-build.log', 'kernel-proof.json',
             'tool-versions.txt'] + ['objects/' + p for obj in m['required_objects']
                                   for p in (obj, str(PurePosixPath(obj).with_name('.' + PurePosixPath(obj).name + '.cmd')))]
