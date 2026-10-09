@@ -11,8 +11,9 @@ import sys
 import threading
 from acquire import sha
 from encrypted_native_retention import seal, MAX_ASSET
-from free_native_run import HERE, ROOT, RECIPIENT, PUBLIC_KEY_SHA, RETENTION_HELPER_SHA, checked_public_job,consume_native_result
+from free_native_run import HERE, ROOT, RECIPIENT, PUBLIC_KEY_SHA, RETENTION_HELPER_SHA, APPROVED_LOCK_SHA, checked_public_job,consume_native_result
 from finish_attempt import closed_containers,verify_inputs,atomic_json
+from setup_commands import HEALTH_CODE
 from make_j2_successor import FORGE_SHA
 import importlib.util
 
@@ -21,6 +22,88 @@ EVIDENCE=('SUCCESS','artifacts.json','FAILURE','run.log','GN_RESULT.json','GN_FA
           'native-gn.log','native-runtime-build.log','native-images-build.log','native-python-install.log',
           'NATIVE_HOST_RUNTIME.json','NATIVE_RUST_LAYOUT.json','FREE_HOSTED_RESOURCE.prepare.json',
           'FREE_HOSTED_RESOURCE.libraries.json','FREE_HOSTED_RESOURCE.images.json')
+SETUP_PHASES=('docker-build','image-inspect','image-health','image-inspect-prelaunch')
+
+def setup_commands(job,record,lock_sha):
+    """Admit completed setup client evidence without constructing Forge identity."""
+    if not (record.get('retention_scope')=='SETUP_FAILED' and record.get('status')=='SETUP_FAILED' and
+            record.get('public_input_acquisition_verified') is True and record.get('retention_preflight_verified') is True and
+            record.get('setup_commands_termination_verified') is True and record.get('actual_forge_submitted') is False and
+            record.get('native_compile_executed') is False and record.get('native_four_images') is False and
+            record.get('private_android_inputs') is False and record.get('full375_phone') is False and record.get('runtime') is False and
+            record.get('source_lock_sha256')==lock_sha):
+        raise ValueError('actual source-admitted terminated SETUP_FAILED scope required')
+    root=job/'ram/setup-diagnostics';manifest=root/'SETUP_COMMANDS.json'
+    if root.is_symlink() or not root.is_dir() or manifest.is_symlink() or not manifest.is_file() or manifest.stat().st_size>65536:
+        raise ValueError('owned bounded setup command manifest required')
+    if sha(manifest)!=record.get('setup_diagnostics_sha256'):raise ValueError('setup command manifest identity drift')
+    data=json.loads(manifest.read_text())
+    if data.get('schema')!='remeizu.free-native-setup-commands.v1' or data.get('run_id')!=record.get('run_id') or data.get('source_lock_sha256')!=lock_sha:
+        raise ValueError('actual setup command run/source binding differs')
+    rows=data.get('commands',[]);files=[{'path':'SETUP_COMMANDS.json','kind':'public-producer-evidence','bytes':manifest.stat().st_size,'sha256':sha(manifest)}]
+    if not 1<=len(rows)<=len(SETUP_PHASES):raise ValueError('bounded actual setup commands required')
+    phases=[];failed=[]
+    tag='androidforge/build-free-native-'+record['run_id']+':android-9'
+    context=job/'public-inputs/original/official-build-env'
+    for row in rows:
+        phase=row.get('phase');argv=row.get('argv')
+        if phase not in SETUP_PHASES or phase in phases or not isinstance(argv,list) or not all(isinstance(a,str) for a in argv):
+            raise ValueError('unknown or duplicate setup phase/argv rejected')
+        if row.get('started') is not True or row.get('completed') is not True or row.get('owned_child_reaped') is not True or type(row.get('exit_code')) is not int:
+            raise ValueError('actual completed reaped setup client required')
+        if row.get('argv_sha256')!=hashlib.sha256(json.dumps(argv,separators=(',',':')).encode()).hexdigest():
+            raise ValueError('setup actual command binding differs')
+        if phase=='docker-build':
+            expected=['docker','build','-f',str(context/'Dockerfile'),'-t',tag,str(context)]
+            if argv!=expected:raise ValueError('setup Docker build must use owned public source context')
+        elif phase in ('image-inspect','image-inspect-prelaunch'):
+            if argv!=['docker','image','inspect',tag,'--format','{{.Id}}']:raise ValueError('setup image inspect scope differs')
+        elif (len(argv)!=12 or argv[:5]!=['docker','run','--rm','--network=none','--user'] or
+              argv[5]!=str(os.getuid())+':'+str(os.getgid()) or argv[6]!='--mount' or
+              argv[7]!='type=bind,src='+str(job/'ram')+',dst=/workspace/out' or
+              not re.fullmatch('sha256:[a-f0-9]{64}',argv[8]) or argv[9:11]!=['python3','-c'] or argv[11]!=HEALTH_CODE):
+            raise ValueError('setup health command scope differs')
+        phases.append(phase)
+        if type(row.get('timed_out',False)) is not bool:raise ValueError('actual setup timeout status required')
+        if type(row.get('interrupted_signal',0)) is not int or row.get('interrupted_signal',0) not in (0,2,15):
+            raise ValueError('actual setup signal status required')
+        if row['exit_code']!=0 or row.get('timed_out') is True or row.get('interrupted_signal',0):failed.append(phase)
+        for stream in ('stdout','stderr'):
+            witness=row.get(stream,{})
+            name=phase+'.'+stream
+            if witness.get('path')!=name:raise ValueError('unlisted setup evidence path rejected')
+            path=root/name
+            if path.is_symlink() or any(p.is_symlink() for p in path.parents) or not path.is_file() or path.stat().st_size!=witness.get('bytes') or sha(path)!=witness.get('sha256'):
+                raise ValueError('actual setup log identity differs')
+            files.append({'path':name,'kind':'public-producer-evidence','bytes':path.stat().st_size,'sha256':sha(path)})
+    if phases!=list(SETUP_PHASES[:len(phases)]) or failed!=[record.get('setup_failure_phase')] or failed[-1]!=phases[-1]:
+        raise ValueError('actual failed setup phase/order differs')
+    if type(record.get('setup_exit_code')) is not int or record['setup_exit_code']!=rows[-1]['exit_code']:
+        raise ValueError('actual setup failure exit binding differs')
+    return root,files
+
+def setup_policy(job,record,lock_sha,lock):
+    root,files=setup_commands(job,record,lock_sha)
+    after=job/'ram/PUBLIC_INPUTS_AFTER.json'
+    if (record.get('all_public_source_tool_wheel_before_after_verified') is not True or after.is_symlink() or
+            not after.is_file() or after.stat().st_size>65536 or sha(after)!=record.get('independent_after_witness_sha256')):
+        raise ValueError('actual setup source after-witness required')
+    proof=json.loads(after.read_text())
+    if proof.get('all_source_tool_wheel_inventory_pass') is not True or proof.get('gn_inputs_sha256')!=lock['gn_inputs_sha256']:
+        raise ValueError('setup readonly input after-witness differs from reviewed inventory')
+    for name in ('SETUP_FAILED_SOURCE_AFTER.json',):
+        body={'schema':'remeizu.source-admitted-setup-failure-retention.v1','run_id':record['run_id'],
+              'source_lock_sha256':lock_sha,'independent_after_witness_sha256':sha(after),
+              'setup_commands_manifest_sha256':record['setup_diagnostics_sha256'],'setup_failure_phase':record['setup_failure_phase'],
+              'actual_forge_submitted':False,'native_compile_executed':False,'native_four_images':False,
+              'forge_identity_fabricated':False,'runtime':False,'full375_phone':False}
+        path=root/name
+        if path.exists():
+            if path.is_symlink() or json.loads(path.read_text())!=body:raise ValueError('original setup retention witness differs')
+        else:atomic_json(path,body)
+        files.append({'path':name,'kind':'public-producer-evidence','bytes':path.stat().st_size,'sha256':sha(path)})
+    return root,{'schema':'remeizu.public-native-output-policy.v1','plaintext_scope':'public-source-native-build-only',
+        'private_inputs_admitted':False,'source_lock_sha256':lock_sha,'retention_scope':'SETUP_FAILED','outputs':files}
 
 def command(argv,**kwargs):
     return subprocess.run(argv,check=True,capture_output=True,timeout=kwargs.pop('timeout',120),**kwargs)
@@ -78,6 +161,14 @@ def cipher_upper_bound(policy):
     return tar_bytes+(tar_bytes+49)//50+16*1024**2
 
 def recover_after_witness(job,record,lock):
+    if record.get('retention_scope')=='SETUP_FAILED':
+        setup_commands(job,record,sha(HERE/'public_inputs.lock.json'))
+        if record.get('all_public_source_tool_wheel_before_after_verified') is True:return record
+        after=verify_inputs(job/'public-inputs/original',lock['gn_inputs_sha256'],job/'ram',timeout=300)
+        recovered=dict(record,all_public_source_tool_wheel_before_after_verified=after['all_source_tool_wheel_inventory_pass'],
+            independent_after_witness_sha256=sha(job/'ram/PUBLIC_INPUTS_AFTER.json'),recovered_setup_after_witness=True)
+        atomic_json(job/'RETENTION_SETUP_ADMISSION.json',recovered)
+        return recovered
     if record.get('compiler_termination_verified') and record.get('all_public_source_tool_wheel_before_after_verified'):
         return record
     if not record.get('actual_forge_submitted') or not record.get('public_input_acquisition_verified') or record.get('source_lock_sha256')!=sha(HERE/'public_inputs.lock.json'):
@@ -164,11 +255,13 @@ def main():
     run=os.environ['GITHUB_RUN_ID'];job=Path(os.environ['RUNNER_TEMP'])/('native-public-'+run)
     candidates=[job/name for name in ('PUBLIC_RESULT.json','ATTEMPT_BEFORE_FINALIZATION.json','INFLIGHT_PUBLIC_RESULT.json')]
     source_lock=HERE/'public_inputs.lock.json';lock_sha=sha(source_lock)
+    if lock_sha!=APPROVED_LOCK_SHA:raise ValueError('exact reviewed production source lock differs before retention')
     original_record,record=complete_snapshot(candidates,run,lock_sha)
     original_record_sha=sha(original_record)
     record=recover_after_witness(job,record,json.loads(source_lock.read_text()))
     if sha(original_record)!=original_record_sha:raise ValueError('original failed attempt record changed during retention recovery')
-    root,policy=actual_policy(job,record,lock_sha)
+    lock=json.loads(source_lock.read_text())
+    root,policy=(setup_policy(job,record,lock_sha,lock) if record.get('retention_scope')=='SETUP_FAILED' else actual_policy(job,record,lock_sha))
     output=job/'ram/ciphertext';output.mkdir()
     bound=cipher_upper_bound(policy)
     if shutil.disk_usage(output).free<bound:raise ValueError('actual RAM cannot retain worst-case complete ciphertext; no upload attempted')
@@ -178,6 +271,9 @@ def main():
     manifest=seal(root,policy_file,sha(policy_file),HERE/'native-retention-recipient.public.asc',RECIPIENT,output,512*1024**2)
     env=dict(os.environ,GH_HOST='github.com')
     receipt=publish_cipher(output,manifest,'native-public-'+run,env)
+    receipt['retention_scope']=record.get('retention_scope','NATIVE_FORGE')
+    if receipt['retention_scope']=='SETUP_FAILED':
+        receipt.update(actual_forge_submitted=False,native_compile_executed=False,native_four_images=False,forge_identity_fabricated=False)
     atomic_json(job/'RELEASE_RETENTION.json',receipt)
     print(json.dumps(receipt,sort_keys=True),flush=True)
     return 0

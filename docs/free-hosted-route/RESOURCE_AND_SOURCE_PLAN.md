@@ -17,7 +17,9 @@ reserve. The worker's frozen deadline never exceeds that remaining window.
 FACT: free compute does not imply unlimited free Actions artifact storage.
 No Actions artifact or cache upload occurs here. Output is GPG ciphertext in a
 unique per-run GitHub prerelease, created only after actual public-source
-admission, compiler termination, input after-witness and encryption completion.
+admission, input after-witness and encryption completion. Forge output requires
+actual compiler termination. The separate SETUP_FAILED scope retains only actual
+terminated Docker setup-command evidence and never claims Forge execution.
 Each asset stays below 2 GiB. The upload step alone receives the built-in token;
 compilation never receives it, and no new secret is written. GitHub server digest
 and complete remote ciphertext size/SHA readback are mandatory; the local task

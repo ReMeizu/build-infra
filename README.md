@@ -52,8 +52,8 @@ compilation and encrypted Release retention. It has no Blacksmith reservation.
 
 This is an intermediate build. The full 375-component GUI phone profile,
 complete flashable image and hardware runtime remain unverified. Only explicit
-public native output is retained as ciphertext; private Android inputs are
-excluded. See the linked plan for actual source tests and acceptance gates.
+public native output and separately admitted setup-failure evidence are retained
+as ciphertext; private Android inputs are excluded. See the linked plan for actual source tests and acceptance gates.
 
 ## Budget limits
 

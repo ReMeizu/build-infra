@@ -18,6 +18,7 @@ from resource import GIB, RAM_BYTES, admit_values, snapshot
 from encrypted_native_retention import keyring
 from finish_attempt import run_owned,closed_containers,verify_inputs,atomic_json
 from diagnostics import diagnostic
+from setup_commands import execute as setup_command,SetupCommandError,HEALTH_CODE
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
@@ -77,7 +78,7 @@ def main():
             'started_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
             'source_lock_sha256':sha(args.lock),'full375_phone':False,'runtime':False,
             'private_android_inputs':False,'public_plaintext_outputs_uploaded':False,
-            'native_compile_executed':False,'native_four_images':False}
+            'native_compile_executed':False,'native_four_images':False,'actual_forge_submitted':False}
     original=forge=actual=None
     cancelled=[0]
     handlers={sig:signal.signal(sig,lambda value,_frame:cancelled.__setitem__(0,value)) for sig in (signal.SIGINT,signal.SIGTERM)}
@@ -105,12 +106,12 @@ def main():
         launcher=ROOT/'vendor/forge/forge_ephemeral_build.py'
         if sha(launcher)!=FORGE_SHA:raise ValueError('official Forge launcher bytes differ')
         tag='androidforge/build-free-native-'+run+':android-9'
-        command(['docker','build','-f',dockerfile,'-t',tag,dockerfile.parent],timeout=1800)
-        image=command(['docker','image','inspect',tag,'--format','{{.Id}}']).stdout.decode().strip()
+        setup_command('docker-build',['docker','build','-f',dockerfile,'-t',tag,dockerfile.parent],ram,record,timeout=1800,cancelled=cancelled)
+        image=setup_command('image-inspect',['docker','image','inspect',tag,'--format','{{.Id}}'],ram,record,cancelled=cancelled).stdout.decode().strip()
         if not image.startswith('sha256:') or len(image)!=71:raise ValueError('actual immutable image ID missing')
-        health=command(['docker','run','--rm','--network=none','--user',str(os.getuid())+':'+str(os.getgid()),
+        health=setup_command('image-health',['docker','run','--rm','--network=none','--user',str(os.getuid())+':'+str(os.getgid()),
             '--mount','type=bind,src='+str(ram)+',dst=/workspace/out',image,'python3','-c',
-            "import json,os,pathlib; p=pathlib.Path('/workspace/out/health');p.write_text('actual writable RAM');print(json.dumps({'uid':os.getuid(),'glibc':os.confstr('CS_GNU_LIBC_VERSION'),'writable_ram':p.read_text()=='actual writable RAM'}))"],timeout=60)
+            HEALTH_CODE],ram,record,timeout=60,cancelled=cancelled)
         h=json.loads(health.stdout)
         if h['uid']!=os.getuid() or not h['writable_ram']:raise ValueError('actual container non-root/writable output health failed')
         record.update(image_id=image,official_launcher_sha256=sha(launcher),dockerfile_sha256=sha(dockerfile),container_health=h)
@@ -134,7 +135,7 @@ def main():
         recipe_path=job/'recipe.json';recipe_path.write_text(json.dumps(recipe,indent=2)+'\n')
         record['recipe_hash']=model.recipe_hash()
         # Freeze and recheck the actual image immediately before compiler launch.
-        if command(['docker','image','inspect',tag,'--format','{{.Id}}']).stdout.decode().strip()!=image:
+        if setup_command('image-inspect-prelaunch',['docker','image','inspect',tag,'--format','{{.Id}}'],ram,record,cancelled=cancelled).stdout.decode().strip()!=image:
             raise ValueError('actual Docker image changed after freeze')
         actual=ram/'forge'/model.recipe_hash()
         def started_callback():
@@ -155,17 +156,21 @@ def main():
                       artifact_manifest_sha256=sha(actual/'artifacts.json'),verified_artifact_count=len(manifest))
     except (Exception,KeyboardInterrupt) as error:
         record.update(status='REFUSED_OR_FAILED_NATIVE_INTERMEDIATE',**diagnostic(error))
+        if isinstance(error,SetupCommandError):
+            record.update(status='SETUP_FAILED',error_code='DOCKER_SETUP_COMMAND_FAILED',setup_failure_phase=error.phase,
+                          setup_exit_code=error.exit_code,retention_scope='SETUP_FAILED')
         # Avoid dumping fetched stderr, arbitrary exception bodies or output paths.
     finally:
         atomic_json(job/'ATTEMPT_BEFORE_FINALIZATION.json',record)
-        if original is not None and forge is not None and actual is not None and record.get('actual_forge_submitted'):
+        if original is not None and record.get('public_input_acquisition_verified'):
             try:
-                closure=closed_containers(forge,actual,record['recipe_hash'])
-                record['compiler_termination_verified']=closure['all_owned_container_closure_pass']
+                if forge is not None and actual is not None and record.get('actual_forge_submitted'):
+                    closure=closed_containers(forge,actual,record['recipe_hash'])
+                    record['compiler_termination_verified']=closure['all_owned_container_closure_pass']
                 after=verify_inputs(original,lock['gn_inputs_sha256'],ram,timeout=300)
                 record['all_public_source_tool_wheel_before_after_verified']=after['all_source_tool_wheel_inventory_pass']
                 record['independent_after_witness_sha256']=sha(ram/'PUBLIC_INPUTS_AFTER.json')
-                consume_native_result(actual,record)
+                if actual is not None and record.get('actual_forge_submitted'):consume_native_result(actual,record)
             except Exception as error:
                 record.update(status='REFUSED_POST_ATTEMPT_WITNESS',post_witness_error_type=type(error).__name__)
         for sig,handler in handlers.items():signal.signal(sig,handler)
