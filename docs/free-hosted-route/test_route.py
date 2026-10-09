@@ -18,6 +18,7 @@ from retain_release import actual_policy,cipher_upper_bound,complete_snapshot
 from free_native_run import checked_public_job
 from finish_attempt import run_owned
 from diagnostics import diagnostic,PublicInputError
+from materialize_lfs import pointer_identity,declaration,smudge_process
 
 B6=HERE/'controller/native_gn_worker.py'
 
@@ -46,6 +47,29 @@ class ResourceControls(unittest.TestCase):
             admit_values({'cpu_affinity':4,'cpu_quota':2,'available_bytes':13*GIB,'tmpfs_free_bytes':10*GIB},'prepare',5*GIB,349008915)
 
 class PublicInputControls(unittest.TestCase):
+    def test_lfs_timeout_kills_owned_descendant_holding_stdout_pipe(self):
+        import os,time,subprocess
+        code="import os,time,signal; p=os.fork(); signal.signal(signal.SIGTERM,signal.SIG_IGN); time.sleep(30)"
+        start=time.monotonic()
+        with self.assertRaises(subprocess.TimeoutExpired):smudge_process([sys.executable,'-c',code],dict(os.environ),b'pointer control',timeout=0.2)
+        self.assertLess(time.monotonic()-start,3)
+    def test_declared_lfs_pointer_oid_or_size_tampering_refused(self):
+        import json
+        lock=json.loads((HERE/'public_inputs.lock.json').read_text())
+        row=next(p for p in lock['projects'] if p['path']=='third_party/icu')['lfs_objects'][0]
+        pointer=('version https://git-lfs.github.com/spec/v1\noid sha256:'+row['material_sha256']+'\nsize '+str(row['bytes'])+'\n').encode()
+        self.assertEqual(pointer_identity(pointer,row),(row['material_sha256'],row['bytes']))
+        for bad in (pointer.replace(b'size 9713',b'size 9714'),pointer.replace(row['material_sha256'].encode(),b'0'*64),pointer+b'extra\n'):
+            with self.assertRaisesRegex(PublicInputError,'pointer differs'):pointer_identity(bad,row)
+    def test_lfs_identity_missing_or_unbounded_capture_refused(self):
+        with self.assertRaises(PublicInputError):declaration({'path':'public/member','bytes':100})
+        with self.assertRaises(PublicInputError):declaration({'path':'public/member','bytes':9*1024**2,'material_sha256':'0'*64,'committed_pointer_sha256':'0'*64})
+    def test_lfs_other_mismatch_size_sha_are_safe_fixed_diagnostics(self):
+        error=PublicInputError('LFS_WORKING_MEMBER_MISMATCH','third_party/icu/public-member',129,'a'*64)
+        d=diagnostic(error)
+        self.assertEqual(d['public_member_actual_bytes'],129)
+        self.assertEqual(d['public_member_actual_sha256'],'a'*64)
+        self.assertNotIn('message',d)
     def test_source_mismatch_exposes_only_declared_canonical_member_and_fixed_code(self):
         root=Path(tempfile.mkdtemp(prefix='free-native-public-diagnostic-',dir='/dev/shm'))
         (root/'member.c').write_bytes(b'actual source control')

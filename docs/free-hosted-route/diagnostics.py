@@ -3,6 +3,12 @@ from pathlib import PurePosixPath
 import re
 
 SOURCE_MESSAGES={
+    'LFS_DECLARATION_MISMATCH':'declared public LFS identity missing',
+    'LFS_POINTER_MISMATCH':'committed public LFS pointer differs from exact declaration',
+    'LFS_GIT_IDENTITY_MISMATCH':'original public Git identity changed during LFS materialization',
+    'LFS_WORKING_MEMBER_MISMATCH':'working public LFS member is neither exact pointer nor exact material',
+    'LFS_MATERIAL_MISMATCH':'explicit public LFS material SHA/size differs',
+    'LFS_PARTIAL_EXISTS':'fresh owned public LFS partial destination required',
     'SOURCE_BYTES_MISMATCH':'public input byte mismatch',
     'SOURCE_SIZE_MISMATCH':'public input size mismatch',
     'SOURCE_MODE_MISMATCH':'public input mode mismatch',
@@ -46,11 +52,13 @@ def public_member(value):
     return value
 
 class PublicInputError(ValueError):
-    def __init__(self,code,member=None):
+    def __init__(self,code,member=None,actual_size=None,actual_sha256=None):
         if code not in SOURCE_MESSAGES:raise ValueError('unknown fixed public source diagnostic')
         super().__init__(SOURCE_MESSAGES[code])
         self.public_code=code
         self.public_member=public_member(member)
+        self.actual_size=actual_size if type(actual_size) is int and 0<=actual_size<=2**40 else None
+        self.actual_sha256=actual_sha256 if isinstance(actual_sha256,str) and re.fullmatch('[a-f0-9]{64}',actual_sha256) else None
 
 def diagnostic(error):
     known_types={'ValueError','PublicInputError','OSError','FileNotFoundError','PermissionError','FileExistsError',
@@ -61,13 +69,15 @@ def diagnostic(error):
     if isinstance(error,PublicInputError):
         result['error_code']=error.public_code
         if error.public_member is not None:result['declared_public_member']=error.public_member
+        if error.public_member is not None and error.actual_size is not None:result['public_member_actual_bytes']=error.actual_size
+        if error.public_member is not None and error.actual_sha256 is not None:result['public_member_actual_sha256']=error.actual_sha256
     elif type(error) is ValueError:
         result['error_code']=FIXED_VALUES.get(str(error),'UNCLASSIFIED_VALUE_ERROR')
     else:
         result['error_code']='UNCLASSIFIED_EXCEPTION'
     # Only bounded source-owned function/line identity; never traceback text.
     tb=error.__traceback__
-    allowed={'acquire.py','free_native_run.py','make_j2_successor.py','resource.py','finish_attempt.py','diagnostics.py'}
+    allowed={'acquire.py','free_native_run.py','make_j2_successor.py','resource.py','finish_attempt.py','diagnostics.py','materialize_lfs.py'}
     while tb:
         name=PurePosixPath(tb.tb_frame.f_code.co_filename).name
         function=tb.tb_frame.f_code.co_name

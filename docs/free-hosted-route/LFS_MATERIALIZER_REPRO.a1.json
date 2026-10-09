@@ -1,0 +1,30 @@
+{
+  "schema": "remeizu.declared-lfs-source-reproduction.v1",
+  "exact_head": "e7dc850c25fc69109275ee2f80f6e68c05c6dd47",
+  "exact_tree": "aee65b26269c4516bce6183c9094aa89834a2d50",
+  "pointer_sha256": "eb234fb843bcef80721a89b5711ac1b753da2f332b8fffa9ee6339eefc0de8c1",
+  "actual_explicit_materializer": [
+    {
+      "member": "third_party/icu/tools/multi/proj/icu4cscan/old-xmls.tar.bz2",
+      "state": "explicit_declared_pointer_smudged",
+      "bytes": 9713,
+      "sha256": "215e9cc66b7962f53a08db564558553366f06f64eb6d8508a3ff2dac47c90cb6",
+      "committed_pointer_sha256": "eb234fb843bcef80721a89b5711ac1b753da2f332b8fffa9ee6339eefc0de8c1",
+      "head_tree_preserved": true
+    }
+  ],
+  "second_call_exact_material_no_op": [
+    {
+      "member": "third_party/icu/tools/multi/proj/icu4cscan/old-xmls.tar.bz2",
+      "state": "already_exact_material",
+      "bytes": 9713,
+      "sha256": "215e9cc66b7962f53a08db564558553366f06f64eb6d8508a3ff2dac47c90cb6"
+    }
+  ],
+  "parent_skip_environment_unchanged": true,
+  "cached_exact_oid_source_used": true,
+  "original_repo_mutated": false,
+  "target_compilation": false,
+  "attribute_only_cause_claim_rejected": true,
+  "ci_environment_cause_proven": false
+}

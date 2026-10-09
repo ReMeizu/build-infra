@@ -11,6 +11,7 @@ import urllib.parse
 import urllib.request
 from make_j2_successor import safe
 from diagnostics import PublicInputError
+from materialize_lfs import materialize
 
 def sha(p):
     h = hashlib.sha256()
@@ -135,7 +136,7 @@ def acquire(lock,thin,dest):
     if any(p.name=='.git' or p.suffix in ('.bundle','.private') or '.private.' in p.name or 'ORIGINAL_FREEZE' in p.name for p in original.rglob('*')):
         raise ValueError('opaque/private carrier member in thin source export')
     checkouts=dest/'checkouts';checkouts.mkdir();downloads=dest/'downloads';downloads.mkdir()
-    checkout_map={};proofs=[]
+    checkout_map={};proofs=[];lfs_materialization=[]
     env=dict(os.environ,GIT_TERMINAL_PROMPT='0',GIT_LFS_SKIP_SMUDGE='1')
     for i,p in enumerate(lock['projects']):
         print('PUBLIC_NATIVE_FETCH_PROJECT_BEGIN',i+1,len(lock['projects']),flush=True)
@@ -146,6 +147,7 @@ def acquire(lock,thin,dest):
         if p.get('lfs_required'):
             run(['git','lfs','version']);run(['git','-C',target,'-c','credential.helper=','lfs','fetch','origin',p['head']],env=env)
             run(['git','-C',target,'lfs','checkout'],env=env)
+        lfs_materialization.extend(materialize(target,p,env))
         head=run(['git','-C',target,'rev-parse','HEAD']).stdout.decode().strip()
         tree=run(['git','-C',target,'rev-parse','HEAD^{tree}']).stdout.decode().strip()
         if head!=p['head'] or tree!=p['git_tree']:raise ValueError('anonymous fetched original Git identity differs')
@@ -189,6 +191,7 @@ def acquire(lock,thin,dest):
     verify_all(original,inputs)
     print('PUBLIC_NATIVE_ALL_SOURCE_TOOL_WHEEL_INVENTORY_PASS',flush=True)
     (dest/'PUBLIC_ACQUISITION.json').write_text(json.dumps({'schema':'remeizu.free-hosted-public-acquisition.v1','projects':proofs,
+        'declared_lfs_materialization':lfs_materialization,
         'source_projects':88,'selected_part_count':72,'all_source_tool_wheel_inventory_pass':True,
         'gn_inputs_sha256':sha(thin/'GN_INPUTS.json'),'private_android_inputs':False,'full375_phone':False,'runtime':False},indent=2)+'\n')
     return original
