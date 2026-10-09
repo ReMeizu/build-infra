@@ -1,0 +1,134 @@
+{
+  "months": {
+    "2026-09": {
+      "reservations": {
+        "36552103126": {
+          "mode": "probe",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T09:53:49.798258Z",
+          "reserved_normalized_minutes": 8,
+          "timeout_minutes": 5,
+          "vcpu": 2
+        },
+        "36552629790": {
+          "mode": "probe",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T09:58:45.551669Z",
+          "reserved_normalized_minutes": 8,
+          "timeout_minutes": 5,
+          "vcpu": 2
+        },
+        "36553547835": {
+          "mode": "kernel",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T10:07:11.105043Z",
+          "reserved_normalized_minutes": 504,
+          "timeout_minutes": 60,
+          "vcpu": 16
+        },
+        "36566642332": {
+          "mode": "rom",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T12:13:04.460060Z",
+          "reserved_normalized_minutes": 1944,
+          "timeout_minutes": 240,
+          "vcpu": 16
+        },
+        "36568016927": {
+          "mode": "rom",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T12:25:40.309984Z",
+          "reserved_normalized_minutes": 1944,
+          "timeout_minutes": 240,
+          "vcpu": 16
+        },
+        "36627477471": {
+          "mode": "benchmark",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T20:36:08.172272Z",
+          "reserved_normalized_minutes": 88,
+          "timeout_minutes": 8,
+          "vcpu": 16
+        },
+        "36631302509": {
+          "mode": "kernel",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T21:08:58.779176Z",
+          "reserved_normalized_minutes": 504,
+          "timeout_minutes": 60,
+          "vcpu": 16
+        },
+        "36633769630": {
+          "mode": "kernel",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T21:30:59.717935Z",
+          "reserved_normalized_minutes": 504,
+          "timeout_minutes": 60,
+          "vcpu": 16
+        },
+        "36637739523": {
+          "mode": "rom",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T22:08:19.297458Z",
+          "reserved_normalized_minutes": 1944,
+          "timeout_minutes": 240,
+          "vcpu": 16
+        },
+        "36641761412": {
+          "mode": "rom-short",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-29T22:49:00.763970Z",
+          "reserved_normalized_minutes": 1464,
+          "timeout_minutes": 180,
+          "vcpu": 16
+        },
+        "36723209887": {
+          "mode": "mx6-kernel",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-09-30T13:39:24.867873Z",
+          "reserved_normalized_minutes": 86,
+          "timeout_minutes": 40,
+          "vcpu": 4
+        }
+      }
+    },
+    "2026-10": {
+      "reservations": {
+        "37012925613": {
+          "mode": "rom-long",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-10-02T13:25:54.798278Z",
+          "reserved_normalized_minutes": 2904,
+          "timeout_minutes": 360,
+          "vcpu": 16
+        },
+        "37774631156": {
+          "mode": "rom",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-10-08T12:07:14.809654Z",
+          "reserved_normalized_minutes": 1944,
+          "timeout_minutes": 240,
+          "vcpu": 16
+        },
+        "37778378803": {
+          "mode": "rom",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-10-08T12:39:06.587413Z",
+          "reserved_normalized_minutes": 1944,
+          "timeout_minutes": 240,
+          "vcpu": 16
+        },
+        "37926247210": {
+          "mode": "rom-short",
+          "overhead_minutes": 3,
+          "reserved_at": "2026-10-09T11:51:01.454320Z",
+          "reserved_normalized_minutes": 1464,
+          "timeout_minutes": 180,
+          "vcpu": 16
+        }
+      }
+    }
+  },
+  "repository": "ReMeizu/build-infra",
+  "schema_version": "remeizu.blacksmith-budget.v1"
+}

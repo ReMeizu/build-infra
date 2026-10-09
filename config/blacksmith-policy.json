@@ -45,6 +45,12 @@
       "vcpu": 16,
       "timeout_minutes": 360,
       "reserved_normalized_minutes": 2904
+    },
+    "rom-90": {
+      "runner": "blacksmith-16vcpu-ubuntu-2404",
+      "vcpu": 16,
+      "timeout_minutes": 90,
+      "reserved_normalized_minutes": 744
     }
   }
 }

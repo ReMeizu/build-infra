@@ -10,6 +10,17 @@ spec.loader.exec_module(worker)
 
 
 class SessionTest(unittest.TestCase):
+    def test_ninety_minute_rom_job_keeps_cleanup_reserve(self):
+        limit = worker.session_budget(90 - 15)
+        self.assertEqual(limit, 75 * 60)
+        self.assertEqual(worker.expiration(limit, 0, limit, limit), 'session_deadline')
+        self.assertIsNone(worker.expiration(limit - 1, 0, limit - 1, limit))
+        workflow = (Path(__file__).parents[1] / '.github/workflows/blacksmith.yml').read_text()
+        self.assertIn('          - rom-90\n', workflow)
+        self.assertEqual(workflow.count("inputs.mode == 'rom-90'"), 4)
+        self.assertIn('session_minutes=$((ROM_JOB_MINUTES - 15))', workflow)
+        self.assertIn('process_minutes=$((session_minutes + 3))', workflow)
+
     def test_short_session_heartbeat_cannot_extend_reserved_deadline(self):
         limit = worker.session_budget(165)
         self.assertEqual(worker.expiration(limit, 0, limit, limit), 'session_deadline')
