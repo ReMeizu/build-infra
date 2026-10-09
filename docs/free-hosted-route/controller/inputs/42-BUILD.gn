@@ -1,0 +1,16 @@
+# BOOT-UNBLOCK: register native dynamically injected product_m5c.
+# Composition of existing pinned vendor packaging; full GN build required.
+group("m5c_product") {
+  deps = [
+    "//vendor/oniro/m5c/image_conf:image_conf",
+    "//vendor/oniro/hybris_generic/hdf_config/uhdf:hdf_config",
+    "//vendor/oniro/hybris_generic/preinstall-config:preinstall-config",
+    "//vendor/oniro/oniro-haps:oniro_custom_haps",
+    "//vendor/oniro/wallpaper:oniro_wallpaper",
+    "//vendor/oniro/hybris_generic/etc:product_etc_conf",
+    "//vendor/oniro/hybris_generic/hals/audio:hdf_audio_config",
+    "//vendor/oniro/hybris_generic/hals/codec:hdf_codec_config",
+    "//vendor/oniro/hybris_generic/resourceschedule:resourceschedule",
+    "//vendor/oniro/hybris_generic/custom_conf:custom_config",
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "full375_phone": false,
+  "gn_inputs_sha256": "6e222d71be39e5ae6282ae6abca56d86be3aa0ac8af99f9f22a9428f71f53e6a",
+  "lock_sha256": "b1155bfed25503b75b6ea9bf19e92601c94b064ae8e16bbc3e1ba1759f1a3e36",
+  "native_compilation": false,
+  "opaque_git_or_private_binary_exported": false,
+  "public_source_files": 88,
+  "public_source_flags_preserved": true,
+  "schema": "remeizu.thin-public-native-source-export.v1",
+  "selected_part_count": 72,
+  "source_projects": 88
+}

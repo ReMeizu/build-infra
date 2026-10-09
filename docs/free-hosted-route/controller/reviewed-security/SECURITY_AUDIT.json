@@ -1,0 +1,9 @@
+{
+  "full_os_verified": false,
+  "original_audit_sha256": "4e99892b929ac2416eb1709d2d9e30eab5febdddcea519d0088f1639ed74222c",
+  "publication_scope": "source-only privacy-reviewed summary; original private audit not exported",
+  "runtime_verified": false,
+  "schema": "remeizu.m5c-shared-selinux-cgroup-source-audit.v1",
+  "status": "SOURCE_AND_BINARY_COHORT_AUDITED_RUNTIME_UNVERIFIED",
+  "whole_child_security_isolation_verified": false
+}

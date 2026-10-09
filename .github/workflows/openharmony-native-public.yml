@@ -1,0 +1,37 @@
+name: Public-source OpenHarmony native intermediate
+run-name: Native72 public source by @${{ github.actor }}
+on:
+  push:
+    branches:
+      - codex/free-native-20261009
+    paths:
+      - .github/workflows/openharmony-native-public.yml
+      - docs/free-hosted-route/**
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: openharmony-native-public
+  cancel-in-progress: false
+jobs:
+  native:
+    if: ${{ github.run_attempt == 1 && github.event.repository.private == false && github.ref == 'refs/heads/codex/free-native-20261009' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    permissions:
+      contents: write # Ciphertext release retention only; token absent from build env.
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        id: source_checkout
+        with:
+          persist-credentials: false
+      - name: Compile exact public native sources through Forge in RAM
+        id: native_compile
+        run: timeout --signal=INT --kill-after=90s 260m python3 -B docs/free-hosted-route/free_native_run.py
+      - name: Seal and retain only explicit public native outputs
+        if: ${{ always() && steps.source_checkout.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: timeout --signal=INT --kill-after=30s 40m python3 -B docs/free-hosted-route/retain_release.py
+      # Ciphertext and its compact manifest only; no raw private outputs,
+      # source cache, unknown-quota Actions artifact or raw logs are uploaded.

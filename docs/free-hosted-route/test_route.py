@@ -1,0 +1,144 @@
+"""Meaningful refusal/source-preservation controls; no fake accepted ROMs."""
+import ast
+import hashlib
+from pathlib import Path
+import sys
+import tempfile
+import tarfile
+import io
+import unittest
+
+sys.dont_write_bytecode=True
+HERE=Path(__file__).resolve().parent
+sys.path.insert(0,str(HERE))
+from acquire import public_url, validate_lock, extract_tool
+from make_j2_successor import transformed_worker
+from resource import GIB, admit_values
+from retain_release import actual_policy,cipher_upper_bound,complete_snapshot
+from free_native_run import checked_public_job
+from finish_attempt import run_owned
+
+B6=HERE/'controller/native_gn_worker.py'
+
+class ResourceControls(unittest.TestCase):
+    def test_measured_b6_source_rust_model_with_documented_host_can_fit(self):
+        proof=admit_values({'cpu_affinity':4,'cpu_quota':None,'available_bytes':13*GIB,'tmpfs_free_bytes':10*GIB},'prepare',1628260457,349008915)
+        self.assertEqual(proof['jobs'],2)
+        self.assertFalse(proof['full375_phone'])
+    def test_insufficient_memory_refused(self):
+        with self.assertRaisesRegex(ValueError,'memory headroom'):
+            admit_values({'cpu_affinity':4,'cpu_quota':None,'available_bytes':11*GIB,'tmpfs_free_bytes':10*GIB},'prepare',1628260457,349008915)
+    def test_insufficient_tmpfs_refused(self):
+        with self.assertRaisesRegex(ValueError,'tmpfs capacity'):
+            admit_values({'cpu_affinity':4,'cpu_quota':None,'available_bytes':13*GIB,'tmpfs_free_bytes':7*GIB},'prepare',1628260457,349008915)
+    def test_cgroup_cpu_refused(self):
+        with self.assertRaisesRegex(ValueError,'CPU allowance'):
+            admit_values({'cpu_affinity':4,'cpu_quota':1.5,'available_bytes':13*GIB,'tmpfs_free_bytes':10*GIB},'prepare',1628260457,349008915)
+    def test_images_need_second_real_capacity_admission(self):
+        with self.assertRaisesRegex(ValueError,'tmpfs capacity'):
+            admit_values({'cpu_affinity':4,'cpu_quota':2,'available_bytes':4*GIB,'tmpfs_free_bytes':3*GIB},'images',1628260457,349008915)
+    def test_images_need_second_real_memory_admission(self):
+        with self.assertRaisesRegex(ValueError,'memory headroom'):
+            admit_values({'cpu_affinity':4,'cpu_quota':2,'available_bytes':2*GIB,'tmpfs_free_bytes':5*GIB},'images',1628260457,349008915)
+    def test_unmeasured_full375_source_size_refused(self):
+        with self.assertRaisesRegex(ValueError,'source/Rust bound'):
+            admit_values({'cpu_affinity':4,'cpu_quota':2,'available_bytes':13*GIB,'tmpfs_free_bytes':10*GIB},'prepare',5*GIB,349008915)
+
+class PublicInputControls(unittest.TestCase):
+    def test_truncated_snapshot_falls_back_to_complete_bound_record(self):
+        import json
+        root=Path(tempfile.mkdtemp(prefix='free-native-snapshot-negative-',dir='/dev/shm'))
+        first=root/'PUBLIC_RESULT.json';first.write_text('{"schema":')
+        second=root/'INFLIGHT_PUBLIC_RESULT.json'
+        record={'schema':'remeizu.free-hosted-native-run.v1','run_id':'123','source_lock_sha256':'0'*64,
+                'full375_phone':False,'private_android_inputs':False}
+        second.write_text(json.dumps(record))
+        selected,parsed=complete_snapshot([first,second],'123','0'*64)
+        self.assertEqual(selected,second)
+        self.assertNotIn('all_public_source_tool_wheel_before_after_verified',parsed)
+    def test_real_owned_process_timeout_reaps_only_spawned_process_and_keeps_logs(self):
+        import os,time
+        root=Path(tempfile.mkdtemp(prefix='free-native-owned-timeout-',dir='/dev/shm'))
+        state=run_owned([sys.executable,'-c',"import time;print('owned timeout control',flush=True);time.sleep(30)"],
+                        dict(os.environ),0.3,root,[0])
+        self.assertEqual(state['termination_reason'],'timeout')
+        self.assertTrue(state['owned_launcher_reaped'])
+        self.assertNotEqual(state['returncode'],0)
+        self.assertIn(b'owned timeout control',(root/'forge-controller.stdout').read_bytes())
+    def test_cipher_capacity_counts_all_parts_without_assuming_compression(self):
+        size=3*GIB
+        bound=cipher_upper_bound({'outputs':[{'bytes':size}]})
+        self.assertGreater(bound,size)
+        self.assertGreater(bound,64*1024**2)
+    def test_foreign_branch_or_repeated_attempt_refused_before_source_fetch(self):
+        base={'GITHUB_REPOSITORY':'ReMeizu/build-infra','GITHUB_ACTIONS':'true','GITHUB_EVENT_NAME':'push',
+              'GITHUB_RUN_ATTEMPT':'1','GITHUB_REF':'refs/heads/codex/free-native-20261009'}
+        for changes in ({'GITHUB_REF':'refs/heads/main'},{'GITHUB_RUN_ATTEMPT':'2'},
+                        {'GITHUB_REPOSITORY':'foreign/repo'},{'GITHUB_EVENT_NAME':'pull_request'}):
+            with self.assertRaisesRegex(ValueError,'exact owned free-native branch'):
+                checked_public_job(dict(base,**changes))
+    def test_authenticated_or_private_transport_refused(self):
+        for url in ('https://token@github.com/ReMeizu/build-infra','http://github.com/a/b','https://github.com/a/b?token=secret','https://drive.google.com/a','https://github.com/a/b#credentials'):
+            with self.assertRaises(ValueError):public_url(url)
+    def test_public_pinned_source_host_accepted(self):
+        url='https://github.com/openharmony/third_party_libusb.git'
+        self.assertEqual(public_url(url),url)
+    def test_full375_or_unreviewed_carrier_refused(self):
+        with self.assertRaisesRegex(ValueError,'source-only public acquisition'):
+            validate_lock({'schema':'fake','public_sources_only':False},{})
+    def test_exact_intermediate_count_required(self):
+        with self.assertRaisesRegex(ValueError,'88/72'):
+            validate_lock({'schema':'remeizu.free-hosted-native-public-inputs.v1','public_sources_only':True,'private_android_inputs':False,'source_projects':87,'selected_part_count':71},{'projects':[]})
+    def test_actual_public_88_72_lock_matches_exact_gn_inventory(self):
+        import json
+        lock=json.loads((HERE/'public_inputs.lock.json').read_text())
+        inventory=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
+        validate_lock(lock,inventory)
+        self.assertEqual(hashlib.sha256((HERE/'controller/GN_INPUTS.json').read_bytes()).hexdigest(),lock['gn_inputs_sha256'])
+    def test_archive_traversal_refused_without_outside_write(self):
+        root=Path(tempfile.mkdtemp(prefix='free-native-archive-negative-',dir='/dev/shm'))
+        archive=root/'negative.tar'
+        with tarfile.open(archive,'w') as tar:
+            m=tarfile.TarInfo('../outside');m.size=4;tar.addfile(m,io.BytesIO(b'test'))
+        with self.assertRaises(ValueError):extract_tool(archive,root/'output',{})
+        self.assertFalse((root/'outside').exists())
+    def test_archive_absolute_symlink_refused(self):
+        root=Path(tempfile.mkdtemp(prefix='free-native-link-negative-',dir='/dev/shm'))
+        archive=root/'negative.tar'
+        with tarfile.open(archive,'w') as tar:
+            m=tarfile.TarInfo('escape');m.type=tarfile.SYMTYPE;m.linkname='/etc';tar.addfile(m)
+        with self.assertRaisesRegex(ValueError,'absolute symlink'):extract_tool(archive,root/'output',{})
+    def test_plaintext_retention_requires_actual_source_proof(self):
+        with self.assertRaisesRegex(ValueError,'verified public-source'):
+            actual_policy(Path('/dev/shm/absent-native-producer'),{'source_lock_sha256':'0'*64},'0'*64)
+    def test_recipe_path_injection_refused_before_output_admission(self):
+        record={'public_input_acquisition_verified':True,'retention_preflight_verified':True,
+                'all_public_source_tool_wheel_before_after_verified':True,'actual_forge_submitted':True,
+                'compiler_termination_verified':True,
+                'private_android_inputs':False,'full375_phone':False,'source_lock_sha256':'0'*64,'recipe_hash':'../android-donor'}
+        with self.assertRaisesRegex(ValueError,'recipe hash'):
+            actual_policy(Path('/dev/shm/absent-native-producer'),record,'0'*64)
+
+@unittest.skipUnless(B6.is_file(),'actual frozen b6 source not present; no fabricated replacement')
+class ActualWorkerSourceControls(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.before=B6.read_bytes();cls.code=cls.before.decode();cls.new=transformed_worker(cls.code)
+    def test_actual_b6_source_unchanged(self):
+        self.assertEqual(B6.read_bytes(),self.before)
+    def test_generated_actual_worker_parses_and_has_two_j2_targets(self):
+        ast.parse(self.new)
+        self.assertEqual(self.new.count("'-j2'"),2)
+        self.assertNotIn("'-j6'",self.new)
+    def test_actual_labels_and_policy_not_disabled(self):
+        for label in ('//third_party/musl:soft_libc_musl_shared','//commonlibrary/c_utils/base:utils','//third_party/libhybris/hybris/common:libhybris-common','//third_party/libhybris/hybris/common:q'):
+            self.assertEqual(self.new.count(label),self.code.count(label))
+        tail=self.code[self.code.index("            command = [str(ninja), '-C', str(native_out), '-j6', 'images']"):]
+        self.assertEqual(self.new[self.new.index("            command = [str(ninja), '-C', str(native_out), '-j2', 'images']"):],tail.replace("'-j6'","'-j2'"))
+    def test_real_source_hash_checks_and_sdk_unchanged(self):
+        for string in ("inputs['worker_sha256']","inputs['source_files']","inputs['tools']","source-and-official-tools-verified","native-python-dependencies-installed"):
+            self.assertEqual(self.new.count(string),self.code.count(string))
+    def test_original_drift_refused(self):
+        with self.assertRaises(ValueError):transformed_worker(self.code.replace("available < 24*1024**3","available < 1"))
+
+if __name__=='__main__':unittest.main(verbosity=2)

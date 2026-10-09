@@ -1,0 +1,459 @@
+{
+  "forbidden_git_bundles_snapshots_private_host_inputs_or_ELF_found": false,
+  "full375_phone": false,
+  "gn_inputs_sha256": "6e222d71be39e5ae6282ae6abca56d86be3aa0ac8af99f9f22a9428f71f53e6a",
+  "lock_sha256": "b1155bfed25503b75b6ea9bf19e92601c94b064ae8e16bbc3e1ba1759f1a3e36",
+  "private_android_inputs": false,
+  "public_lock_validation_pass": true,
+  "public_source_bytes": 43210596,
+  "public_source_files": [
+    {
+      "bytes": 42617901,
+      "path": "GN_INPUTS.json",
+      "sha256": "6e222d71be39e5ae6282ae6abca56d86be3aa0ac8af99f9f22a9428f71f53e6a"
+    },
+    {
+      "bytes": 61041,
+      "path": "forge_ephemeral_build.py",
+      "sha256": "9a01d1c452ecf14674a9df1f7512176f30b1fe2949660e2ea743960e7d400bb8"
+    },
+    {
+      "bytes": 1105,
+      "path": "inputs/0-0002-build-register-oniro_soc_products-hybris_generic-as-.patch",
+      "sha256": "f30aa7fcff7a2efb6b99e39e22524c703e08b7ca4ddffec732dcb33c285b50db"
+    },
+    {
+      "bytes": 1380,
+      "path": "inputs/1-0001-init-tolerate-an-existing-dev-kmsg-node-in-LogInit.patch",
+      "sha256": "d71f09bf77930378d68e1a09b3719231d7d0f6211242b2dae2a5f12a60e54708"
+    },
+    {
+      "bytes": 1591,
+      "path": "inputs/10-product_m5c.para",
+      "sha256": "9e5e227c3a68f6f5411a0607779b7c31bc4c5984fbba0a3284b8008d5de3270f"
+    },
+    {
+      "bytes": 11663,
+      "path": "inputs/11-config.json",
+      "sha256": "8228b003c4caae09a78897bcad2dc55ee2467100d333b93500179ff6815fe0f3"
+    },
+    {
+      "bytes": 9059,
+      "path": "inputs/12-init.cfg",
+      "sha256": "ffa07b1ccecae1b8ed2efa542eff9ea7b14c72bc579af32771ccd52e91269a80"
+    },
+    {
+      "bytes": 720,
+      "path": "inputs/13-product.gni",
+      "sha256": "38ccab0b5163cdf2ceeae0a8bfb8c53b8f3ece00c4368fdb3edb801ef9fc3fe0"
+    },
+    {
+      "bytes": 118,
+      "path": "inputs/14-subsystem_config_overlay.json",
+      "sha256": "7162162262f067dd47f4de97be0950493382839695636de87337d88c464c06dd"
+    },
+    {
+      "bytes": 433,
+      "path": "inputs/15-bundle.json",
+      "sha256": "f2ae21e5de3c6eabd307d8af14dcb65a1d84c3f077929d3f0d7dd4c0abf325b6"
+    },
+    {
+      "bytes": 720,
+      "path": "inputs/16-product.gni",
+      "sha256": "38ccab0b5163cdf2ceeae0a8bfb8c53b8f3ece00c4368fdb3edb801ef9fc3fe0"
+    },
+    {
+      "bytes": 739,
+      "path": "inputs/17-BUILD.gn",
+      "sha256": "2f819e4ffcf7da060d2d9560ca34dd08a82da5aa0ff2a3417ab2ee092b4b4e23"
+    },
+    {
+      "bytes": 3410,
+      "path": "inputs/18-config.json",
+      "sha256": "0365c14bf8fbc9a57d1db73ffc4a17cd7a2db5e0e13d38961f58d9f64d7cd0b8"
+    },
+    {
+      "bytes": 733,
+      "path": "inputs/19-A13_HEADER_GN.patch",
+      "sha256": "151744bbd90fe24b992417fc8ea0a4ca344fa7c96b35b94f7230ac9e71975259"
+    },
+    {
+      "bytes": 2295,
+      "path": "inputs/2-0002-init-skip-mksandbox-under-OHOS_NATIVE_BOOT-1.patch",
+      "sha256": "3134bf7d1bc3a841ef024070cedf56cbacd28d81f290ca4ea57c4ddc7fc4cf87"
+    },
+    {
+      "bytes": 3558,
+      "path": "inputs/20-config.json",
+      "sha256": "9c6e83d0dac1d6452287c10b832e0376cedf674dd650602f2a1cd52ed6a6cfd3"
+    },
+    {
+      "bytes": 226,
+      "path": "inputs/21-android-version.h",
+      "sha256": "837db39d7a8df4b74ad3ab4fd06cff467bf5a5d10d6f35ba10c589b1fb13c980"
+    },
+    {
+      "bytes": 18086,
+      "path": "inputs/22-data_space.h",
+      "sha256": "d4f6afee38dd8cb62c1dbb6945e10a394ef65d5775b06106d20a969041360e06"
+    },
+    {
+      "bytes": 1622,
+      "path": "inputs/23-rect.h",
+      "sha256": "8cffbe3f6202b1c437bb56a90fa04bec4a68a1acb9bcdf263e94568b73b98402"
+    },
+    {
+      "bytes": 22906,
+      "path": "inputs/24-hardware_buffer.h",
+      "sha256": "61213423b6994d53bdb1262fdb8e737118a0d294f67a69c14c7efe495610fe4a"
+    },
+    {
+      "bytes": 12884,
+      "path": "inputs/25-native_window.h",
+      "sha256": "fd88cb2d469ba209d4a532250dcf62a4be195e3d8684b3ec9c7bce5d0765a0eb"
+    },
+    {
+      "bytes": 3123,
+      "path": "inputs/26-nativebase.h",
+      "sha256": "5fa086053493b18e057d513f8d5cde6fe144988874ad1f3b9d504f9b017c419f"
+    },
+    {
+      "bytes": 12965,
+      "path": "inputs/27-window.h",
+      "sha256": "49d9f8087429f583992e41c0d3e0eef9a7d2cf08be61e9ef28016d3f91949aa1"
+    },
+    {
+      "bytes": 8063,
+      "path": "inputs/28-hardware.h",
+      "sha256": "05cc2f0108d6c87e36384380559943d34acd104e3c2ade9aeba4415cfb23aee8"
+    },
+    {
+      "bytes": 5548,
+      "path": "inputs/29-fb.h",
+      "sha256": "2b23a40596f20c85d59dda0bd68869be87019043f99f6360a0bcc2814353870f"
+    },
+    {
+      "bytes": 2956,
+      "path": "inputs/3-0003-init-skip-securebits-lock-for-androidd-service.patch",
+      "sha256": "33cd65c95dfcc0863af6a4476ca5440259e704d558f702e315eb139abb9e12b8"
+    },
+    {
+      "bytes": 17096,
+      "path": "inputs/30-gralloc.h",
+      "sha256": "bd4610235a828b30c8d850be07e51375744ba2f6133f16cd7e10d7fe618806e6"
+    },
+    {
+      "bytes": 42517,
+      "path": "inputs/31-gralloc1.h",
+      "sha256": "8ab14c0636574935414fc1a58630f94491304b88f7157e7bfa80c9324d3ce297"
+    },
+    {
+      "bytes": 3112,
+      "path": "inputs/32-native_handle.h",
+      "sha256": "274d7252085f24c975191eb07f209166a78aa1d92d6a7a1f32a84b9b6ae4a42d"
+    },
+    {
+      "bytes": 9158,
+      "path": "inputs/33-graphics.h",
+      "sha256": "3ad78e6b394e080fb034e1ae4ff6f893e2ecf6c093235990b3d9e8d0daf8250d"
+    },
+    {
+      "bytes": 47299,
+      "path": "inputs/34-window.h",
+      "sha256": "81b381159686066828bcae356da0ab0e67d760f4292692b8dac86e70075d8c4a"
+    },
+    {
+      "bytes": 948,
+      "path": "inputs/35-graphics-base-v1.2.h",
+      "sha256": "1c22b50c060d6e9709b1e68ffc0d4a5d309166d640620f3f21ddc12d62a5c226"
+    },
+    {
+      "bytes": 1644,
+      "path": "inputs/36-graphics-base-v1.1.h",
+      "sha256": "8e22bfdc66a7ec548e972238b53e827574303ea3c066a7cd4e9708159b5b6d39"
+    },
+    {
+      "bytes": 212,
+      "path": "inputs/37-graphics-base.h",
+      "sha256": "58dadf516c74c48ebf0ca652f5eb5fb15a0f432fe7b4d18888bf36b42444fa4a"
+    },
+    {
+      "bytes": 574,
+      "path": "inputs/38-graphics-sw.h",
+      "sha256": "957e089937f69aee425c4a2de7995ab42bfbee606567963af625fa429e7f5497"
+    },
+    {
+      "bytes": 6868,
+      "path": "inputs/39-graphics-base-v1.0.h",
+      "sha256": "1950723d8660b2c00cf5685f51031e79af0814ad4c00b94ef48caf4af3646d1f"
+    },
+    {
+      "bytes": 4948,
+      "path": "inputs/4-core-static-binder.patch",
+      "sha256": "6ed6bc5c2b0d2efecac4d6b369dc2bb4382710717709a8f49d76469de7259cbd"
+    },
+    {
+      "bytes": 9063,
+      "path": "inputs/40-window.h",
+      "sha256": "ebe388198b1f88056cad759b06bc33913e49d84e02dbe0da8fb0648027ab30df"
+    },
+    {
+      "bytes": 1768,
+      "path": "inputs/41-SELECTED_SERVICE_CONFIGS.patch",
+      "sha256": "f1c98faa5e40e0fb53127453a883375b7403a5d7b1675957d1159747d49eb515"
+    },
+    {
+      "bytes": 787,
+      "path": "inputs/42-BUILD.gn",
+      "sha256": "bd2da954abe72f76aa2c2b8a40186fb476066dc73367f7cc173b6ceb59e0d17e"
+    },
+    {
+      "bytes": 3713,
+      "path": "inputs/43-config.json",
+      "sha256": "8b4fb36ce07eed997f46c39eda715a02a00a4963c434d83f53d4c4f4a16b3f3d"
+    },
+    {
+      "bytes": 71,
+      "path": "inputs/44-hdf-selected-intermediate.hcs",
+      "sha256": "3a526a066705d77b9d3cfefabada9d45926a4d8113dd2e8351dcdd0b5129f977"
+    },
+    {
+      "bytes": 2365,
+      "path": "inputs/45-device_info.selected-m5c60.hcs",
+      "sha256": "d67addb5fd4e50a52c680674203fe44c1b1ca09e2f19db67fb3c7ea1b8ec6a0a"
+    },
+    {
+      "bytes": 154,
+      "path": "inputs/46-sys_prod_image_conf.txt",
+      "sha256": "15c6b8266993ec069f9e734f32cdf21ef35d234ace81dcfe971071e50ff9fa82"
+    },
+    {
+      "bytes": 801,
+      "path": "inputs/47-mke2fs.conf",
+      "sha256": "f0d48e1aaa691f4ee3880c287b829077d604bea47047f4af0bc1f4b7ad3a3813"
+    },
+    {
+      "bytes": 155,
+      "path": "inputs/48-chip_prod_image_conf.txt",
+      "sha256": "bbb591b50b020b38e9e562fad9abaae4607954b5e50b0e559c2e4f5cd6ea8fdb"
+    },
+    {
+      "bytes": 148,
+      "path": "inputs/49-system_image_conf.txt",
+      "sha256": "a6a95eaed8b8c465bc193db522d94db149d3e3218579058cae190282884aad72"
+    },
+    {
+      "bytes": 8524,
+      "path": "inputs/5-0001-androidd-opt-in-static-binder.patch",
+      "sha256": "a6759a87ad9d7488c4ad2969a93dd1c7089fad785807e23743e5ee395ebc4c88"
+    },
+    {
+      "bytes": 267,
+      "path": "inputs/50-BUILD.gn",
+      "sha256": "a762386cd052dc5bc11249270852c7c8481a92f54efb9a23305998904e0740cf"
+    },
+    {
+      "bytes": 153,
+      "path": "inputs/51-vendor_image_conf.txt",
+      "sha256": "7ce943afd2926d6ad281771c6fc838c08072d0950f31be77d52d7f6b6d75a89b"
+    },
+    {
+      "bytes": 66537,
+      "path": "inputs/52-androidd.c",
+      "sha256": "1790e2a877aefbf5f194dd9add1e06007150ebd1b2796ff45c7e48ac679525c5"
+    },
+    {
+      "bytes": 1647,
+      "path": "inputs/53-meizu_legacy_cmdline.h",
+      "sha256": "387f83a7ff89cd782907dd808b0e3c87d9b18cea1d111be8e6f7010cc475697a"
+    },
+    {
+      "bytes": 3438,
+      "path": "inputs/54-meizu_static_binder.h",
+      "sha256": "f96d4d7cef623cdd97d75a735bdf5ad85bcc7e4c7682340746c7b43a0d80a411"
+    },
+    {
+      "bytes": 3441,
+      "path": "inputs/55-m5c_block_device_guard.h",
+      "sha256": "c98e3af2b57f8d089d278f138136a8a143f1c8dea458e67d115b48e164b9b7f3"
+    },
+    {
+      "bytes": 71082,
+      "path": "inputs/56-androidd.c",
+      "sha256": "0670969c8918144e37b9ee17d174857ef638fb1a5e1f53582c0518b72fccd8fe"
+    },
+    {
+      "bytes": 1647,
+      "path": "inputs/57-meizu_legacy_cmdline.h",
+      "sha256": "387f83a7ff89cd782907dd808b0e3c87d9b18cea1d111be8e6f7010cc475697a"
+    },
+    {
+      "bytes": 3438,
+      "path": "inputs/58-meizu_static_binder.h",
+      "sha256": "f96d4d7cef623cdd97d75a735bdf5ad85bcc7e4c7682340746c7b43a0d80a411"
+    },
+    {
+      "bytes": 3441,
+      "path": "inputs/59-m5c_block_device_guard.h",
+      "sha256": "c98e3af2b57f8d089d278f138136a8a143f1c8dea458e67d115b48e164b9b7f3"
+    },
+    {
+      "bytes": 3924,
+      "path": "inputs/6-M5C_PRODUCT_WIRING.patch",
+      "sha256": "f4ba0dea21404627a65d746fc8ba41a266ad79117f049d97e11e3d3f9a084c17"
+    },
+    {
+      "bytes": 3410,
+      "path": "inputs/60-m5c_child_loop_nodes.h",
+      "sha256": "80bbe5c37e074c6d71a5706921e057783e0619da08284a0771c53ed0d96eb08f"
+    },
+    {
+      "bytes": 2528,
+      "path": "inputs/61-m5c_a13_apex_contract.h",
+      "sha256": "01ef5a76eea33acb1492b1716568d6001152859c170719b6cfe899dd20102b08"
+    },
+    {
+      "bytes": 997,
+      "path": "inputs/7-androidd.m5c.cfg",
+      "sha256": "938923ac35bba23feccf65ef146833f978db78357a7dd87008184fa8af57f2e4"
+    },
+    {
+      "bytes": 210,
+      "path": "inputs/8-fstab.m5c",
+      "sha256": "6cc8196d8adada8f6680bfe2610c6adda7fb2a3f0f888941c2fc5472df435a00"
+    },
+    {
+      "bytes": 528,
+      "path": "inputs/9-init.m5c.cfg",
+      "sha256": "08d5e9fa8492a7d704bd12542b3846299aac7f4d6eae1cac3f1a47b293773bcd"
+    },
+    {
+      "bytes": 663,
+      "path": "inputs/cloud-a2-0-bundle.json",
+      "sha256": "b32617fc28c8aec9b6fb59c797187a1fcc050a5aa7384824a57de2c6ae3f712b"
+    },
+    {
+      "bytes": 1079,
+      "path": "inputs/cloud-a2-1-bundle.json",
+      "sha256": "72eaa1f0e5892eea465ce213699afcf228c73e957d9aa664ca8ca12d853e0e60"
+    },
+    {
+      "bytes": 1358,
+      "path": "inputs/cloud-a2-2-bundle.json",
+      "sha256": "9514fe975cd6702a3ce38a33ee67583ce1cbb98fe2573590259adceb9b3dc52b"
+    },
+    {
+      "bytes": 2679,
+      "path": "inputs/cloud-a3-0-BUILD.gn",
+      "sha256": "4bb1ca2fcf08ab6b5f3075bc3bc75294c9c4a8fa755f572dec89905e67145e03"
+    },
+    {
+      "bytes": 1585,
+      "path": "inputs/cloud-a3-1-BUILD.gn",
+      "sha256": "c5d9167a2a6fd7d835fabcf79a016d7f8bce8f4ec3a8ac066ec09dedc246a7ef"
+    },
+    {
+      "bytes": 4350,
+      "path": "inputs/cloud-a3-2-libhybris_args.gni",
+      "sha256": "10b3e9e7b64db4af57211f292d15006b5f05b6ca9d86853cce05f567e2e6eb30"
+    },
+    {
+      "bytes": 12326,
+      "path": "inputs/cloud-a3-3-ohos_var.gni",
+      "sha256": "f50b1006b768b7b5fe7373ecb6113736be83ff49985b3a4b63c662b0d3f13c80"
+    },
+    {
+      "bytes": 3795,
+      "path": "inputs/cloud-a3-4-config.json",
+      "sha256": "7f80388a00415a44e4fb7a4e57138a8d538a3187eee33450fee145e2bcd232e0"
+    },
+    {
+      "bytes": 695,
+      "path": "inputs/cloud-a3-5-bundle.json",
+      "sha256": "e3ac1c2d5dcf59e4305bc476dee907087a1dd89fb1e356790a34f9362ec89c5b"
+    },
+    {
+      "bytes": 1119,
+      "path": "inputs/cloud-a3-6-bundle.json",
+      "sha256": "f4e7b9fe32a60067c30f49eeaff59cd7a1e3a2e6a50935f6dac2e75c1c9f8916"
+    },
+    {
+      "bytes": 1368,
+      "path": "inputs/cloud-a3-7-bundle.json",
+      "sha256": "26a04cbaccc65ad2ad81bd89ef25d828a522c086d7a4cde12ad1ed4d536f756c"
+    },
+    {
+      "bytes": 3967,
+      "path": "inputs/cloud-provider-googletest-product.json",
+      "sha256": "958844e814bc89b3f35b91e86f2fd6912beda194de62aaa6aa04f0ea69322d86"
+    },
+    {
+      "bytes": 3884,
+      "path": "inputs/cloud-provider-product.json",
+      "sha256": "e3c7a927581714b6a07df7c44d70bc7498f76efbc537c13eef283bda0ab1ce14"
+    },
+    {
+      "bytes": 5028,
+      "path": "inputs/public-standard-libusb-product.json",
+      "sha256": "c7162ada6ef97e7a070fb8a9e3389a04e6b8c9232e8c68b4f704b3b7f8bf6716"
+    },
+    {
+      "bytes": 4949,
+      "path": "inputs/ready-b1-genuine-selected-product.json",
+      "sha256": "9afd04f10dcb51aea3944bd16bf57dd8a4c43157bb142f83c0bba12e997de36e"
+    },
+    {
+      "bytes": 3417,
+      "path": "layout_native_rust.py",
+      "sha256": "59dc08f4c719574b857777c6214ea4bca793982829b27e12600683190f910e84"
+    },
+    {
+      "bytes": 16976,
+      "path": "native_gn_worker.py",
+      "sha256": "196b46fc755f5ef77eeca02dc81c448f46f3f70daf095f3997624ec2583bc9be"
+    },
+    {
+      "bytes": 1242,
+      "path": "official-build-env/Dockerfile",
+      "sha256": "bdaa70b28298b269a8009335a9e90987fde0dd1ff08dad5369d133aeb0aadf3b"
+    },
+    {
+      "bytes": 1453,
+      "path": "official-build-env/check-multilib.sh",
+      "sha256": "2b1126025688bc55e15dba66224062ee1dd46f4637fdae694a8e2bd675dfa579"
+    },
+    {
+      "bytes": 3023,
+      "path": "reviewed-security/0001-legacy-android13-genuine-selinux-setup.patch",
+      "sha256": "ee6c84cdbda2843bdeddb88b7e903727ae72c7c81f1162702e535fafd7777356"
+    },
+    {
+      "bytes": 1029,
+      "path": "reviewed-security/PATCH_RESULT.json",
+      "sha256": "1d3c55fa4cce034dfe87fce3b4f893ef10f7e30b2982536f216ae3d8ff73813f"
+    },
+    {
+      "bytes": 607,
+      "path": "reviewed-security/READONLY_VALIDATION.json",
+      "sha256": "7b48e4d0ba5de0e2049b0c19d3ab41991f8f35f67c888590878b49ffeb649220"
+    },
+    {
+      "bytes": 440,
+      "path": "reviewed-security/SECURITY_AUDIT.json",
+      "sha256": "ce027c3518d9976f2379702ef6c28f7adccbff24b7325ba0893a40fd4c525448"
+    },
+    {
+      "bytes": 106,
+      "path": "worker.sh",
+      "sha256": "da14a42159e475d2e837c5705eeb9fbb48acc812a78ee88945e8ce22fa29e527"
+    }
+  ],
+  "public_sources_only": true,
+  "schema": "remeizu.reviewed-public-native-bootstrap.v1",
+  "selected_part_count": 72,
+  "source_files": 144407,
+  "source_projects": 88,
+  "standardized_srv_forge_paths": "only byte-exact official launcher/Dockerfile cache/mount defaults and generic kernel example paths",
+  "target_compilation_executed": false,
+  "worker_hash_pass": true
+}

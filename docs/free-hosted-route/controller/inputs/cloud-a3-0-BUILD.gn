@@ -1,0 +1,85 @@
+# Copyright (c) 2026 Eclipse Oniro for OpenHarmony contributors.
+# SPDX-License-Identifier: Apache-2.0
+# Licensed under the Apache License, Version 2.0.
+
+import("//build/ohos.gni")
+
+declare_args() {
+  oniro_androidd_static_binder = false
+  oniro_androidd_legacy_cmdline_boot = false
+}
+
+# Product feature aliases obey the owning part namespace.
+# Separate declaration block reads the effective legacy build arguments.
+declare_args() {
+  device_hybris_generic_androidd_static_binder = oniro_androidd_static_binder
+  device_hybris_generic_androidd_legacy_cmdline_boot = oniro_androidd_legacy_cmdline_boot
+}
+oniro_androidd_static_binder = device_hybris_generic_androidd_static_binder
+oniro_androidd_legacy_cmdline_boot = device_hybris_generic_androidd_legacy_cmdline_boot
+
+
+# Phase N4 — `androidd` Halium-NS launcher.  Pure C, libc only.
+# Source: androidd.c (see phase_n4_androidd.md for the design).
+ohos_executable("androidd") {
+  sources = [ "androidd.c", "meizu_static_binder.h" ]
+  if (oniro_androidd_static_binder) {
+    defines = [ "ONIRO_BINDER_BACKEND_STATIC" ]
+  }
+  if (oniro_androidd_legacy_cmdline_boot) {
+    assert(product_name == "m5c" && oniro_androidd_static_binder, "legacy M5c requires static Binder")
+    sources += [ "meizu_legacy_cmdline.h" ]
+    defines += [ "ONIRO_LEGACY_CMDLINE_BOOT" ]
+  }
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-O2",
+  ]
+  install_enable = true
+  install_images = [ "system" ]
+  part_name = "device_hybris_generic"
+  subsystem_name = "device_hybris_generic"
+}
+
+# Phase N9.2 — native-boot replacement for the Android `wmt_loader`
+# connsys chip-detect step.  Runs the /dev/wmtdetect ioctl sequence that
+# fires the kernel's WMT_init(); without it the MTK WiFi/BT function-on
+# path is dead.  Pure C, libc only.  See phase_n9_firmware_peripherals.md.
+ohos_executable("wmtdetect_init") {
+  sources = [ "wmtdetect-init.c" ]
+  output_name = "wmtdetect-init"
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-O2",
+  ]
+  install_enable = true
+  install_images = [ "system" ]
+  part_name = "device_hybris_generic"
+  subsystem_name = "device_hybris_generic"
+}
+
+# Phase N4 — init service definition.  Started on post-fs-data so that
+# /data/android can be created before the launcher tries to bind-mount
+# it.
+ohos_prebuilt_etc("androidd_cfg") {
+  if (product_name == "m5c") {
+    source = "./androidd.m5c.cfg"
+  } else {
+    source = "./androidd.cfg"
+  }
+  install_images = [ "system" ]
+  relative_install_dir = "init"
+  part_name = "device_hybris_generic"
+  subsystem_name = "device_hybris_generic"
+}
+
+group("androidd_group") {
+  deps = [
+    ":androidd",
+    ":androidd_cfg",
+    ":wmtdetect_init",
+  ]
+}

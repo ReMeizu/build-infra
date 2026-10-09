@@ -1,0 +1,19 @@
+{
+  "child_clone_source_flags": "CLONE_NEWPID | CLONE_NEWNS | CLONE_NEWUTS | SIGCHLD",
+  "compiled": false,
+  "conditional_profile": "ONIRO_LEGACY_CMDLINE_BOOT",
+  "full_os_verified": false,
+  "genuine_android_selinux_setup_automatically_execs_second_stage": true,
+  "input_sha256": "3cceaefbda27ef05db0c3e029de67dedc34cdf4ad4de033964659bf07b28a807",
+  "kernel_policy_load_verified": false,
+  "linked": false,
+  "original_audit_sha256": "18c819913f28a83c27bef594d2a4b3b66565e2d4ff338401f78cccd3e7b475fd",
+  "output_sha256": "0670969c8918144e37b9ee17d174857ef638fb1a5e1f53582c0518b72fccd8fe",
+  "parent_native_pid1_replaced": false,
+  "patch_sha256": "ee6c84cdbda2843bdeddb88b7e903727ae72c7c81f1162702e535fafd7777356",
+  "publication_scope": "source-only privacy-reviewed summary; original private audit not exported",
+  "runtime_verified": false,
+  "schema": "remeizu.m5c-android13-selinux-bootstrap-source-patch.v1",
+  "status": "SOURCE_PATCH_APPLICABLE_RUNTIME_UNVERIFIED",
+  "whole_child_security_isolation_verified": false
+}
