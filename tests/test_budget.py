@@ -60,6 +60,39 @@ class MemoryREST:
 
 
 class BudgetTest(unittest.TestCase):
+    def test_rom_90_fits_actual_remaining_grant_and_preserves_history(self):
+        self.policy = B.read_policy()
+        self.assertEqual(self.policy['local_stop_normalized_minutes'], 9000)
+        self.assertEqual(self.policy['lifetime_reservation_limit'], 18000)
+        ledger = json.loads((Path(__file__).parent / 'fixtures/blacksmith-ledger-20261009.json').read_text())
+        self.transport.raw = json.dumps(ledger).encode()
+        result = self.call('rom-90', utc('2026-10-09T16:30:00Z'))
+        self.assertEqual(result['timeout_minutes'], '90')
+        self.assertEqual(result['reserved_normalized_minutes'], '744')
+        self.assertEqual(result['monthly_reserved_normalized_minutes'], '9000')
+        self.assertEqual(result['lifetime_reserved_normalized_minutes'], '17998')
+        observed = json.loads(self.transport.raw)
+        for month, bucket in ledger['months'].items():
+            for run, row in bucket['reservations'].items():
+                self.assertEqual(observed['months'][month]['reservations'][run], row)
+        before = self.transport.raw
+        self.env['GITHUB_RUN_ID'] = '1000000'
+        self.transport.calls.clear()
+        with self.assertRaisesRegex(B.BudgetError, 'monthly local stop'):
+            self.call('probe', utc('2026-10-09T16:35:00Z'))
+        self.assertEqual(self.transport.raw, before)
+        self.assertNotIn('PUT', [call[0] for call in self.transport.calls])
+
+    def test_rom_short_still_denied_by_actual_remaining_grant(self):
+        self.policy = B.read_policy()
+        ledger = json.loads((Path(__file__).parent / 'fixtures/blacksmith-ledger-20261009.json').read_text())
+        self.transport.raw = json.dumps(ledger).encode()
+        before = self.transport.raw
+        with self.assertRaisesRegex(B.BudgetError, 'monthly local stop'):
+            self.call('rom-short', utc('2026-10-09T16:30:00Z'))
+        self.assertEqual(self.transport.raw, before)
+        self.assertNotIn('PUT', [call[0] for call in self.transport.calls])
+
     def setUp(self):
         self.policy = B.read_policy()
         # Legacy fixtures continue to verify the old unrenewed lifetime cap.

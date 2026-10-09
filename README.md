@@ -13,6 +13,7 @@ choose **Run workflow**, and select a mode:
 | `probe` | CPU, memory, disk, Docker and public endpoint checks | 2 vCPU | 5 minutes | 8 |
 | `kernel` | [M5s Yassy panel object](recipes/M5S_YASSY_OBJECT.md) | 16 vCPU | 60 minutes | 504 |
 | `rom` | [Private-input ROM worker](recipes/ROM_WORKER.md) | 16 vCPU | 240 minutes | 1,944 |
+| `rom-90` | [Private-input ROM worker](recipes/ROM_WORKER.md), 75-minute session | 16 vCPU | 90 minutes | 744 |
 | `component` | Complete pinned board kernel (3.18 or 4.9) | Standard GitHub Ubuntu | 90 minutes | No Blacksmith reservation |
 
 The component job uses a standard GitHub-hosted runner in this public repository.
@@ -42,7 +43,7 @@ before allocating Blacksmith compute. Reservations use normalized 2-vCPU minutes
 and are not refunded for shorter, failed or cancelled jobs.
 
 [Policy](config/blacksmith-policy.json) limits reservations to **9,000 minutes per
-UTC month and 9,000 total**, below the confirmed 10,000-minute monthly allowance.
+UTC month and 18,000 total**, below the confirmed 10,000-minute monthly allowance.
 The `blacksmith-budget` branch stores `ledger.json`; updates require its current
 file SHA. Missing, malformed or conflicting state rejects the job. Reservations
 that could cross a month boundary are also rejected. Only the budget job has
