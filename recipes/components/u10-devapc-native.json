@@ -10,8 +10,8 @@
   "timeout_seconds": 3600,
   "source": {
     "url": "https://github.com/ReMeizu/android_kernel_meizu_mt675x.git",
-    "commit": "9008fe978c5ac41234c10106f954ff2f64bfc335",
-    "tree": "4a0a0b997903a5e8ebd647d3177f30e5c2f6d984",
+    "commit": "7cda3819b67d210611fce0e7f5fc6cb97486c896",
+    "tree": "e830b6de6cd8dad0860dd995053ad96287303142",
     "files_sha256": {
       "Makefile": "ce44c62c91de8f8d5e6ee1e8f91e51fc61726c54a427417add743d85daed9297",
       "arch/arm64/boot/dts/u10.dts": "e7bc4fb66d22ac85e380cf6a8434f7dc354b966a1ca431f2368342013ece8eb5",
@@ -67,7 +67,8 @@
       "firmware/keyspan_pda/keyspan_pda.S": "04dbd3a524e41b5835082ba43ae5672091188cc2da2f6077e7146989828102a3",
       "firmware/keyspan_pda/xircom_pgs.S": "2a247827ecfc070820da8bf4052fea4bb8e574a9c458907de3345cf44ab9e4b1",
       "sound/oss/sound_firmware.h": "e3664fb27f2ab3e13972036966f3aace5b6f7b9867741cabca51a167944f461e",
-      "sound/sound_firmware.c": "f9cf3cbe40996d5a55d05d3db2207333cfa8515d814b3a1379d9428f41935724"
+      "sound/sound_firmware.c": "f9cf3cbe40996d5a55d05d3db2207333cfa8515d814b3a1379d9428f41935724",
+      "drivers/misc/mediatek/connectivity/common/common_main/core/wmt_lib.c": "4bd999d6b86b176ed6547423037db327e043999e502752382c292b513491c841"
     }
   },
   "toolchain": {
