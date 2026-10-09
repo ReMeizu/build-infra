@@ -10,6 +10,7 @@ import tarfile
 import urllib.parse
 import urllib.request
 from make_j2_successor import safe
+from diagnostics import PublicInputError
 
 def sha(p):
     h = hashlib.sha256()
@@ -92,17 +93,19 @@ def extract_tool(archive, root, row):
     for dest,target in links:dest.symlink_to(target)
     if mapping is not None and set(mapping.values())!=seen:raise ValueError('incomplete exact tool member mapping')
 
-def verify(root,row):
+def verify(root,row,diagnostic_member=None):
     path=root/safe(row['path'])
+    member=row['path'] if diagnostic_member is None else diagnostic_member
     if 'symlink' in row:
-        if not path.is_symlink() or os.readlink(path)!=row['symlink']:raise ValueError('public input link differs')
-        path.resolve().relative_to(root.resolve())
+        if not path.is_symlink() or os.readlink(path)!=row['symlink']:raise PublicInputError('SOURCE_LINK_MISMATCH',member)
+        try:path.resolve().relative_to(root.resolve())
+        except ValueError:raise PublicInputError('SOURCE_LINK_ESCAPE',member) from None
     else:
-        if not path.is_file() or path.is_symlink() or sha(path)!=row['sha256']:raise ValueError('public input byte mismatch: '+row['path'])
-        if 'bytes' in row and path.stat().st_size!=row['bytes']:raise ValueError('public input size mismatch')
+        if not path.is_file() or path.is_symlink() or sha(path)!=row['sha256']:raise PublicInputError('SOURCE_BYTES_MISMATCH',member)
+        if 'bytes' in row and path.stat().st_size!=row['bytes']:raise PublicInputError('SOURCE_SIZE_MISMATCH',member)
         if 'mode' in row:
             mode=int(row['mode'],8) if isinstance(row['mode'],str) else row['mode']
-            if stat.S_IMODE(path.stat().st_mode)!=mode:raise ValueError('public input mode mismatch')
+            if stat.S_IMODE(path.stat().st_mode)!=mode:raise PublicInputError('SOURCE_MODE_MISMATCH',member)
     return path
 
 def validate_lock(lock,inputs):
@@ -150,23 +153,24 @@ def acquire(lock,thin,dest):
         print('PUBLIC_NATIVE_FETCH_PROJECT_PIN_PASS',i+1,len(lock['projects']),flush=True)
     source=original/'native-source-input';source.mkdir()
     owners=sorted(checkout_map,key=len,reverse=True)
+    print('PUBLIC_NATIVE_MATERIALIZE_SOURCE_BEGIN',len(inputs['source_files']),flush=True)
     for row in inputs['source_files']:
         owner=next((x for x in owners if row['path'].startswith(x+'/')),None)
         if owner is None:
             if row['path']=='.gn' and row.get('symlink')=='build/core/gn/dotfile.gn':continue
-            raise ValueError('source member has no exact pinned project owner')
+            raise PublicInputError('SOURCE_OWNER_MISSING',row['path'])
         rel=row['path'][len(owner)+1:]
         source_row=dict(row,path=rel)
         source_row.pop('mode',None)
         if 'symlink' in row:
             p=checkout_map[owner]/safe(rel)
             if not p.is_symlink() or os.readlink(p)!=row['symlink']:
-                raise ValueError('Git source link differs from admitted original member')
+                raise PublicInputError('SOURCE_GIT_LINK_MISMATCH',row['path'])
         else:
-            p=verify(checkout_map[owner],source_row)
+            p=verify(checkout_map[owner],source_row,diagnostic_member=row['path'])
         declared_mode=int(row['mode'],8) if isinstance(row.get('mode'),str) else row.get('mode')
         if 'symlink' not in row and declared_mode is not None and bool(p.stat().st_mode & 0o111)!=bool(declared_mode & 0o111):
-            raise ValueError('Git executable bit differs from admitted source member')
+            raise PublicInputError('SOURCE_GIT_EXECUTABLE_MISMATCH',row['path'])
         target=source/safe(row['path']);target.parent.mkdir(parents=True,exist_ok=True)
         if 'symlink' not in row:
             with p.open('rb') as src,target.open('xb') as dst:shutil.copyfileobj(src,dst)
@@ -175,6 +179,7 @@ def acquire(lock,thin,dest):
         if 'symlink' in row:(source/safe(row['path'])).symlink_to(row['symlink'])
     for row in inputs.get('uninitialized_gitlinks',[]):
         p=source/safe(row['path']);p.mkdir(parents=True,exist_ok=False);p.chmod(row['directory_mode'])
+    print('PUBLIC_NATIVE_MATERIALIZE_SOURCE_PASS',len(inputs['source_files']),flush=True)
     for i,row in enumerate(lock['tools']):
         print('PUBLIC_NATIVE_FETCH_TOOL_BEGIN',i+1,len(lock['tools']),flush=True)
         archive=downloads/('tool-'+str(i));download(row,archive)

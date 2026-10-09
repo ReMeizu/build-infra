@@ -17,6 +17,7 @@ from make_j2_successor import FORGE_SHA, prepare
 from resource import GIB, RAM_BYTES, admit_values, snapshot
 from encrypted_native_retention import keyring
 from finish_attempt import run_owned,closed_containers,verify_inputs,atomic_json
+from diagnostics import diagnostic
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
@@ -151,7 +152,7 @@ def main():
         record.update(status='ACTUAL_NATIVE_INTERMEDIATE_FORGE_PASS_NOT_FULL375',forge_success_sha256=sha(actual/'SUCCESS'),
                       artifact_manifest_sha256=sha(actual/'artifacts.json'),verified_artifact_count=len(manifest))
     except (Exception,KeyboardInterrupt) as error:
-        record.update(status='REFUSED_OR_FAILED_NATIVE_INTERMEDIATE',error_type=type(error).__name__)
+        record.update(status='REFUSED_OR_FAILED_NATIVE_INTERMEDIATE',**diagnostic(error))
         # Avoid dumping fetched stderr, arbitrary exception bodies or output paths.
     finally:
         atomic_json(job/'ATTEMPT_BEFORE_FINALIZATION.json',record)

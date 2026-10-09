@@ -11,12 +11,13 @@ import unittest
 sys.dont_write_bytecode=True
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
-from acquire import public_url, validate_lock, extract_tool
+from acquire import public_url, validate_lock, extract_tool,verify
 from make_j2_successor import transformed_worker
 from resource import GIB, admit_values
 from retain_release import actual_policy,cipher_upper_bound,complete_snapshot
 from free_native_run import checked_public_job
 from finish_attempt import run_owned
+from diagnostics import diagnostic,PublicInputError
 
 B6=HERE/'controller/native_gn_worker.py'
 
@@ -45,6 +46,26 @@ class ResourceControls(unittest.TestCase):
             admit_values({'cpu_affinity':4,'cpu_quota':2,'available_bytes':13*GIB,'tmpfs_free_bytes':10*GIB},'prepare',5*GIB,349008915)
 
 class PublicInputControls(unittest.TestCase):
+    def test_source_mismatch_exposes_only_declared_canonical_member_and_fixed_code(self):
+        root=Path(tempfile.mkdtemp(prefix='free-native-public-diagnostic-',dir='/dev/shm'))
+        (root/'member.c').write_bytes(b'actual source control')
+        try:verify(root,{'path':'member.c','sha256':'0'*64},diagnostic_member='base/example/member.c')
+        except PublicInputError as error:
+            result=diagnostic(error)
+            self.assertEqual(result['error_code'],'SOURCE_BYTES_MISMATCH')
+            self.assertEqual(result['declared_public_member'],'base/example/member.c')
+            self.assertEqual(result['source_check']['module'],'acquire.py')
+        else:self.fail('mismatched source accepted')
+    def test_untrusted_exception_text_and_unsafe_path_are_never_published(self):
+        result=diagnostic(ValueError('https://example.invalid/?token=ghp_secret\nprivate stderr'))
+        self.assertEqual(result['error_code'],'UNCLASSIFIED_VALUE_ERROR')
+        self.assertNotIn('ghp_secret',str(result))
+        for member in ('../private','/home/private','https://example.invalid/secret','base/ghp_secret','bad\npath'):
+            result=diagnostic(PublicInputError('SOURCE_LINK_MISMATCH',member))
+            self.assertNotIn('declared_public_member',result)
+    def test_fixed_non_source_code_is_bounded(self):
+        result=diagnostic(ValueError('actual disk cannot retain verified source/tools/downloads/Docker headroom'))
+        self.assertEqual(result['error_code'],'PUBLIC_DISK_CAPACITY_REFUSAL')
     def test_truncated_snapshot_falls_back_to_complete_bound_record(self):
         import json
         root=Path(tempfile.mkdtemp(prefix='free-native-snapshot-negative-',dir='/dev/shm'))
