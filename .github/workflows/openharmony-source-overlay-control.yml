@@ -1,0 +1,28 @@
+name: Public source overlay filesystem control
+run-name: Source overlay control by @${{ github.actor }}
+on:
+  push:
+    branches:
+      - codex/source-overlay-control-20261010
+    paths:
+      - .github/workflows/openharmony-source-overlay-control.yml
+      - docs/source-overlay-control/**
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: openharmony-source-overlay-control
+  cancel-in-progress: false
+jobs:
+  source-control:
+    if: ${{ github.repository == 'ReMeizu/build-infra' && github.run_attempt == 1 && github.event.repository.private == false && github.ref == 'refs/heads/codex/source-overlay-control-20261010' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Verify tiny source overlay through unchanged Forge
+        run: timeout --signal=INT --kill-after=90s 20m python3 -B docs/source-overlay-control/run_control.py
+      # Literal source fixture and fixed proof only. No compiler, secret,
+      # cache, plaintext native artifact or Release upload in this control.

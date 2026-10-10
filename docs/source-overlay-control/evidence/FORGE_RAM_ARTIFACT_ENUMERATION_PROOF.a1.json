@@ -1,0 +1,10 @@
+{
+  "schema": "remeizu.actual-unchanged-Forge-artifact-fixture.v1",
+  "actual_artifacts": {
+    "retained/probe.txt": "e3993f461d586b30059cc6ea4e6caadcf950464bc48824fd6fcb47c3b99cd4cc"
+  },
+  "original_Forge_collector_executed": true,
+  "Docker_visibility_proven": false,
+  "native_target_compile_proven": false,
+  "full375_images": false
+}

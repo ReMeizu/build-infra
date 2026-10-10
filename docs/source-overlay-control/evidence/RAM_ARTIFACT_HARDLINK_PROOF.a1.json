@@ -1,0 +1,6 @@
+{
+  "artifact_sha256": "e3993f461d586b30059cc6ea4e6caadcf950464bc48824fd6fcb47c3b99cd4cc",
+  "artifact_bytes": 35,
+  "actual_same_inode_RAM_hardlink": true,
+  "target_compilation_proven_by_filesystem_control": false
+}
