@@ -112,12 +112,12 @@ def verify(root,row,diagnostic_member=None):
 def validate_lock(lock,inputs):
     if lock.get('schema')!='remeizu.free-hosted-native-public-inputs.v1' or lock.get('public_sources_only') is not True or lock.get('private_android_inputs') is not False:
         raise ValueError('reviewed source-only public acquisition lock required')
-    if lock.get('source_projects')!=101 or lock.get('selected_part_count')!=85 or len(inputs['projects'])!=101 or lock.get('source_bytes')!=inputs.get('source_bytes'):
-        raise ValueError('genuine reviewed 101/85 intermediate required; full375 not admitted')
-    if lock.get('gn_inputs_sha256')!='bc5b4da2894494c066978098d9e811cb208fca87588c1e73c0dea4f45e4d4e06':
+    if lock.get('source_projects')!=102 or lock.get('selected_part_count')!=86 or len(inputs['projects'])!=102 or lock.get('source_bytes')!=inputs.get('source_bytes'):
+        raise ValueError('genuine reviewed 102/86 intermediate required; full375 not admitted')
+    if lock.get('gn_inputs_sha256')!='fd12937cafbb5c2e0d785a35529e96e0a7c572700243c05cdc38ddb1a2b87885':
         raise ValueError('reviewed measured cohort GN identity differs')
     proof_row=lock.get('cohort_proof',{})
-    if proof_row!={'path':'inputs/RELATIONAL_PROVIDER_COHORT_PROOF.a1.json','sha256':'8f92eec4f3e22a3afa1a91d3c08a555dc04b9bf7507f69f063eec09e03c5af9e'}:
+    if proof_row!={'path':'inputs/IDL_PROVIDER_COHORT_PROOF.a1.json','sha256':'98ec359c29a5c64bc60776e672ecf9269c59c96d4dd099cf309ce41d7103f4b0'}:
         raise ValueError('reviewed production cohort proof identity missing')
     actual={p['path']:p for p in inputs['projects']}
     if {x['path'] for x in lock['projects']}!=set(actual):raise ValueError('public source project coverage differs')
@@ -156,6 +156,25 @@ def validate_cohort_proof(lock,inputs,thin):
         if project_map.get(p['path'])!=(p['head'],p['git_tree']):raise ValueError('reviewed production project identity differs')
     if len(proof['baseline_source_projects'])+len(proof['added_projects'])!=len(project_map) or proof['source_bytes']!=inputs['source_bytes'] or proof['source_file_count']!=len(inputs['source_files']):
         raise ValueError('reviewed measured production source inventory differs')
+    parent=proof.get('immediate_parent',{})
+    if (parent.get('source_lock_sha256')!='cd0fd17d93ddf0c7f4cd2da211fafb746cca9aaf8e16e8a9f4867e9700cce4c0' or
+            parent.get('gn_inputs_sha256')!='bc5b4da2894494c066978098d9e811cb208fca87588c1e73c0dea4f45e4d4e06' or
+            parent.get('cohort_proof_sha256')!='8f92eec4f3e22a3afa1a91d3c08a555dc04b9bf7507f69f063eec09e03c5af9e' or
+            parent.get('source_projects')!=101 or parent.get('selected_part_count')!=85):
+        raise ValueError('source-admitted A6 immediate parent binding differs')
+    parent_projects=[r for r in inputs['projects'] if r['path']!='foundation/ability/idl_tool']
+    if len(parent_projects)!=101 or canonical(parent_projects)!='62e1c19c6a23411dad1dc38ccdaa22257c1b392267d2bcdd7702881c6dca2a0b':
+        raise ValueError('source-admitted parent101 project rows changed')
+    parent_rows={r['path']:r for r in inputs['source_files'] if not r['path'].startswith('foundation/ability/idl_tool/')}
+    if len(parent_rows)!=174299 or canonical(parent_rows)!='19a2f1db71a4aea28a2b04cc1da9d7fb8ecb7d4f8bf01fe37eca0cf7da27efe5':
+        raise ValueError('source-admitted parent101 source rows changed')
+    parent_parts=parent.get('selected_parts',{})
+    if (len(parent_parts)!=85 or canonical(parent_parts)!='c5e92ea246fd97fe8a15642b2ca9ceeee9e9ca55470157e5949e086952bb6c84' or
+            any(actual.get(k)!=v for k,v in parent_parts.items()) or set(actual)-set(parent_parts)!={'ability:idl_tool'}):
+        raise ValueError('source-admitted parent85 parts/features changed')
+    parent_selector=parent.get('final_selector',{})
+    if parent_selector!={'path':'inputs/public-relational-production-product.json','sha256':'c2a2f2061234de77b6103b473ec6ed2b2e261fceaa38b3d873cc6875e36ff41c'} or sha(thin/safe(parent_selector['path']))!=parent_selector['sha256']:
+        raise ValueError('source-admitted A6 selector changed')
     for key in ('baseline_selector','final_selector'):
         r=proof[key]
         if sha(thin/safe(r['path']))!=r['sha256']:raise ValueError('reviewed production selector bytes differ')

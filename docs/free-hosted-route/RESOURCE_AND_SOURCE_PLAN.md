@@ -137,3 +137,21 @@ positive/refusal controls. Full GN closure, target compilation, full375 images
 and hardware acceptance remain false until their real producer gates pass.
 Historical source freezes above remain historical; this successor replaces
 only the reviewed cohort execution admission.
+
+## Exact IDL successor after actual GN
+
+Authenticated run38043046402 passed the original image health and entered
+real Forge/GN. Its first failure was component idl_tool in the existing
+IDL action at idl.gni:261. The [IDL source state](IDL_COHORT_STATE.a1.md)
+records the one genuine original-pin provider and unchanged required
+dependencies. Measured current inputs are102 projects/86 selected parts,
+177773 source members/1867068325 source bytes, and5273066004 expanded bytes.
+The extra23657530 source bytes use the same measured RAM model; no floor,
+SDK, worker job count, target, or feature is lowered.
+
+Exact lockc6bad3ed0f68ff1c8ee5bbbd82921468e8e76b26c82d54d79ce68427c9af7aa1
+and GNIfd12937cafbb5c2e0d785a35529e96e0a7c572700243c05cdc38ddb1a2b87885
+replace the101/85 execution admission. Immediate-parent source/project/feature
+guards retain the complete A6-admitted101/85 input in addition to the original
+88/72 preservation chain. Complete375-part images and hardware runtime still
+require their actual gates; this is a source-only intermediate.
