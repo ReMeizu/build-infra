@@ -1,0 +1,25 @@
+{
+  "schema": "remeizu.full-phone-overlay-worker-source-freeze.v1",
+  "checked_at": "2026-10-10T14:50:50.056849+00:00",
+  "focused_controls_pass": 8,
+  "seconds": 0.114,
+  "independent_review_pass": true,
+  "original_worker_sha256": "196b46fc755f5ef77eeca02dc81c448f46f3f70daf095f3997624ec2583bc9be",
+  "j2_helper_sha256": "fc49a990999915506986d7655266b59f593acb931c655d88d66f56abb2141294",
+  "files": {
+    "docs/full375-route/make_overlay_worker.py": "8ca045680e1f0bcc6c73c1f730776620486258ef9a94876e924019c5e112bc3b",
+    "docs/full375-route/overlay_io.py": "a6ae6d964300628570c789e028a65c8bbda44310d5bd9864e3db29b5c2e1cfaf",
+    "docs/full375-route/full_overlay_protocol.py": "2fcdfaeb9bbc24e59fb2f3b616ef4a9dd5a431a587dad7a259ec847edeac5aa5",
+    "docs/full375-route/original_resource_snapshot.py": "0d401a553c64d8d3494a7a01a42044ffdd3fb3082f3f15dd3432f4860232a139",
+    "docs/full375-route/test_overlay_worker.py": "080390b7dd390c4fbe27dc60658febd292ee94a97c82ba25e3ca15f93858bc42",
+    "docs/full375-route/native_gn_worker.py": "970b7a6c16e4f21f3e979e28d6b9f77f8760190dac1b4204d81f383df68542a7",
+    "docs/full375-route/README.md": "5e5a5937bf84cc17716fc39d8910daaf8743b49143288840c684fdb3588d6d65"
+  },
+  "source_only": true,
+  "full_source_metadata_or_selector_admitted": false,
+  "actual_full_Docker_executed": false,
+  "full375_or_canonical_GUI_GN_generated": false,
+  "target_compilation": false,
+  "phone_images": false,
+  "runtime": false
+}
