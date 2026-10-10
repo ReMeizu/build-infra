@@ -1,0 +1,26 @@
+name: Cloud benchmark 20261010
+on:
+  push:
+    branches: [codex/cloud-benchmarks-20261010]
+permissions:
+  contents: read
+concurrency:
+  group: cloud-benchmark-20261010
+  cancel-in-progress: false
+jobs:
+  github-standard:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: fio CPU memory and Geekbench on public standard runner
+        run: bash scripts/ci-benchmark.sh
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: github-standard-benchmark
+          path: evidence
+          retention-days: 3

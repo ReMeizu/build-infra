@@ -328,6 +328,7 @@ def main():
     parser.add_argument('--mount', '--root', action='append', default=[], type=Path)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--no-disk', action='store_true')
+    parser.add_argument('--max-workers', type=int, choices=range(1, 17), default=4)
     parser.add_argument('--file-mib', type=int, choices=range(128, 2049), default=512)
     parser.add_argument('--seconds', type=int, choices=range(8, 13), default=8)
     parser.add_argument('--worker', choices=['cpu', 'memory'], help=argparse.SUPPRESS)
@@ -344,11 +345,11 @@ def main():
     signal.signal(signal.SIGINT, interrupt)
     host_limits = limits()
     affinity = host_limits.pop('affinity')
-    workers = max(1, min(16, len(affinity), math.ceil(host_limits['effective_cpu_cores'])))
+    workers = max(1, min(args.max_workers, len(affinity), math.ceil(host_limits['effective_cpu_cores'])))
     result = {'schema': 1, 'started_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
               'script_sha256': hashlib.sha256(SCRIPT.read_bytes()).hexdigest() if SCRIPT else None,
               'script_input': 'file' if SCRIPT else 'stdin (record transferred script hash externally)',
-              'limits': host_limits, 'cpu_worker_cap': 16,
+            'limits': host_limits, 'cpu_worker_cap': args.max_workers,
               'cpu_single': parallel_measure('cpu', 1, 4, affinity),
               'cpu_parallel': parallel_measure('cpu', workers, 4, affinity)}
     memory_workers = min(2, workers, host_limits['available_memory_bytes'] // (256 * MIB))
