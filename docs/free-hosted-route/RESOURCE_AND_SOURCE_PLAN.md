@@ -155,3 +155,20 @@ replace the101/85 execution admission. Immediate-parent source/project/feature
 guards retain the complete A6-admitted101/85 input in addition to the original
 88/72 preservation chain. Complete375-part images and hardware runtime still
 require their actual gates; this is a source-only intermediate.
+
+## Existing memorytracker registration successor
+
+Authenticated run38044685389 reached real GN and required the already
+admitted drivers_interface_memorytracker interface from hidumper. The
+[memorytracker source state](MEMORYTRACKER_COHORT_STATE.a1.md) binds that
+existing aggregate provider and the same-list memory_utils dependency.
+Only50 previously audited read-only memory_utils source members/305066
+bytes are added; no repository fetch or driver-source duplication occurs.
+
+Current exact source103/88 is177823 members/1867373391 bytes; expanded
+inputs5273371070 bytes use the same source/Rust/RAM model. GNI
+6718cc2eec672b640c46cd1c03ab353485d02b000887e26e1e90b831d344a022
+and lock75694eb3607edd20ad452a05882576552e0186ce64cf969c128437f8612e0bee
+replace only the source admission. All102/86 records/features and prior
+101/85/original88/72 chains remain checked. SDK, jobs, RAM floors,
+compiler labels, test dependencies and the full375 boundary are unchanged.

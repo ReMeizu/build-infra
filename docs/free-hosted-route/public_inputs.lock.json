@@ -1,10 +1,10 @@
 {
   "cohort_proof": {
-    "path": "inputs/IDL_PROVIDER_COHORT_PROOF.a1.json",
-    "sha256": "98ec359c29a5c64bc60776e672ecf9269c59c96d4dd099cf309ce41d7103f4b0"
+    "path": "inputs/MEMORYTRACKER_COHORT_PROOF.a1.json",
+    "sha256": "bdef08ae8117c56669e4d359003b398e17d87d0e2f02f8937804dd925f14b840"
   },
   "controller_path": "docs/free-hosted-route/controller",
-  "expanded_bytes": 5273066004,
+  "expanded_bytes": 5273371070,
   "full375_phone": false,
   "global_source_links": [
     {
@@ -12,7 +12,7 @@
       "target": "build/core/gn/dotfile.gn"
     }
   ],
-  "gn_inputs_sha256": "fd12937cafbb5c2e0d785a35529e96e0a7c572700243c05cdc38ddb1a2b87885",
+  "gn_inputs_sha256": "6718cc2eec672b640c46cd1c03ab353485d02b000887e26e1e90b831d344a022",
   "native_compile_executed": false,
   "private_android_inputs": false,
   "projects": [
@@ -967,14 +967,23 @@
       "path": "foundation/ability/idl_tool",
       "uninitialized_gitlinks": [],
       "url": "https://github.com/eclipse-oniro-mirrors/ability_idl_tool"
+    },
+    {
+      "git_tree": "2a023982106186c8aba10a200e046a85778ad1a3",
+      "head": "651da30d5e980fcc01b923389c4c41202e76ba7e",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "commonlibrary/memory_utils",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/commonlibrary_memory_utils"
     }
   ],
   "public_sources_only": true,
   "rust_layout_bytes": 349008915,
   "schema": "remeizu.free-hosted-native-public-inputs.v1",
-  "selected_part_count": 86,
-  "source_bytes": 1867068325,
-  "source_projects": 102,
+  "selected_part_count": 88,
+  "source_bytes": 1867373391,
+  "source_projects": 103,
   "tools": [
     {
       "archive_bytes": 8961587,

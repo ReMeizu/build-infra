@@ -112,12 +112,12 @@ def verify(root,row,diagnostic_member=None):
 def validate_lock(lock,inputs):
     if lock.get('schema')!='remeizu.free-hosted-native-public-inputs.v1' or lock.get('public_sources_only') is not True or lock.get('private_android_inputs') is not False:
         raise ValueError('reviewed source-only public acquisition lock required')
-    if lock.get('source_projects')!=102 or lock.get('selected_part_count')!=86 or len(inputs['projects'])!=102 or lock.get('source_bytes')!=inputs.get('source_bytes'):
-        raise ValueError('genuine reviewed 102/86 intermediate required; full375 not admitted')
-    if lock.get('gn_inputs_sha256')!='fd12937cafbb5c2e0d785a35529e96e0a7c572700243c05cdc38ddb1a2b87885':
+    if lock.get('source_projects')!=103 or lock.get('selected_part_count')!=88 or len(inputs['projects'])!=103 or lock.get('source_bytes')!=inputs.get('source_bytes'):
+        raise ValueError('genuine reviewed 103/88 intermediate required; full375 not admitted')
+    if lock.get('gn_inputs_sha256')!='6718cc2eec672b640c46cd1c03ab353485d02b000887e26e1e90b831d344a022':
         raise ValueError('reviewed measured cohort GN identity differs')
     proof_row=lock.get('cohort_proof',{})
-    if proof_row!={'path':'inputs/IDL_PROVIDER_COHORT_PROOF.a1.json','sha256':'98ec359c29a5c64bc60776e672ecf9269c59c96d4dd099cf309ce41d7103f4b0'}:
+    if proof_row!={'path':'inputs/MEMORYTRACKER_COHORT_PROOF.a1.json','sha256':'bdef08ae8117c56669e4d359003b398e17d87d0e2f02f8937804dd925f14b840'}:
         raise ValueError('reviewed production cohort proof identity missing')
     actual={p['path']:p for p in inputs['projects']}
     if {x['path'] for x in lock['projects']}!=set(actual):raise ValueError('public source project coverage differs')
@@ -156,29 +156,54 @@ def validate_cohort_proof(lock,inputs,thin):
         if project_map.get(p['path'])!=(p['head'],p['git_tree']):raise ValueError('reviewed production project identity differs')
     if len(proof['baseline_source_projects'])+len(proof['added_projects'])!=len(project_map) or proof['source_bytes']!=inputs['source_bytes'] or proof['source_file_count']!=len(inputs['source_files']):
         raise ValueError('reviewed measured production source inventory differs')
-    parent=proof.get('immediate_parent',{})
+    parent=proof.get('source_admitted_parent101',{})
     if (parent.get('source_lock_sha256')!='cd0fd17d93ddf0c7f4cd2da211fafb746cca9aaf8e16e8a9f4867e9700cce4c0' or
             parent.get('gn_inputs_sha256')!='bc5b4da2894494c066978098d9e811cb208fca87588c1e73c0dea4f45e4d4e06' or
             parent.get('cohort_proof_sha256')!='8f92eec4f3e22a3afa1a91d3c08a555dc04b9bf7507f69f063eec09e03c5af9e' or
             parent.get('source_projects')!=101 or parent.get('selected_part_count')!=85):
         raise ValueError('source-admitted A6 immediate parent binding differs')
-    parent_projects=[r for r in inputs['projects'] if r['path']!='foundation/ability/idl_tool']
+    parent_projects=[r for r in inputs['projects'] if r['path'] not in ('foundation/ability/idl_tool','commonlibrary/memory_utils')]
     if len(parent_projects)!=101 or canonical(parent_projects)!='62e1c19c6a23411dad1dc38ccdaa22257c1b392267d2bcdd7702881c6dca2a0b':
         raise ValueError('source-admitted parent101 project rows changed')
-    parent_rows={r['path']:r for r in inputs['source_files'] if not r['path'].startswith('foundation/ability/idl_tool/')}
+    parent_rows={r['path']:r for r in inputs['source_files'] if not r['path'].startswith(('foundation/ability/idl_tool/','commonlibrary/memory_utils/'))}
     if len(parent_rows)!=174299 or canonical(parent_rows)!='19a2f1db71a4aea28a2b04cc1da9d7fb8ecb7d4f8bf01fe37eca0cf7da27efe5':
         raise ValueError('source-admitted parent101 source rows changed')
     parent_parts=parent.get('selected_parts',{})
     if (len(parent_parts)!=85 or canonical(parent_parts)!='c5e92ea246fd97fe8a15642b2ca9ceeee9e9ca55470157e5949e086952bb6c84' or
-            any(actual.get(k)!=v for k,v in parent_parts.items()) or set(actual)-set(parent_parts)!={'ability:idl_tool'}):
+            any(actual.get(k)!=v for k,v in parent_parts.items()) or set(actual)-set(parent_parts)!={'ability:idl_tool','hdf:drivers_interface_memorytracker','commonlibrary:memory_utils'}):
         raise ValueError('source-admitted parent85 parts/features changed')
     parent_selector=parent.get('final_selector',{})
     if parent_selector!={'path':'inputs/public-relational-production-product.json','sha256':'c2a2f2061234de77b6103b473ec6ed2b2e261fceaa38b3d873cc6875e36ff41c'} or sha(thin/safe(parent_selector['path']))!=parent_selector['sha256']:
         raise ValueError('source-admitted A6 selector changed')
+    immediate=proof.get('immediate_parent',{})
+    if (immediate.get('source_lock_sha256')!='c6bad3ed0f68ff1c8ee5bbbd82921468e8e76b26c82d54d79ce68427c9af7aa1' or
+            immediate.get('gn_inputs_sha256')!='fd12937cafbb5c2e0d785a35529e96e0a7c572700243c05cdc38ddb1a2b87885' or
+            immediate.get('cohort_proof_sha256')!='98ec359c29a5c64bc60776e672ecf9269c59c96d4dd099cf309ce41d7103f4b0' or
+            immediate.get('source_projects')!=102 or immediate.get('selected_part_count')!=86):
+        raise ValueError('actual A7 immediate parent identity differs')
+    rows102={r['path']:r for r in inputs['source_files'] if not r['path'].startswith('commonlibrary/memory_utils/')}
+    projects102=[r for r in inputs['projects'] if r['path']!='commonlibrary/memory_utils']
+    if len(rows102)!=177773 or canonical(rows102)!='ae02161020c82cb309106c56e0209a236f41cf9407f43fabb47be7059df95c6e':
+        raise ValueError('actual A7 source102 rows changed')
+    if len(projects102)!=102 or canonical(projects102)!='3a1b12e0fd76f95c544a6c7d26ed703211ab0452739a71cf0ee08e95cba34856':
+        raise ValueError('actual A7 project102 rows changed')
+    parts86=immediate.get('selected_parts',{})
+    if (len(parts86)!=86 or canonical(parts86)!='d4ff2b84c94bf55c2c08e008b17cea09544d8c82384cf0d05f9df908e7f462b0' or
+            any(actual.get(k)!=v for k,v in parts86.items()) or set(actual)-set(parts86)!={'hdf:drivers_interface_memorytracker','commonlibrary:memory_utils'}):
+        raise ValueError('actual A7 part86 feature preservation differs')
+    selector86=immediate.get('final_selector',{})
+    if selector86!={'path':'inputs/public-idl-tool-product.json','sha256':'019c9e9b5c0ecddf2f91489768abbc1fbebfc5bc4f3cbd99ae656608554b9ede'} or sha(thin/safe(selector86['path']))!=selector86['sha256']:
+        raise ValueError('actual A7 selector changed')
     for key in ('baseline_selector','final_selector'):
         r=proof[key]
         if sha(thin/safe(r['path']))!=r['sha256']:raise ValueError('reviewed production selector bytes differ')
     source_map={r['path']:r for r in inputs['source_files']}
+    existing=proof.get('existing_source_component_additions',[])
+    if len(existing)!=1 or existing[0].get('part')!='hdf:drivers_interface_memorytracker':
+        raise ValueError('actual A7 existing-source component registration differs')
+    for row in existing:
+        if project_map.get(row['provider_path'])!=(row['head'],row['git_tree']) or source_map.get(row['bundle_path'],{}).get('sha256')!=row['bundle_sha256']:
+            raise ValueError('existing pinned memorytracker provider/bundle differs')
     for r in proof['inherit_inputs']:
         if source_map.get(r['path'],{}).get('sha256')!=r['sha256']:raise ValueError('reviewed inherited selection source differs')
     final=[r for r in inputs['overlay_files'] if r['target']=='vendor/oniro/m5c/config.json'][-1]

@@ -26,7 +26,7 @@ DOCKER_SHA='bdaa70b28298b269a8009335a9e90987fde0dd1ff08dad5369d133aeb0aadf3b'
 RECIPIENT='959CA39B8C9D913EF17718CAE1615C4DD15366ED'
 PUBLIC_KEY_SHA='281c6c5992653a27b00592b33aeececcf2affd5d108f46db8f8199a3124730c5'
 RETENTION_HELPER_SHA='aff04c7b6ac6e5b98ecfceb0843cbc5bc30ffc33a198ff37617ac66e66d8fd3e'
-APPROVED_LOCK_SHA='c6bad3ed0f68ff1c8ee5bbbd82921468e8e76b26c82d54d79ce68427c9af7aa1'
+APPROVED_LOCK_SHA='75694eb3607edd20ad452a05882576552e0186ce64cf969c128437f8612e0bee'
 
 def command(argv,**kwargs):
     return subprocess.run([str(x) for x in argv],check=True,capture_output=True,timeout=kwargs.pop('timeout',1200),**kwargs)

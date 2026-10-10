@@ -43,7 +43,7 @@ The [public native route](docs/free-hosted-route/RESOURCE_AND_SOURCE_PLAN.md)
 uses a standard GitHub runner, anonymous pinned public sources, two compiler
 jobs and RAM build outputs. Its push trigger accepts only
 `codex/free-native-20261009`; the first reviewed run uses 88 source projects and
-72 selected parts. The current reviewed successor has 102 projects /86 parts,
+72 selected parts. The current reviewed successor has 103 projects /88 parts,
 adding the genuinely required database/framework providers while preserving all
 prior source, feature and SDK bindings. See the
 [measured cohort](docs/free-hosted-route/MEASURED_COHORT_GUARD_STATE.a1.md).
