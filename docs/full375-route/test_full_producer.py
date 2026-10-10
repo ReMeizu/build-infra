@@ -24,14 +24,14 @@ class FullProducerControls(unittest.TestCase):
                 with self.assertRaises(ValueError):run.checked_job(env)
 
     def test_recipe_immutable_image_and_exact_ram_lower_tool_bindings(self):
-        recipe=run.make_recipe(Path('/owned/controller'),Path('/owned/inputs'),Path('/owned/ram'),'sha256:'+'a'*64,'123','b'*64,600,'c'*64)
-        self.assertEqual(recipe['image_tag'],'sha256:'+'a'*64)
+        recipe=run.make_recipe(Path('/owned/controller'),Path('/owned/inputs'),Path('/owned/ram'),'androidforge/build-full-phone-123:android-9','123','b'*64,600,'c'*64)
+        self.assertEqual(recipe['image_tag'],'androidforge/build-full-phone-123:android-9')
         self.assertEqual(recipe['command'],['bash','/workspace/src/worker.sh'])
         self.assertEqual(recipe['extra_mounts'][0],['/owned/ram','/workspace/ram','rw'])
         self.assertEqual(recipe['extra_mounts'][1],['/owned/ram/lower','/workspace/src/native-source-input','ro'])
         self.assertTrue(all(row[2]=='ro' for row in recipe['extra_mounts'][1:]))
         self.assertEqual(recipe['timeout_seconds'],720)
-        with self.assertRaises(ValueError):run.make_recipe(Path('/c'),Path('/i'),Path('/r'),'mutable:tag','123','b'*64,600,'c'*64)
+        with self.assertRaises(ValueError):run.make_recipe(Path('/c'),Path('/i'),Path('/r'),'foreign:android-9','123','b'*64,600,'c'*64)
 
     def test_source_cancellation_interrupts_owned_acquisition_and_keeps_setup_signal(self):
         cancelled=[0];acquiring=[True];handler=run.cancellation_handler(cancelled,acquiring)

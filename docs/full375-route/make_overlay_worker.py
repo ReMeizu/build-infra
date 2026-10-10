@@ -46,6 +46,15 @@ def transformed_worker(body):
                 "'path': retain_output(p, out, source)")
     code = once(code, "    (out / 'GN_RESULT.json').write_text",
                 "    source_after(controller, out, inputs)\n    (out / 'GN_RESULT.json').write_text")
+    code = once(code,
+                '    from overlay_io import admit, prepared_source, retain_output, source_after\n',
+                '    from overlay_io import admit, prepared_source, retain_output, source_after\n    from native_target_witness import capture as capture_target, complete as complete_targets\n')
+    code = once(code,
+                "            data = json.loads(subprocess.run(command, cwd=source, env=env,\n                capture_output=True, text=True, check=True).stdout)\n            outputs.extend(gn_output_target(source, native_out, x) for x in gn_target_outputs(data,label))",
+                "            described = subprocess.run(command, cwd=source, env=env,\n                capture_output=True, text=True, check=True)\n            data = json.loads(described.stdout)\n            relative_outputs = [gn_output_target(source, native_out, x) for x in gn_target_outputs(data,label)]\n            outputs.extend(relative_outputs)\n            capture_target(out, sha(manifest), label, command, described.stdout, relative_outputs)")
+    code = once(code,
+                "            _milestone=out/'NATIVE_LIBRARIES_RESULT.pending.json'",
+                "            complete_targets(out, sha(manifest), native_libraries, source, native_out)\n            _milestone=out/'NATIVE_LIBRARIES_RESULT.pending.json'")
     # The source, argument, target, SDK, ELF/ext4 and failure checks stay intact.
     ast.parse(code)
     return code

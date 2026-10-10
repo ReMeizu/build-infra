@@ -22,7 +22,9 @@ EVIDENCE=('SUCCESS','FAILURE','artifacts.json','GN_RESULT.json','GN_FAILURE.json
           'NATIVE_WORKER_RESOURCE.json','NATIVE_RUST_LAYOUT.json','NATIVE_HOST_RUNTIME.json','OWNED_TERMINATION.json',
           'native-gn.log','native-runtime-build.log','native-images-build.log','native-python-install.log',
           'FULL_OVERLAY_SOURCE_BEFORE.json','FULL_OVERLAY_SOURCE_AFTER.json',
-          'FULL_OVERLAY_RESOURCE.prepare.json','FULL_OVERLAY_RESOURCE.libraries.json','FULL_OVERLAY_RESOURCE.images.json')
+          'FULL_OVERLAY_RESOURCE.prepare.json','FULL_OVERLAY_RESOURCE.libraries.json','FULL_OVERLAY_RESOURCE.images.json',
+          'NATIVE_GN_TARGET_OUTPUTS.json','NATIVE_GN_TARGET_DECLARATIONS.json','OWNED_CONTAINER_IMAGE.json',
+          'native-gn-desc-0.json','native-gn-desc-1.json','native-gn-desc-2.json','native-gn-desc-3.json')
 
 SETUP_PHASES=('docker-build','image-inspect','image-health','image-inspect-prelaunch')
 APPROVED_LOCK_SHA='c2c9fd52665ca5fad3778f61d0a429e5dd55430a4228e05cb2003d7cd5e06474'
@@ -167,6 +169,18 @@ def actual_policy(job,record,lock_sha):
         seen.add(name);outputs.append(row)
     for name in EVIDENCE:
         if (root/name).is_file():add(name,'public-producer-evidence')
+    image_witness=root/'OWNED_CONTAINER_IMAGE.json'
+    if image_witness.is_file():
+        for row in json.loads(image_witness.read_text()).get('owned_container_images',[]):
+            name=row['raw_inspect']['path']
+            if not re.fullmatch('owned-container-image-[a-f0-9]{32}\.json',name):raise ValueError('actual owned Docker inspect filename required')
+            add(name,'public-producer-evidence',row['raw_inspect'])
+    metadata=root/'FULL_PHONE_METADATA/MANIFEST.json'
+    if metadata.is_file():
+        add('FULL_PHONE_METADATA/MANIFEST.json','public-producer-evidence')
+        for row in json.loads(metadata.read_text())['outputs']:
+            if not row['path'].startswith('FULL_PHONE_METADATA/') or len(row['path'].split('/'))!=2:raise ValueError('fixed actual metadata layout required')
+            add(row['path'],'public-producer-evidence',row)
     result_path=root/'GN_RESULT.json'
     if not result_path.is_file():result_path=root/'NATIVE_LIBRARIES_RESULT.json'
     if result_path.is_file():
@@ -219,6 +233,9 @@ def main():
     if record['run_id']!=run:raise ValueError('actual run retention binding required')
     if sha(FREE/'encrypted_native_retention.py')!=HELPER_SHA:raise ValueError('exact tested crypto helper required')
     record=recover_admission(job,record,lock_sha)
+    if record.get('actual_forge_submitted'):
+        from producer_metadata import preserve
+        preserve(job,job/'ram/forge'/record['recipe_hash'],record)
     root,policy=(setup_policy(job,record,lock_sha) if record.get('retention_scope')=='SETUP_FAILED' else actual_policy(job,record,lock_sha))
     from original_resource_snapshot import snapshot
     resources=snapshot(job/'ram')

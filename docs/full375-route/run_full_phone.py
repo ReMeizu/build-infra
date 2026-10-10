@@ -24,6 +24,8 @@ from setup_commands import execute as setup_command,HEALTH_CODE,SetupCommandErro
 from make_overlay_worker import transformed_worker
 from full_profile import require_profile
 from original_resource_snapshot import snapshot
+from container_image_witness import ImageObserver
+from producer_metadata import before_launch,after_launch
 
 FORGE_SHA='9a01d1c452ecf14674a9df1f7512176f30b1fe2949660e2ea743960e7d400bb8'
 DOCKER_SHA='bdaa70b28298b269a8009335a9e90987fde0dd1ff08dad5369d133aeb0aadf3b'
@@ -57,7 +59,7 @@ def prepare_controller(original,target,ram,seconds):
     inputs=json.loads((target/'GN_INPUTS.json').read_text());require_profile(inputs,original)
     worker=transformed_worker((original/'native_gn_worker.py').read_bytes())
     (target/'native_gn_worker.py').write_text(worker)
-    for name in ('overlay_io.py','full_profile.py','nonproduction_scope.py','full_overlay_protocol.py','original_resource_snapshot.py'):
+    for name in ('overlay_io.py','full_profile.py','nonproduction_scope.py','full_overlay_protocol.py','original_resource_snapshot.py','native_target_witness.py'):
         shutil.copyfile(HERE/name,target/name)
         inputs['successor_evidence'][name]=sha(target/name)
     inputs['successor_evidence']['canonical_full_phone_coverage.json']=sha(target/'canonical_full_phone_coverage.json')
@@ -95,7 +97,7 @@ def prepare_controller(original,target,ram,seconds):
     return inputs
 
 def make_recipe(controller,original,ram,image,run,inputs_sha,seconds,worker_sha):
-    if not re.fullmatch('sha256:[a-f0-9]{64}',image):raise ValueError('immutable actual official image ID required')
+    if image!='androidforge/build-full-phone-'+run+':android-9':raise ValueError('exact official per-run Android9 versioned tag required')
     if not 600<=seconds<=260*60 or not re.fullmatch('[a-f0-9]{64}',inputs_sha) or not re.fullmatch('[a-f0-9]{64}',worker_sha):raise ValueError('bounded actual controller/worker identity required')
     return {'image_tag':image,'build_env_key':'android-9','source_mount_path':str(controller),
             'output_dir_in_container':'/workspace/out','command':['bash','/workspace/src/worker.sh'],
@@ -180,8 +182,6 @@ def main():
         health=setup_command('image-health',['docker','run','--rm','--network=none','--user',str(os.getuid())+':'+str(os.getgid()),'--mount','type=bind,src='+str(ram)+',dst=/workspace/out',image,'python3','-c',HEALTH_CODE],ram,record,timeout=60,cancelled=cancelled)
         record['container_health']=json.loads(health.stdout)
         if record['container_health']['uid']!=os.getuid() or not record['container_health']['writable_ram']:raise ValueError('actual non-root writable RAM health required')
-        inspected=setup_command('image-inspect-prelaunch',['docker','image','inspect',tag,'--format','{{.Id}}'],ram,record,cancelled=cancelled).stdout.decode().strip()
-        if inspected!=image:raise ValueError('actual official image changed after health')
         for name in ('lower','upper','work','merged'):(ram/name).mkdir()
         subprocess.run(['sudo','-n','mount','--bind',str(original/'native-source-input'),str(ram/'lower')],check=True,capture_output=True,timeout=30);mounts.append(ram/'lower')
         subprocess.run(['sudo','-n','mount','-o','remount,bind,ro',str(ram/'lower')],check=True,capture_output=True,timeout=30)
@@ -191,12 +191,20 @@ def main():
         if remaining<600:raise ValueError('acquisition left no real compiler window')
         controller=job/'controller';inputs=prepare_controller(original,controller,ram,remaining)
         spec=importlib.util.spec_from_file_location('full_phone_official_forge',launcher);forge=importlib.util.module_from_spec(spec);sys.modules[spec.name]=forge;spec.loader.exec_module(forge)
-        recipe=make_recipe(controller,original,ram,image,run,sha(controller/'GN_INPUTS.json'),remaining,inputs['worker_sha256'])
+        inspected=setup_command('image-inspect-prelaunch',['docker','image','inspect',tag,'--format','{{.Id}}'],ram,record,cancelled=cancelled).stdout.decode().strip()
+        if inspected!=image:raise ValueError('actual official image changed after health')
+        recipe=make_recipe(controller,original,ram,tag,run,sha(controller/'GN_INPUTS.json'),remaining,inputs['worker_sha256'])
         model=forge.recipe_from_dict(recipe);record.update(recipe_hash=model.recipe_hash(),worker_sha256=inputs['worker_sha256'],actual_gn_inputs_sha256=sha(controller/'GN_INPUTS.json'),official_forge_sha256=sha(launcher),dockerfile_sha256=sha(dockerfile))
         if cancelled[0]:raise KeyboardInterrupt
         recipe_path=job/'recipe.json';recipe_path.write_text(json.dumps(recipe,indent=2)+'\n');actual=ram/'forge'/model.recipe_hash()
+        before_launch(job,forge,model,controller,image)
         def started_callback():record['actual_forge_submitted']=True;atomic_json(job/'INFLIGHT_FULL_RESULT.json',record);print('FULL_PHONE_PHASE actual-full-GN-link-images-Forge-submitted',flush=True)
-        result=run_owned([sys.executable,'-B',str(launcher),'--recipe',str(recipe_path),'--no-resume'],dict(os.environ,FORGE_EPHEMERAL_BASE=str(ram/'forge')),remaining+120,ram,cancelled,started_callback)
+        observer=ImageObserver(forge,actual,model.recipe_hash(),image,tag,cancelled);observer.start()
+        try:
+            result=run_owned([sys.executable,'-B',str(launcher),'--recipe',str(recipe_path),'--no-resume'],dict(os.environ,FORGE_EPHEMERAL_BASE=str(ram/'forge')),remaining+120,ram,cancelled,started_callback)
+        finally:
+            observed=observer.finish();record['owned_container_image_verified']=observed['all_observed_owned_images_verified']
+            after_launch(job,tag,image);record['image_tag_after_verified']=True
         record.update(forge_exit_code=result['returncode'],termination_reason=result['termination_reason'],owned_launcher_reaped=result['owned_launcher_reaped'])
         record['status']='ACTUAL_FULL_NATIVE_PRODUCER_RETURNED' if result['returncode']==0 and not result['termination_reason'] else 'FULL_NATIVE_FAILED'
         if record['status']=='ACTUAL_FULL_NATIVE_PRODUCER_RETURNED':verify_forge_success(forge,actual,record)
@@ -228,9 +236,12 @@ def main():
                     result=json.loads(result_file.read_text())
                     if result['source_inventory_sha256']!=record['actual_gn_inputs_sha256']:raise ValueError('actual full producer inventory differs')
                     record.update(native_gn_completed=result['native_gn_completed'],native_four_images=result['native_image_built'],native_result_sha256=sha(result_file),native_result_name=result_file.name)
-                if record.get('native_four_images'):
+                compiled=bool(result.get('native_libraries')) and any(row.get('phase')=='libc-utils-loader' and row.get('exit_code')==0 for row in result.get('build_phases',[])) if result_file.is_file() else False
+                if compiled or record.get('native_four_images'):
                     from retain_full_phone import actual_policy
+                    if record.get('owned_container_image_verified') is not True or record.get('image_tag_after_verified') is not True:raise ValueError('actual owned image and postlaunch ID required')
                     actual_policy(job,record,record['source_lock_sha256'])
+                    record['native_compile_executed']=compiled
             except Exception as error:record.update(native_four_images=False,result_admission_error_type=type(error).__name__)
         atomic_json(job/'PUBLIC_RESULT.json',record);print(json.dumps(record,sort_keys=True),flush=True)
         for sig,handler in handlers.items():signal.signal(sig,handler)
