@@ -22,7 +22,7 @@ tar -xzf geekbench.tar.gz
 cd Geekbench-7.1.0-Linux
 ./geekbench7 --help > "$SOURCE_ROOT/evidence/geekbench-help.txt" 2>&1 || true
 set +e
-timeout -k 10 480 ./geekbench7 --cpu > "$SOURCE_ROOT/evidence/geekbench.txt" 2>&1
+timeout -k 10 900 ./geekbench7 --cpu > "$SOURCE_ROOT/evidence/geekbench.txt" 2>&1
 geek_status=$?
 set -e
 printf '%s\n' "$geek_status" > "$SOURCE_ROOT/evidence/geekbench-exit.txt"

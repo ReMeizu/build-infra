@@ -19,8 +19,8 @@ jobs:
             test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
       - run:
           name: Bounded CPU memory disk and Geekbench benchmark
-          no_output_timeout: 12m
-          command: timeout -k 10 850 bash scripts/ci-benchmark.sh
+          no_output_timeout: 20m
+          command: timeout -k 10 1500 bash scripts/ci-benchmark.sh
       - store_artifacts:
           path: evidence
           destination: benchmark-20261010
