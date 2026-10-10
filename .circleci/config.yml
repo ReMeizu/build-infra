@@ -1,8 +1,4 @@
 version: 2.1
-parameters:
-  cloud_benchmark:
-    type: boolean
-    default: false
 jobs:
   cloud-benchmark:
     machine:
@@ -10,21 +6,27 @@ jobs:
       docker_layer_caching: false
     resource_class: large
     steps:
-      - checkout
       - run:
-          name: Bounded CPU memory and ephemeral disk benchmark
-          no_output_timeout: 10m
+          name: Fetch exact public benchmark commit over HTTPS
           command: |
-            export BENCHMARK_ROOT="$PWD"
-            timeout --signal=TERM --kill-after=10s 8m bash scripts/cloud_benchmark_job.sh
+            set -eu
+            case "$CIRCLE_SHA1" in *[!0-9a-f]*|'') exit 2 ;; esac
+            test "${#CIRCLE_SHA1}" -eq 40
+            git init .
+            git remote add origin https://github.com/ReMeizu/build-infra.git
+            git fetch --depth 1 origin "$CIRCLE_SHA1"
+            git checkout --detach FETCH_HEAD
+            test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
+      - run:
+          name: Bounded CPU memory disk and Geekbench benchmark
+          no_output_timeout: 20m
+          command: timeout -k 10 1500 bash scripts/ci-benchmark.sh
       - store_artifacts:
           path: evidence
-          destination: benchmark
+          destination: benchmark-20261010
 workflows:
-  cloud-benchmark-only:
+  benchmark-20261010:
     when:
-      or:
-        - << pipeline.parameters.cloud_benchmark >>
-        - equal: [cloud-benchmarks, << pipeline.git.branch >>]
+      equal: [codex/cloud-benchmarks-20261010, << pipeline.git.branch >>]
     jobs:
       - cloud-benchmark
