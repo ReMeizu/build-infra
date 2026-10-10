@@ -6,7 +6,17 @@ jobs:
       docker_layer_caching: false
     resource_class: large
     steps:
-      - checkout
+      - run:
+          name: Fetch exact public benchmark commit over HTTPS
+          command: |
+            set -eu
+            case "$CIRCLE_SHA1" in *[!0-9a-f]*|'') exit 2 ;; esac
+            test "${#CIRCLE_SHA1}" -eq 40
+            git init .
+            git remote add origin https://github.com/ReMeizu/build-infra.git
+            git fetch --depth 1 origin "$CIRCLE_SHA1"
+            git checkout --detach FETCH_HEAD
+            test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
       - run:
           name: Bounded CPU memory disk and Geekbench benchmark
           no_output_timeout: 12m
