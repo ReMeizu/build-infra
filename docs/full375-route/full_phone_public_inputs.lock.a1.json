@@ -1,0 +1,9 @@
+{
+  "schema": "remeizu.full-phone-expected-public-acquisition-lock.v1",
+  "registry_path": "full-phone-expected-inputs-a1/SOURCE_REGISTRY.json",
+  "registry_sha256": "4919691d62029a1bb769a2740e699636e8bd366d0c609fa9fddb0fc5c4f3859d",
+  "expected_only": true,
+  "full_phone_source_closed": false,
+  "private_android_inputs": false,
+  "all_actual_bodies_required_before_compiler": true
+}

@@ -1,0 +1,134 @@
+--- a/base/startup/init/services/etc/BUILD.gn
++++ b/base/startup/init/services/etc/BUILD.gn
+@@ -57,7 +57,10 @@
+ 
+   # init etc files group
+   ohos_prebuilt_etc("init.cfg") {
+-    if (!enable_ramdisk) {
++    if (product_name == "m5c") {
++      assert(enable_ramdisk, "M5c draft requires proven legacy initramfs chainload")
++      source = "//vendor/oniro/m5c/etc/init.cfg"
++    } else if (!enable_ramdisk) {
+       source = "//base/startup/init/services/etc/init.without_two_stages.cfg"
+     } else {
+       source = "//base/startup/init/services/etc/init.cfg"
+--- a/vendor/oniro/hybris_generic/etc/BUILD.gn
++++ b/vendor/oniro/hybris_generic/etc/BUILD.gn
+@@ -15,13 +15,21 @@
+ 
+ ohos_prebuilt_etc("para_for_chip_prod") {
+   source = "./param/hardware_hybris_generic.para"
+-  install_images = [ chip_prod_base_dir ]
++  if (product_name == "m5c") {
++    install_images = [ sys_prod_base_dir ]
++  } else {
++    install_images = [ chip_prod_base_dir ]
++  }
+   relative_install_dir = "param"
+   part_name = "product_hybris_generic"
+ }
+ 
+ ohos_prebuilt_etc("para_for_sys_prod") {
+-  source = "./param/product_hybris_generic.para"
++  if (product_name == "m5c") {
++    source = "./param/product_m5c.para"
++  } else {
++    source = "./param/product_hybris_generic.para"
++  }
+   install_images = [ sys_prod_base_dir ]
+   relative_install_dir = "param"
+   part_name = "product_hybris_generic"
+@@ -119,20 +127,43 @@
+   part_name = "product_hybris_generic"
+ }
+ 
++if (product_name == "m5c") {
++  ohos_prebuilt_etc("init_m5c_cfg") {
++    source = "./init/init.m5c.cfg"
++    install_images = [ vendor_base_dir ]
++    part_name = "product_hybris_generic"
++  }
++  ohos_prebuilt_etc("fstab_m5c") {
++    source = "./fstab/fstab.m5c"
++    install_images = [ vendor_base_dir ]
++    part_name = "product_hybris_generic"
++  }
++}
++
+ group("product_etc_conf") {
+-  deps = [
+-    ":para_for_chip_prod",
+-    ":para_for_sys_prod",
+-    ":ueventd_config_vendor",
+-    ":fstab_x23",
+-    ":init_x23_cfg",
+-    ":init_x23_usb_cfg",
+-    ":fstab_ansuz",
+-    ":init_ansuz_cfg",
+-    ":init_ansuz_usb_cfg",
+-    ":hybris_native_para",
+-    ":device_model_para_import",
+-    ":device_para_ansuz",
+-    ":device_para_x23",
+-  ]
++  if (product_name == "m5c") {
++    deps = [
++      ":para_for_chip_prod",
++      ":para_for_sys_prod",
++      ":ueventd_config_vendor",
++      ":init_m5c_cfg",
++      ":fstab_m5c",
++    ]
++  } else {
++    deps = [
++      ":para_for_chip_prod",
++      ":para_for_sys_prod",
++      ":ueventd_config_vendor",
++      ":fstab_x23",
++      ":init_x23_cfg",
++      ":init_x23_usb_cfg",
++      ":fstab_ansuz",
++      ":init_ansuz_cfg",
++      ":init_ansuz_usb_cfg",
++      ":hybris_native_para",
++      ":device_model_para_import",
++      ":device_para_ansuz",
++      ":device_para_x23",
++    ]
++  }
+ }
+--- a/device/board/oniro/hybris_generic/launcher/BUILD.gn
++++ b/device/board/oniro/hybris_generic/launcher/BUILD.gn
+@@ -6,6 +6,7 @@
+ 
+ declare_args() {
+   oniro_androidd_static_binder = false
++  oniro_androidd_legacy_cmdline_boot = false
+ }
+ 
+ # Phase N4 — `androidd` Halium-NS launcher.  Pure C, libc only.
+@@ -14,6 +15,11 @@
+   sources = [ "androidd.c", "meizu_static_binder.h" ]
+   if (oniro_androidd_static_binder) {
+     defines = [ "ONIRO_BINDER_BACKEND_STATIC" ]
++  }
++  if (oniro_androidd_legacy_cmdline_boot) {
++    assert(product_name == "m5c" && oniro_androidd_static_binder, "legacy M5c requires static Binder")
++    sources += [ "meizu_legacy_cmdline.h" ]
++    defines += [ "ONIRO_LEGACY_CMDLINE_BOOT" ]
+   }
+   cflags = [
+     "-Wall",
+@@ -49,7 +55,11 @@
+ # /data/android can be created before the launcher tries to bind-mount
+ # it.
+ ohos_prebuilt_etc("androidd_cfg") {
+-  source = "./androidd.cfg"
++  if (product_name == "m5c") {
++    source = "./androidd.m5c.cfg"
++  } else {
++    source = "./androidd.cfg"
++  }
+   install_images = [ "system" ]
+   relative_install_dir = "init"
+   part_name = "device_hybris_generic"

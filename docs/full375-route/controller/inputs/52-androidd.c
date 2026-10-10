@@ -1,0 +1,1533 @@
+/*
+ * Copyright (c) 2026 Eclipse Oniro for OpenHarmony contributors.
+ * SPDX-License-Identifier: Apache-2.0
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ *
+ * androidd — Halium HAL Guest-Namespace Launcher (Phase N4)
+ *
+ * Runs as an OHOS init service.  Provisions an `android-binder` device on
+ * the host binderfs, clones into a child PID/mount/UTS namespace with the
+ * IPC (hwbinder) and network namespaces left shared with OHOS, sets up
+ * a Halium-style /dev tree, mounts a tmpfs /data, pivot_roots into
+ * /android (the halium android-rootfs.img root), and `exec`s
+ * Halium 12's stage-2 init at /system/bin/init.
+ *
+ * The parent stays in the OHOS root namespace and runs a watchdog that
+ * polls for the Halium HIDL composer service to register; on success it
+ * flips the OHOS init parameter `android.composer.ready` to "1",
+ * unblocking `composer_host` / `allocator_host` (gated by
+ * cfg/z_composer_host_gate.cfg).
+ *
+ * Why a custom launcher instead of LXC:
+ *  - One static container, started once: LXC's dynamic / multi-tenant
+ *    infrastructure (apparmor, seccomp, dynamic cgroup config, ...) is
+ *    pure cost for our use.
+ *  - Shared IPC/net NS with OHOS — Halium HALs talk hwbinder to OHOS-side
+ *    VDIs and WiFi/RIL share OHOS's network ns.  LXC's NS-share knobs
+ *    work but add config complexity over a few extra clone-flag bits.
+ *  - We get to keep the binary <40 KB and depend on libc only.
+ */
+
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#include "m5c_block_device_guard.h"
+#endif
+
+#include <ctype.h>
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <sched.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/mount.h>
+#include <sys/prctl.h>
+#include <sys/stat.h>
+#include <sys/syscall.h>
+#include <sys/sysmacros.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
+
+#ifndef ONIRO_BINDER_BACKEND_STATIC
+#include <linux/android/binderfs.h>
+#endif
+#include <linux/loop.h>
+
+/*
+ * The Halium android-rootfs.img is shaped like a *full* Android root
+ * (not just /system content): the partition's root has `/system`,
+ * `/vendor`, `/init`, `/data`, etc., and `/bin -> /system/bin` as
+ * absolute symlinks.  The chainload mounts halium_system_a at
+ * /android (see init-chainload.sh Stage 3b), so the halium rootfs
+ * root is /android/ and its inner Android /system content is at
+ * /android/system/.
+ *
+ * ANDROID_ROOT is that partition root.  We pivot the Halium NS into
+ * ANDROID_ROOT so Halium init finds itself at /system/bin/init
+ * post-pivot (where the inner system/ subdir becomes /system) and
+ * /vendor resolves to halium_vendor_a.  All Halium-NS mount setup
+ * (/dev, /data, ...) happens under ANDROID_ROOT pre-pivot.
+ *
+ * /android is also the OHOS-visible path: OHOS-side libhybris callers
+ * use env vars (HYBRIS_LD_LIBRARY_PATH=
+ * /android/vendor/lib64:/android/system/lib64) — those keep working
+ * from the OHOS namespace because the mounts remain visible there.
+ * A single mount at /android serves both views; the pivot here is
+ * only for the Halium guest.
+ *
+ * halium_vendor_a is overmounted on the partition's own /vendor dir
+ * by the chainload, so /vendor is already in place after the pivot —
+ * androidd does no separate vendor bind.
+ */
+#define ANDROID_ROOT       "/android"
+#ifdef ONIRO_BINDER_BACKEND_STATIC
+#define ANDROID_BINDER     "/dev/android-binder"
+#define HWBINDER           "/dev/hwbinder"
+#define VNDBINDER          "/dev/vndbinder"
+#else
+#define BINDERFS_CONTROL   "/dev/binderfs/binder-control"
+#define ANDROID_BINDER     "/dev/binderfs/android-binder"
+#define HWBINDER           "/dev/binderfs/hwbinder"
+#define VNDBINDER          "/dev/binderfs/vndbinder"
+#endif
+
+#define CHILD_STACK_SIZE  (1 * 1024 * 1024)
+
+/* Composer-ready watchdog tunables.  Halium init takes ~10 s to come up
+ * and another 10–20 s for the HAL services in `class hal`; we poll for
+ * up to 5 minutes total before giving up. */
+#define WATCHDOG_INITIAL_DELAY_SEC  10
+#define WATCHDOG_POLL_INTERVAL_SEC  5
+#define WATCHDOG_TIMEOUT_SEC        300
+#define COMPOSER_READY_PARAM        "android.composer.ready"
+
+static void logmsg(const char *fmt, ...)
+{
+    char buf[512];
+    va_list ap;
+    va_start(ap, fmt);
+    int n = vsnprintf(buf, sizeof buf, fmt, ap);
+    va_end(ap);
+    if (n < 0) return;
+    if (n > (int)sizeof buf - 1) n = sizeof buf - 1;
+    /* /dev/kmsg is the preferred channel — its writes need CAP_SYSLOG, which
+     * is in our caps list.  But for diagnostic resilience also mirror to a
+     * file in /module_update/ (OHOS tmpfs, RW), where reads don't require
+     * any privilege.  Both paths are silent on failure. */
+    int fd = open("/dev/kmsg", O_WRONLY | O_CLOEXEC);
+    if (fd >= 0) {
+        char line[600];
+        int ln = snprintf(line, sizeof line, "androidd: %s\n", buf);
+        if (ln > 0) (void)!write(fd, line, ln);
+        close(fd);
+    }
+    /* Keep the file open rather than reopening per line: after the child
+     * MS_MOVEs the Halium root over "/" there is no /module_update path any
+     * more, so a path-based open would silently drop every message the
+     * container-side setup emits — which is exactly the part that is hard to
+     * debug.  The fd is opened once (in the parent, before clone) and stays
+     * valid across the pivot; O_CLOEXEC retires it when we exec init. */
+    static int ffd = -1;
+    if (ffd < 0) {
+        ffd = open("/module_update/androidd.log",
+                   O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0644);
+    }
+    if (ffd >= 0) {
+        char line[600];
+        int ln = snprintf(line, sizeof line, "%s\n", buf);
+        if (ln > 0) (void)!write(ffd, line, ln);
+    }
+    /* Mirror to stderr too — captured by init in some configurations. */
+    dprintf(2, "[androidd] %s\n", buf);
+}
+
+#define die(fmt, ...) do { logmsg(fmt, ##__VA_ARGS__); _exit(1); } while (0)
+
+#ifdef ONIRO_BINDER_BACKEND_STATIC
+#include "meizu_static_binder.h"
+#ifdef ONIRO_LEGACY_CMDLINE_BOOT
+#include "meizu_legacy_cmdline.h"
+#endif
+#endif
+
+static int touch_file(const char *path)
+{
+    int fd = open(path, O_WRONLY | O_CREAT | O_CLOEXEC, 0644);
+    if (fd < 0) return -1;
+    close(fd);
+    return 0;
+}
+
+static int mkdir_p(const char *path, mode_t mode)
+{
+    char tmp[PATH_MAX];
+    snprintf(tmp, sizeof tmp, "%s", path);
+    for (char *p = tmp + 1; *p; ++p) {
+        if (*p == '/') {
+            *p = '\0';
+            if (mkdir(tmp, mode) < 0 && errno != EEXIST) return -1;
+            *p = '/';
+        }
+    }
+    if (mkdir(tmp, mode) < 0 && errno != EEXIST) return -1;
+    return 0;
+}
+
+/* mknod that tolerates EEXIST.  Used for per-NS /dev nodes. */
+static int mknod_min(const char *path, mode_t mode, dev_t dev)
+{
+    if (mknod(path, mode, dev) == 0) return 0;
+    return errno == EEXIST ? 0 : -1;
+}
+
+/* Remove everything inside `path` (one level of subdirectories deep — all
+ * /dev/__properties__ ever holds is flat files plus the appcompat_override
+ * subdir), leaving `path` itself in place. */
+static void wipe_dir_contents(const char *path)
+{
+    DIR *d = opendir(path);
+    if (!d) return;
+    struct dirent *e;
+    while ((e = readdir(d)) != NULL) {
+        if (!strcmp(e->d_name, ".") || !strcmp(e->d_name, "..")) continue;
+        char p[PATH_MAX];
+        snprintf(p, sizeof p, "%s/%s", path, e->d_name);
+        if (unlink(p) == 0) continue;
+        if (errno == EISDIR || errno == EPERM) {
+            DIR *sd = opendir(p);
+            if (sd) {
+                struct dirent *se;
+                while ((se = readdir(sd)) != NULL) {
+                    if (!strcmp(se->d_name, ".") || !strcmp(se->d_name, ".."))
+                        continue;
+                    char sp[PATH_MAX];
+                    snprintf(sp, sizeof sp, "%s/%s", p, se->d_name);
+                    unlink(sp);
+                }
+                closedir(sd);
+            }
+            rmdir(p);
+        }
+    }
+    closedir(d);
+}
+
+/* -------------------------------------------------------------------------
+ * MTK modem NV partitions  (Plinius / ansuz — Phase R0)
+ * -------------------------------------------------------------------------
+ * The MediaTek baseband will not boot without its non-volatile store.
+ * `ccci_mdinit` — which on MT6878 also plays the old `ccci_fsd`
+ * modem-file-system-server role — serves the modem's drive letters out of
+ * /mnt/vendor/protect_f, /mnt/vendor/protect_s and /mnt/vendor/nvdata.
+ * Stock Android populates those from `fstab.mt6878` via init's mount_all,
+ * which never runs under androidd (we exec init --second-stage).  With the
+ * mounts missing, the modem asserts on its very first protected-NV read
+ * (see /mnt/vendor/nvdata/md/nv_boot_trace):
+ *
+ *     [E][path:X:\MT00_001][ret:4097] CMPTR fail[fs_ret:-9]
+ *     [E]NV_ASSERT:[ID:0xF000][result:0x228B]
+ *
+ * and parks in exception state (`vendor.mtk.md1.status=exception`, kernel
+ * `md_state = 5` forever), so `mtkfusionrild` never registers a single
+ * android.hardware.radio.* service.
+ *
+ * We mount *copies*, not the factory partitions: each is dd'd once into an
+ * image under /data/vendor/halium-nv/ and loop-mounted from there.  The
+ * modem rewrites parts of its NV on every boot (RF calibration, OTA
+ * bookkeeping), and this handset's IMEI + calibration have no second
+ * source — keeping those writes in copies means the factory partitions
+ * stay byte-identical forever.  Ubuntu Touch protects the same partitions
+ * the same way on this device.
+ *
+ * To re-seed from factory: `rm -r /data/vendor/halium-nv` and reboot.
+ * ---------------------------------------------------------------------- */
+
+#define NV_IMAGE_DIR "/data/vendor/halium-nv"
+
+struct nv_part {
+    const char *part;   /* by-name partition to seed the image from      */
+    const char *img;    /* image basename under NV_IMAGE_DIR             */
+    const char *mnt;    /* mount point inside the Halium namespace       */
+};
+
+/* Mirrors the five ext4 entries of /android/vendor/etc/fstab.mt6878.
+ * `frp -> /persistent` is deliberately left out: nothing in the modem path
+ * reads it and it is raw, not a filesystem. */
+static const struct nv_part g_nv_parts[] = {
+    { "protect1", "protect1.img", "/mnt/vendor/protect_f" },
+    { "protect2", "protect2.img", "/mnt/vendor/protect_s" },
+    { "nvdata",   "nvdata.img",   "/mnt/vendor/nvdata"    },
+    { "nvcfg",    "nvcfg.img",    "/mnt/vendor/nvcfg"     },
+    { "persist",  "persist.img",  "/mnt/vendor/persist"   },
+};
+#define NV_PART_COUNT ((int)(sizeof g_nv_parts / sizeof g_nv_parts[0]))
+
+/* Loop device backing each entry — filled in by nv_prepare() in the parent
+ * (OHOS namespace, where /data and /dev/loop-control live) and consumed by
+ * nv_attach() in the child after the pivot, which has to mknod its own node
+ * in the container's private /dev.
+ *
+ * The dev_t is carried rather than the loop index because this kernel runs
+ * with loop.max_part=7: /dev/loopN's minor is N << 3, not N.  Deriving it as
+ * makedev(7, N) yields a node that does not exist and every mount but loop0
+ * fails with ENXIO. */
+static dev_t g_nv_dev[NV_PART_COUNT];
+static int g_nv_loop[NV_PART_COUNT];
+static int g_nv_ready = 0;
+
+/* `ohos.boot.hardware=<name>` off /proc/cmdline — the same value OHOS init
+ * uses to select init.<dev>.cfg / fstab.<dev>.  Read from the cmdline
+ * rather than the parameter store so this works with no param dependency
+ * (androidd links libc only). */
+static int cmdline_hardware(char *out, size_t n)
+{
+    int fd = open("/proc/cmdline", O_RDONLY | O_CLOEXEC);
+    if (fd < 0) return -1;
+    char buf[4096];
+    ssize_t r = read(fd, buf, sizeof buf - 1);
+    close(fd);
+    if (r <= 0) return -1;
+    buf[r] = '\0';
+    static const char key[] = "ohos.boot.hardware=";
+    char *p = strstr(buf, key);
+    if (!p) return -1;
+    p += sizeof key - 1;
+    size_t i = 0;
+    while (p[i] && !isspace((unsigned char)p[i]) && i + 1 < n) {
+        out[i] = p[i];
+        i++;
+    }
+    out[i] = '\0';
+    return 0;
+}
+
+/* Resolve a partition's block device.  OHOS's ueventd does not create the
+ * flat /dev/block/by-name/ tree Android has — the symlinks live two levels
+ * down under /dev/block/platform/ (on ansuz:
+ * platform/soc/112b0000.ufshci/by-name).  Try the flat path first, then
+ * walk the platform tree. */
+static int nv_block_path(const char *part, char *out, size_t n)
+{
+    struct stat st;
+
+    snprintf(out, n, "/dev/block/by-name/%s", part);
+    if (stat(out, &st) == 0) return 0;
+
+    DIR *d1 = opendir("/dev/block/platform");
+    if (!d1) return -1;
+    struct dirent *e1;
+    while ((e1 = readdir(d1)) != NULL) {
+        if (e1->d_name[0] == '.') continue;
+        char bus[PATH_MAX];
+        snprintf(bus, sizeof bus, "/dev/block/platform/%s", e1->d_name);
+        DIR *d2 = opendir(bus);
+        if (!d2) continue;
+        struct dirent *e2;
+        while ((e2 = readdir(d2)) != NULL) {
+            if (e2->d_name[0] == '.') continue;
+            snprintf(out, n, "%s/%s/by-name/%s", bus, e2->d_name, part);
+            if (stat(out, &st) == 0) {
+                closedir(d2);
+                closedir(d1);
+                return 0;
+            }
+        }
+        closedir(d2);
+    }
+    closedir(d1);
+    return -1;
+}
+
+static int nv_copy_image(const char *src, const char *dst)
+{
+    enum { CHUNK = 256 * 1024 };
+    char *buf = malloc(CHUNK);
+    if (!buf) return -1;
+
+    int rc = -1;
+    int in = open(src, O_RDONLY | O_CLOEXEC);
+    if (in < 0) goto out_free;
+    int of = open(dst, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0600);
+    if (of < 0) goto out_in;
+
+    for (;;) {
+        ssize_t r = read(in, buf, CHUNK);
+        if (r == 0) break;
+        if (r < 0) goto out_of;
+        for (ssize_t off = 0; off < r; ) {
+            ssize_t w = write(of, buf + off, (size_t)(r - off));
+            if (w <= 0) goto out_of;
+            off += w;
+        }
+    }
+    rc = fsync(of);
+
+out_of:
+    close(of);
+out_in:
+    close(in);
+out_free:
+    free(buf);
+    return rc;
+}
+
+/* ext4 superblock magic (0xEF53 LE) lives at byte 0x438. */
+static int nv_has_ext4(const char *path)
+{
+    int fd = open(path, O_RDONLY | O_CLOEXEC);
+    if (fd < 0) return 0;
+    unsigned char m[2] = { 0, 0 };
+    int ok = (pread(fd, m, sizeof m, 0x438) == (ssize_t)sizeof m &&
+              m[0] == 0x53 && m[1] == 0xef);
+    close(fd);
+    return ok;
+}
+
+/* All five fstab entries are `formattable`; stock init mkfs's them when the
+ * mount fails.  On this handset `nvdata` ships all-zero, so that path is
+ * live from the first boot. */
+static int nv_mkfs(const char *img, const char *label)
+{
+    pid_t p = fork();
+    if (p < 0) return -1;
+    if (p == 0) {
+        int null = open("/dev/null", O_RDWR | O_CLOEXEC);
+        if (null >= 0) { dup2(null, 0); dup2(null, 1); dup2(null, 2); }
+        execl("/system/bin/mke2fs", "mke2fs", "-t", "ext4", "-m", "0",
+              "-L", label, img, (char *)NULL);
+        _exit(127);
+    }
+    int st = 0;
+    if (waitpid(p, &st, 0) < 0) return -1;
+    return (WIFEXITED(st) && WEXITSTATUS(st) == 0) ? 0 : -1;
+}
+
+/* "<major>:<minor>" out of /sys/block/loopN/dev — the only trustworthy
+ * source for a loop device's numbers (see g_nv_dev on max_part). */
+static int nv_loop_devno(int index, dev_t *out)
+{
+    char attr[PATH_MAX], val[64];
+    snprintf(attr, sizeof attr, "/sys/block/loop%d/dev", index);
+    int fd = open(attr, O_RDONLY | O_CLOEXEC);
+    if (fd < 0) return -1;
+    ssize_t r = read(fd, val, sizeof val - 1);
+    close(fd);
+    if (r <= 0) return -1;
+    val[r] = '\0';
+    unsigned maj = 0, min = 0;
+    if (sscanf(val, "%u:%u", &maj, &min) != 2) return -1;
+    *out = makedev(maj, min);
+    return 0;
+}
+
+/* Attach `img` to a loop device; returns its index and fills *devno.  An
+ * existing attachment is reused: loop devices are global, so on an androidd
+ * restart the previous container's are still bound even though its mount
+ * namespace (and therefore its mounts) died with it. */
+static int nv_loop_attach(const char *img, dev_t *devno)
+{
+    DIR *d = opendir("/sys/block");
+    if (d) {
+        struct dirent *e;
+        while ((e = readdir(d)) != NULL) {
+            if (strncmp(e->d_name, "loop", 4) != 0) continue;
+            char attr[PATH_MAX], val[PATH_MAX];
+            snprintf(attr, sizeof attr, "/sys/block/%s/loop/backing_file",
+                     e->d_name);
+            int fd = open(attr, O_RDONLY | O_CLOEXEC);
+            if (fd < 0) continue;
+            ssize_t r = read(fd, val, sizeof val - 1);
+            close(fd);
+            if (r <= 0) continue;
+            val[r] = '\0';
+            char *nl = strchr(val, '\n');
+            if (nl) *nl = '\0';
+            if (strcmp(val, img) == 0) {
+                int index = atoi(e->d_name + 4);
+                closedir(d);
+                return nv_loop_devno(index, devno) == 0 ? index : -1;
+            }
+        }
+        closedir(d);
+    }
+
+    int ctl = open("/dev/loop-control", O_RDWR | O_CLOEXEC);
+    if (ctl < 0) return -1;
+    int index = ioctl(ctl, LOOP_CTL_GET_FREE);
+    close(ctl);
+    if (index < 0) return -1;
+    if (nv_loop_devno(index, devno) < 0) return -1;
+
+    /* LOOP_CTL_GET_FREE may have just created the device; its /dev node
+     * arrives asynchronously via ueventd, so fall back to our own. */
+    char devp[64];
+    snprintf(devp, sizeof devp, "/dev/loop%d", index);
+    int dfd = open(devp, O_RDWR | O_CLOEXEC);
+    if (dfd < 0) {
+        if (mknod_min(devp, S_IFBLK | 0600, *devno) < 0) return -1;
+        dfd = open(devp, O_RDWR | O_CLOEXEC);
+        if (dfd < 0) return -1;
+    }
+
+    int ffd = open(img, O_RDWR | O_CLOEXEC);
+    if (ffd < 0) { close(dfd); return -1; }
+    int rc = ioctl(dfd, LOOP_SET_FD, ffd);
+    if (rc == 0) {
+        struct loop_info64 li;
+        memset(&li, 0, sizeof li);
+        snprintf((char *)li.lo_file_name, sizeof li.lo_file_name, "%s", img);
+        (void)ioctl(dfd, LOOP_SET_STATUS64, &li);
+    }
+    close(ffd);
+    close(dfd);
+    return rc == 0 ? index : -1;
+}
+
+/* Parent side, before clone(2): seed the images if needed and bind them to
+ * loop devices.  Everything here needs the OHOS namespace (/data,
+ * /dev/loop-control, /system/bin/mke2fs), which the child loses at the
+ * pivot — the child only mknods and mounts. */
+static void nv_prepare(void)
+{
+    for (int i = 0; i < NV_PART_COUNT; i++) {
+        g_nv_loop[i] = -1;
+        g_nv_dev[i] = 0;
+    }
+
+    char hw[64] = "";
+    if (cmdline_hardware(hw, sizeof hw) < 0 || strcmp(hw, "ansuz") != 0) {
+        logmsg("nv: hardware '%s' has no modem NV mount table — skipped",
+               hw[0] ? hw : "?");
+        return;
+    }
+
+    if (mkdir_p(NV_IMAGE_DIR, 0700) < 0) {
+        logmsg("nv: mkdir %s: %s — modem will stay in exception",
+               NV_IMAGE_DIR, strerror(errno));
+        return;
+    }
+
+    for (int i = 0; i < NV_PART_COUNT; i++) {
+        const struct nv_part *np = &g_nv_parts[i];
+        char img[PATH_MAX];
+        snprintf(img, sizeof img, "%s/%s", NV_IMAGE_DIR, np->img);
+
+        struct stat st;
+        if (stat(img, &st) < 0 || st.st_size == 0) {
+            char blk[PATH_MAX];
+            if (nv_block_path(np->part, blk, sizeof blk) < 0) {
+                logmsg("nv: %s: no block device found — skipped", np->part);
+                continue;
+            }
+            if (nv_copy_image(blk, img) < 0) {
+                logmsg("nv: %s: copy %s -> %s: %s",
+                       np->part, blk, img, strerror(errno));
+                unlink(img);
+                continue;
+            }
+            logmsg("nv: seeded %s from %s", img, blk);
+        }
+
+        if (!nv_has_ext4(img)) {
+            if (nv_mkfs(img, np->part) < 0) {
+                logmsg("nv: %s: mke2fs failed — skipped", np->part);
+                continue;
+            }
+            logmsg("nv: formatted %s (no ext4 superblock — blank partition)",
+                   img);
+        }
+
+        dev_t devno = 0;
+        int index = nv_loop_attach(img, &devno);
+        if (index < 0) {
+            logmsg("nv: %s: loop attach failed: %s", np->part, strerror(errno));
+            continue;
+        }
+        g_nv_loop[i] = index;
+        g_nv_dev[i] = devno;
+        logmsg("nv: %s -> loop%d (%u:%u) -> %s", np->img, index,
+               major(devno), minor(devno), np->mnt);
+    }
+
+    g_nv_ready = 1;
+}
+
+/* Child side, after the pivot and after the tmpfs /mnt is in place (the
+ * Halium rootfs ships /mnt read-only, so the mount points cannot exist
+ * before that).  Must run before /system/bin/init is exec'd: the vendor rc
+ * files chown/chmod these paths on post-fs-data and ccci_mdinit reads them
+ * moments later. */
+static void nv_attach(void)
+{
+    if (!g_nv_ready) return;
+
+    if (mkdir("/mnt/vendor", 0755) < 0 && errno != EEXIST) {
+        logmsg("nv: mkdir /mnt/vendor: %s", strerror(errno));
+        return;
+    }
+    if (mkdir_p("/dev/block", 0755) < 0) {
+        logmsg("nv: mkdir /dev/block: %s", strerror(errno));
+        return;
+    }
+
+    for (int i = 0; i < NV_PART_COUNT; i++) {
+        const struct nv_part *np = &g_nv_parts[i];
+        if (g_nv_loop[i] < 0) continue;
+
+        char dev[64];
+        snprintf(dev, sizeof dev, "/dev/block/loop%d", g_nv_loop[i]);
+        if (mknod_min(dev, S_IFBLK | 0600, g_nv_dev[i]) < 0) {
+            logmsg("nv: mknod %s: %s", dev, strerror(errno));
+            continue;
+        }
+        if (mkdir_p(np->mnt, 0771) < 0) {
+            logmsg("nv: mkdir %s: %s", np->mnt, strerror(errno));
+            continue;
+        }
+        /* Options verbatim from fstab.mt6878. */
+        if (mount(dev, np->mnt, "ext4", MS_NOATIME | MS_NOSUID | MS_NODEV,
+                  "noauto_da_alloc,commit=1,nodelalloc") < 0) {
+            logmsg("nv: mount %s on %s: %s", dev, np->mnt, strerror(errno));
+            continue;
+        }
+        logmsg("nv: mounted %s (%s)", np->mnt, dev);
+    }
+}
+
+/* Track which apex modules we successfully bound, so apex_info_list_write()
+ * below can emit a matching apex-info-list.xml.  Linkerconfig reads that
+ * XML to discover the apex namespaces it needs to emit in ld.config.txt;
+ * without it, the generated config has no apex namespaces and every
+ * non-bootstrap HAL service SEGVs in its dynamic linker. */
+#define MAX_APEX_BOUND 32
+static const char *g_bound_apex[MAX_APEX_BOUND];
+static int g_bound_apex_n = 0;
+
+/* Bind /system/apex/<name> over /apex/<name> if the source exists and is a
+ * directory.  Halium 12's `system_a` ships flattened APEX modules under
+ * /system/apex/<name>/ (not capsule files), so a bind is exactly what the
+ * bionic linker namespace resolver needs to satisfy /apex/<name>/lib64/
+ * lookups for libc++/libsigchain/libnativebridge/etc.
+ *
+ * Caller is responsible for being in the Halium guest mount NS — paths are
+ * post-pivot (so /system/apex/ resolves to halium's system_a).
+ *
+ * Idempotent: ENOENT on the source and EBUSY/EEXIST on the dest are not
+ * fatal; we want this to be best-effort during bring-up. */
+static void apex_bind(const char *name)
+{
+    char src[PATH_MAX], dst[PATH_MAX];
+    snprintf(src, sizeof src, "/system/apex/%s", name);
+    snprintf(dst, sizeof dst, "/apex/%s",        name);
+    struct stat st;
+    if (stat(src, &st) < 0 || !S_ISDIR(st.st_mode)) return;
+    if (mkdir(dst, 0755) < 0 && errno != EEXIST) {
+        logmsg("apex_bind: mkdir %s: %s", dst, strerror(errno));
+        return;
+    }
+    if (mount(src, dst, NULL, MS_BIND | MS_REC, NULL) < 0) {
+        logmsg("apex_bind: bind %s -> %s: %s", src, dst, strerror(errno));
+        return;
+    }
+    if (g_bound_apex_n < MAX_APEX_BOUND)
+        g_bound_apex[g_bound_apex_n++] = name;
+}
+
+/* Write a minimal /apex/apex-info-list.xml describing every apex we bound
+ * via apex_bind() above.  This is what `linkerconfig` consumes
+ * (system/linkerconfig/modules/apex.cc::ScanActiveApexes) to discover the
+ * apex namespaces it needs to emit in /linkerconfig/<section>/ld.config.txt.
+ *
+ * Schema: system/apex/apexd/aidl/android/apex/ApexInfo.aidl + the matching
+ * XML serializer in apexd_session.cpp.  We omit optional fields (partition,
+ * provideSharedApexLibs, etc.) — linkerconfig only requires moduleName +
+ * modulePath + preinstalledModulePath + isActive.  versionCode is required
+ * by the schema but a stub `1` is accepted in practice.
+ *
+ * On a stock Android boot, apexd writes this file after mounting each
+ * apex; here we skip apexd's role entirely since the binds are stable
+ * and apexd would just bail out on "This device does not support
+ * updatable APEX" anyway. */
+static void apex_info_list_write(void)
+{
+    int fd = open("/apex/apex-info-list.xml",
+                  O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0644);
+    if (fd < 0) {
+        logmsg("open /apex/apex-info-list.xml: %s", strerror(errno));
+        return;
+    }
+    dprintf(fd, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+    dprintf(fd, "<apex-info-list>\n");
+    for (int i = 0; i < g_bound_apex_n; ++i) {
+        const char *n = g_bound_apex[i];
+        dprintf(fd,
+            "  <apex-info moduleName=\"%s\""
+            " modulePath=\"/apex/%s\""
+            " preinstalledModulePath=\"/system/apex/%s\""
+            " versionCode=\"1\""
+            " versionName=\"\""
+            " isFactory=\"true\""
+            " isActive=\"true\""
+            " provideSharedApexLibs=\"false\""
+            " />\n",
+            n, n, n);
+    }
+    dprintf(fd, "</apex-info-list>\n");
+    close(fd);
+    logmsg("apex_info_list_write: %d apexes bound", g_bound_apex_n);
+}
+
+/* Provision a binderfs device.  Idempotent: EEXIST is success so a
+ * launcher restart works without OHOS-side cleanup. */
+#ifndef ONIRO_BINDER_BACKEND_STATIC
+static int create_binderfs_device(const char *name)
+{
+    int fd = open(BINDERFS_CONTROL, O_RDWR | O_CLOEXEC);
+    if (fd < 0) {
+        logmsg("open %s: %s", BINDERFS_CONTROL, strerror(errno));
+        return -1;
+    }
+    struct binderfs_device dev;
+    memset(&dev, 0, sizeof dev);
+    snprintf(dev.name, sizeof dev.name, "%s", name);
+    int rc = ioctl(fd, BINDER_CTL_ADD, &dev);
+    int saved = errno;
+    close(fd);
+    if (rc < 0 && saved == EEXIST) return 0;
+    if (rc < 0) {
+        logmsg("BINDER_CTL_ADD(%s): %s", name, strerror(saved));
+        return -1;
+    }
+    return 0;
+}
+
+/* Static mode neither opens binder-control nor creates device nodes. */
+#endif
+
+/* -------------------------------------------------------------------------
+ * Child: Halium-NS setup + exec /system/bin/init
+ * -------------------------------------------------------------------------
+ * Runs in the child after clone(2).  Has its own PID/mount/UTS NSes but
+ * inherits OHOS's IPC, network, and user NSes (intentional — hwbinder
+ * and WiFi must cross).
+ */
+
+static int child_main(void *arg)
+{
+    (void)arg;
+
+    /* Die with androidd.  Without this, killing/restarting androidd (or a
+     * watchdog timeout) leaves the whole Halium container running as an
+     * orphan reparented to OHOS init, and the next androidd cycle then
+     * fights it over the shared /dev/__properties__ tmpfs, the binder
+     * devices, and the global loop/dm devices backing the APEX mounts —
+     * observed as the new container's apexd tearing down loops that the
+     * orphan's /apex ext4 mounts still referenced. */
+    if (prctl(PR_SET_PDEATHSIG, SIGKILL) < 0)
+        logmsg("PR_SET_PDEATHSIG: %s (non-fatal)", strerror(errno));
+
+    /* Make the parent mount tree private so the new bind mounts we're
+     * about to add don't propagate back into OHOS's mount table. */
+    if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) < 0)
+        die("mount(/, rprivate): %s", strerror(errno));
+
+    /* /android/dev: fresh tmpfs.  We deliberately do NOT bind the host's
+     * /dev because Android init treats /dev as writable and would race
+     * with OHOS's ueventd on the shared host /dev. */
+    if (mkdir_p(ANDROID_ROOT "/dev", 0755) < 0)
+        die("mkdir %s/dev: %s", ANDROID_ROOT, strerror(errno));
+    if (mount("tmpfs", ANDROID_ROOT "/dev", "tmpfs", 0,
+              "size=8M,mode=755") < 0)
+        die("mount tmpfs on %s/dev: %s", ANDROID_ROOT, strerror(errno));
+
+    /* Clear umask BEFORE mknod_min — mknod(2) applies the umask to its mode
+     * argument, so with the inherited umask 022 our `0666` becomes `0644`.
+     * Bionic linker's `open("/dev/null", O_RDWR)` in __libc_init_AT_SECURE
+     * then fails with EACCES for any non-root service (uid 1000, etc.) and
+     * the linker aborts with abort_with_code(160) — the exact crash
+     * signature we observed for every Halium HAL service. */
+    umask(0);
+
+    /* Minimal device nodes Halium init expects to find. */
+    mknod_min(ANDROID_ROOT "/dev/null",    S_IFCHR | 0666, makedev(1, 3));
+    mknod_min(ANDROID_ROOT "/dev/zero",    S_IFCHR | 0666, makedev(1, 5));
+    mknod_min(ANDROID_ROOT "/dev/random",  S_IFCHR | 0666, makedev(1, 8));
+    mknod_min(ANDROID_ROOT "/dev/urandom", S_IFCHR | 0666, makedev(1, 9));
+    mknod_min(ANDROID_ROOT "/dev/tty",     S_IFCHR | 0666, makedev(5, 0));
+    mknod_min(ANDROID_ROOT "/dev/console", S_IFCHR | 0600, makedev(5, 1));
+    /* /dev/kmsg = our diagnostic channel.  Halium init writes its
+     * progress to /dev/kmsg by default; without this node, any logging
+     * gets silently dropped, making post-mortem of init failures
+     * impossible.  Bind the host's /dev/kmsg in directly so we don't
+     * depend on the per-NS tmpfs honouring mknod(maj=1,min=11). */
+    if (touch_file(ANDROID_ROOT "/dev/kmsg") < 0)
+        die("touch kmsg: %s", strerror(errno));
+    if (mount("/dev/kmsg", ANDROID_ROOT "/dev/kmsg",
+              NULL, MS_BIND, NULL) < 0)
+        die("bind /dev/kmsg: %s", strerror(errno));
+    mkdir_p(ANDROID_ROOT "/dev/socket",    0755);
+    mkdir_p(ANDROID_ROOT "/dev/binderfs",  0755);
+
+    /* devpts + /dev/shm — stock Android's FIRST-stage init mounts these,
+     * and we skip first stage entirely.  Without /dev/pts, every
+     * logwrap_fork_execvp() in second-stage init fails ENOENT opening the
+     * pty slave — most damagingly `perform_apex_config`'s exec of
+     * /apex/com.android.runtime/bin/linkerconfig, whose failure keeps
+     * IsDefaultMountNamespaceReady() unset, which in turn strands every
+     * post-apexd service in the bootstrap mount NS without the full APEX
+     * set (boringssl_self_test_apex64 then ENOENTs on the conscrypt apex
+     * and its reboot_on_failure takes down the whole container). */
+    mkdir_p(ANDROID_ROOT "/dev/pts", 0755);
+    if (mount("devpts", ANDROID_ROOT "/dev/pts", "devpts",
+              MS_NOSUID | MS_NOEXEC, "mode=0620,gid=5,ptmxmode=0666") < 0)
+        logmsg("mount devpts: %s (non-fatal)", strerror(errno));
+    mkdir_p(ANDROID_ROOT "/dev/shm", 0755);
+    if (mount("tmpfs", ANDROID_ROOT "/dev/shm", "tmpfs",
+              MS_NOSUID | MS_NODEV, "mode=1777") < 0)
+        logmsg("mount /dev/shm tmpfs: %s (non-fatal)", strerror(errno));
+
+    /* Bind the three binder devices into Android's /dev.  Android's init
+     * opens /dev/binder unconditionally; we bind our `android-binder`
+     * (provisioned by the parent) to that path so Android sees its own
+     * context.  hwbinder and vndbinder are SHARED with OHOS — that's
+     * the entire point of this architecture.
+     */
+    if (touch_file(ANDROID_ROOT "/dev/binder") < 0)
+        die("touch binder: %s", strerror(errno));
+    if (touch_file(ANDROID_ROOT "/dev/hwbinder") < 0)
+        die("touch hwbinder: %s", strerror(errno));
+    if (touch_file(ANDROID_ROOT "/dev/vndbinder") < 0)
+        die("touch vndbinder: %s", strerror(errno));
+    if (mount(ANDROID_BINDER, ANDROID_ROOT "/dev/binder",
+              NULL, MS_BIND, NULL) < 0)
+        die("bind %s -> %s/dev/binder: %s",
+            ANDROID_BINDER, ANDROID_ROOT, strerror(errno));
+    if (mount(HWBINDER, ANDROID_ROOT "/dev/hwbinder",
+              NULL, MS_BIND, NULL) < 0)
+        die("bind hwbinder: %s", strerror(errno));
+    if (mount(VNDBINDER, ANDROID_ROOT "/dev/vndbinder",
+              NULL, MS_BIND, NULL) < 0)
+        die("bind vndbinder: %s", strerror(errno));
+
+    /* binderfs creates device nodes mode 0600 root:root.  Halium's
+     * init.rc tries to chmod 0666 /dev/binderfs/{binder,hwbinder,vndbinder},
+     * but that path doesn't exist inside our NS (we only bind the
+     * individual devices into /dev/{binder,hwbinder,vndbinder}).  Without
+     * 0666, any service running as a non-root uid (servicemanager and
+     * hwservicemanager both run as system=1000) gets EACCES opening
+     * binder and aborts via libbinder's CHECK in initialize().
+     * chmod here propagates through the bind to the underlying inode. */
+    if (chmod(ANDROID_ROOT "/dev/binder", 0666) < 0 ||
+        chmod(ANDROID_ROOT "/dev/hwbinder", 0666) < 0 ||
+        chmod(ANDROID_ROOT "/dev/vndbinder", 0666) < 0)
+        die("chmod binder devices: %s", strerror(errno));
+
+    /* Shared property store.  Halium init populates /dev/__properties__/
+     * with the property-area files (properties_serial, property_info, and
+     * per-context files).  We bind-mount it from the OHOS namespace (where
+     * init.x23.cfg pre-init pre-mounted a tmpfs at /dev/__properties__/)
+     * so libhybris consumers running OUTSIDE the Halium NS — composer_host,
+     * allocator_host, render_service via the EGL stack, etc. — see the
+     * same property files Halium init writes.
+     *
+     * Without this share, libbase's android::base::WaitForProperty() —
+     * called from defaultServiceManager1_2() inside hwc2_compat_device_new
+     * — spins forever on `hwservicemanager.ready=true`, because Halium's
+     * property writes land in a per-NS tmpfs the OHOS side cannot see.
+     *
+     * OHOS itself uses /dev/__parameters__/ for its parameter store, so
+     * a tmpfs at /dev/__properties__/ does not collide with anything
+     * native.  Inheritance: at clone time the child saw OHOS's mount
+     * table including the pre-init tmpfs at /dev/__properties__/; that
+     * mount point is what we bind from here, regardless of the child's
+     * subsequent rprivate flip. */
+    if (mkdir(ANDROID_ROOT "/dev/__properties__", 0755) < 0 && errno != EEXIST)
+        die("mkdir __properties__: %s", strerror(errno));
+    /* Property-area files must NOT survive a previous Halium run: bionic's
+     * map_prop_area_rw() creates each per-context file O_CREAT|O_EXCL and
+     * returns nullptr on EEXIST — Android 14's init then NULL-derefs inside
+     * __system_property_area_init() (SIGSEGV, si_addr 0x14) ~30 ms after
+     * "init second stage started!".  The store deliberately outlives the NS
+     * (shared tmpfs so OHOS-side libhybris consumers can read it), so wipe
+     * its contents — not the mount — before every launch. */
+    wipe_dir_contents("/dev/__properties__");
+    if (mount("/dev/__properties__", ANDROID_ROOT "/dev/__properties__",
+              NULL, MS_BIND, NULL) < 0)
+        die("bind /dev/__properties__: %s", strerror(errno));
+
+    /* GPU + DMA-BUF + DRM passthrough — bind the host kernel objects so
+     * Halium's composer sees the same Mali / DMA-BUF nodes OHOS does.
+     * /dev/mali0 is a single character device; /dev/dri and /dev/dma_heap
+     * are directories, so MS_REC.
+     */
+    if (touch_file(ANDROID_ROOT "/dev/mali0") < 0)
+        die("touch mali0: %s", strerror(errno));
+    if (mount("/dev/mali0", ANDROID_ROOT "/dev/mali0", NULL, MS_BIND, NULL) < 0)
+        logmsg("bind /dev/mali0 failed (non-fatal): %s", strerror(errno));
+    if (mkdir(ANDROID_ROOT "/dev/dri", 0755) < 0 && errno != EEXIST) { }
+    if (mount("/dev/dri", ANDROID_ROOT "/dev/dri",
+              NULL, MS_BIND | MS_REC, NULL) < 0)
+        logmsg("bind /dev/dri failed (non-fatal): %s", strerror(errno));
+    if (mkdir(ANDROID_ROOT "/dev/dma_heap", 0755) < 0 && errno != EEXIST) { }
+    if (mount("/dev/dma_heap", ANDROID_ROOT "/dev/dma_heap",
+              NULL, MS_BIND | MS_REC, NULL) < 0)
+        logmsg("bind /dev/dma_heap failed (non-fatal): %s", strerror(errno));
+
+    /* proc + sysfs inside the new PID/mount NS.  proc must be a fresh
+     * mount in the child NS so /proc reflects the child's PID view. */
+    if (mkdir_p(ANDROID_ROOT "/proc", 0755) < 0) { }
+    if (mount("proc", ANDROID_ROOT "/proc", "proc",
+              MS_NODEV | MS_NOEXEC | MS_NOSUID, NULL) < 0)
+        die("mount proc on %s/proc: %s", ANDROID_ROOT, strerror(errno));
+    if (mkdir_p(ANDROID_ROOT "/sys", 0755) < 0) { }
+    if (mount("sysfs", ANDROID_ROOT "/sys", "sysfs",
+              MS_NODEV | MS_NOEXEC | MS_NOSUID, NULL) < 0)
+        die("mount sysfs: %s", strerror(errno));
+
+    /* selinuxfs — the LSM cmdline `lsm=selinux` (set in
+     * build_boot_img_chainload.sh) gets SELinux loaded into the kernel,
+     * but the kernel does NOT auto-mount selinuxfs.  We need it for
+     * libselinux's `selinux_status_open()` and `getcon()` to succeed
+     * inside the Halium NS — without this, `vndservicemanager` aborts
+     * with `Check failed: selinux_status_open(true) >= 0` immediately
+     * on startup, the vndbinder context manager dies, and every Halium
+     * HAL service in `class hal` (composer@2.3-service, allocator@4.0,
+     * etc.) cycles every 4–6 s as their hwbinder lookups fail.  See
+     * phase_n8_graphics_native.md §N8.9.2 for the bisection.
+     *
+     * Mount in this fresh-/sys Halium-NS view; OHOS-side selinuxfs is
+     * mounted separately by init.x23.cfg (so OHOS-side libhybris
+     * callers also see it after the libhybris namespace switches into
+     * the Halium FS view).
+     *
+     * No policy is loaded.  Without a policy, all SELinux access
+     * checks pass (kernel default), which is exactly the permissive
+     * mode behaviour we want — `androidboot.selinux=permissive`
+     * couldn't be threaded through LK's truncated cmdline anyway
+     * (only one space-free token survives the LK boot.img-cmdline
+     * insertion). */
+    if (mkdir_p(ANDROID_ROOT "/sys/fs/selinux", 0755) < 0) { }
+    if (mount("selinuxfs", ANDROID_ROOT "/sys/fs/selinux", "selinuxfs",
+              0, NULL) < 0)
+        logmsg("mount selinuxfs: %s (non-fatal — was `lsm=selinux` "
+               "passed in /proc/cmdline?)", strerror(errno));
+
+    /* halium_vendor_a is already overmounted on ANDROID_ROOT/vendor by
+     * the chainload (Stage 3b) and inherited into this NS via the
+     * clone — after pivot_root into ANDROID_ROOT it becomes the
+     * guest's /vendor (what the rc files under /system/etc/init/
+     * reference: /vendor/lib64, /vendor/bin/hw, ...).  No bind here. */
+
+    /* Per-NS /data for Android — fresh tmpfs.  OHOS doesn't currently
+     * have a separate userdata partition mounted (fstab.x23 only mounts
+     * misc + persist), so /data on OHOS is just an RO subdir of
+     * system_a.  Halium init expects /data writable, so we back it
+     * with a tmpfs that lives only for the lifetime of this NS.
+     * Trade-off: anything Halium writes to /data is lost across
+     * reboots — fine for HALs, would matter only if we wanted Android
+     * userspace apps (we don't). */
+    if (mkdir(ANDROID_ROOT "/data", 0771) < 0 && errno != EEXIST) { }
+    if (mount("tmpfs", ANDROID_ROOT "/data", "tmpfs", 0,
+              "size=64M,mode=771,uid=0,gid=0") < 0)
+        die("mount tmpfs on %s/data: %s", ANDROID_ROOT, strerror(errno));
+
+    /* Debug overlay: if the OHOS-side directory /module_update/halium-debug/
+     * exists, bind it into the Halium NS at /data/halium-debug/ so we can
+     * push debug payloads from outside (hdc file send) without rebuilding
+     * androidd.  /module_update is the only writable tmpfs on OHOS native
+     * boot.  Post-pivot we read /data/halium-debug/overlay.txt for a list
+     * of "src dst" pairs to bind-mount over Halium paths (eg replace
+     * /system/etc/init/servicemanager.rc with a debug version, or
+     * /system/bin/servicemanager with a wrapper script).
+     *
+     * /module_update is mounted nosuid,noexec,nodev on the host, and bind
+     * mounts inherit those flags.  Remount the bind as suid+exec+dev so
+     * Halium init can exec scripts/binaries from the overlay. */
+    {
+        struct stat st;
+        if (stat("/module_update/halium-debug", &st) == 0 && S_ISDIR(st.st_mode)) {
+            if (mkdir(ANDROID_ROOT "/data/halium-debug", 0755) < 0 && errno != EEXIST) { }
+            if (mount("/module_update/halium-debug",
+                      ANDROID_ROOT "/data/halium-debug",
+                      NULL, MS_BIND | MS_REC, NULL) < 0)
+                logmsg("bind halium-debug: %s (non-fatal)", strerror(errno));
+            else if (mount(NULL, ANDROID_ROOT "/data/halium-debug", NULL,
+                           MS_REMOUNT | MS_BIND, NULL) < 0)
+                logmsg("remount halium-debug exec: %s (non-fatal)",
+                       strerror(errno));
+            else
+                logmsg("halium-debug overlay attached (exec-enabled)");
+        }
+    }
+
+    /* Seed Halium boot env.  Android init maps androidboot.* env vars to
+     * ro.boot.* properties at second-stage start.
+     *
+     * Only do this on devices whose boot chain doesn't already deliver
+     * androidboot.* through /proc/bootconfig.  The X23 (5.10) passes them
+     * on the kernel cmdline, which the chainload doesn't preserve — hence
+     * the seeding.  On ansuz (GKI 6.1) the bootloader-appended bootconfig
+     * carries the real values (androidboot.hardware=mt6878, serialno,
+     * slot_suffix); ro.boot.* properties are first-setter-wins, so seeding
+     * the X23 values here would make init load the wrong vendor rc set. */
+#ifndef ONIRO_LEGACY_CMDLINE_BOOT
+    int bootconfig_androidboot = 0;
+    {
+        FILE *bc = fopen("/proc/bootconfig", "r");
+        if (bc) {
+            char bline[512];
+            while (fgets(bline, sizeof bline, bc)) {
+                if (strstr(bline, "androidboot.hardware")) {
+                    bootconfig_androidboot = 1;
+                    break;
+                }
+            }
+            fclose(bc);
+        }
+    }
+#endif
+    setenv("ANDROID_ROOT",   "/system", 1);
+    setenv("ANDROID_DATA",   "/data",   1);
+    setenv("ANDROID_VENDOR", "/vendor", 1);
+#ifdef ONIRO_LEGACY_CMDLINE_BOOT
+    {
+        char legacy_cmdline[4096];
+        char hardware[64];
+        int fd = open("/proc/cmdline", O_RDONLY | O_CLOEXEC);
+        if (fd < 0) die("legacy cmdline open: %s", strerror(errno));
+        ssize_t n;
+        do { n = read(fd, legacy_cmdline, sizeof legacy_cmdline - 1); } while (n < 0 && errno == EINTR);
+        close(fd);
+        if (n <= 0 || n >= (ssize_t)sizeof legacy_cmdline - 1)
+            die("legacy cmdline unreadable or truncated");
+        legacy_cmdline[n] = '\0';
+        if (meizu_legacy_hardware(legacy_cmdline, hardware, sizeof hardware) < 0)
+            die("legacy cmdline hardware missing/ambiguous or slot_suffix present");
+        const char *slot = getenv("androidboot.slot_suffix");
+        if (slot && *slot) die("legacy A-only boot inherited slot_suffix");
+        if (setenv("androidboot.hardware", hardware, 1) < 0)
+            die("legacy hardware setenv: %s", strerror(errno));
+        logmsg("legacy cmdline hardware=%s; no slot identity fabricated", hardware);
+    }
+#else
+    if (!bootconfig_androidboot) {
+        setenv("androidboot.hardware",          "mt6789",     1);
+        setenv("androidboot.selinux",           "permissive", 1);
+        setenv("androidboot.veritymode",        "disabled",   1);
+        setenv("androidboot.verifiedbootstate", "orange",     1);
+        setenv("androidboot.slot_suffix",       "_a",         1);
+    } else {
+        logmsg("bootconfig provides androidboot.* — env seeding skipped");
+    }
+#endif
+
+    /* Switch the NS root to ANDROID_ROOT, switch_root-style: MS_MOVE the
+     * halium mount (with its whole subtree of binds) onto the namespace's
+     * REAL root and chroot into it.  We used to pivot_root + MNT_DETACH
+     * the old root here, but that leaves this namespace's kernel-side
+     * root pointer (mnt_ns->root) referencing the detached old tree:
+     * setns(2) back into this NS resets the caller's fs root to that dead
+     * tree, and every path lookup afterwards fails ENOENT.  Halium 12's
+     * init never re-entered its own NS, so the X23 got away with it;
+     * Android 14's SetupMountNamespaces() does unshare+setns on every
+     * boot (its updatable-APEX path) and aborted with
+     *   `Failed to bind mount /bootstrap-apex: No such file or directory`
+     * on exactly this.
+     *
+     * setns()'s root re-resolution starts at the namespace root MOUNT
+     * (the chainload ramdisk) and only descends mounts stacked exactly on
+     * its root dentry (LOOKUP_DOWN) — and androidd runs chrooted at
+     * /root inside that ramdisk (the chainload chroots OHOS init), so
+     * MS_MOVE onto our chroot's "/" would stack halium at the /root
+     * mountpoint where setns never looks.  Hence step 1: escape the
+     * chroot (chroot to a subdir while cwd stays outside it, then climb
+     * with ".." until "."==".."), so "/" means the ramdisk root. */
+    if (chdir(ANDROID_ROOT) < 0)
+        die("chdir %s: %s", ANDROID_ROOT, strerror(errno));
+    if (chroot(ANDROID_ROOT "/data") < 0)
+        die("chroot escape pivot: %s", strerror(errno));
+    for (int i = 0; i < 64; ++i) {
+        struct stat cur, up;
+        if (stat(".", &cur) < 0 || stat("..", &up) < 0)
+            die("escape stat: %s", strerror(errno));
+        if (cur.st_ino == up.st_ino && cur.st_dev == up.st_dev)
+            break;
+        if (chdir("..") < 0)
+            die("escape chdir ..: %s", strerror(errno));
+    }
+    if (chroot(".") < 0)
+        die("chroot ns root: %s", strerror(errno));
+    /* Step 2: stack the halium mount on the ramdisk root mountpoint —
+     * the same arrangement stock Android's switch_root leaves behind —
+     * and enter it.  In the real-root view the OHOS world (and thus the
+     * halium mount) lives under /root.  The old roots stay mounted
+     * underneath, shadowed and unreachable by path. */
+    if (chdir("/root" ANDROID_ROOT) < 0 && chdir(ANDROID_ROOT) < 0)
+        die("chdir to halium root post-escape: %s", strerror(errno));
+    if (mount(".", "/", NULL, MS_MOVE, NULL) < 0)
+        die("MS_MOVE halium root -> /: %s", strerror(errno));
+    if (chroot(".") < 0)
+        die("chroot: %s", strerror(errno));
+    if (chdir("/") < 0)
+        die("chdir /: %s", strerror(errno));
+
+    /* Redirect stdout/stderr to /dev/kmsg so Halium init's early
+     * messages (before init.rc opens its own log) reach our dmesg.
+     * Done *before* the linkerconfig + apex setup below so any errors
+     * from those steps land in kmsg too. */
+    int kfd = open("/dev/kmsg", O_WRONLY | O_CLOEXEC);
+    if (kfd >= 0) {
+        (void)dup2(kfd, 1);
+        (void)dup2(kfd, 2);
+        if (kfd != 1 && kfd != 2) close(kfd);
+    }
+
+    /* ---------------------------------------------------------------------
+     * /apex first — `linkerconfig` (run further down) reads /apex/
+     * to discover runtime namespaces and emits matching ld.config.txt
+     * stanzas; without the binds in place the generated config has no
+     * com.android.runtime entry and every non-bootstrap binary (every
+     * HAL service) SEGVs in its linker.
+     *
+     * Three layered concerns:
+     *  (a) `SetupMountNamespaces()` in AOSP init does
+     *      `mount(NULL, "/apex", NULL, MS_PRIVATE, NULL)` — fails with
+     *      EINVAL unless /apex is a mount point.
+     *  (b) Bionic resolves runtime-namespace libs (libc++ etc.) via
+     *      /apex/com.android.runtime/lib64/.
+     *  (c) `linkerconfig` enumerates /apex/<name>/apex_manifest.pb to
+     *      build the namespace list.
+     *
+     * Halium 12 ships flattened APEX modules as directories under
+     * /system/apex/<name>/ (post-pivot path).  Tmpfs over /apex then
+     * bind those subdirs in.  Init's apexd would later replace these
+     * binds with the canonical layout, but the binds are sufficient
+     * for the linker and for `SetupMountNamespaces` to succeed.
+     * ------------------------------------------------------------------ */
+    if (mount("tmpfs", "/apex", "tmpfs", 0,
+              "mode=0755,uid=0,gid=0") < 0)
+        logmsg("mount tmpfs on /apex: %s (non-fatal — may already be tmpfs)",
+               strerror(errno));
+    apex_bind("com.android.runtime");
+    apex_bind("com.android.art");
+    apex_bind("com.android.i18n");
+    apex_bind("com.android.conscrypt");
+    apex_bind("com.android.os.statsd");
+    apex_bind("com.android.tzdata");
+    apex_bind("com.android.adbd");
+    apex_bind("com.android.media");
+    apex_bind("com.android.media.swcodec");
+    apex_bind("com.android.resolv");
+    apex_bind("com.android.neuralnetworks");
+    apex_bind("com.android.tethering");
+    apex_bind("com.android.wifi");
+    apex_bind("com.android.extservices");
+    apex_bind("com.android.ipsec");
+    apex_bind("com.android.mediaprovider");
+    apex_bind("com.android.permission");
+    apex_bind("com.android.sdkext");
+    apex_bind("com.android.vndk.current");
+
+    /* The VNDK apex ships its lib lists named *.libraries.<vndk_ver>.txt
+     * (e.g. llndk.libraries.32.txt for Halium 12).  Linkerconfig also
+     * expects the apex to be reachable at /apex/com.android.vndk.v<ver>/
+     * (versioned name).  Without the versioned bind, the variable loader
+     * fails to open the per-version VNDK libraries files and aborts
+     * every VNDK lookup with "SANITIZER_DEFAULT_VENDOR is not defined".
+     *
+     * Bind the same /system/apex/com.android.vndk.current under the
+     * versioned path too.  Halium 12 = Android 12 = VNDK 32; bump this
+     * when porting to a newer Halium. */
+    {
+        const char *src = "/system/apex/com.android.vndk.current";
+        struct stat st;
+        if (stat(src, &st) == 0 && S_ISDIR(st.st_mode)) {
+            mkdir("/apex/com.android.vndk.v32", 0755);
+            if (mount(src, "/apex/com.android.vndk.v32",
+                      NULL, MS_BIND | MS_REC, NULL) < 0)
+                logmsg("bind vndk.current -> vndk.v32: %s", strerror(errno));
+            else if (g_bound_apex_n < MAX_APEX_BOUND)
+                g_bound_apex[g_bound_apex_n++] = "com.android.vndk.v32";
+        }
+    }
+
+    /* Write the apex-info-list.xml that linkerconfig consumes (below).
+     * Without it, linkerconfig prints
+     *  `Failed to scan APEX modules : Can't read /apex/apex-info-list.xml`
+     * and emits a config with NO apex namespaces — every non-bootstrap
+     * binary that DT_NEEDs an apex-namespace lib (libc++ via runtime,
+     * etc.) then SEGVs in its linker on load.
+     *
+     * Init's own apexd would normally generate this file as part of
+     * apex mount, but on a non-updatable-apex device it exits early
+     * with "This device does not support updatable APEX" and writes
+     * nothing.  So we generate it ourselves. */
+    apex_info_list_write();
+
+    /* ---------------------------------------------------------------------
+     * /mnt — `SetupMountNamespaces()` mkdir_recursive's
+     * /mnt/{user,installer,androidwritable} early.  Halium 12's
+     * `system_a` ships `/mnt` as an empty dir on the RO ext4, so the
+     * mkdirs hit EROFS and init aborts with
+     *   `SetupMountNamespaces failed: Read-only file system`.
+     *
+     * Fix: tmpfs over /mnt, then pre-create the three subdirs init
+     * looks for (mode 0755 to match what mkdir_recursive uses).
+     * ------------------------------------------------------------------ */
+    if (mount("tmpfs", "/mnt", "tmpfs", 0,
+              "mode=0755,uid=0,gid=0") < 0) {
+        logmsg("mount tmpfs on /mnt: %s (non-fatal — may already be tmpfs)",
+               strerror(errno));
+    } else {
+        mkdir("/mnt/user",            0755);
+        mkdir("/mnt/installer",       0755);
+        mkdir("/mnt/androidwritable", 0755);
+    }
+
+    /* Modem NV — must land on the tmpfs /mnt above, and before init runs
+     * its post-fs-data triggers.  See nv_prepare()/nv_attach(). */
+    nv_attach();
+
+    /* ---------------------------------------------------------------------
+     * /linkerconfig — tmpfs only; let init's own init.rc do the actual
+     * `linkerconfig` invocation.  We tried running it pre-emptively
+     * here, but on a clean boot `ro.vndk.version` isn't a property yet
+     * and the binary aborts with "SANITIZER_DEFAULT_VENDOR is not
+     * defined" (it expects `ro.vndk.version` set to look up the VNDK
+     * APEX libs lists).  Init's init.rc runs linkerconfig later, when
+     * `init.environ.rc` has set the prop, so it just works.  Halium
+     * ships /linkerconfig as an empty dir; we just provide a writable
+     * tmpfs.
+     * ------------------------------------------------------------------ */
+    mkdir("/linkerconfig", 0755);
+    if (mount("tmpfs", "/linkerconfig", "tmpfs", 0,
+              "mode=0755,uid=0,gid=0") < 0) {
+        logmsg("mount tmpfs on /linkerconfig: %s (non-fatal — may already be tmpfs)",
+               strerror(errno));
+    }
+
+    /* Apply debug-overlay manifest if present.  Each non-empty, non-comment
+     * line is "<src-path> <dst-path>" — src is post-pivot (typically under
+     * /data/halium-debug/, populated via the OHOS-side /module_update bind
+     * above), dst is the Halium path to bind over.  This lets us swap a
+     * single .rc or binary for instrumentation without a full rebuild. */
+    {
+        FILE *fp = fopen("/data/halium-debug/overlay.txt", "r");
+        if (fp) {
+            char line[512];
+            int n_applied = 0;
+            while (fgets(line, sizeof line, fp)) {
+                size_t L = strlen(line);
+                while (L > 0 && (line[L-1] == '\n' || line[L-1] == '\r' ||
+                                 line[L-1] == ' '  || line[L-1] == '\t'))
+                    line[--L] = 0;
+                char *p = line;
+                while (*p == ' ' || *p == '\t') ++p;
+                if (*p == 0 || *p == '#') continue;
+                char *sp = strchr(p, ' ');
+                if (!sp) { logmsg("overlay: bad line: %s", p); continue; }
+                *sp++ = 0;
+                while (*sp == ' ' || *sp == '\t') ++sp;
+                if (mount(p, sp, NULL, MS_BIND, NULL) < 0)
+                    logmsg("overlay bind %s -> %s: %s", p, sp, strerror(errno));
+                else {
+                    logmsg("overlay bind %s -> %s OK", p, sp);
+                    ++n_applied;
+                }
+            }
+            fclose(fp);
+            logmsg("overlay: %d binds applied", n_applied);
+        }
+    }
+
+#ifdef ONIRO_LEGACY_CMDLINE_BOOT
+    if (m5c_guard_physical_block_devices() < 0)
+        die("legacy physical block guard: %s", strerror(errno));
+    logmsg("M5C_ANDROID_BLOCK_POLICY deny=all-block allow=loop-major7 inherited=device-cgroup runtime=unverified");
+#endif
+
+    /* Diagnostic: if /data/halium-debug/probe exists (deposited by the
+     * overlay), fork+exec it once before exec'ing Halium init.  This lets
+     * us run a known-good static binary inside the Halium NS to confirm
+     * that static binaries work — isolating any "all Halium binaries
+     * SEGV" failure to the dynamic linker / libc path. */
+    {
+        struct stat st;
+        if (stat("/data/halium-debug/probe", &st) == 0 && (st.st_mode & 0111)) {
+            logmsg("forking probe for pre-init diagnostic");
+            pid_t pp = fork();
+            if (pp == 0) {
+                char *probe_argv[] = { (char *)"probe", NULL };
+                execv("/data/halium-debug/probe", probe_argv);
+                logmsg("exec probe: %s", strerror(errno));
+                _exit(127);
+            } else if (pp > 0) {
+                int s;
+                waitpid(pp, &s, 0);
+                logmsg("probe exited (status 0x%x WEXITSTATUS=%d WTERMSIG=%d)",
+                       s, WEXITSTATUS(s), WTERMSIG(s));
+            } else {
+                logmsg("fork for probe: %s", strerror(errno));
+            }
+        }
+    }
+
+    /* /system/bin/init is Halium's stage-2 init binary.  Halium 12's
+     * boot.img ramdisk's /init is a separate stage-1 (not used here —
+     * we've already done partition/mount setup via the chainload). */
+    char *argv[] = { (char *)"init", (char *)"second_stage", NULL };
+    execv("/system/bin/init", argv);
+    /* On exec failure logmsg falls back to the parent's /dev/kmsg path
+     * (different mount NS, but it can still open() the kernel device). */
+    die("exec /system/bin/init: %s", strerror(errno));
+    return 1;
+}
+
+/* -------------------------------------------------------------------------
+ * Parent: composer-ready watchdog
+ * -------------------------------------------------------------------------
+ * Periodically setns()es into the child's PID + mount NSes and runs
+ * /system/bin/lshal | grep IComposer/default.  On success, flips the
+ * OHOS init parameter via /system/bin/param.
+ *
+ * Rationale for the polling approach:
+ *  - Direct hwbinder transaction would be the cleanest signal but
+ *    requires linking libhidl + speaking the HIDL wire protocol in C.
+ *  - lshal already does exactly this query and ships with Halium.
+ *  - The setns-then-fork pattern is needed because CLONE_NEWPID only
+ *    affects newly forked children of the setns'er; the setns()er
+ *    itself stays in its current PID NS.
+ */
+static int probe_composer(pid_t child_pid)
+{
+    char ns_pid[64], ns_mnt[64];
+    snprintf(ns_pid, sizeof ns_pid, "/proc/%d/ns/pid", child_pid);
+    snprintf(ns_mnt, sizeof ns_mnt, "/proc/%d/ns/mnt", child_pid);
+
+    int fd_pid = open(ns_pid, O_RDONLY | O_CLOEXEC);
+    int fd_mnt = open(ns_mnt, O_RDONLY | O_CLOEXEC);
+    if (fd_pid < 0 || fd_mnt < 0) {
+        if (fd_pid >= 0) close(fd_pid);
+        if (fd_mnt >= 0) close(fd_mnt);
+        return -1;
+    }
+
+    pid_t probe = fork();
+    if (probe < 0) { close(fd_pid); close(fd_mnt); return -1; }
+
+    if (probe == 0) {
+        /* setns(CLONE_NEWNS) fails with EINVAL when the calling task's
+         * fs_struct has more than one user — and bionic's pthreads or
+         * a clone()'d child can keep it shared.  unshare(CLONE_FS) is
+         * the bionic-friendly way to detach, but musl is fine without.
+         * Belt-and-braces: call it before the setns. */
+        if (unshare(CLONE_FS) < 0)
+            logmsg("probe: unshare(CLONE_FS): %s", strerror(errno));
+
+        /* Enter Halium NSes.  Order: mount NS first (so /proc remounts
+         * correctly), then PID NS for the subsequent fork.
+         *
+         * Note: setns(CLONE_NEWNS) swaps the *mount namespace* but does
+         * NOT change the calling task's fs_struct root or cwd.  After
+         * Halium init pivot_roots into /root inside the new mount NS, the
+         * NS still has the underlying initramfs visible at "/" but
+         * Halium's effective root (where /system/bin/sh and lshal live)
+         * is `/root`.  We have to chroot/chdir into it explicitly, else
+         * `/system/bin/sh` resolves to OHOS's sh and `/system/bin/lshal`
+         * isn't found at all. */
+        if (setns(fd_mnt, CLONE_NEWNS)  < 0) {
+            logmsg("probe: setns mnt: %s", strerror(errno));
+            _exit(3);
+        }
+        if (setns(fd_pid, CLONE_NEWPID) < 0) {
+            logmsg("probe: setns pid: %s", strerror(errno));
+            _exit(4);
+        }
+        close(fd_pid); close(fd_mnt);
+
+        /* Forked grandchild lives in the new PID NS — necessary for any
+         * binder/hwservicemanager call that walks /proc/self. */
+        pid_t grand = fork();
+        if (grand < 0) _exit(5);
+        if (grand == 0) {
+            /* With the MS_MOVE root swap (see child_main) the post-setns
+             * root IS the halium root and no chroot is needed; the legacy
+             * pivot_root layout left halium reachable only via /root.
+             * Probe the direct path first, fall back to the old dance. */
+            struct stat st;
+            if (stat("/system/bin/lshal", &st) != 0) {
+                if (chroot("/root") < 0) _exit(8);
+                if (chdir("/")     < 0) _exit(9);
+            }
+            /* HIDL composer (X23 / Halium 12) via lshal, or AIDL composer3
+             * (ansuz / Halium 14) via servicemanager.  `service check`
+             * prints "Service <name>: found" when registered. */
+            execl("/system/bin/sh", "sh", "-c",
+                  "/system/bin/lshal --neat 2>/dev/null"
+                  " | grep -Eq '@2[.][0-9]+::IComposer/default'"
+                  " || /system/bin/service check"
+                  " android.hardware.graphics.composer3.IComposer/default"
+                  " 2>/dev/null | grep -q ': found'",
+                  (char *)NULL);
+            _exit(127);
+        }
+        int s;
+        if (waitpid(grand, &s, 0) < 0) _exit(6);
+        _exit(WIFEXITED(s) ? WEXITSTATUS(s) : 7);
+    }
+
+    close(fd_pid); close(fd_mnt);
+    int s;
+    if (waitpid(probe, &s, 0) < 0) return -1;
+    int rc = WIFEXITED(s) ? WEXITSTATUS(s) : -1;
+    static int last_rc = -2;
+    if (rc != last_rc) {
+        logmsg("probe_composer: rc=%d (status=0x%x)", rc, s);
+        last_rc = rc;
+    }
+    return rc;
+}
+
+static void watchdog(pid_t child_pid)
+{
+    logmsg("watchdog: sleeping %ds for Halium init",
+           WATCHDOG_INITIAL_DELAY_SEC);
+    sleep(WATCHDOG_INITIAL_DELAY_SEC);
+
+    time_t deadline = time(NULL) + WATCHDOG_TIMEOUT_SEC;
+    int iter = 0;
+    while (time(NULL) < deadline) {
+        /* If the child died, the binder NS is gone; abort. */
+        if (kill(child_pid, 0) < 0 && errno == ESRCH) {
+            logmsg("watchdog: child exited before composer registered");
+            return;
+        }
+
+        int rc = probe_composer(child_pid);
+        if (rc == 0) {
+            logmsg("watchdog: IComposer registered (iter %d)", iter);
+            /* Flip OHOS init param via /system/bin/param.  Linking
+             * libbegetutil is cleaner but pulls in C++ symbols; the
+             * subprocess cost is negligible (one-shot). */
+            pid_t p = fork();
+            if (p == 0) {
+                execl("/system/bin/param", "param",
+                      "set", COMPOSER_READY_PARAM, "1", (char *)NULL);
+                _exit(127);
+            }
+            int s;
+            waitpid(p, &s, 0);
+            if (!WIFEXITED(s) || WEXITSTATUS(s) != 0)
+                logmsg("watchdog: `param set` failed (status %d)", s);
+            return;
+        }
+        sleep(WATCHDOG_POLL_INTERVAL_SEC);
+        ++iter;
+    }
+    logmsg("watchdog: timed out after %ds; composer never registered",
+           WATCHDOG_TIMEOUT_SEC);
+}
+
+/* -------------------------------------------------------------------------
+ * Main
+ * ------------------------------------------------------------------------- */
+
+int main(int argc, char **argv)
+{
+    /* Harmless cross-target smoke mode: returns before any /dev access,
+     * mount, namespace setup, vendor NV handling or service readiness. */
+    if (argc == 2 && strcmp(argv[1], "--build-info") == 0) {
+#ifdef ONIRO_BINDER_BACKEND_STATIC
+#ifdef ONIRO_LEGACY_CMDLINE_BOOT
+        puts("ANDROIDD_BUILD_INFO backend=static-binder boot-env=legacy-cmdline device-runtime=unverified");
+#else
+        puts("ANDROIDD_BUILD_INFO backend=static-binder device-runtime=unverified");
+#endif
+#else
+        puts("ANDROIDD_BUILD_INFO backend=binderfs device-runtime=unverified");
+#endif
+        return 0;
+    }
+    if (argc != 1) {
+        fputs("usage: androidd [--build-info]\n", stderr);
+        return 64;
+    }
+
+    logmsg("startup — pid %d, uid %d, euid %d",
+           (int)getpid(), (int)getuid(), (int)geteuid());
+
+    /* Pre-flight: binderfs must already be mounted (handled by
+     * init.x23.cfg pre-init).  If not, fail fast — there's no clean way
+     * to bring it up from inside a service. */
+    #ifdef ONIRO_BINDER_BACKEND_STATIC
+    if (meizu_static_binder_prepare() < 0)
+        die("static binder contract failed");
+    #else
+    if (access(BINDERFS_CONTROL, F_OK) < 0)
+        die("%s missing — is binderfs mounted? "
+            "(check init.x23.cfg pre-init)", BINDERFS_CONTROL);
+    #endif
+
+    /* Halium content must be present.  Probe system/bin/hwservicemanager
+     * inside the mount with lstat: on Halium 14 the entry is itself an
+     * absolute symlink (→ /system/system_ext/bin/hwservicemanager) that
+     * only resolves after the pivot, so a symlink-following check
+     * (access/stat) from the OHOS namespace would wrongly report it
+     * missing.  Its mere presence proves halium_system_a is mounted,
+     * which is all this gate is for. */
+    struct stat hwsm;
+    if (lstat(ANDROID_ROOT "/system/bin/hwservicemanager", &hwsm) < 0)
+        die("%s/system/bin/hwservicemanager missing — did the chainload "
+            "mount halium_system_a?", ANDROID_ROOT);
+
+    /* Create the dedicated Android binder context.  hwbinder/vndbinder
+     * already exist (mounted by init.x23.cfg pre-init); we only need
+     * to add our `android-binder`. */
+    #ifndef ONIRO_BINDER_BACKEND_STATIC
+    if (create_binderfs_device("android-binder") < 0)
+        die("provisioning android-binder failed");
+    #endif
+
+    /* Seed + loop-attach the MTK modem NV images while we still have the
+     * OHOS namespace.  The child mounts them post-pivot (nv_attach()). */
+    nv_prepare();
+
+    void *stack = mmap(NULL, CHILD_STACK_SIZE,
+                       PROT_READ | PROT_WRITE,
+                       MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK,
+                       -1, 0);
+    if (stack == MAP_FAILED)
+        die("mmap stack: %s", strerror(errno));
+
+    /* No CLONE_NEWIPC — hwbinder must cross.
+     * No CLONE_NEWNET — WiFi (Phase 10) + future RIL share OHOS net ns.
+     * No CLONE_NEWUSER — root maps cleanly; userns would add uid-mapping
+     *                   complexity without buying us anything. */
+    int flags = CLONE_NEWPID | CLONE_NEWNS | CLONE_NEWUTS | SIGCHLD;
+    pid_t child = clone(child_main,
+                        (char *)stack + CHILD_STACK_SIZE,
+                        flags, NULL);
+    if (child < 0)
+        die("clone: %s", strerror(errno));
+
+    logmsg("Halium NS launched as host PID %d", child);
+
+    /* Watchdog runs synchronously in the parent.  After it returns
+     * (success or timeout), we just waitpid the child — if Halium init
+     * dies we exit and OHOS init's critical-restart policy takes over. */
+    watchdog(child);
+
+    int status;
+    if (waitpid(child, &status, 0) < 0)
+        die("waitpid(%d): %s", child, strerror(errno));
+    logmsg("Halium NS exited with status 0x%x", status);
+    return WIFEXITED(status) ? WEXITSTATUS(status) : 1;
+}

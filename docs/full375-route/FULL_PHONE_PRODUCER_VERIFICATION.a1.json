@@ -1,0 +1,753 @@
+{
+  "actual_full_cloud_run_pending": true,
+  "actual_selected_parts": 366,
+  "all_actual_cloud_bodies_required_before_compiler": true,
+  "canonical_components": 365,
+  "compile_executed_locally": false,
+  "complete_image_or_runtime_claimed": false,
+  "excluded_local_offline_assembly_and_pycache": true,
+  "expected_source_bytes": 29188130488,
+  "expected_source_rows": 699844,
+  "files": [
+    {
+      "bytes": 1418,
+      "path": ".github/workflows/openharmony-full-phone-public.yml",
+      "sha256": "76e843181166cdcdf992843ec57b52baec81a203125ba7ad04a23ebacde45085"
+    },
+    {
+      "bytes": 3234,
+      "path": "docs/full375-route/README.md",
+      "sha256": "25df7a33e9057034bd4f7f570229476bd201893b6c1e3560e9ffdb282290197c"
+    },
+    {
+      "bytes": 1455,
+      "path": "docs/full375-route/VERIFICATION.a1.json",
+      "sha256": "76263f360335b23a939902f0630271a9213b06029c04caf78cd1c8fa95c199da"
+    },
+    {
+      "bytes": 15305,
+      "path": "docs/full375-route/acquire_full_phone.py",
+      "sha256": "b631ee08583864659cfd742e5dfd8e35853e179366ebf1769c0ef771d7354e56"
+    },
+    {
+      "bytes": 190992,
+      "path": "docs/full375-route/canonical_full_phone_coverage.json",
+      "sha256": "abb1da10781915964ed0307fc5f2642054b2b6cb1a4843211698cd4beaf139a7"
+    },
+    {
+      "bytes": 79791735,
+      "path": "docs/full375-route/controller/GN_INPUTS.json",
+      "sha256": "c84761f5a94a3370aca702e6bdea222b3049b626ecfce9fc8987e6467ad26aa4"
+    },
+    {
+      "bytes": 61041,
+      "path": "docs/full375-route/controller/forge_ephemeral_build.py",
+      "sha256": "9a01d1c452ecf14674a9df1f7512176f30b1fe2949660e2ea743960e7d400bb8"
+    },
+    {
+      "bytes": 1105,
+      "path": "docs/full375-route/controller/inputs/0-0002-build-register-oniro_soc_products-hybris_generic-as-.patch",
+      "sha256": "f30aa7fcff7a2efb6b99e39e22524c703e08b7ca4ddffec732dcb33c285b50db"
+    },
+    {
+      "bytes": 1380,
+      "path": "docs/full375-route/controller/inputs/1-0001-init-tolerate-an-existing-dev-kmsg-node-in-LogInit.patch",
+      "sha256": "d71f09bf77930378d68e1a09b3719231d7d0f6211242b2dae2a5f12a60e54708"
+    },
+    {
+      "bytes": 1591,
+      "path": "docs/full375-route/controller/inputs/10-product_m5c.para",
+      "sha256": "9e5e227c3a68f6f5411a0607779b7c31bc4c5984fbba0a3284b8008d5de3270f"
+    },
+    {
+      "bytes": 11663,
+      "path": "docs/full375-route/controller/inputs/11-config.json",
+      "sha256": "8228b003c4caae09a78897bcad2dc55ee2467100d333b93500179ff6815fe0f3"
+    },
+    {
+      "bytes": 9059,
+      "path": "docs/full375-route/controller/inputs/12-init.cfg",
+      "sha256": "ffa07b1ccecae1b8ed2efa542eff9ea7b14c72bc579af32771ccd52e91269a80"
+    },
+    {
+      "bytes": 720,
+      "path": "docs/full375-route/controller/inputs/13-product.gni",
+      "sha256": "38ccab0b5163cdf2ceeae0a8bfb8c53b8f3ece00c4368fdb3edb801ef9fc3fe0"
+    },
+    {
+      "bytes": 118,
+      "path": "docs/full375-route/controller/inputs/14-subsystem_config_overlay.json",
+      "sha256": "7162162262f067dd47f4de97be0950493382839695636de87337d88c464c06dd"
+    },
+    {
+      "bytes": 433,
+      "path": "docs/full375-route/controller/inputs/15-bundle.json",
+      "sha256": "f2ae21e5de3c6eabd307d8af14dcb65a1d84c3f077929d3f0d7dd4c0abf325b6"
+    },
+    {
+      "bytes": 720,
+      "path": "docs/full375-route/controller/inputs/16-product.gni",
+      "sha256": "38ccab0b5163cdf2ceeae0a8bfb8c53b8f3ece00c4368fdb3edb801ef9fc3fe0"
+    },
+    {
+      "bytes": 739,
+      "path": "docs/full375-route/controller/inputs/17-BUILD.gn",
+      "sha256": "2f819e4ffcf7da060d2d9560ca34dd08a82da5aa0ff2a3417ab2ee092b4b4e23"
+    },
+    {
+      "bytes": 3410,
+      "path": "docs/full375-route/controller/inputs/18-config.json",
+      "sha256": "0365c14bf8fbc9a57d1db73ffc4a17cd7a2db5e0e13d38961f58d9f64d7cd0b8"
+    },
+    {
+      "bytes": 733,
+      "path": "docs/full375-route/controller/inputs/19-A13_HEADER_GN.patch",
+      "sha256": "151744bbd90fe24b992417fc8ea0a4ca344fa7c96b35b94f7230ac9e71975259"
+    },
+    {
+      "bytes": 835,
+      "path": "docs/full375-route/controller/inputs/19-A13_HEADER_GN_PREPEND.a12.patch",
+      "sha256": "b40f52b5209b987579669f15b68694d148b275e3e25df2c004d10adfc609bfcf"
+    },
+    {
+      "bytes": 2295,
+      "path": "docs/full375-route/controller/inputs/2-0002-init-skip-mksandbox-under-OHOS_NATIVE_BOOT-1.patch",
+      "sha256": "3134bf7d1bc3a841ef024070cedf56cbacd28d81f290ca4ea57c4ddc7fc4cf87"
+    },
+    {
+      "bytes": 3558,
+      "path": "docs/full375-route/controller/inputs/20-config.json",
+      "sha256": "9c6e83d0dac1d6452287c10b832e0376cedf674dd650602f2a1cd52ed6a6cfd3"
+    },
+    {
+      "bytes": 226,
+      "path": "docs/full375-route/controller/inputs/21-android-version.h",
+      "sha256": "837db39d7a8df4b74ad3ab4fd06cff467bf5a5d10d6f35ba10c589b1fb13c980"
+    },
+    {
+      "bytes": 18086,
+      "path": "docs/full375-route/controller/inputs/22-data_space.h",
+      "sha256": "d4f6afee38dd8cb62c1dbb6945e10a394ef65d5775b06106d20a969041360e06"
+    },
+    {
+      "bytes": 1622,
+      "path": "docs/full375-route/controller/inputs/23-rect.h",
+      "sha256": "8cffbe3f6202b1c437bb56a90fa04bec4a68a1acb9bcdf263e94568b73b98402"
+    },
+    {
+      "bytes": 22906,
+      "path": "docs/full375-route/controller/inputs/24-hardware_buffer.h",
+      "sha256": "61213423b6994d53bdb1262fdb8e737118a0d294f67a69c14c7efe495610fe4a"
+    },
+    {
+      "bytes": 12884,
+      "path": "docs/full375-route/controller/inputs/25-native_window.h",
+      "sha256": "fd88cb2d469ba209d4a532250dcf62a4be195e3d8684b3ec9c7bce5d0765a0eb"
+    },
+    {
+      "bytes": 3123,
+      "path": "docs/full375-route/controller/inputs/26-nativebase.h",
+      "sha256": "5fa086053493b18e057d513f8d5cde6fe144988874ad1f3b9d504f9b017c419f"
+    },
+    {
+      "bytes": 12965,
+      "path": "docs/full375-route/controller/inputs/27-window.h",
+      "sha256": "49d9f8087429f583992e41c0d3e0eef9a7d2cf08be61e9ef28016d3f91949aa1"
+    },
+    {
+      "bytes": 8063,
+      "path": "docs/full375-route/controller/inputs/28-hardware.h",
+      "sha256": "05cc2f0108d6c87e36384380559943d34acd104e3c2ade9aeba4415cfb23aee8"
+    },
+    {
+      "bytes": 5548,
+      "path": "docs/full375-route/controller/inputs/29-fb.h",
+      "sha256": "2b23a40596f20c85d59dda0bd68869be87019043f99f6360a0bcc2814353870f"
+    },
+    {
+      "bytes": 2956,
+      "path": "docs/full375-route/controller/inputs/3-0003-init-skip-securebits-lock-for-androidd-service.patch",
+      "sha256": "33cd65c95dfcc0863af6a4476ca5440259e704d558f702e315eb139abb9e12b8"
+    },
+    {
+      "bytes": 17096,
+      "path": "docs/full375-route/controller/inputs/30-gralloc.h",
+      "sha256": "bd4610235a828b30c8d850be07e51375744ba2f6133f16cd7e10d7fe618806e6"
+    },
+    {
+      "bytes": 42517,
+      "path": "docs/full375-route/controller/inputs/31-gralloc1.h",
+      "sha256": "8ab14c0636574935414fc1a58630f94491304b88f7157e7bfa80c9324d3ce297"
+    },
+    {
+      "bytes": 3112,
+      "path": "docs/full375-route/controller/inputs/32-native_handle.h",
+      "sha256": "274d7252085f24c975191eb07f209166a78aa1d92d6a7a1f32a84b9b6ae4a42d"
+    },
+    {
+      "bytes": 9158,
+      "path": "docs/full375-route/controller/inputs/33-graphics.h",
+      "sha256": "3ad78e6b394e080fb034e1ae4ff6f893e2ecf6c093235990b3d9e8d0daf8250d"
+    },
+    {
+      "bytes": 47299,
+      "path": "docs/full375-route/controller/inputs/34-window.h",
+      "sha256": "81b381159686066828bcae356da0ab0e67d760f4292692b8dac86e70075d8c4a"
+    },
+    {
+      "bytes": 948,
+      "path": "docs/full375-route/controller/inputs/35-graphics-base-v1.2.h",
+      "sha256": "1c22b50c060d6e9709b1e68ffc0d4a5d309166d640620f3f21ddc12d62a5c226"
+    },
+    {
+      "bytes": 1644,
+      "path": "docs/full375-route/controller/inputs/36-graphics-base-v1.1.h",
+      "sha256": "8e22bfdc66a7ec548e972238b53e827574303ea3c066a7cd4e9708159b5b6d39"
+    },
+    {
+      "bytes": 212,
+      "path": "docs/full375-route/controller/inputs/37-graphics-base.h",
+      "sha256": "58dadf516c74c48ebf0ca652f5eb5fb15a0f432fe7b4d18888bf36b42444fa4a"
+    },
+    {
+      "bytes": 574,
+      "path": "docs/full375-route/controller/inputs/38-graphics-sw.h",
+      "sha256": "957e089937f69aee425c4a2de7995ab42bfbee606567963af625fa429e7f5497"
+    },
+    {
+      "bytes": 6868,
+      "path": "docs/full375-route/controller/inputs/39-graphics-base-v1.0.h",
+      "sha256": "1950723d8660b2c00cf5685f51031e79af0814ad4c00b94ef48caf4af3646d1f"
+    },
+    {
+      "bytes": 4948,
+      "path": "docs/full375-route/controller/inputs/4-core-static-binder.patch",
+      "sha256": "6ed6bc5c2b0d2efecac4d6b369dc2bb4382710717709a8f49d76469de7259cbd"
+    },
+    {
+      "bytes": 9063,
+      "path": "docs/full375-route/controller/inputs/40-window.h",
+      "sha256": "ebe388198b1f88056cad759b06bc33913e49d84e02dbe0da8fb0648027ab30df"
+    },
+    {
+      "bytes": 1768,
+      "path": "docs/full375-route/controller/inputs/41-SELECTED_SERVICE_CONFIGS.patch",
+      "sha256": "f1c98faa5e40e0fb53127453a883375b7403a5d7b1675957d1159747d49eb515"
+    },
+    {
+      "bytes": 787,
+      "path": "docs/full375-route/controller/inputs/42-BUILD.gn",
+      "sha256": "bd2da954abe72f76aa2c2b8a40186fb476066dc73367f7cc173b6ceb59e0d17e"
+    },
+    {
+      "bytes": 3713,
+      "path": "docs/full375-route/controller/inputs/43-config.json",
+      "sha256": "8b4fb36ce07eed997f46c39eda715a02a00a4963c434d83f53d4c4f4a16b3f3d"
+    },
+    {
+      "bytes": 71,
+      "path": "docs/full375-route/controller/inputs/44-hdf-selected-intermediate.hcs",
+      "sha256": "3a526a066705d77b9d3cfefabada9d45926a4d8113dd2e8351dcdd0b5129f977"
+    },
+    {
+      "bytes": 2365,
+      "path": "docs/full375-route/controller/inputs/45-device_info.selected-m5c60.hcs",
+      "sha256": "d67addb5fd4e50a52c680674203fe44c1b1ca09e2f19db67fb3c7ea1b8ec6a0a"
+    },
+    {
+      "bytes": 154,
+      "path": "docs/full375-route/controller/inputs/46-sys_prod_image_conf.txt",
+      "sha256": "15c6b8266993ec069f9e734f32cdf21ef35d234ace81dcfe971071e50ff9fa82"
+    },
+    {
+      "bytes": 801,
+      "path": "docs/full375-route/controller/inputs/47-mke2fs.conf",
+      "sha256": "f0d48e1aaa691f4ee3880c287b829077d604bea47047f4af0bc1f4b7ad3a3813"
+    },
+    {
+      "bytes": 155,
+      "path": "docs/full375-route/controller/inputs/48-chip_prod_image_conf.txt",
+      "sha256": "bbb591b50b020b38e9e562fad9abaae4607954b5e50b0e559c2e4f5cd6ea8fdb"
+    },
+    {
+      "bytes": 148,
+      "path": "docs/full375-route/controller/inputs/49-system_image_conf.txt",
+      "sha256": "a6a95eaed8b8c465bc193db522d94db149d3e3218579058cae190282884aad72"
+    },
+    {
+      "bytes": 8524,
+      "path": "docs/full375-route/controller/inputs/5-0001-androidd-opt-in-static-binder.patch",
+      "sha256": "a6759a87ad9d7488c4ad2969a93dd1c7089fad785807e23743e5ee395ebc4c88"
+    },
+    {
+      "bytes": 267,
+      "path": "docs/full375-route/controller/inputs/50-BUILD.gn",
+      "sha256": "a762386cd052dc5bc11249270852c7c8481a92f54efb9a23305998904e0740cf"
+    },
+    {
+      "bytes": 153,
+      "path": "docs/full375-route/controller/inputs/51-vendor_image_conf.txt",
+      "sha256": "7ce943afd2926d6ad281771c6fc838c08072d0950f31be77d52d7f6b6d75a89b"
+    },
+    {
+      "bytes": 66537,
+      "path": "docs/full375-route/controller/inputs/52-androidd.c",
+      "sha256": "1790e2a877aefbf5f194dd9add1e06007150ebd1b2796ff45c7e48ac679525c5"
+    },
+    {
+      "bytes": 1647,
+      "path": "docs/full375-route/controller/inputs/53-meizu_legacy_cmdline.h",
+      "sha256": "387f83a7ff89cd782907dd808b0e3c87d9b18cea1d111be8e6f7010cc475697a"
+    },
+    {
+      "bytes": 3438,
+      "path": "docs/full375-route/controller/inputs/54-meizu_static_binder.h",
+      "sha256": "f96d4d7cef623cdd97d75a735bdf5ad85bcc7e4c7682340746c7b43a0d80a411"
+    },
+    {
+      "bytes": 3441,
+      "path": "docs/full375-route/controller/inputs/55-m5c_block_device_guard.h",
+      "sha256": "c98e3af2b57f8d089d278f138136a8a143f1c8dea458e67d115b48e164b9b7f3"
+    },
+    {
+      "bytes": 71082,
+      "path": "docs/full375-route/controller/inputs/56-androidd.c",
+      "sha256": "0670969c8918144e37b9ee17d174857ef638fb1a5e1f53582c0518b72fccd8fe"
+    },
+    {
+      "bytes": 1647,
+      "path": "docs/full375-route/controller/inputs/57-meizu_legacy_cmdline.h",
+      "sha256": "387f83a7ff89cd782907dd808b0e3c87d9b18cea1d111be8e6f7010cc475697a"
+    },
+    {
+      "bytes": 3438,
+      "path": "docs/full375-route/controller/inputs/58-meizu_static_binder.h",
+      "sha256": "f96d4d7cef623cdd97d75a735bdf5ad85bcc7e4c7682340746c7b43a0d80a411"
+    },
+    {
+      "bytes": 3441,
+      "path": "docs/full375-route/controller/inputs/59-m5c_block_device_guard.h",
+      "sha256": "c98e3af2b57f8d089d278f138136a8a143f1c8dea458e67d115b48e164b9b7f3"
+    },
+    {
+      "bytes": 3924,
+      "path": "docs/full375-route/controller/inputs/6-M5C_PRODUCT_WIRING.patch",
+      "sha256": "f4ba0dea21404627a65d746fc8ba41a266ad79117f049d97e11e3d3f9a084c17"
+    },
+    {
+      "bytes": 3410,
+      "path": "docs/full375-route/controller/inputs/60-m5c_child_loop_nodes.h",
+      "sha256": "80bbe5c37e074c6d71a5706921e057783e0619da08284a0771c53ed0d96eb08f"
+    },
+    {
+      "bytes": 2528,
+      "path": "docs/full375-route/controller/inputs/61-m5c_a13_apex_contract.h",
+      "sha256": "01ef5a76eea33acb1492b1716568d6001152859c170719b6cfe899dd20102b08"
+    },
+    {
+      "bytes": 997,
+      "path": "docs/full375-route/controller/inputs/7-androidd.m5c.cfg",
+      "sha256": "938923ac35bba23feccf65ef146833f978db78357a7dd87008184fa8af57f2e4"
+    },
+    {
+      "bytes": 210,
+      "path": "docs/full375-route/controller/inputs/8-fstab.m5c",
+      "sha256": "6cc8196d8adada8f6680bfe2610c6adda7fb2a3f0f888941c2fc5472df435a00"
+    },
+    {
+      "bytes": 528,
+      "path": "docs/full375-route/controller/inputs/9-init.m5c.cfg",
+      "sha256": "08d5e9fa8492a7d704bd12542b3846299aac7f4d6eae1cac3f1a47b293773bcd"
+    },
+    {
+      "bytes": 42056,
+      "path": "docs/full375-route/controller/inputs/IDL_PROVIDER_COHORT_PROOF.a1.json",
+      "sha256": "98ec359c29a5c64bc60776e672ecf9269c59c96d4dd099cf309ce41d7103f4b0"
+    },
+    {
+      "bytes": 1689,
+      "path": "docs/full375-route/controller/inputs/LIBHYBRIS_GN_PREPEND_PROOF.a12.json",
+      "sha256": "6f3638c36a21c60f63fd5c552c2f91e9bbf0b8867ec98c9028bea7c4f32bc374"
+    },
+    {
+      "bytes": 49604,
+      "path": "docs/full375-route/controller/inputs/MEMORYTRACKER_COHORT_PROOF.a1.json",
+      "sha256": "bdef08ae8117c56669e4d359003b398e17d87d0e2f02f8937804dd925f14b840"
+    },
+    {
+      "bytes": 35219,
+      "path": "docs/full375-route/controller/inputs/RELATIONAL_PROVIDER_COHORT_PROOF.a1.json",
+      "sha256": "8f92eec4f3e22a3afa1a91d3c08a555dc04b9bf7507f69f063eec09e03c5af9e"
+    },
+    {
+      "bytes": 108436,
+      "path": "docs/full375-route/controller/inputs/RUST_CXX_COHORT_PROOF.a1.json",
+      "sha256": "e9bfe8607eaf598afa02a1b0c642c7a9a9010fd6ebe58e4452bf68f47bcd2b8e"
+    },
+    {
+      "bytes": 61484,
+      "path": "docs/full375-route/controller/inputs/SDK_PRODUCTION_COHORT_PROOF.a1.json",
+      "sha256": "08e0c21c70bd0c61b08d0078a34475cc088308f8fb3a96936fa42871e33b9965"
+    },
+    {
+      "bytes": 80965,
+      "path": "docs/full375-route/controller/inputs/STORAGE_PRODUCTION_COHORT_PROOF.a1.json",
+      "sha256": "a72a3cba20cf2e1ae2d386631ac67b867bcdf224909347a1f025d41bfc1a689c"
+    },
+    {
+      "bytes": 663,
+      "path": "docs/full375-route/controller/inputs/cloud-a2-0-bundle.json",
+      "sha256": "b32617fc28c8aec9b6fb59c797187a1fcc050a5aa7384824a57de2c6ae3f712b"
+    },
+    {
+      "bytes": 1079,
+      "path": "docs/full375-route/controller/inputs/cloud-a2-1-bundle.json",
+      "sha256": "72eaa1f0e5892eea465ce213699afcf228c73e957d9aa664ca8ca12d853e0e60"
+    },
+    {
+      "bytes": 1358,
+      "path": "docs/full375-route/controller/inputs/cloud-a2-2-bundle.json",
+      "sha256": "9514fe975cd6702a3ce38a33ee67583ce1cbb98fe2573590259adceb9b3dc52b"
+    },
+    {
+      "bytes": 2679,
+      "path": "docs/full375-route/controller/inputs/cloud-a3-0-BUILD.gn",
+      "sha256": "4bb1ca2fcf08ab6b5f3075bc3bc75294c9c4a8fa755f572dec89905e67145e03"
+    },
+    {
+      "bytes": 1585,
+      "path": "docs/full375-route/controller/inputs/cloud-a3-1-BUILD.gn",
+      "sha256": "c5d9167a2a6fd7d835fabcf79a016d7f8bce8f4ec3a8ac066ec09dedc246a7ef"
+    },
+    {
+      "bytes": 4350,
+      "path": "docs/full375-route/controller/inputs/cloud-a3-2-libhybris_args.gni",
+      "sha256": "10b3e9e7b64db4af57211f292d15006b5f05b6ca9d86853cce05f567e2e6eb30"
+    },
+    {
+      "bytes": 12326,
+      "path": "docs/full375-route/controller/inputs/cloud-a3-3-ohos_var.gni",
+      "sha256": "f50b1006b768b7b5fe7373ecb6113736be83ff49985b3a4b63c662b0d3f13c80"
+    },
+    {
+      "bytes": 3795,
+      "path": "docs/full375-route/controller/inputs/cloud-a3-4-config.json",
+      "sha256": "7f80388a00415a44e4fb7a4e57138a8d538a3187eee33450fee145e2bcd232e0"
+    },
+    {
+      "bytes": 695,
+      "path": "docs/full375-route/controller/inputs/cloud-a3-5-bundle.json",
+      "sha256": "e3ac1c2d5dcf59e4305bc476dee907087a1dd89fb1e356790a34f9362ec89c5b"
+    },
+    {
+      "bytes": 1119,
+      "path": "docs/full375-route/controller/inputs/cloud-a3-6-bundle.json",
+      "sha256": "f4e7b9fe32a60067c30f49eeaff59cd7a1e3a2e6a50935f6dac2e75c1c9f8916"
+    },
+    {
+      "bytes": 1368,
+      "path": "docs/full375-route/controller/inputs/cloud-a3-7-bundle.json",
+      "sha256": "26a04cbaccc65ad2ad81bd89ef25d828a522c086d7a4cde12ad1ed4d536f756c"
+    },
+    {
+      "bytes": 3967,
+      "path": "docs/full375-route/controller/inputs/cloud-provider-googletest-product.json",
+      "sha256": "958844e814bc89b3f35b91e86f2fd6912beda194de62aaa6aa04f0ea69322d86"
+    },
+    {
+      "bytes": 3884,
+      "path": "docs/full375-route/controller/inputs/cloud-provider-product.json",
+      "sha256": "e3c7a927581714b6a07df7c44d70bc7498f76efbc537c13eef283bda0ab1ce14"
+    },
+    {
+      "bytes": 7057,
+      "path": "docs/full375-route/controller/inputs/public-idl-tool-product.json",
+      "sha256": "019c9e9b5c0ecddf2f91489768abbc1fbebfc5bc4f3cbd99ae656608554b9ede"
+    },
+    {
+      "bytes": 7324,
+      "path": "docs/full375-route/controller/inputs/public-memorytracker-product.json",
+      "sha256": "d4147a7f37f96cdfa76de14391ceaba264bce15dad74199986abd3eb9994373c"
+    },
+    {
+      "bytes": 6976,
+      "path": "docs/full375-route/controller/inputs/public-relational-production-product.json",
+      "sha256": "c2a2f2061234de77b6103b473ec6ed2b2e261fceaa38b3d873cc6875e36ff41c"
+    },
+    {
+      "bytes": 9525,
+      "path": "docs/full375-route/controller/inputs/public-rust-cxx-product.json",
+      "sha256": "56ff35a2378af5d12142de8d39fb91471c0769c7384fcef8563c528169b43cc6"
+    },
+    {
+      "bytes": 7964,
+      "path": "docs/full375-route/controller/inputs/public-sdk-production-product.json",
+      "sha256": "31ccdf0134844ab46f6f8e9a6f9997d3d91adf0d1314f18ccdb106f394d56164"
+    },
+    {
+      "bytes": 5028,
+      "path": "docs/full375-route/controller/inputs/public-standard-libusb-product.json",
+      "sha256": "c7162ada6ef97e7a070fb8a9e3389a04e6b8c9232e8c68b4f704b3b7f8bf6716"
+    },
+    {
+      "bytes": 9444,
+      "path": "docs/full375-route/controller/inputs/public-storage-production-product.json",
+      "sha256": "89c1486088efe8b7c29bc1f5cc189798bcdd8bee83f067177a4004df3fa0e15f"
+    },
+    {
+      "bytes": 4949,
+      "path": "docs/full375-route/controller/inputs/ready-b1-genuine-selected-product.json",
+      "sha256": "9afd04f10dcb51aea3944bd16bf57dd8a4c43157bb142f83c0bba12e997de36e"
+    },
+    {
+      "bytes": 3417,
+      "path": "docs/full375-route/controller/layout_native_rust.py",
+      "sha256": "59dc08f4c719574b857777c6214ea4bca793982829b27e12600683190f910e84"
+    },
+    {
+      "bytes": 16976,
+      "path": "docs/full375-route/controller/native_gn_worker.py",
+      "sha256": "196b46fc755f5ef77eeca02dc81c448f46f3f70daf095f3997624ec2583bc9be"
+    },
+    {
+      "bytes": 1242,
+      "path": "docs/full375-route/controller/official-build-env/Dockerfile",
+      "sha256": "bdaa70b28298b269a8009335a9e90987fde0dd1ff08dad5369d133aeb0aadf3b"
+    },
+    {
+      "bytes": 1453,
+      "path": "docs/full375-route/controller/official-build-env/check-multilib.sh",
+      "sha256": "2b1126025688bc55e15dba66224062ee1dd46f4637fdae694a8e2bd675dfa579"
+    },
+    {
+      "bytes": 3023,
+      "path": "docs/full375-route/controller/reviewed-security/0001-legacy-android13-genuine-selinux-setup.patch",
+      "sha256": "ee6c84cdbda2843bdeddb88b7e903727ae72c7c81f1162702e535fafd7777356"
+    },
+    {
+      "bytes": 1029,
+      "path": "docs/full375-route/controller/reviewed-security/PATCH_RESULT.json",
+      "sha256": "1d3c55fa4cce034dfe87fce3b4f893ef10f7e30b2982536f216ae3d8ff73813f"
+    },
+    {
+      "bytes": 607,
+      "path": "docs/full375-route/controller/reviewed-security/READONLY_VALIDATION.json",
+      "sha256": "7b48e4d0ba5de0e2049b0c19d3ab41991f8f35f67c888590878b49ffeb649220"
+    },
+    {
+      "bytes": 440,
+      "path": "docs/full375-route/controller/reviewed-security/SECURITY_AUDIT.json",
+      "sha256": "ce027c3518d9976f2379702ef6c28f7adccbff24b7325ba0893a40fd4c525448"
+    },
+    {
+      "bytes": 106,
+      "path": "docs/full375-route/controller/worker.sh",
+      "sha256": "da14a42159e475d2e837c5705eeb9fbb48acc812a78ee88945e8ce22fa29e527"
+    },
+    {
+      "bytes": 190992,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/CANONICAL_375_REQUEST_COVERAGE.a2.json",
+      "sha256": "abb1da10781915964ed0307fc5f2642054b2b6cb1a4843211698cd4beaf139a7"
+    },
+    {
+      "bytes": 34572,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/CANONICAL_FULL_PHONE_SELECTOR.a1.json",
+      "sha256": "9b04d8ae5fa3c0f1426c3b20ca113131f659037a280189e084ea71bea264d381"
+    },
+    {
+      "bytes": 1629124,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/SOURCE_REGISTRY.json",
+      "sha256": "4919691d62029a1bb769a2740e699636e8bd366d0c609fa9fddb0fc5c4f3859d"
+    },
+    {
+      "bytes": 3009,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/INDEX.json",
+      "sha256": "c58a41093c5455404dfe2bb8e1d3b11c648bf181effaa07fe4fa77f9fdbe7947"
+    },
+    {
+      "bytes": 8388554,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00000.json",
+      "sha256": "c2d7025ce1eaec33b7b296739ce82939ac0fd6bcbbf6bf1490ac719e673010ce"
+    },
+    {
+      "bytes": 8388536,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00001.json",
+      "sha256": "ca939997931696fef3e7fffaeb079fd7ef3ab989e50509ba7858bb69f20932f4"
+    },
+    {
+      "bytes": 8388563,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00002.json",
+      "sha256": "41c9f396fdce29f205a900d62c5f9598fac609b70c3bd83a326d7481770126c5"
+    },
+    {
+      "bytes": 8388376,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00003.json",
+      "sha256": "58e67cbdaa57fa630fa98ccf0cbfe4cc15289880328f750739f0c4a2f8981372"
+    },
+    {
+      "bytes": 8388554,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00004.json",
+      "sha256": "af2bbed4a5861246613a1310523e8d80af9c9f3b7ebc48a07c62d26716bd8743"
+    },
+    {
+      "bytes": 8388475,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00005.json",
+      "sha256": "ee18c07efae9efabd1bc8b499b6d5940c9b4b3ddb08a847329e35eca3f87a22b"
+    },
+    {
+      "bytes": 8388399,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00006.json",
+      "sha256": "be392d461524281bc249c5b850904a8caae0fefa360e4d69b84e0f56b8f0153d"
+    },
+    {
+      "bytes": 8388608,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00007.json",
+      "sha256": "5adf601cfa48e3156003af3c59b1cb5cfd9165099175a38d8c0ac84ca8a66e07"
+    },
+    {
+      "bytes": 8388413,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00008.json",
+      "sha256": "4399482488b91822bfd9276614755f2d26bda8a6b9b33851bddc412bc9137402"
+    },
+    {
+      "bytes": 8388468,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00009.json",
+      "sha256": "14ed5cbff5e6e7bc52e8ae164653e591dc2261d1d3cccfc2c07a4df2eb405819"
+    },
+    {
+      "bytes": 8388437,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00010.json",
+      "sha256": "0755c96266976cad3e5a2a17da28b38858c749794e19ebe72ebab044e8cdffe8"
+    },
+    {
+      "bytes": 8388603,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00011.json",
+      "sha256": "34467152d887f0dcc70bd59eb303901486264abba0f995148a42c4cd4f6343e7"
+    },
+    {
+      "bytes": 8388530,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00012.json",
+      "sha256": "9677b03a5d99289c5ff4c8402f797d7e03e946ec5ad170956e9649e7ec54ce42"
+    },
+    {
+      "bytes": 8388470,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00013.json",
+      "sha256": "717a6f67aa3b91a950ae638a5dc2f6a0631a5146f3fde668eaa56dd1f733dcc2"
+    },
+    {
+      "bytes": 8388566,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00014.json",
+      "sha256": "daf2b3b8b0e62aeaaa010050dea5eee396742afb15ef64ea626d00ecb57b8c90"
+    },
+    {
+      "bytes": 8388496,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00015.json",
+      "sha256": "a73586c7da04d3558d51bf81fa056f303752938fedbc5edbaadbf4d15b0f771f"
+    },
+    {
+      "bytes": 8388586,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00016.json",
+      "sha256": "7425159220324a3666ab6a22926f157a89b5cac0225ac5f8f016b917217d70cd"
+    },
+    {
+      "bytes": 7132656,
+      "path": "docs/full375-route/full-phone-expected-inputs-a1/source-inventories/source-files-00017.json",
+      "sha256": "828d21ef2e3d0d5348006c2fb26b55a20cf282dd0bf85b5e5159c1224101b4b6"
+    },
+    {
+      "bytes": 4723,
+      "path": "docs/full375-route/full_overlay_protocol.py",
+      "sha256": "2fcdfaeb9bbc24e59fb2f3b616ef4a9dd5a431a587dad7a259ec847edeac5aa5"
+    },
+    {
+      "bytes": 386,
+      "path": "docs/full375-route/full_phone_public_inputs.lock.a1.json",
+      "sha256": "c2c9fd52665ca5fad3778f61d0a429e5dd55430a4228e05cb2003d7cd5e06474"
+    },
+    {
+      "bytes": 2485,
+      "path": "docs/full375-route/full_profile.py",
+      "sha256": "bf8b313a82971a00f30df96ae57201c1e17cb4eee779aea1d7b5cc8345d10b28"
+    },
+    {
+      "bytes": 2550,
+      "path": "docs/full375-route/make_overlay_worker.py",
+      "sha256": "8ca045680e1f0bcc6c73c1f730776620486258ef9a94876e924019c5e112bc3b"
+    },
+    {
+      "bytes": 15289,
+      "path": "docs/full375-route/native_gn_worker.py",
+      "sha256": "970b7a6c16e4f21f3e979e28d6b9f77f8760190dac1b4204d81f383df68542a7"
+    },
+    {
+      "bytes": 2055,
+      "path": "docs/full375-route/nonproduction_scope.py",
+      "sha256": "0069918ef33ad6aa44c5cbca41322d8378b44c6003c725a6054ba888646d1c0c"
+    },
+    {
+      "bytes": 2910,
+      "path": "docs/full375-route/original_resource_snapshot.py",
+      "sha256": "0d401a553c64d8d3494a7a01a42044ffdd3fb3082f3f15dd3432f4860232a139"
+    },
+    {
+      "bytes": 10408,
+      "path": "docs/full375-route/overlay_io.py",
+      "sha256": "878f245e84c7328aeb746e35bc725a73a964b9f2e7e6ae6d9dec55c736184239"
+    },
+    {
+      "bytes": 18298,
+      "path": "docs/full375-route/retain_full_phone.py",
+      "sha256": "728e3509396745a89a805ec4d0eeed15dc044931ff80aba55acc1f8d2d510a6b"
+    },
+    {
+      "bytes": 18819,
+      "path": "docs/full375-route/run_full_phone.py",
+      "sha256": "fc2943b7a85266e5d80df41c5b1cc29dc6ddbbbf128322a262e8d51509364a14"
+    },
+    {
+      "bytes": 3548,
+      "path": "docs/full375-route/runtime_core_nonproduction_scope.json",
+      "sha256": "0c8d98b1e3aad5d888b6056684a3cc067875e0f6692b1d414e98510788fd6d7a"
+    },
+    {
+      "bytes": 4451,
+      "path": "docs/full375-route/source_inventory_shards.py",
+      "sha256": "b5bdeae41368f0c47404cd631b7e576a625d61a1efb2df9c111e554b56c4aad9"
+    },
+    {
+      "bytes": 4082,
+      "path": "docs/full375-route/test_acquire_full_phone.py",
+      "sha256": "027c42273ee4245dd34d2e2a47f6b75cfbbf2c0a203f53212c038440bbdc3379"
+    },
+    {
+      "bytes": 13928,
+      "path": "docs/full375-route/test_full_producer.py",
+      "sha256": "c1e10da94ad74e318f365d09a6ccb3a87515d96ee60be5231567edec08de4f55"
+    },
+    {
+      "bytes": 2482,
+      "path": "docs/full375-route/test_full_profile.py",
+      "sha256": "30b2d39a6763a7d37b4a821f218f62684302d3adce7cdba99aafd696e8f13e00"
+    },
+    {
+      "bytes": 1470,
+      "path": "docs/full375-route/test_nonproduction_scope.py",
+      "sha256": "a58e231fe2cbc8c3a1fe0f9665fad9212c755d4e629cc5b95ca0c7175e6cedf8"
+    },
+    {
+      "bytes": 7303,
+      "path": "docs/full375-route/test_overlay_worker.py",
+      "sha256": "080390b7dd390c4fbe27dc60658febd292ee94a97c82ba25e3ca15f93858bc42"
+    }
+  ],
+  "historical_patch_bytes_preserved_without_whitespace_normalization": true,
+  "original_requests": 375,
+  "profile_kind": "canonical-full-gui-a2",
+  "schema": "remeizu.canonical-full-phone-public-producer-source-freeze.v1",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest test_acquire_full_phone test_full_profile test_nonproduction_scope test_overlay_worker test_full_producer -v",
+    "controls": 30,
+    "cwd": "docs/full375-route",
+    "result": "PASS"
+  }
+}

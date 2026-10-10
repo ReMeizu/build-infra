@@ -1,0 +1,1675 @@
+{
+  "actual_selected_parts": {
+    "ability:ability_base": {},
+    "ability:ability_runtime": {},
+    "ability:idl_tool": {},
+    "account:os_account": {
+      "features": {
+        "os_account_multiple_active_accounts": false
+      }
+    },
+    "arkcompiler:ets_frontend": {},
+    "arkcompiler:ets_runtime": {},
+    "arkcompiler:runtime_core": {},
+    "arkui:ace_engine": {},
+    "arkui:napi": {},
+    "build:build_framework": {},
+    "bundlemanager:bundle_framework": {},
+    "commonlibrary:c_utils": {},
+    "commonlibrary:memory_utils": {},
+    "commonlibrary:ylong_http": {},
+    "commonlibrary:ylong_json": {},
+    "commonlibrary:ylong_runtime": {},
+    "communication:dsoftbus": {},
+    "communication:ipc": {},
+    "customization:config_policy": {},
+    "developtools:ace_ets2bundle": {},
+    "developtools:hdc": {},
+    "developtools:syscap_codec": {},
+    "device_hybris_generic:device_hybris_generic": {
+      "features": {
+        "device_hybris_generic_androidd_legacy_cmdline_boot": true,
+        "device_hybris_generic_androidd_static_binder": true
+      }
+    },
+    "distributeddatamgr:data_share": {},
+    "distributeddatamgr:kv_store": {},
+    "distributeddatamgr:relational_store": {},
+    "filemanagement:app_file_service": {},
+    "filemanagement:file_api": {},
+    "global:resource_management": {},
+    "graphic:graphic_2d": {
+      "features": {
+        "graphic_2d_feature_rs_enable_eglimage": true,
+        "graphic_2d_feature_rs_enable_uni_render": true,
+        "graphic_2d_feature_upgrade_skia": true,
+        "graphic_2d_feature_use_texgine": true
+      }
+    },
+    "graphic:graphic_surface": {},
+    "graphic:graphic_utils_lite": {},
+    "graphic:graphics_effect": {},
+    "hdf:drivers_adapter": {},
+    "hdf:drivers_interface_huks": {},
+    "hdf:drivers_interface_memorytracker": {},
+    "hdf:drivers_peripheral_display": {
+      "features": {
+        "drivers_peripheral_display_community": true,
+        "drivers_peripheral_display_vdi_default": true
+      }
+    },
+    "hdf:drivers_peripheral_huks": {},
+    "hdf:drivers_tools": {},
+    "hdf:hdf_core": {
+      "features": {
+        "hdf_core_default_peripheral_config": false,
+        "hdf_core_platform_test_support": false
+      }
+    },
+    "hiviewdfx:faultloggerd": {},
+    "hiviewdfx:hicollie": {},
+    "hiviewdfx:hidumper": {},
+    "hiviewdfx:hilog": {},
+    "hiviewdfx:hisysevent": {},
+    "hiviewdfx:hitrace": {
+      "features": {
+        "hitrace_support_executable_file": false
+      }
+    },
+    "hiviewdfx:hiview": {},
+    "notification:common_event_service": {},
+    "notification:eventhandler": {},
+    "oniro_soc_products:hybris_generic_soc": {},
+    "product_hybris_generic:product_hybris_generic": {
+      "features": {
+        "product_hybris_generic_hdf_selected_config": "//vendor/oniro/m5c/hdf-selected/hdf-selected-intermediate.hcs",
+        "product_hybris_generic_sparse_image": false
+      }
+    },
+    "resourceschedule:ffrt": {},
+    "resourceschedule:resource_schedule_service": {},
+    "sdk:sdk": {},
+    "security:access_token": {},
+    "security:certificate_framework": {},
+    "security:crypto_framework": {},
+    "security:device_auth": {},
+    "security:huks": {},
+    "security:selinux_adapter": {},
+    "startup:appspawn": {},
+    "startup:init": {
+      "features": {
+        "init_feature_ab_partition": false
+      }
+    },
+    "systemabilitymgr:safwk": {},
+    "systemabilitymgr:samgr": {},
+    "thirdparty:abseil-cpp": {},
+    "thirdparty:bounds_checking_function": {},
+    "thirdparty:bzip2": {},
+    "thirdparty:cJSON": {},
+    "thirdparty:e2fsprogs": {},
+    "thirdparty:googletest": {},
+    "thirdparty:icu": {},
+    "thirdparty:json": {},
+    "thirdparty:jsoncpp": {},
+    "thirdparty:libcoap": {},
+    "thirdparty:libhybris": {
+      "features": {
+        "libhybris_android_header_overlay": "//vendor/oniro/m5c/android-header-overlay",
+        "libhybris_android_version_major": 13
+      }
+    },
+    "thirdparty:libunwind": {},
+    "thirdparty:libusb": {},
+    "thirdparty:libuv": {},
+    "thirdparty:libxml2": {},
+    "thirdparty:lz4": {},
+    "thirdparty:mbedtls": {},
+    "thirdparty:musl": {},
+    "thirdparty:node": {},
+    "thirdparty:openssl": {},
+    "thirdparty:protobuf": {},
+    "thirdparty:rust_libc": {},
+    "thirdparty:rust_rust-openssl": {},
+    "thirdparty:selinux": {},
+    "thirdparty:sqlite": {},
+    "thirdparty:toybox": {},
+    "thirdparty:typescript": {},
+    "thirdparty:zlib": {},
+    "updater:update_service": {},
+    "updater:updater": {
+      "features": {
+        "updater_feature_sign_on_server": false,
+        "updater_feature_updater_gen_executable": true,
+        "updater_feature_use_ptable": false
+      }
+    },
+    "window:window_manager": {
+      "features": {
+        "window_manager_use_sceneboard": true
+      },
+      "syscap": {
+        "SystemCapability.Window.SessionManager": true
+      }
+    }
+  },
+  "added_projects": [
+    {
+      "bundle_sha256": "8a7dc22eec6c119a5188dc8d524fb05290800b27dec28dd20d4dea055636c715",
+      "component": "ability_base",
+      "git_tree": "7480a7cb05f6319b29fcfaa9bf269c96c8457fec",
+      "head": "50284aa0166c112cb7232f9c937ba842d380d3c2",
+      "path": "foundation/ability/ability_base",
+      "required_gn_evidence": [
+        {
+          "condition": "unchanged selected relational_store sub_component",
+          "label": "ability_base:zuri",
+          "line": 42,
+          "path": "foundation/distributeddatamgr/relational_store/frameworks/native/obs_mgr_adapter/BUILD.gn",
+          "sha256": "71d336282f04b076a1a1e779fea0ce7242dc12282e3758013b89911b32e9fc84"
+        }
+      ],
+      "subsystem": "ability"
+    },
+    {
+      "bundle_sha256": "79bff0f352579468516a4f0b9b04ce118ab794600f7a594790516b0a146fa1c4",
+      "component": "ability_runtime",
+      "git_tree": "48f04d805e31bc080f01cc329e7fc8befc330706",
+      "head": "2a0e4115dfe4599e2b67bb38b4bb096e20298ffb",
+      "path": "foundation/ability/ability_runtime",
+      "required_gn_evidence": [
+        {
+          "condition": "unchanged selected relational_store sub_component",
+          "label": "ability_runtime:dataobs_manager",
+          "line": 43,
+          "path": "foundation/distributeddatamgr/relational_store/frameworks/native/obs_mgr_adapter/BUILD.gn",
+          "sha256": "71d336282f04b076a1a1e779fea0ce7242dc12282e3758013b89911b32e9fc84"
+        }
+      ],
+      "subsystem": "ability"
+    },
+    {
+      "bundle_sha256": "e32a8c604dc82683f103d8bec470d672185f06f49e8cbc2db144293c8653ac8e",
+      "component": "app_file_service",
+      "git_tree": "b0532cf23048d1c44b575076f990ec123923b896",
+      "head": "5138567c9436f3771cc4ed85bd140fe02b570b63",
+      "path": "foundation/filemanagement/app_file_service",
+      "required_gn_evidence": [
+        {
+          "condition": "production file I/O module external_deps",
+          "label": "app_file_service:fileuri_native",
+          "line": 255,
+          "path": "foundation/filemanagement/file_api/interfaces/kits/js/BUILD.gn",
+          "sha256": "b4733ac3c50d6ff98439922ae49d7e03d516b937b73ba118dafbe558e78172c2"
+        }
+      ],
+      "subsystem": "filemanagement"
+    },
+    {
+      "bundle_sha256": "5514eabdb8b2a17130c9de6f9a98df255e4b259f323586f3cba670ece3be6f83",
+      "component": "bundle_framework",
+      "git_tree": "57950503f500e0f32655623e7982430e2db481aa",
+      "head": "ef924ea4198befa65a088863d9812b7f872e4bbc",
+      "path": "foundation/bundlemanager/bundle_framework",
+      "required_gn_evidence": [
+        {
+          "condition": "production abilitykit_utils external_deps",
+          "label": "bundle_framework:appexecfwk_base",
+          "line": 185,
+          "path": "foundation/ability/ability_runtime/frameworks/native/ability/native/BUILD.gn",
+          "sha256": "67162e712f144cb708f981f889b2e91bb773229debf2d3f9771596b45ab6cd7b"
+        }
+      ],
+      "subsystem": "bundlemanager"
+    },
+    {
+      "bundle_sha256": "718a9b37c96dfee810ddb9bebf9aef525912b15d8a5902b6dc81706b50e5f81e",
+      "component": "common_event_service",
+      "git_tree": "2858e6986b7a5404c24d19ba370b0adce9076325",
+      "head": "73eb4197cdfc5d6abcb1b69cbc158ba82f864128",
+      "path": "base/notification/common_event_service",
+      "required_gn_evidence": [
+        {
+          "condition": "is_ohos; unchanged selected relational_store sub_component",
+          "label": "common_event_service:cesfwk_innerkits",
+          "line": 77,
+          "path": "foundation/distributeddatamgr/relational_store/frameworks/js/napi/relationalstore/BUILD.gn",
+          "sha256": "a723a1cb8278b65cf710b196301be26a39128835d14bb256fe336afb73a45950"
+        }
+      ],
+      "subsystem": "notification"
+    },
+    {
+      "bundle_sha256": "2839f585a05445824a2e6b5a6e817712e9c311fcde7900fa41aa3525929d8822",
+      "component": "data_share",
+      "git_tree": "a6cc3789482346d4b2bc9743f56ac3aa7863d794",
+      "head": "94a082b8ab66b4b9e383ce3f2bc92a4a1bc901d1",
+      "path": "foundation/distributeddatamgr/data_share",
+      "required_gn_evidence": [
+        {
+          "condition": "unchanged selected relational_store sub_component",
+          "label": "data_share:datashare_common_lite",
+          "line": 63,
+          "path": "foundation/distributeddatamgr/relational_store/interfaces/inner_api/rdb_data_share_adapter/BUILD.gn",
+          "sha256": "86e13c1e085060bec1aac115b9c6526c696b98c1f2daaa607193a21875ee5e4a"
+        }
+      ],
+      "subsystem": "distributeddatamgr"
+    },
+    {
+      "bundle_sha256": "3dbc69d04e5bf972627f9d091a7dc3f3d6f3d4ab18fa3a55d2d7580f782bb939",
+      "component": "file_api",
+      "git_tree": "eea9fccc0986e331a9bae5563a7f5476f59ca3ff",
+      "head": "141f1897f81153188e42154a1b9752de375ae183",
+      "path": "foundation/filemanagement/file_api",
+      "required_gn_evidence": [
+        {
+          "condition": "is_ohos && !build_ohos_sdk; unchanged actual standard-system profile",
+          "label": "file_api:securitylabel",
+          "line": 161,
+          "path": "foundation/distributeddatamgr/relational_store/interfaces/inner_api/rdb/BUILD.gn",
+          "sha256": "a6a57ed5d73f150971b995187dd398c19f889f5256edb4104a40e35f795f334f"
+        }
+      ],
+      "subsystem": "filemanagement"
+    },
+    {
+      "bundle_sha256": "6d21a56c58ffcdf988269a5fb87b9e8616ce33732034acf9d01b86dc8f5b1168",
+      "component": "kv_store",
+      "git_tree": "434dfb13bcbb6a409cbe5095d1f05c02cf905df0",
+      "head": "d5fed0d543f5434bc69af3d8f0b1edd81e763de9",
+      "path": "foundation/distributeddatamgr/kv_store",
+      "required_gn_evidence": [
+        {
+          "condition": "is_ohos && !build_ohos_sdk; unchanged actual standard-system profile",
+          "label": "kv_store:database_utils",
+          "line": 167,
+          "path": "foundation/distributeddatamgr/relational_store/interfaces/inner_api/rdb/BUILD.gn",
+          "sha256": "a6a57ed5d73f150971b995187dd398c19f889f5256edb4104a40e35f795f334f"
+        }
+      ],
+      "subsystem": "distributeddatamgr"
+    },
+    {
+      "bundle_sha256": "8b557677fd1809772d24135e4f176a46148f885bdedc7ef6562117f1e3541f04",
+      "component": "os_account",
+      "git_tree": "f2c4874ef76a937fcbe898652b9eba72609a311b",
+      "head": "7f97687cd0e0e2d1ed1e2a78bb41cb406f374346",
+      "path": "base/account/os_account",
+      "required_gn_evidence": [
+        {
+          "condition": "production environment module external_deps",
+          "label": "os_account:os_account_innerkits",
+          "line": 528,
+          "path": "foundation/filemanagement/file_api/interfaces/kits/js/BUILD.gn",
+          "sha256": "b4733ac3c50d6ff98439922ae49d7e03d516b937b73ba118dafbe558e78172c2"
+        }
+      ],
+      "subsystem": "account"
+    },
+    {
+      "bundle_sha256": "bd14c149424a558dd4c7f85af121738b98454fcdd63e246a56e9849947dd6191",
+      "component": "relational_store",
+      "git_tree": "09e896f3b046e708358a2fb7aac9600a6f4bde6a",
+      "head": "65f6a661fb589b062148a39fc56c317bd3545296",
+      "path": "foundation/distributeddatamgr/relational_store",
+      "required_gn_evidence": [
+        {
+          "condition": "unconditional access_token service external_deps; actual authenticated A3 GN failure",
+          "label": "relational_store:native_rdb",
+          "line": 141,
+          "path": "base/security/access_token/services/accesstokenmanager/accesstoken_manager.gni",
+          "sha256": "51155c863b9b44179f8bfb0f41c57bfd8bc861617cb9ea429f80ef96d7ad4858"
+        }
+      ],
+      "subsystem": "distributeddatamgr"
+    },
+    {
+      "bundle_sha256": "183b8dcd67edb110cccd4cbdae63e813f40599dcf991bf9b02a7a1221261f300",
+      "component": "resource_management",
+      "git_tree": "cfbdc6f5ba00ee6e591bb4bf3138994167508c59",
+      "head": "17424744e2f9a9bd4ef75dc20a0a9bf4fc8f898d",
+      "path": "base/global/resource_management",
+      "required_gn_evidence": [
+        {
+          "condition": "production abilitykit_utils external_deps",
+          "label": "resource_management:global_resmgr",
+          "line": 195,
+          "path": "foundation/ability/ability_runtime/frameworks/native/ability/native/BUILD.gn",
+          "sha256": "67162e712f144cb708f981f889b2e91bb773229debf2d3f9771596b45ab6cd7b"
+        }
+      ],
+      "subsystem": "global"
+    },
+    {
+      "bundle_sha256": "7c6ad4477b9374ebfb4520e9cf2b8c417417c33bb30fba49717886aff36c25c9",
+      "component": "sqlite",
+      "git_tree": "1fba9213f7eaf77d04c2d558805af961e926fa45",
+      "head": "71cfef28f84b6bd0603dfb2eb28f436294992bbd",
+      "path": "third_party/sqlite",
+      "required_gn_evidence": [
+        {
+          "condition": "is_ohos && !build_ohos_sdk; unchanged actual standard-system profile",
+          "label": "sqlite:sqlite",
+          "line": 171,
+          "path": "foundation/distributeddatamgr/relational_store/interfaces/inner_api/rdb/BUILD.gn",
+          "sha256": "a6a57ed5d73f150971b995187dd398c19f889f5256edb4104a40e35f795f334f"
+        }
+      ],
+      "subsystem": "thirdparty"
+    },
+    {
+      "bundle_sha256": "b91f5073303d69e5ad3ae9462fe38ecbf055f171fcb25020feb3e35bcf03aa5d",
+      "component": "window_manager",
+      "git_tree": "6e7d4b95b885d7aa8ff1a358cb775c449d59539c",
+      "head": "0c6a4c583ff02478da6c7092cc6d66b0d9e3b509",
+      "path": "foundation/window/window_manager",
+      "required_gn_evidence": [
+        {
+          "condition": "production abilitykit_utils public_external_deps",
+          "label": "window_manager:libwm",
+          "line": 201,
+          "path": "foundation/ability/ability_runtime/frameworks/native/ability/native/BUILD.gn",
+          "sha256": "67162e712f144cb708f981f889b2e91bb773229debf2d3f9771596b45ab6cd7b"
+        }
+      ],
+      "subsystem": "window"
+    },
+    {
+      "actual_idl_host_target": "//foundation/ability/idl_tool:idl($host_toolchain)",
+      "actual_idl_target_build_sha256": "81e2c1898d66306084ec46b7f5d118fda427265df8d9a58d998b495e6d9f76fa",
+      "bundle_component_deps_already_selected": [
+        "hilog",
+        "ipc",
+        "samgr",
+        "safwk",
+        "c_utils",
+        "bounds_checking_function"
+      ],
+      "bundle_sha256": "d588c68efa286c14874b16db442b76303c17f981770e7d5992bd4e8b614d3e83",
+      "component": "idl_tool",
+      "git_tree": "1dd9720778afa0e372686fb6a8f6a4404c3e8f4e",
+      "head": "afbaf94ee3a8d3b1bc5d4995bda335257670e3d2",
+      "path": "foundation/ability/idl_tool",
+      "required_gn_evidence": [
+        {
+          "condition": "actual authenticated A6 GN failure in active standard-system IDL action",
+          "label": "idl_tool:idl(${host_toolchain})",
+          "line": 261,
+          "path": "build/config/components/idl_tool/idl.gni",
+          "sha256": "a4787050abbcf6e8fe2b84c5de0a373fa8eb2c544872cc5b2b216ddd76e476dc"
+        }
+      ],
+      "subsystem": "ability"
+    },
+    {
+      "bundle_deps_already_selected_or_same_batch": [
+        "c_utils",
+        "drivers_interface_memorytracker",
+        "hilog",
+        "hitrace",
+        "init",
+        "ipc"
+      ],
+      "bundle_sha256": "3c3a93e34ad1241572c6dc1bd1c27cc31b696430b7fe127620f967b502fee749",
+      "component": "memory_utils",
+      "git_tree": "2a023982106186c8aba10a200e046a85778ad1a3",
+      "head": "651da30d5e980fcc01b923389c4c41202e76ba7e",
+      "path": "commonlibrary/memory_utils",
+      "required_gn_evidence": [
+        {
+          "condition": "unconditional production hidumper external_deps; actual A7 first GN edge and same-list mandatory neighbor",
+          "label": "memory_utils:libmeminfo",
+          "line": 393,
+          "path": "base/hiviewdfx/hidumper/services/BUILD.gn",
+          "sha256": "94392d5035eaa40741b6032d92984b79061bcbf56827695282f10443f7d9b640"
+        }
+      ],
+      "source_reused_read_only": true,
+      "subsystem": "commonlibrary"
+    },
+    {
+      "bundle_sha256": "f673b10123ec2917a03cea1710948ea6c63c52532c9fd83ef751df98bf680356",
+      "component": "sdk",
+      "git_tree": "947f2ffa6af47abff3678fc240b23cabfc258dcc",
+      "head": "2d51aa4b21b83e92ac8c59ce5ff9fc4289128847",
+      "path": "interface/sdk-js",
+      "required_gn_evidence": [
+        {
+          "condition": "actual authenticated A8 GN trigger at293; existing SDK target alias at91",
+          "label": "sdk:ohos_ets_api",
+          "line": 91,
+          "path": "build/config/components/ets_frontend/ets2abc_config.gni",
+          "sha256": "28fc4cdcd620fda21c3cb6728d5cfc6a40f0162b93247f2ab86c2c5d4d763867"
+        }
+      ],
+      "source_reused_read_only": true,
+      "subsystem": "sdk"
+    },
+    {
+      "bundle_sha256": "6c67f1b384792de20b38ebe42954775dd2e35be42106719842b574df485e802e",
+      "component": "ets_frontend",
+      "git_tree": "56d6137be889a9741b8b7b1edb54b55e8fcb971a",
+      "head": "c52960f7bdc653a7fcd64e5839f332c0833a157a",
+      "path": "arkcompiler/ets_frontend",
+      "required_gn_evidence": [
+        {
+          "condition": "SDK BUILD.gn475 production group references unchanged alias; sdk bundle requires frontend",
+          "label": "ets_frontend:ohos_ets_build_system",
+          "line": 100,
+          "path": "build/config/components/ets_frontend/ets2abc_config.gni",
+          "sha256": "28fc4cdcd620fda21c3cb6728d5cfc6a40f0162b93247f2ab86c2c5d4d763867"
+        }
+      ],
+      "source_reused_read_only": true,
+      "subsystem": "arkcompiler"
+    },
+    {
+      "bundle_sha256": "f42379e87e3c6c59704f8809d0bcf0eefc5974960dc5e68d4384d1c0308d0734",
+      "component": "zlib",
+      "git_tree": "be1afce6af9746d8a762ffae1ad33e4bb39e0d96",
+      "head": "0ece7e63d168b0a2f435ae0e3b3145b4f6b16d26",
+      "path": "third_party/zlib",
+      "required_gn_evidence": [
+        {
+          "condition": "unconditional production es2abc external_deps",
+          "label": "zlib:libz",
+          "line": 532,
+          "path": "arkcompiler/ets_frontend/es2panda/BUILD.gn",
+          "sha256": "036a44f1d6015da9c4c0f15860516a41add167d0c0569f9c254b72455b051e9e"
+        }
+      ],
+      "source_reused_read_only": true,
+      "subsystem": "thirdparty"
+    },
+    {
+      "bundle_sha256": "ef8c988ac1cc298a8fea806998228151301d417091b6c229cc833065676699a2",
+      "component": "protobuf",
+      "git_tree": "4d158bf4d6f14eb0835e8072b9059f38bc0b4b60",
+      "head": "0bdb3b7832f52dc5793da2fb67b260ef0eb97f4b",
+      "path": "third_party/protobuf",
+      "required_gn_evidence": [
+        {
+          "condition": "production protobuf generation; original ark_standalone_build=false",
+          "label": "protobuf:protoc($host_toolchain)",
+          "line": 131,
+          "path": "arkcompiler/ets_frontend/merge_abc/BUILD.gn",
+          "sha256": "986084c4396c793ea4a0a81a68dbd9aa0aca770d1a66cf553bbc5fcc35820ec9"
+        }
+      ],
+      "source_reused_read_only": true,
+      "subsystem": "thirdparty"
+    },
+    {
+      "bundle_sha256": "8c10d3fa161b7f49987e9a0fe42c49cb714d369d9d215fe35384c521c7638a0d",
+      "component": "typescript",
+      "git_tree": "1f979f069e594aa972c060a4950762e3ef4acf0f",
+      "head": "67fd0c80ba1ba2546f8a0cec31286923f5a5a3dd",
+      "path": "third_party/typescript",
+      "required_gn_evidence": [
+        {
+          "condition": "unconditional production build_arkguard dependency; original version preserved",
+          "label": "typescript:build_typescript_etc",
+          "line": 26,
+          "path": "arkcompiler/ets_frontend/arkguard/BUILD.gn",
+          "sha256": "b3db0e30e03bd2ce14834b39ff2e93de518b018b73f0210a943485d2d5054703"
+        }
+      ],
+      "source_reused_read_only": true,
+      "subsystem": "thirdparty"
+    },
+    {
+      "bundle_sha256": "bda5eb2e0b5cd13b2f33b46788de51264e9d72f15a8836180645f3f3fb514e9f",
+      "component": "ace_ets2bundle",
+      "git_tree": "dba735fe3c1177e360466b65b6f5f5fe0534b8a0",
+      "head": "b2d29b3d9ab18ff9d51af6b37829ed188ba12cfb",
+      "path": "developtools/ace_ets2bundle",
+      "required_gn_evidence": [
+        {
+          "condition": "SDK gen_api_check_plugin production action; no target removed",
+          "label": "ace_ets2bundle:ohos_ets_ui_plugins",
+          "line": 697,
+          "path": "interface/sdk-js/BUILD.gn",
+          "sha256": "54c291afd6a55e802ba80eba1095fcefa9ab24cec56163e0a2ac17a7408bcccd"
+        }
+      ],
+      "source_reused_read_only": true,
+      "subsystem": "developtools"
+    },
+    {
+      "bundle_sha256": "ff323cb13b790757cfd7edda71bdda9a3cecfcca84d519cdcd6e860413538dbd",
+      "component": "abseil-cpp",
+      "git_tree": "86b3bc0ce22820f61a04835a8460a564c98f771c",
+      "head": "853d60fd68b012ebabd1f5858d9f754835252a0c",
+      "path": "third_party/abseil-cpp",
+      "required_gn_evidence": [
+        {
+          "condition": "mandatory production protobuf dependency; frontend independent-compiler branch remains false",
+          "label": "abseil-cpp:absl_base_static",
+          "line": 67,
+          "path": "third_party/protobuf/BUILD.gn",
+          "sha256": "a8e7c38b7a0a45013028a8c8dbc15cbdd4ea4615fb7bc3878f6506ca3121b169"
+        }
+      ],
+      "source_reused_read_only": true,
+      "subsystem": "thirdparty"
+    }
+  ],
+  "all_immediate_parent_part_features_preserved": true,
+  "all_immediate_parent_project_rows_preserved": true,
+  "all_immediate_parent_source_rows_preserved": true,
+  "all_parent_project_rows_retained_unchanged": true,
+  "all_parent_source_rows_retained_unchanged": true,
+  "baseline_python_wheels_sha256": "f8fffec8e9bae98bc13784d72c9e7a43670c8451eaf7b480b923c7aa503a243c",
+  "baseline_selected_parts": {
+    "arkcompiler:ets_runtime": {},
+    "arkcompiler:runtime_core": {},
+    "arkui:ace_engine": {},
+    "arkui:napi": {},
+    "build:build_framework": {},
+    "commonlibrary:c_utils": {},
+    "commonlibrary:ylong_http": {},
+    "commonlibrary:ylong_json": {},
+    "commonlibrary:ylong_runtime": {},
+    "communication:dsoftbus": {},
+    "communication:ipc": {},
+    "customization:config_policy": {},
+    "developtools:hdc": {},
+    "developtools:syscap_codec": {},
+    "device_hybris_generic:device_hybris_generic": {
+      "features": {
+        "device_hybris_generic_androidd_legacy_cmdline_boot": true,
+        "device_hybris_generic_androidd_static_binder": true
+      }
+    },
+    "graphic:graphic_2d": {
+      "features": {
+        "graphic_2d_feature_rs_enable_eglimage": true,
+        "graphic_2d_feature_rs_enable_uni_render": true,
+        "graphic_2d_feature_upgrade_skia": true,
+        "graphic_2d_feature_use_texgine": true
+      }
+    },
+    "graphic:graphic_surface": {},
+    "graphic:graphic_utils_lite": {},
+    "graphic:graphics_effect": {},
+    "hdf:drivers_adapter": {},
+    "hdf:drivers_interface_huks": {},
+    "hdf:drivers_peripheral_display": {
+      "features": {
+        "drivers_peripheral_display_community": true,
+        "drivers_peripheral_display_vdi_default": true
+      }
+    },
+    "hdf:drivers_peripheral_huks": {},
+    "hdf:drivers_tools": {},
+    "hdf:hdf_core": {
+      "features": {
+        "hdf_core_default_peripheral_config": false,
+        "hdf_core_platform_test_support": false
+      }
+    },
+    "hiviewdfx:faultloggerd": {},
+    "hiviewdfx:hicollie": {},
+    "hiviewdfx:hidumper": {},
+    "hiviewdfx:hilog": {},
+    "hiviewdfx:hisysevent": {},
+    "hiviewdfx:hitrace": {
+      "features": {
+        "hitrace_support_executable_file": false
+      }
+    },
+    "hiviewdfx:hiview": {},
+    "notification:eventhandler": {},
+    "oniro_soc_products:hybris_generic_soc": {},
+    "product_hybris_generic:product_hybris_generic": {
+      "features": {
+        "product_hybris_generic_hdf_selected_config": "//vendor/oniro/m5c/hdf-selected/hdf-selected-intermediate.hcs",
+        "product_hybris_generic_sparse_image": false
+      }
+    },
+    "resourceschedule:ffrt": {},
+    "resourceschedule:resource_schedule_service": {},
+    "security:access_token": {},
+    "security:certificate_framework": {},
+    "security:crypto_framework": {},
+    "security:device_auth": {},
+    "security:huks": {},
+    "security:selinux_adapter": {},
+    "startup:appspawn": {},
+    "startup:init": {
+      "features": {
+        "init_feature_ab_partition": false
+      }
+    },
+    "systemabilitymgr:safwk": {},
+    "systemabilitymgr:samgr": {},
+    "thirdparty:bounds_checking_function": {},
+    "thirdparty:bzip2": {},
+    "thirdparty:cJSON": {},
+    "thirdparty:e2fsprogs": {},
+    "thirdparty:googletest": {},
+    "thirdparty:icu": {},
+    "thirdparty:json": {},
+    "thirdparty:jsoncpp": {},
+    "thirdparty:libcoap": {},
+    "thirdparty:libhybris": {
+      "features": {
+        "libhybris_android_header_overlay": "//vendor/oniro/m5c/android-header-overlay",
+        "libhybris_android_version_major": 13
+      }
+    },
+    "thirdparty:libunwind": {},
+    "thirdparty:libusb": {},
+    "thirdparty:libuv": {},
+    "thirdparty:libxml2": {},
+    "thirdparty:lz4": {},
+    "thirdparty:mbedtls": {},
+    "thirdparty:musl": {},
+    "thirdparty:node": {},
+    "thirdparty:openssl": {},
+    "thirdparty:rust_libc": {},
+    "thirdparty:rust_rust-openssl": {},
+    "thirdparty:selinux": {},
+    "thirdparty:toybox": {},
+    "updater:update_service": {},
+    "updater:updater": {
+      "features": {
+        "updater_feature_sign_on_server": false,
+        "updater_feature_updater_gen_executable": true,
+        "updater_feature_use_ptable": false
+      }
+    }
+  },
+  "baseline_selector": {
+    "path": "inputs/public-standard-libusb-product.json",
+    "sha256": "c7162ada6ef97e7a070fb8a9e3389a04e6b8c9232e8c68b4f704b3b7f8bf6716"
+  },
+  "baseline_source_files_sha256": "01905ce5a7abac83939231a00251fc731428438055e7bcaf393a2ac04c3acd54",
+  "baseline_source_projects": [
+    {
+      "git_tree": "a160821cbfdfe751bee4a50664327b9a195b46f4",
+      "head": "5597122415cad169c3564c0baf16074ca4bbc393",
+      "path": "base/customization/config_policy"
+    },
+    {
+      "git_tree": "8f479946eea8a11ee62c8ad398e754db7f4e07b5",
+      "head": "5c3d0e593d5bf662a374045f9f043bf020876d28",
+      "path": "base/hiviewdfx/faultloggerd"
+    },
+    {
+      "git_tree": "2a0f3dbe8867e312648d79b0131b8ef4df4a8c34",
+      "head": "cbc2c42489b64979f7ab98188f45fc39813180ae",
+      "path": "base/hiviewdfx/hicollie"
+    },
+    {
+      "git_tree": "c42f8f5490a8dd5c54676c1f50dfd725d5abdbf5",
+      "head": "cee2823a711cb17de536bb0e33397170458b7a9d",
+      "path": "base/hiviewdfx/hidumper"
+    },
+    {
+      "git_tree": "cca126db204ff682e325f9a3d330c1aef8f788d8",
+      "head": "72bcf6c12c1229774cdb8a3b3a8a6c8fb7767fad",
+      "path": "base/hiviewdfx/hilog"
+    },
+    {
+      "git_tree": "5002058459f78bbfaac719a43da10d9fa9c5ec64",
+      "head": "32d6c372407eeaf8c1fa22190bef60a735bc8be1",
+      "path": "base/hiviewdfx/hisysevent"
+    },
+    {
+      "git_tree": "cbf6605446e848855f08942e672d0a35c833f89a",
+      "head": "faf8460b3a9e672894299b7a836bb0c59c3ea76e",
+      "path": "base/hiviewdfx/hitrace"
+    },
+    {
+      "git_tree": "aca58a91601880e57cca051e16b566968dfeac7e",
+      "head": "b6dbe337dee47a8567faa21214fb7ef1f342de6d",
+      "path": "base/notification/eventhandler"
+    },
+    {
+      "git_tree": "6482516d4aa4c637ee9cee1a0e783f344222ead4",
+      "head": "9e819c8933db91055b2962c3f244b17dfa6f6085",
+      "path": "base/security/access_token"
+    },
+    {
+      "git_tree": "0b18697040e83cf2ae2e59c92951396a881cb145",
+      "head": "3a2bcb3057c16ea9f274f916bcecd18ddb198f35",
+      "path": "base/security/certificate_framework"
+    },
+    {
+      "git_tree": "e92bc720282ac3238ed7d256399bd320403a3754",
+      "head": "77fc5dae7075b3a1dea3a2cbe5dd704e5974e9ee",
+      "path": "base/security/device_auth"
+    },
+    {
+      "git_tree": "b25254631194fc744cd61adb6105adc607465bb5",
+      "head": "57fbbe33d5ade25ca01a32a2b2aeda7d350bb5ee",
+      "path": "base/security/huks"
+    },
+    {
+      "git_tree": "626919682d1c16a8aa9b9e09003291f584de13cb",
+      "head": "2302212046bfdd5d235bbebfe98aa7644aa63414",
+      "path": "base/security/selinux_adapter"
+    },
+    {
+      "git_tree": "e4ae2b44aca127ee7a17a8db86267ffd989c4c3f",
+      "head": "1f0ac5a68509cb12653eb636d3b4fb45b9eb6681",
+      "path": "base/startup/appspawn"
+    },
+    {
+      "git_tree": "a4da13a0b5a5f748ab0ea873ebc3adbc63879bb5",
+      "head": "fdea3b690622b67c454a34d5bf7a79cf104b2394",
+      "path": "base/startup/init"
+    },
+    {
+      "git_tree": "453bbcb06b790f3aeb0eef2f6d76a75b3bd8fe99",
+      "head": "e6a6226e2be5e5ba81e654bb916e93e0f13f615d",
+      "path": "base/update/updater"
+    },
+    {
+      "git_tree": "da55c157f5a5c3c7e1a2f580ddb31aa04f465ad7",
+      "head": "06bb4a27efac09c173e7cc0ac83a5f0ff3f37f47",
+      "path": "base/update/updateservice"
+    },
+    {
+      "git_tree": "46055d7961dc6166a7478089f39e1be3517a85c0",
+      "head": "80df60cf6eaf72fe542a50c72f1802d7e5193d8a",
+      "path": "build"
+    },
+    {
+      "git_tree": "6cc44b53b5f99e3ebd806d4cf744749d2c4f8a09",
+      "head": "e01ffbfc3d9e621f11f8780b38e6cc92d1248ee2",
+      "path": "commonlibrary/c_utils"
+    },
+    {
+      "git_tree": "2f9ff93586ee27b4d353db5fbcbad6262501149d",
+      "head": "7a66525fe75ac8ecffb356ddae3bb45ffe9453d8",
+      "path": "commonlibrary/rust/ylong_http"
+    },
+    {
+      "git_tree": "e34ec7ddcc52537680219c1efa2b655bdcddc15c",
+      "head": "a5584287347fab4178485f190e8416e2ddf68d24",
+      "path": "commonlibrary/rust/ylong_json"
+    },
+    {
+      "git_tree": "380ed16c9693833112f3a533a9504a7190c94ba1",
+      "head": "c9bb0e3a20554995847983bca558f6c6c36ebad5",
+      "path": "commonlibrary/rust/ylong_runtime"
+    },
+    {
+      "git_tree": "45f0fa4af1ade8eab1112df5276d988bd1023d8a",
+      "head": "51794b3efb6b8eaf2b06776403c30e1b91c6b4fd",
+      "path": "developtools/hdc"
+    },
+    {
+      "git_tree": "2854b4011d2797121184e7beacef4d8c92949784",
+      "head": "3028f284272da1cc31aa163c95dc2632d0c92132",
+      "path": "developtools/syscap_codec"
+    },
+    {
+      "git_tree": "0c7837d8789298a2b5bc23f9ec37fb4a7b266e06",
+      "head": "798369193f3cac22f21cc35cd8189f10b12d6fef",
+      "path": "device/board/oniro"
+    },
+    {
+      "git_tree": "9b7774407c0ee86a4d41bcf40fdabd44119aa249",
+      "head": "29d0efef7cb8edfefa5c5b7c08a4562d1d7c1c63",
+      "path": "device/soc/oniro"
+    },
+    {
+      "git_tree": "cfc53183cef414f10e5253b9553876826051db3d",
+      "head": "a0e77ad177150b2e60f72ca8d783f0c2b370d8f4",
+      "path": "drivers/hdf_core"
+    },
+    {
+      "git_tree": "91d423f194b65c268504964dbc16f9be8c4ac6c8",
+      "head": "a969b1936b4dbb79982cb79564a482f3f927cefa",
+      "path": "drivers/interface"
+    },
+    {
+      "git_tree": "e0954ba239cc7d69b17c2469d09367913ac0ccdc",
+      "head": "f103502bf80974b3441b785c8ebdbf60e78c36e0",
+      "path": "drivers/peripheral"
+    },
+    {
+      "git_tree": "38fc7cc8cd54a2ba400d984cece2b3723dd917f6",
+      "head": "74fec5206f9cde507cd7f84320181121c4a3cef4",
+      "path": "foundation/communication/dsoftbus"
+    },
+    {
+      "git_tree": "dffe9ae08234907ba9be92f12c7d53fa6e096b07",
+      "head": "1711ab6bb3c67d12290f123d70bbcdd4c6c772c6",
+      "path": "foundation/communication/ipc"
+    },
+    {
+      "git_tree": "34ba87cf2d87ab97909e5ef554c0eabf381e8655",
+      "head": "a6ab6de86deda4cd0922ce4fc37c7427931b6a0d",
+      "path": "foundation/graphic/graphic_2d"
+    },
+    {
+      "git_tree": "ee1808e1fc34fde4830388b83de6a99e9d2a561c",
+      "head": "3cc2c206dd179314182fa5a8468963be1d12da79",
+      "path": "foundation/graphic/graphic_surface"
+    },
+    {
+      "git_tree": "d9397819b693d0e498c9a2d711b1323232641a62",
+      "head": "f221146a4e39b17fb1ffe2a8ea153aa45e0cb544",
+      "path": "foundation/graphic/graphic_utils_lite"
+    },
+    {
+      "git_tree": "e899a18eec192a3d48c85c05fd817c3db46f95a7",
+      "head": "2de3a67f9597fac48de0123ae73151af0f590a78",
+      "path": "foundation/graphic/graphics_effect"
+    },
+    {
+      "git_tree": "856b8ff6019c32b21025444bc110a086258d8477",
+      "head": "ecfc70a6d4f5ac900e19bd19e40e9169292ff3fd",
+      "path": "foundation/resourceschedule/ffrt"
+    },
+    {
+      "git_tree": "721f25be0e3197fd9faca116bf0909c2d3814ece",
+      "head": "c4702543e39a456c1bbf3fa967a882312647c7af",
+      "path": "foundation/systemabilitymgr/safwk"
+    },
+    {
+      "git_tree": "a470f6b0f777e08650cfce85b405c0afb6bb0baa",
+      "head": "e04a4f89bb6ee3e0c1ea88b2b204e62e89f72d71",
+      "path": "foundation/systemabilitymgr/samgr"
+    },
+    {
+      "git_tree": "02be5021808cacf3809eca5c1ca7dafdcafca36a",
+      "head": "49ab756402ca0fdda4b44ff98c0d1064ae58106c",
+      "path": "kernel/linux/patches"
+    },
+    {
+      "git_tree": "d006e86c75ca69d7fd43a8a2467022968f58d541",
+      "head": "a152764b15236b2ad842846a3a9a8439715ad46a",
+      "path": "productdefine/common"
+    },
+    {
+      "git_tree": "43eaa5d322acd457fe5e8a14239f62a5ba0cfd9e",
+      "head": "8de28ca3e3dc9951f880a4826b8ccd70a2e7810e",
+      "path": "third_party/FreeBSD"
+    },
+    {
+      "git_tree": "b5c701a34c088ae1cdc4d1394b7e38b445c18db1",
+      "head": "217a38e92cc64a96b4d1ac7469f30827d84485d3",
+      "path": "third_party/android-headers"
+    },
+    {
+      "git_tree": "99609d60f58d96a846104652d5f03201b20460bc",
+      "head": "2ae82839ecaaa7d031e66ccbd2076d671acfd615",
+      "path": "third_party/bounds_checking_function"
+    },
+    {
+      "git_tree": "9ad2e1d5df593eaf162e83cfb0924dc59b6fcc2f",
+      "head": "e8e3b464e0b4f89e1f56ba10d7c29654043db91d",
+      "path": "third_party/bzip2"
+    },
+    {
+      "git_tree": "36d30e5721a460fc204cba889a8716312609225d",
+      "head": "ed51a490e22e7120be055a8b2fdb2a0a7f8676a7",
+      "path": "third_party/cJSON"
+    },
+    {
+      "git_tree": "3539a455661e2ea53a08d52b91728e12d7338684",
+      "head": "9e5fa8a8c50c243b6ad2e847c44448374d0ece28",
+      "path": "third_party/e2fsprogs"
+    },
+    {
+      "git_tree": "aee65b26269c4516bce6183c9094aa89834a2d50",
+      "head": "e7dc850c25fc69109275ee2f80f6e68c05c6dd47",
+      "path": "third_party/icu"
+    },
+    {
+      "git_tree": "f57a2c5e4b5335aafb98030d6f66791a0f65fde8",
+      "head": "1611aa4447699769435f913a3c3753d259c76fdb",
+      "path": "third_party/jinja2"
+    },
+    {
+      "git_tree": "e4686fdfeffdf912074b4d3c237c87ecf04e753f",
+      "head": "9e1906a3ddf971853551bfa5b58ac8a5c946075c",
+      "path": "third_party/json"
+    },
+    {
+      "git_tree": "c0d98c9788a1ace8282aa178179640669db4ad3c",
+      "head": "24cc8282a123a537e02ef31886974bf8f5a960b1",
+      "path": "third_party/jsoncpp"
+    },
+    {
+      "git_tree": "21e70bd5f2c9a14d06ce4a71810844c10278aa22",
+      "head": "f58139dbcb72402d460fec3c106bb1f9fbc5e3fe",
+      "path": "third_party/libcoap"
+    },
+    {
+      "git_tree": "dc4ac400fa42a7bc735b551d34dfb066eae6bfb2",
+      "head": "7138be2fd91fbec191d1b44dbfea3969ddf3aedd",
+      "path": "third_party/libhybris"
+    },
+    {
+      "git_tree": "93f81487211531aa9d76fbf8e05c560e443aa5db",
+      "head": "b6eaefcef8a3fb284d60c60a7662d65ca734e5c6",
+      "path": "third_party/libunwind"
+    },
+    {
+      "git_tree": "ec0b0851768eb9984bd9e9c50f93660be0d18612",
+      "head": "0d918d0f3b1401c75c4a258974e9404a323775b4",
+      "path": "third_party/libuv"
+    },
+    {
+      "git_tree": "b21745795775e85ed317a77e4c216a05b40cfc68",
+      "head": "6c222b52978e704ac12d278a76e95023a9b82f72",
+      "path": "third_party/libxml2"
+    },
+    {
+      "git_tree": "cb3ecbb64e742558d34091d90aecbdc2321e7547",
+      "head": "cf560ea0757c6d839e48f959044f9e74b41b3817",
+      "path": "third_party/lz4"
+    },
+    {
+      "git_tree": "171ab571df0f11c07778f26fc98b386bc7d17309",
+      "head": "c44ef7f93941faa504d3adb230c74e7d195a0f35",
+      "path": "third_party/markupsafe"
+    },
+    {
+      "git_tree": "bba8d780a876289ed358ef40ba2755e3744cc424",
+      "head": "d0c326ed322b1fbcc32da46690c9bf4022039d4a",
+      "path": "third_party/mbedtls"
+    },
+    {
+      "git_tree": "8f59e8364f8e3b415643d4b006d4793d64d4d5b9",
+      "head": "7c9a99aae096ace2a88255923d59cda7a2326a9a",
+      "path": "third_party/musl"
+    },
+    {
+      "git_tree": "1d17be89d02b8870beed5537dc8f350e6b241e6e",
+      "head": "f0ee54afed3499ac74196d50c990a153f3506c28",
+      "path": "third_party/openssl"
+    },
+    {
+      "git_tree": "ded5ecee8f94de0040f608760a88e86f8b181279",
+      "head": "a52a7d4792ef1618a854271e2421e2ab66d24f99",
+      "path": "third_party/optimized-routines"
+    },
+    {
+      "git_tree": "07955d7032f0ef97172f916fb1d91dbfbf00562c",
+      "head": "b7ef4e17956fda3174147a6e3f3835515f546435",
+      "path": "third_party/selinux"
+    },
+    {
+      "git_tree": "7208266608cbf4ac57e00d038c3428c915914095",
+      "head": "927b3aebdd0d83ce82dee6e37562c719e51fc623",
+      "path": "third_party/toybox"
+    },
+    {
+      "git_tree": "0f557f17be18b7c16dd8cf61386584f66da987a7",
+      "head": "2badf04b69f8fee77f087991b7978dac46b369ee",
+      "path": "vendor/oniro"
+    },
+    {
+      "git_tree": "0c56460baa6e13bd13cf8444ba549145543b2ceb",
+      "head": "939c5d8293c5870286a7143b7de88a50ea3fb5de",
+      "path": "developtools/integration_verification"
+    },
+    {
+      "git_tree": "755c3234744d4c91b57eb56ed5fa840a648928f9",
+      "head": "1e70dc18d451e21311a8f0efa2a144148fc1a103",
+      "path": "test/testfwk/developer_test"
+    },
+    {
+      "git_tree": "657b0e5baa20b7166f7dd54ea06b410c21a2b666",
+      "head": "dc13b9a207d24ec24d2e474b22ad766c459fb5e5",
+      "path": "base/security/crypto_framework"
+    },
+    {
+      "git_tree": "c2af4d2088d9524eb7b2be1287808f989a8d814a",
+      "head": "c15616e4b5b7d990ada6fb12b8b26f65cdb91580",
+      "path": "third_party/googletest"
+    },
+    {
+      "git_tree": "a370df660b7bfb9629a6fa1dc31fc25b339d49aa",
+      "head": "59a33d7a52602c90a1772d0e9b5d2a539c9effbc",
+      "path": "arkcompiler/runtime_core"
+    },
+    {
+      "git_tree": "d680efb23452e792abafed63438278a97a8add71",
+      "head": "1b4d20b0a195d7dabf0667b226623707aa472b6c",
+      "path": "third_party/rust/crates/serde"
+    },
+    {
+      "git_tree": "f590275d6d35217535a699cc7bb9b72604a5548c",
+      "head": "cd4bb56d02c8d3b35aab19bd69d4b1a7082856fb",
+      "path": "third_party/rust/crates/rust-openssl"
+    },
+    {
+      "git_tree": "1924de3dc9c4d2cdfbddf3b71b9ed8b4e3bc2dd9",
+      "head": "685a0b9f4f667f2f1d855e6e725cf6fbf3028e79",
+      "path": "third_party/rust/crates/unicode-ident"
+    },
+    {
+      "git_tree": "15c96bac208e49fff566342812dbb0dd0e4c4ea4",
+      "head": "d6bfaf5c015d29fee58e3c94f01d463fb87a9497",
+      "path": "third_party/node"
+    },
+    {
+      "git_tree": "e00802e37291e2938bc8ebf196343d93ff35eea4",
+      "head": "94c4c7098f5385a49b955a243656355b14429604",
+      "path": "foundation/resourceschedule/resource_schedule_service"
+    },
+    {
+      "git_tree": "9f7716f3531c88c1f8cd8b28e2b137a52d44add4",
+      "head": "0e26439461838b542018d1e1f3fdae20bde5fa5b",
+      "path": "third_party/rust/crates/quote"
+    },
+    {
+      "git_tree": "f7fb6e2627dabf17986333f0087348fcac8fb66b",
+      "head": "e9bf0f2adc08e1a72220156b299fc65e24d22298",
+      "path": "foundation/arkui/ace_engine"
+    },
+    {
+      "git_tree": "488c72140a123eb38a026333485d993df2624297",
+      "head": "7f58fce8c9191a37799a24e40d488a6978f25c98",
+      "path": "third_party/rust/crates/libc"
+    },
+    {
+      "git_tree": "7be5a0f5a2a078368d1dd36d2d9985616bb78707",
+      "head": "ea63c0b49611845eb038c9f36d63fcdaa756e06c",
+      "path": "third_party/rust/crates/once_cell"
+    },
+    {
+      "git_tree": "54a9ea05e9424ce63372645ed0b4cc8e38b8ac81",
+      "head": "615f28490a068b8be31f4912b072a028eaf36a0f",
+      "path": "third_party/rust/crates/proc-macro2"
+    },
+    {
+      "git_tree": "96d92effa1b54fd2ecf562d313f8a168deaf7050",
+      "head": "e0fc17a76410e0f60a4120efb8cc7120beca7e18",
+      "path": "third_party/rust/crates/foreign-types"
+    },
+    {
+      "git_tree": "fef0a17a3d0e7efc52690d0eeeb05e70295dc28a",
+      "head": "65ed3a7d917102f642497e1d46addc7ab2b46aab",
+      "path": "third_party/f2fs-tools"
+    },
+    {
+      "git_tree": "b440f366ae9f9683bb4bfb50a416b730aea95a6e",
+      "head": "1ef9ea1b39a3cf4d521111fe10eb4d6a33b167bc",
+      "path": "third_party/rust/crates/bitflags"
+    },
+    {
+      "git_tree": "a2fcea2e5f6b4ec9af409feec7613ac5cc42bcd7",
+      "head": "d04f0842144ddfc3fb6e0dafdcfe411c03e11f8c",
+      "path": "third_party/rust/crates/cfg-if"
+    },
+    {
+      "git_tree": "50243a6b2792decc2f4dab718e3fe374ca85b3d8",
+      "head": "bef2e4e0e5d3b89684b7b741f7825f08a757713a",
+      "path": "third_party/rust/crates/syn"
+    },
+    {
+      "git_tree": "4f064d09d103d10bc7443312b297ab7571846240",
+      "head": "dd11d23c7f37ad074d4184f79645d6cbdb260ffd",
+      "path": "base/hiviewdfx/hiview"
+    },
+    {
+      "git_tree": "db23609defb28797836546a482fadbbeb6f09482",
+      "head": "a0bb572150a8431b99a4ab7f829e803dbac77d88",
+      "path": "arkcompiler/ets_runtime"
+    },
+    {
+      "git_tree": "094fa8fd87c4da29c75c0c5e5875e9e34403a088",
+      "head": "c24f5a9c18e63d0baadfccbba1dd1c6029b63eb2",
+      "path": "foundation/arkui/napi"
+    },
+    {
+      "git_tree": "4315fd68d92450ffdb917ef34b87bdb4145eb4b6",
+      "head": "b982552012b9faf15db3bd5c714594da91df33b0",
+      "path": "third_party/libusb"
+    }
+  ],
+  "baseline_tools_sha256": "433cc8f1fa9b567bfe4367c18bc184b22c720d90f56ada12732f7d40abb9aecf",
+  "conditional_or_off_dependencies_not_added": [
+    "device_manager",
+    "liburing"
+  ],
+  "existing_source_component_additions": [
+    {
+      "bundle_path": "drivers/interface/memorytracker/bundle.json",
+      "bundle_sha256": "c0b907ee67d2b229361cb23068bb2d041faa9a9ddeb3d96b7aa30cbb608b6629",
+      "git_tree": "91d423f194b65c268504964dbc16f9be8c4ac6c8",
+      "head": "a969b1936b4dbb79982cb79564a482f3f927cefa",
+      "part": "hdf:drivers_interface_memorytracker",
+      "provider_path": "drivers/interface",
+      "required_gn_evidence": [
+        {
+          "condition": "unconditional production hidumper external_deps; actual A7 first GN edge and same-list mandatory neighbor",
+          "label": "drivers_interface_memorytracker:libmemorytracker_proxy_1.0",
+          "line": 384,
+          "path": "base/hiviewdfx/hidumper/services/BUILD.gn",
+          "sha256": "94392d5035eaa40741b6032d92984b79061bcbf56827695282f10443f7d9b640"
+        }
+      ]
+    }
+  ],
+  "final_selector": {
+    "path": "inputs/public-sdk-production-product.json",
+    "sha256": "31ccdf0134844ab46f6f8e9a6f9997d3d91adf0d1314f18ccdb106f394d56164"
+  },
+  "full375_phone": false,
+  "gn_generated": false,
+  "immediate_parent": {
+    "cohort_proof_sha256": "bdef08ae8117c56669e4d359003b398e17d87d0e2f02f8937804dd925f14b840",
+    "final_selector": {
+      "path": "inputs/public-memorytracker-product.json",
+      "sha256": "d4147a7f37f96cdfa76de14391ceaba264bce15dad74199986abd3eb9994373c"
+    },
+    "gn_inputs_sha256": "6718cc2eec672b640c46cd1c03ab353485d02b000887e26e1e90b831d344a022",
+    "project_rows_sha256": "31168cec7f3ba925b9965611b52eb93f2b34cf374355c8f1e68ae58fedfde087",
+    "selected_part_count": 88,
+    "selected_parts": {
+      "ability:ability_base": {},
+      "ability:ability_runtime": {},
+      "ability:idl_tool": {},
+      "account:os_account": {
+        "features": {
+          "os_account_multiple_active_accounts": false
+        }
+      },
+      "arkcompiler:ets_runtime": {},
+      "arkcompiler:runtime_core": {},
+      "arkui:ace_engine": {},
+      "arkui:napi": {},
+      "build:build_framework": {},
+      "bundlemanager:bundle_framework": {},
+      "commonlibrary:c_utils": {},
+      "commonlibrary:memory_utils": {},
+      "commonlibrary:ylong_http": {},
+      "commonlibrary:ylong_json": {},
+      "commonlibrary:ylong_runtime": {},
+      "communication:dsoftbus": {},
+      "communication:ipc": {},
+      "customization:config_policy": {},
+      "developtools:hdc": {},
+      "developtools:syscap_codec": {},
+      "device_hybris_generic:device_hybris_generic": {
+        "features": {
+          "device_hybris_generic_androidd_legacy_cmdline_boot": true,
+          "device_hybris_generic_androidd_static_binder": true
+        }
+      },
+      "distributeddatamgr:data_share": {},
+      "distributeddatamgr:kv_store": {},
+      "distributeddatamgr:relational_store": {},
+      "filemanagement:app_file_service": {},
+      "filemanagement:file_api": {},
+      "global:resource_management": {},
+      "graphic:graphic_2d": {
+        "features": {
+          "graphic_2d_feature_rs_enable_eglimage": true,
+          "graphic_2d_feature_rs_enable_uni_render": true,
+          "graphic_2d_feature_upgrade_skia": true,
+          "graphic_2d_feature_use_texgine": true
+        }
+      },
+      "graphic:graphic_surface": {},
+      "graphic:graphic_utils_lite": {},
+      "graphic:graphics_effect": {},
+      "hdf:drivers_adapter": {},
+      "hdf:drivers_interface_huks": {},
+      "hdf:drivers_interface_memorytracker": {},
+      "hdf:drivers_peripheral_display": {
+        "features": {
+          "drivers_peripheral_display_community": true,
+          "drivers_peripheral_display_vdi_default": true
+        }
+      },
+      "hdf:drivers_peripheral_huks": {},
+      "hdf:drivers_tools": {},
+      "hdf:hdf_core": {
+        "features": {
+          "hdf_core_default_peripheral_config": false,
+          "hdf_core_platform_test_support": false
+        }
+      },
+      "hiviewdfx:faultloggerd": {},
+      "hiviewdfx:hicollie": {},
+      "hiviewdfx:hidumper": {},
+      "hiviewdfx:hilog": {},
+      "hiviewdfx:hisysevent": {},
+      "hiviewdfx:hitrace": {
+        "features": {
+          "hitrace_support_executable_file": false
+        }
+      },
+      "hiviewdfx:hiview": {},
+      "notification:common_event_service": {},
+      "notification:eventhandler": {},
+      "oniro_soc_products:hybris_generic_soc": {},
+      "product_hybris_generic:product_hybris_generic": {
+        "features": {
+          "product_hybris_generic_hdf_selected_config": "//vendor/oniro/m5c/hdf-selected/hdf-selected-intermediate.hcs",
+          "product_hybris_generic_sparse_image": false
+        }
+      },
+      "resourceschedule:ffrt": {},
+      "resourceschedule:resource_schedule_service": {},
+      "security:access_token": {},
+      "security:certificate_framework": {},
+      "security:crypto_framework": {},
+      "security:device_auth": {},
+      "security:huks": {},
+      "security:selinux_adapter": {},
+      "startup:appspawn": {},
+      "startup:init": {
+        "features": {
+          "init_feature_ab_partition": false
+        }
+      },
+      "systemabilitymgr:safwk": {},
+      "systemabilitymgr:samgr": {},
+      "thirdparty:bounds_checking_function": {},
+      "thirdparty:bzip2": {},
+      "thirdparty:cJSON": {},
+      "thirdparty:e2fsprogs": {},
+      "thirdparty:googletest": {},
+      "thirdparty:icu": {},
+      "thirdparty:json": {},
+      "thirdparty:jsoncpp": {},
+      "thirdparty:libcoap": {},
+      "thirdparty:libhybris": {
+        "features": {
+          "libhybris_android_header_overlay": "//vendor/oniro/m5c/android-header-overlay",
+          "libhybris_android_version_major": 13
+        }
+      },
+      "thirdparty:libunwind": {},
+      "thirdparty:libusb": {},
+      "thirdparty:libuv": {},
+      "thirdparty:libxml2": {},
+      "thirdparty:lz4": {},
+      "thirdparty:mbedtls": {},
+      "thirdparty:musl": {},
+      "thirdparty:node": {},
+      "thirdparty:openssl": {},
+      "thirdparty:rust_libc": {},
+      "thirdparty:rust_rust-openssl": {},
+      "thirdparty:selinux": {},
+      "thirdparty:sqlite": {},
+      "thirdparty:toybox": {},
+      "updater:update_service": {},
+      "updater:updater": {
+        "features": {
+          "updater_feature_sign_on_server": false,
+          "updater_feature_updater_gen_executable": true,
+          "updater_feature_use_ptable": false
+        }
+      },
+      "window:window_manager": {
+        "features": {
+          "window_manager_use_sceneboard": true
+        },
+        "syscap": {
+          "SystemCapability.Window.SessionManager": true
+        }
+      }
+    },
+    "source_files_sha256": "2f45fd05c3c605b0387de37c03318c3baf40a958759a1ccf6e32902b85c0911c",
+    "source_lock_sha256": "75694eb3607edd20ad452a05882576552e0186ce64cf969c128437f8612e0bee",
+    "source_projects": 103
+  },
+  "inherit_inputs": [
+    {
+      "path": "productdefine/common/base/standard_system.json",
+      "sha256": "0e87fb91498128d3a9d9d3785474cfacc152789cb16b02a2ee818157891f130d"
+    }
+  ],
+  "native_parser_sha256": "630a055003364757e9b0cca75056d96eb1b7e361e5ddb6cca7586f4987cb3b36",
+  "original_features_patches_tools_wheels_gitlinks_lfs_gates_preserved": true,
+  "parent_gn_inputs_sha256": "6e222d71be39e5ae6282ae6abca56d86be3aa0ac8af99f9f22a9428f71f53e6a",
+  "parent_public_lock_sha256": "b1155bfed25503b75b6ea9bf19e92601c94b064ae8e16bbc3e1ba1759f1a3e36",
+  "runtime": false,
+  "schema": "remeizu.public-native-cohort-successor.v1",
+  "sdk_production_closure": {
+    "abseil_required_by_protobuf": true,
+    "approved_projects": [
+      "interface/sdk-js",
+      "arkcompiler/ets_frontend",
+      "third_party/zlib",
+      "third_party/protobuf",
+      "third_party/typescript",
+      "developtools/ace_ets2bundle",
+      "third_party/abseil-cpp"
+    ],
+    "compiler_mode_witness": {
+      "path": "build/config/BUILDCONFIG.gn",
+      "sha256": "068e37b0c9d7d4acb45a4d52a6f567c3bf1807906f82f90637728c1846375038",
+      "value": false
+    },
+    "compiler_tool_archives_changed": false,
+    "compiler_version_changed": false,
+    "ets_targets_skipped": false,
+    "frontend_independent_compiler_branch_unchanged_false": true,
+    "only_component_sources_added": true
+  },
+  "selected_part_count": 95,
+  "selected_product_source_closure": false,
+  "source_admitted_parent101": {
+    "cohort_proof_sha256": "8f92eec4f3e22a3afa1a91d3c08a555dc04b9bf7507f69f063eec09e03c5af9e",
+    "final_selector": {
+      "path": "inputs/public-relational-production-product.json",
+      "sha256": "c2a2f2061234de77b6103b473ec6ed2b2e261fceaa38b3d873cc6875e36ff41c"
+    },
+    "gn_inputs_sha256": "bc5b4da2894494c066978098d9e811cb208fca87588c1e73c0dea4f45e4d4e06",
+    "project_rows_sha256": "62e1c19c6a23411dad1dc38ccdaa22257c1b392267d2bcdd7702881c6dca2a0b",
+    "selected_part_count": 85,
+    "selected_parts": {
+      "ability:ability_base": {},
+      "ability:ability_runtime": {},
+      "account:os_account": {
+        "features": {
+          "os_account_multiple_active_accounts": false
+        }
+      },
+      "arkcompiler:ets_runtime": {},
+      "arkcompiler:runtime_core": {},
+      "arkui:ace_engine": {},
+      "arkui:napi": {},
+      "build:build_framework": {},
+      "bundlemanager:bundle_framework": {},
+      "commonlibrary:c_utils": {},
+      "commonlibrary:ylong_http": {},
+      "commonlibrary:ylong_json": {},
+      "commonlibrary:ylong_runtime": {},
+      "communication:dsoftbus": {},
+      "communication:ipc": {},
+      "customization:config_policy": {},
+      "developtools:hdc": {},
+      "developtools:syscap_codec": {},
+      "device_hybris_generic:device_hybris_generic": {
+        "features": {
+          "device_hybris_generic_androidd_legacy_cmdline_boot": true,
+          "device_hybris_generic_androidd_static_binder": true
+        }
+      },
+      "distributeddatamgr:data_share": {},
+      "distributeddatamgr:kv_store": {},
+      "distributeddatamgr:relational_store": {},
+      "filemanagement:app_file_service": {},
+      "filemanagement:file_api": {},
+      "global:resource_management": {},
+      "graphic:graphic_2d": {
+        "features": {
+          "graphic_2d_feature_rs_enable_eglimage": true,
+          "graphic_2d_feature_rs_enable_uni_render": true,
+          "graphic_2d_feature_upgrade_skia": true,
+          "graphic_2d_feature_use_texgine": true
+        }
+      },
+      "graphic:graphic_surface": {},
+      "graphic:graphic_utils_lite": {},
+      "graphic:graphics_effect": {},
+      "hdf:drivers_adapter": {},
+      "hdf:drivers_interface_huks": {},
+      "hdf:drivers_peripheral_display": {
+        "features": {
+          "drivers_peripheral_display_community": true,
+          "drivers_peripheral_display_vdi_default": true
+        }
+      },
+      "hdf:drivers_peripheral_huks": {},
+      "hdf:drivers_tools": {},
+      "hdf:hdf_core": {
+        "features": {
+          "hdf_core_default_peripheral_config": false,
+          "hdf_core_platform_test_support": false
+        }
+      },
+      "hiviewdfx:faultloggerd": {},
+      "hiviewdfx:hicollie": {},
+      "hiviewdfx:hidumper": {},
+      "hiviewdfx:hilog": {},
+      "hiviewdfx:hisysevent": {},
+      "hiviewdfx:hitrace": {
+        "features": {
+          "hitrace_support_executable_file": false
+        }
+      },
+      "hiviewdfx:hiview": {},
+      "notification:common_event_service": {},
+      "notification:eventhandler": {},
+      "oniro_soc_products:hybris_generic_soc": {},
+      "product_hybris_generic:product_hybris_generic": {
+        "features": {
+          "product_hybris_generic_hdf_selected_config": "//vendor/oniro/m5c/hdf-selected/hdf-selected-intermediate.hcs",
+          "product_hybris_generic_sparse_image": false
+        }
+      },
+      "resourceschedule:ffrt": {},
+      "resourceschedule:resource_schedule_service": {},
+      "security:access_token": {},
+      "security:certificate_framework": {},
+      "security:crypto_framework": {},
+      "security:device_auth": {},
+      "security:huks": {},
+      "security:selinux_adapter": {},
+      "startup:appspawn": {},
+      "startup:init": {
+        "features": {
+          "init_feature_ab_partition": false
+        }
+      },
+      "systemabilitymgr:safwk": {},
+      "systemabilitymgr:samgr": {},
+      "thirdparty:bounds_checking_function": {},
+      "thirdparty:bzip2": {},
+      "thirdparty:cJSON": {},
+      "thirdparty:e2fsprogs": {},
+      "thirdparty:googletest": {},
+      "thirdparty:icu": {},
+      "thirdparty:json": {},
+      "thirdparty:jsoncpp": {},
+      "thirdparty:libcoap": {},
+      "thirdparty:libhybris": {
+        "features": {
+          "libhybris_android_header_overlay": "//vendor/oniro/m5c/android-header-overlay",
+          "libhybris_android_version_major": 13
+        }
+      },
+      "thirdparty:libunwind": {},
+      "thirdparty:libusb": {},
+      "thirdparty:libuv": {},
+      "thirdparty:libxml2": {},
+      "thirdparty:lz4": {},
+      "thirdparty:mbedtls": {},
+      "thirdparty:musl": {},
+      "thirdparty:node": {},
+      "thirdparty:openssl": {},
+      "thirdparty:rust_libc": {},
+      "thirdparty:rust_rust-openssl": {},
+      "thirdparty:selinux": {},
+      "thirdparty:sqlite": {},
+      "thirdparty:toybox": {},
+      "updater:update_service": {},
+      "updater:updater": {
+        "features": {
+          "updater_feature_sign_on_server": false,
+          "updater_feature_updater_gen_executable": true,
+          "updater_feature_use_ptable": false
+        }
+      },
+      "window:window_manager": {
+        "features": {
+          "window_manager_use_sceneboard": true
+        },
+        "syscap": {
+          "SystemCapability.Window.SessionManager": true
+        }
+      }
+    },
+    "source_files_sha256": "19a2f1db71a4aea28a2b04cc1da9d7fb8ecb7d4f8bf01fe37eca0cf7da27efe5",
+    "source_lock_sha256": "cd0fd17d93ddf0c7f4cd2da211fafb746cca9aaf8e16e8a9f4867e9700cce4c0",
+    "source_projects": 101
+  },
+  "source_admitted_parent102": {
+    "cohort_proof_sha256": "98ec359c29a5c64bc60776e672ecf9269c59c96d4dd099cf309ce41d7103f4b0",
+    "final_selector": {
+      "path": "inputs/public-idl-tool-product.json",
+      "sha256": "019c9e9b5c0ecddf2f91489768abbc1fbebfc5bc4f3cbd99ae656608554b9ede"
+    },
+    "gn_inputs_sha256": "fd12937cafbb5c2e0d785a35529e96e0a7c572700243c05cdc38ddb1a2b87885",
+    "project_rows_sha256": "3a1b12e0fd76f95c544a6c7d26ed703211ab0452739a71cf0ee08e95cba34856",
+    "selected_part_count": 86,
+    "selected_parts": {
+      "ability:ability_base": {},
+      "ability:ability_runtime": {},
+      "ability:idl_tool": {},
+      "account:os_account": {
+        "features": {
+          "os_account_multiple_active_accounts": false
+        }
+      },
+      "arkcompiler:ets_runtime": {},
+      "arkcompiler:runtime_core": {},
+      "arkui:ace_engine": {},
+      "arkui:napi": {},
+      "build:build_framework": {},
+      "bundlemanager:bundle_framework": {},
+      "commonlibrary:c_utils": {},
+      "commonlibrary:ylong_http": {},
+      "commonlibrary:ylong_json": {},
+      "commonlibrary:ylong_runtime": {},
+      "communication:dsoftbus": {},
+      "communication:ipc": {},
+      "customization:config_policy": {},
+      "developtools:hdc": {},
+      "developtools:syscap_codec": {},
+      "device_hybris_generic:device_hybris_generic": {
+        "features": {
+          "device_hybris_generic_androidd_legacy_cmdline_boot": true,
+          "device_hybris_generic_androidd_static_binder": true
+        }
+      },
+      "distributeddatamgr:data_share": {},
+      "distributeddatamgr:kv_store": {},
+      "distributeddatamgr:relational_store": {},
+      "filemanagement:app_file_service": {},
+      "filemanagement:file_api": {},
+      "global:resource_management": {},
+      "graphic:graphic_2d": {
+        "features": {
+          "graphic_2d_feature_rs_enable_eglimage": true,
+          "graphic_2d_feature_rs_enable_uni_render": true,
+          "graphic_2d_feature_upgrade_skia": true,
+          "graphic_2d_feature_use_texgine": true
+        }
+      },
+      "graphic:graphic_surface": {},
+      "graphic:graphic_utils_lite": {},
+      "graphic:graphics_effect": {},
+      "hdf:drivers_adapter": {},
+      "hdf:drivers_interface_huks": {},
+      "hdf:drivers_peripheral_display": {
+        "features": {
+          "drivers_peripheral_display_community": true,
+          "drivers_peripheral_display_vdi_default": true
+        }
+      },
+      "hdf:drivers_peripheral_huks": {},
+      "hdf:drivers_tools": {},
+      "hdf:hdf_core": {
+        "features": {
+          "hdf_core_default_peripheral_config": false,
+          "hdf_core_platform_test_support": false
+        }
+      },
+      "hiviewdfx:faultloggerd": {},
+      "hiviewdfx:hicollie": {},
+      "hiviewdfx:hidumper": {},
+      "hiviewdfx:hilog": {},
+      "hiviewdfx:hisysevent": {},
+      "hiviewdfx:hitrace": {
+        "features": {
+          "hitrace_support_executable_file": false
+        }
+      },
+      "hiviewdfx:hiview": {},
+      "notification:common_event_service": {},
+      "notification:eventhandler": {},
+      "oniro_soc_products:hybris_generic_soc": {},
+      "product_hybris_generic:product_hybris_generic": {
+        "features": {
+          "product_hybris_generic_hdf_selected_config": "//vendor/oniro/m5c/hdf-selected/hdf-selected-intermediate.hcs",
+          "product_hybris_generic_sparse_image": false
+        }
+      },
+      "resourceschedule:ffrt": {},
+      "resourceschedule:resource_schedule_service": {},
+      "security:access_token": {},
+      "security:certificate_framework": {},
+      "security:crypto_framework": {},
+      "security:device_auth": {},
+      "security:huks": {},
+      "security:selinux_adapter": {},
+      "startup:appspawn": {},
+      "startup:init": {
+        "features": {
+          "init_feature_ab_partition": false
+        }
+      },
+      "systemabilitymgr:safwk": {},
+      "systemabilitymgr:samgr": {},
+      "thirdparty:bounds_checking_function": {},
+      "thirdparty:bzip2": {},
+      "thirdparty:cJSON": {},
+      "thirdparty:e2fsprogs": {},
+      "thirdparty:googletest": {},
+      "thirdparty:icu": {},
+      "thirdparty:json": {},
+      "thirdparty:jsoncpp": {},
+      "thirdparty:libcoap": {},
+      "thirdparty:libhybris": {
+        "features": {
+          "libhybris_android_header_overlay": "//vendor/oniro/m5c/android-header-overlay",
+          "libhybris_android_version_major": 13
+        }
+      },
+      "thirdparty:libunwind": {},
+      "thirdparty:libusb": {},
+      "thirdparty:libuv": {},
+      "thirdparty:libxml2": {},
+      "thirdparty:lz4": {},
+      "thirdparty:mbedtls": {},
+      "thirdparty:musl": {},
+      "thirdparty:node": {},
+      "thirdparty:openssl": {},
+      "thirdparty:rust_libc": {},
+      "thirdparty:rust_rust-openssl": {},
+      "thirdparty:selinux": {},
+      "thirdparty:sqlite": {},
+      "thirdparty:toybox": {},
+      "updater:update_service": {},
+      "updater:updater": {
+        "features": {
+          "updater_feature_sign_on_server": false,
+          "updater_feature_updater_gen_executable": true,
+          "updater_feature_use_ptable": false
+        }
+      },
+      "window:window_manager": {
+        "features": {
+          "window_manager_use_sceneboard": true
+        },
+        "syscap": {
+          "SystemCapability.Window.SessionManager": true
+        }
+      }
+    },
+    "source_files_sha256": "ae02161020c82cb309106c56e0209a236f41cf9407f43fabb47be7059df95c6e",
+    "source_lock_sha256": "c6bad3ed0f68ff1c8ee5bbbd82921468e8e76b26c82d54d79ce68427c9af7aa1",
+    "source_projects": 102
+  },
+  "source_bytes": 2417336233,
+  "source_file_count": 282999,
+  "source_projects": 110
+}

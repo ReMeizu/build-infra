@@ -1,0 +1,91 @@
+# Copyright (c) 2025 Eclipse Oniro for OpenHarmony contributors.
+# SPDX-License-Identifier: Apache-2.0
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Shared build arguments for libhybris components
+declare_args() {
+  # Android API level for compatibility
+  android_version_major = 11
+  android_version_minor = 0
+  android_version_patch = 0
+
+  # Explicit device-generated Android public header/version adaptation.
+  # Empty retains the original pinned generic header cohort.
+  libhybris_android_header_overlay = ""
+  
+  # Build configuration options
+  hybris_enable_debug = false
+  hybris_enable_trace = false
+  hybris_enable_experimental = false
+  hybris_enable_adreno_quirks = false
+  hybris_enable_mali_quirks = false
+  hybris_enable_arm_tracing = false
+  hybris_enable_mesa = false
+  hybris_enable_wayland = false
+  hybris_enable_glvnd = false
+  hybris_enable_property_cache = false
+  hybris_enable_ubuntu_linker_overrides = false
+  hybris_enable_stub_linker = false
+  
+  # Architecture selection (arm, arm64, x86, x86-64)
+  hybris_arch = "arm64"
+  
+  # Default EGL platform.  On OHOS every EGL consumer (render_service,
+  # bootanimation, app processes) uses the ohos ws module; the hwcomposer
+  # platform is only for standalone test tools, which can still select it
+  # via HYBRIS_EGLPLATFORM=hwcomposer.
+  hybris_default_egl_platform = "ohos"
+
+  # Default Android-side EGL/GLESv2 driver, used when the LIBEGL/LIBGLESV2
+  # env vars are unset.  Android's own libEGL.so/libGLESv2.so wrappers can't
+  # be used as a default here: their vendor-driver discovery walks
+  # android-namespace paths (/vendor/lib64/egl via the sphal namespace) that
+  # don't resolve in the OHOS mount namespace, where /vendor is the OHOS
+  # partition and the Android tree lives under /android.  So point straight
+  # at the vendor driver.  Both supported devices (X23 MT6789, ansuz MT6878)
+  # ship the monolithic Mali blob at the same path; a device with a
+  # different driver path can override via env in its init.<device>.cfg.
+  hybris_default_libegl = "/android/vendor/lib64/egl/libGLES_mali.so"
+  hybris_default_libglesv2 = "/android/vendor/lib64/egl/libGLES_mali.so"
+
+  # Product-settable alias for hybris_enable_wayland.  A product declares
+  # its gn args through its config.json "features" list, and the loader
+  # requires every feature name to start with the part name
+  # ("libhybris_"), which the upstream arg above does not — so products
+  # set this one instead.  Either being true builds the wayland bits.
+  libhybris_enable_wayland = false
+}
+
+# Product feature aliases obey the owning part namespace.
+# Separate declaration block reads the effective legacy build arguments.
+declare_args() {
+  libhybris_android_version_major = android_version_major
+}
+android_version_major = libhybris_android_version_major
+
+
+# Effective wayland switch: the upstream arg OR the product feature.
+hybris_wayland_enabled = hybris_enable_wayland || libhybris_enable_wayland
+
+# Default library paths for Android libraries.
+# The APEX paths serve Android-14 (Halium 14) vendors: vendor blobs
+# (e.g. the ansuz Mali DDK) link against VNDK/NDK stub libs that live in
+# /apex/com.android.vndk.v34/lib64, which the OHOS-side chainload exposes
+# via the halium_apex partition.  com.android.i18n carries libandroidicu,
+# a NEEDED of the MTK audio HAL.  On pre-14 vendors (X23/Halium 12) the
+# directories simply don't exist and the linker skips them.
+if (hybris_arch == "arm" || hybris_arch == "x86") {
+  hybris_default_ld_library_path = "/android/vendor/lib:/android/vendor/lib/hw:/android/system/lib:/android/odm/lib:/apex/com.android.vndk.v34/lib:/apex/com.android.i18n/lib"
+} else {
+  hybris_default_ld_library_path = "/android/vendor/lib64:/android/vendor/lib64/hw:/android/system/lib64:/android/odm/lib64:/apex/com.android.vndk.v34/lib64:/apex/com.android.i18n/lib64"
+}

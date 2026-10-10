@@ -1,0 +1,36 @@
+name: Full canonical OpenHarmony phone producer
+run-name: Full OpenHarmony phone by @${{ github.actor }}
+on:
+  push:
+    branches:
+      - codex/free-full375-20261010
+    paths:
+      - .github/workflows/openharmony-full-phone-public.yml
+      - docs/full375-route/**
+      - docs/free-hosted-route/**
+      - vendor/forge/forge_ephemeral_build.py
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: openharmony-full-phone-public
+  cancel-in-progress: false
+jobs:
+  full-native:
+    if: ${{ github.repository == 'ReMeizu/build-infra' && github.run_attempt == 1 && github.event.repository.private == false && github.ref == 'refs/heads/codex/free-full375-20261010' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        id: source_checkout
+        with:
+          persist-credentials: false
+      - name: Acquire and compile the complete canonical phone source
+        run: timeout --signal=INT --kill-after=90s 260m python3 -B docs/full375-route/run_full_phone.py
+      - name: Retain explicit source-bound native outputs as ciphertext
+        if: ${{ always() && steps.source_checkout.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: timeout --signal=INT --kill-after=30s 40m python3 -B docs/full375-route/retain_full_phone.py

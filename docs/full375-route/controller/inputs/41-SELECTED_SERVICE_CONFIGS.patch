@@ -1,0 +1,54 @@
+--- a/device/board/oniro/hybris_generic/BUILD.gn
++++ b/device/board/oniro/hybris_generic/BUILD.gn
+@@ -18,12 +18,20 @@
+ 
+ group("hybris_generic_group") {
+   deps = [
+-    "cfg:hybris_input_caps_group",
+-    "cfg:hybris_hdcd_autostart_group",
+     "cfg:hybris_device_node_perms_group",
+-    "cfg:hybris_composer_gate_group",
+     "audio_alsa/test_audio:test_audio_group",
+     "audio_hal/test_audio_hal:test_audio_hal_group",
+     "launcher:androidd_group",
+   ]
++  # Only install service overlays when their genuine provider parts are selected.
++  if (defined(global_parts_info.multimodalinput_input)) {
++    deps += [ "cfg:hybris_input_caps_group" ]
++  }
++  if (defined(global_parts_info.developtools_hdc)) {
++    deps += [ "cfg:hybris_hdcd_autostart_group" ]
++  }
++  if (defined(global_parts_info.hdf_drivers_peripheral_display) &&
++      defined(global_parts_info.graphic_graphic_2d)) {
++    deps += [ "cfg:hybris_composer_gate_group" ]
++  }
+ }
+--- a/vendor/oniro/hybris_generic/hdf_config/uhdf/BUILD.gn
++++ b/vendor/oniro/hybris_generic/hdf_config/uhdf/BUILD.gn
+@@ -13,14 +13,23 @@
+ 
+ import("//drivers/hdf_core/adapter/uhdf2/hcs/hcs.gni")
+ 
++declare_args() {
++  # Explicit intermediate source path; default preserves complete GUI HDF config.
++  oniro_hdf_selected_config = ""
++}
++_selected_hdf_source = "./hdf.hcs"
++if (oniro_hdf_selected_config != "") {
++  _selected_hdf_source = oniro_hdf_selected_config
++}
++
+ hdf_hcb("hdf_default.hcb") {
+-  source = "./hdf.hcs"
++  source = _selected_hdf_source
+   part_name = "product_hybris_generic"
+   subsystem_name = "product_hybris_generic"
+ }
+ 
+ hdf_cfg("hdf_devhost.cfg") {
+-  source = "./hdf.hcs"
++  source = _selected_hdf_source
+   part_name = "product_hybris_generic"
+   subsystem_name = "product_hybris_generic"
+ }

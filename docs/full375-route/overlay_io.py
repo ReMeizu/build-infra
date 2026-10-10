@@ -55,6 +55,9 @@ def require_shared_ram(output, ram, upper, work=None):
 
 
 def require_full_source(inputs):
+    if inputs.get('full_phone_profile_kind') == 'canonical-full-gui-a2':
+        from full_profile import require_profile
+        return require_profile(inputs)
     if inputs.get('full375_source_closed') is not True or inputs.get('original375_source_bindings_verified') is not True:
         raise ValueError('actual full source and original component binding proof required')
     original = inputs.get('original375_selected_parts', {})

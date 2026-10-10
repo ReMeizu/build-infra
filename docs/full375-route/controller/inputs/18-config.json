@@ -1,0 +1,158 @@
+{
+  "product_name": "m5c",
+  "device_company": "oniro",
+  "device_build_path": "device/board/oniro/hybris_generic",
+  "target_cpu": "arm64",
+  "type": "standard",
+  "version": "3.0",
+  "board": "hybris_generic",
+  "api_version": 8,
+  "enable_ramdisk": true,
+  "enable_absystem": false,
+  "build_selinux": false,
+  "build_seccomp": false,
+  "inherit": [
+    "productdefine/common/base/standard_system.json"
+  ],
+  "subsystems": [
+    {
+      "subsystem": "security",
+      "components": [
+        {
+          "component": "selinux_adapter",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "oniro_soc_products",
+      "components": [
+        {
+          "component": "hybris_generic_soc",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "device_hybris_generic",
+      "components": [
+        {
+          "component": "device_hybris_generic",
+          "features": [
+            "oniro_androidd_static_binder = true",
+            "oniro_androidd_legacy_cmdline_boot = true"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "product_hybris_generic",
+      "components": [
+        {
+          "component": "product_hybris_generic",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "hdf",
+      "components": [
+        {
+          "component": "drivers_peripheral_display",
+          "features": [
+            "drivers_peripheral_display_community = true",
+            "drivers_peripheral_display_vdi_default = true"
+          ]
+        },
+        {
+          "component": "hdf_core",
+          "features": [
+            "hdf_core_platform_test_support = false",
+            "hdf_core_default_peripheral_config = false"
+          ]
+        },
+        {
+          "component": "drivers_tools",
+          "features": []
+        },
+        {
+          "component": "drivers_adapter",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "startup",
+      "components": [
+        {
+          "component": "init",
+          "features": [
+            "init_feature_ab_partition = false"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "thirdparty",
+      "components": [
+        {
+          "component": "libhybris",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "graphic",
+      "components": [
+        {
+          "component": "graphic_2d",
+          "features": [
+            "graphic_2d_feature_rs_enable_eglimage = true",
+            "graphic_2d_feature_rs_enable_uni_render = true",
+            "graphic_2d_feature_use_texgine = true",
+            "graphic_2d_feature_upgrade_skia = true"
+          ]
+        },
+        {
+          "component": "graphics_effect",
+          "features": []
+        },
+        {
+          "component": "graphic_surface",
+          "features": []
+        },
+        {
+          "component": "graphic_utils_lite",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "developtools",
+      "components": [
+        {
+          "component": "hdc",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "hiviewdfx",
+      "components": [
+        {
+          "component": "hidumper",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "startup",
+      "components": [
+        {
+          "component": "appspawn",
+          "features": []
+        }
+      ]
+    }
+  ]
+}

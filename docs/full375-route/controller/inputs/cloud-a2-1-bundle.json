@@ -1,0 +1,36 @@
+{
+  "component": {
+    "build": {
+      "sub_component": [
+        "//vendor/oniro/hybris_generic/hdf_config/uhdf:hdf_config",
+        "//vendor/oniro/hybris_generic/preinstall-config:preinstall-config",
+        "//vendor/oniro/oniro-haps:oniro_custom_haps",
+        "//vendor/oniro/wallpaper:oniro_wallpaper",
+        "//vendor/oniro/hybris_generic/etc:product_etc_conf",
+        "//vendor/oniro/hybris_generic/hals/audio:hdf_audio_config",
+        "//vendor/oniro/hybris_generic/hals/codec:hdf_codec_config",
+        "//vendor/oniro/hybris_generic/resourceschedule:resourceschedule",
+        "//vendor/oniro/hybris_generic/custom_conf:custom_config"
+      ]
+    },
+    "deps": {
+      "components": [],
+      "third_party": []
+    },
+    "features": [
+      "sparse_image",
+      "oniro_hdf_selected_config"
+    ],
+    "name": "product_hybris_generic",
+    "subsystem": "product_hybris_generic",
+    "syscap": []
+  },
+  "dirs": [
+    ""
+  ],
+  "license": "Apache License 2.0",
+  "name": "@ohos/product_hybris_generic",
+  "private": false,
+  "scripts": {},
+  "version": "3.1"
+}
