@@ -176,3 +176,7 @@ compiler labels, test dependencies and the full375 boundary are unchanged.
 ## SDK production source successor
 
 The [SDK source state](SDK_PRODUCTION_COHORT_STATE.a1.md) binds the authenticated A8 missing SDK component and seven original production providers. Exact110/95 source is282999 members/2417336233 bytes; expanded5823333912 bytes. All prior103/88 inputs/features and earlier ancestry remain guarded. The source+Rust+6GiB preparation floor is9208796092 bytes, below the existing10GiB RAM allocation; the12GiB available-memory floor and later phase gates are unchanged. This is a measured source admission, not a full375 or image/runtime claim.
+
+## Storage production source successor
+
+The [storage source state](STORAGE_PRODUCTION_COHORT_STATE.a1.md) binds the authenticated A9 missing storage component and the original default-enabled production dependency batch. Exact123/109 source is290070 files/2463660886 bytes; expanded5869658565 bytes. The preparation source+Rust+6GiB floor is9255120745 bytes, below the unchanged10GiB RAM allocation. All110/95 source/features and earlier ancestry remain guarded; no thermal/battery/device-profile conditional feature activation or full375/image claim is made.

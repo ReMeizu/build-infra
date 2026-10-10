@@ -62,12 +62,12 @@ class PublicInputControls(unittest.TestCase):
         import json
         lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
         validate_lock(lock,gni);proof=validate_cohort_proof(lock,gni,HERE/'controller')
-        self.assertEqual(len(proof['actual_selected_parts']),95)
+        self.assertEqual(len(proof['actual_selected_parts']),109)
         self.assertTrue(all(proof['actual_selected_parts'][k]==v for k,v in proof['baseline_selected_parts'].items()))
     def test_unreviewed_production_proof_or_counts_refused(self):
         import json,copy
         lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
-        for mutated in (dict(lock,selected_part_count=94),dict(lock,cohort_proof={}),dict(lock,gn_inputs_sha256='0'*64)):
+        for mutated in (dict(lock,selected_part_count=108),dict(lock,cohort_proof={}),dict(lock,gn_inputs_sha256='0'*64)):
             with self.assertRaises(ValueError):validate_lock(mutated,gni)
     def test_changed_original_sdk_or_source_row_refused(self):
         import json,copy
@@ -102,7 +102,7 @@ class PublicInputControls(unittest.TestCase):
         lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
         proof=validate_cohort_proof(lock,gni,HERE/'controller');parent=proof['source_admitted_parent102']
         self.assertEqual(len(parent['selected_parts']),86)
-        self.assertEqual(set(proof['immediate_parent']['selected_parts'])-set(parent['selected_parts']),{'hdf:drivers_interface_memorytracker','commonlibrary:memory_utils'})
+        self.assertEqual(set(proof['source_admitted_parent103']['selected_parts'])-set(parent['selected_parts']),{'hdf:drivers_interface_memorytracker','commonlibrary:memory_utils'})
         self.assertEqual(proof['existing_source_component_additions'][0]['provider_path'],'drivers/interface')
         self.assertTrue(all(proof['actual_selected_parts'][k]==v for k,v in parent['selected_parts'].items()))
         memory=next(r for r in gni['projects'] if r['path']=='commonlibrary/memory_utils')
@@ -119,9 +119,9 @@ class PublicInputControls(unittest.TestCase):
     def test_sdk_production_batch_preserves_parent103_and_original_compiler_mode(self):
         import json
         lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
-        proof=validate_cohort_proof(lock,gni,HERE/'controller');parent=proof['immediate_parent']
+        proof=validate_cohort_proof(lock,gni,HERE/'controller');parent=proof['source_admitted_parent103']
         self.assertEqual(len(parent['selected_parts']),88)
-        self.assertEqual(set(proof['actual_selected_parts'])-set(parent['selected_parts']),{'arkcompiler:ets_frontend', 'sdk:sdk', 'thirdparty:abseil-cpp', 'thirdparty:zlib', 'thirdparty:protobuf', 'developtools:ace_ets2bundle', 'thirdparty:typescript'})
+        self.assertEqual(set(proof['immediate_parent']['selected_parts'])-set(parent['selected_parts']),{'arkcompiler:ets_frontend', 'sdk:sdk', 'thirdparty:abseil-cpp', 'thirdparty:zlib', 'thirdparty:protobuf', 'developtools:ace_ets2bundle', 'thirdparty:typescript'})
         self.assertTrue(proof['sdk_production_closure']['abseil_required_by_protobuf'])
         self.assertTrue(proof['sdk_production_closure']['frontend_independent_compiler_branch_unchanged_false'])
         self.assertFalse(proof['sdk_production_closure']['compiler_version_changed'])
@@ -134,6 +134,27 @@ class PublicInputControls(unittest.TestCase):
         bad=copy.deepcopy(gni)
         next(r for r in bad['projects'] if r['path']=='commonlibrary/memory_utils')['tracked_inventory_sha256']='0'*64
         with self.assertRaisesRegex(ValueError,'A8 project103 rows'):validate_cohort_proof(lock,bad,HERE/'controller')
+    def test_storage_production_batch_preserves_parent110_and_existing_f2fs_rows(self):
+        import json
+        lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
+        proof=validate_cohort_proof(lock,gni,HERE/'controller');parent=proof['immediate_parent']
+        self.assertEqual(len(parent['selected_parts']),95)
+        self.assertEqual(set(proof['actual_selected_parts'])-set(parent['selected_parts']),{'distributeddatamgr:preferences', 'distributedhardware:device_manager', 'thirdparty:exfatprogs', 'filemanagement:storage_service', 'thirdparty:libfuse', 'powermgr:power_manager', 'filemanagement:dfs_service', 'security:dataclassification', 'thirdparty:ntfs-3g', 'tee:tee_client', 'communication:netmanager_base', 'resourceschedule:memmgr', 'thirdparty:gptfdisk', 'thirdparty:f2fs-tools'})
+        self.assertEqual(proof['storage_production_closure']['existing_source_registration'],'thirdparty:f2fs-tools')
+        self.assertFalse(proof['storage_production_closure']['new_component_feature_overrides'])
+        self.assertFalse(proof['storage_production_closure']['unselected_conditional_neighbors_activated'])
+        self.assertFalse(proof['storage_production_closure']['closure_complete'])
+        row=next(x for x in proof['existing_source_component_additions'] if x['part']=='thirdparty:f2fs-tools')
+        self.assertEqual(row['head'],'65ed3a7d917102f642497e1d46addc7ab2b46aab')
+    def test_source_admitted_sdk_members_cannot_drift(self):
+        import json,copy
+        lock=json.loads((HERE/'public_inputs.lock.json').read_text());gni=json.loads((HERE/'controller/GN_INPUTS.json').read_text())
+        bad=copy.deepcopy(gni)
+        next(r for r in bad['source_files'] if r['path']=='interface/sdk-js/bundle.json')['sha256']='0'*64
+        with self.assertRaisesRegex(ValueError,'A9 source110 rows'):validate_cohort_proof(lock,bad,HERE/'controller')
+        bad=copy.deepcopy(gni)
+        next(r for r in bad['projects'] if r['path']=='interface/sdk-js')['tracked_inventory_sha256']='0'*64
+        with self.assertRaisesRegex(ValueError,'A9 project110 rows'):validate_cohort_proof(lock,bad,HERE/'controller')
     def test_lfs_timeout_kills_owned_descendant_holding_stdout_pipe(self):
         import os,time,subprocess
         code="import os,time,signal; p=os.fork(); signal.signal(signal.SIGTERM,signal.SIG_IGN); time.sleep(30)"
@@ -219,7 +240,7 @@ class PublicInputControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'source-only public acquisition'):
             validate_lock({'schema':'fake','public_sources_only':False},{})
     def test_exact_intermediate_count_required(self):
-        with self.assertRaisesRegex(ValueError,'110/95'):
+        with self.assertRaisesRegex(ValueError,'123/109'):
             validate_lock({'schema':'remeizu.free-hosted-native-public-inputs.v1','public_sources_only':True,'private_android_inputs':False,'source_projects':87,'selected_part_count':71},{'projects':[]})
     def test_actual_public_88_72_lock_matches_exact_gn_inventory(self):
         import json

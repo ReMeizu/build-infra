@@ -1,5 +1,5 @@
 name: Public-source OpenHarmony native intermediate
-run-name: Native95 public source by @${{ github.actor }}
+run-name: Native109 public source by @${{ github.actor }}
 on:
   push:
     branches:

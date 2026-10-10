@@ -1,10 +1,10 @@
 {
   "cohort_proof": {
-    "path": "inputs/SDK_PRODUCTION_COHORT_PROOF.a1.json",
-    "sha256": "08e0c21c70bd0c61b08d0078a34475cc088308f8fb3a96936fa42871e33b9965"
+    "path": "inputs/STORAGE_PRODUCTION_COHORT_PROOF.a1.json",
+    "sha256": "a72a3cba20cf2e1ae2d386631ac67b867bcdf224909347a1f025d41bfc1a689c"
   },
   "controller_path": "docs/free-hosted-route/controller",
-  "expanded_bytes": 5823333912,
+  "expanded_bytes": 5869658565,
   "full375_phone": false,
   "global_source_links": [
     {
@@ -12,7 +12,7 @@
       "target": "build/core/gn/dotfile.gn"
     }
   ],
-  "gn_inputs_sha256": "f4f6a616da4127f3a1a137ac5a936d0ce8561a82d557d1a6b078bb6819e40eab",
+  "gn_inputs_sha256": "a0fff331eac3f3594631b39be05b8f75f78dbfc87ba23798146db926f1ac0ba6",
   "native_compile_executed": false,
   "private_android_inputs": false,
   "projects": [
@@ -1039,14 +1039,131 @@
       "path": "third_party/abseil-cpp",
       "uninitialized_gitlinks": [],
       "url": "https://github.com/eclipse-oniro-mirrors/third_party_abseil-cpp"
+    },
+    {
+      "git_tree": "a421d0561e0b059c29d2959c8ab822b22726fc42",
+      "head": "51abc35b057bf8dd2591df1c3ab5f60a1f3e2bc3",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/powermgr/power_manager",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/powermgr_power_manager"
+    },
+    {
+      "git_tree": "e5e749165b94d4c17d28a48796fc8f3b8d0ed310",
+      "head": "b3bd60c67ef18b12a8574cbe0aae1fcc51dd1ddb",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/security/dataclassification",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/security_dataclassification"
+    },
+    {
+      "git_tree": "0e458da0ec61898fca0af1dbfcdef38a35e066a8",
+      "head": "b1d59fdb4a80f1490b736ff5ef86bb7b831dd1f9",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/tee/tee_client",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/tee_tee_client"
+    },
+    {
+      "git_tree": "137ac2f5d982753197646cd48c41e644d19339e3",
+      "head": "8b7d4ca598afcb797c5d63e98b9655c652cc1494",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/communication/netmanager_base",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/communication_netmanager_base"
+    },
+    {
+      "git_tree": "56053870e340279344eeec320c4058c68a165486",
+      "head": "603bc35347eb88f69174c65b064e821fb382f7d3",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/distributeddatamgr/preferences",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/distributeddatamgr_preferences"
+    },
+    {
+      "git_tree": "b815cb12288d25d495cec079abc0bfb5b8a3a9c7",
+      "head": "c434623edf31d89f07b8e497a9c61e8b5e2dbada",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/distributedhardware/device_manager",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/distributedhardware_device_manager"
+    },
+    {
+      "git_tree": "ce5bc4580b883f683e7cc5258be9412380f5e1f2",
+      "head": "c5db881ae9848152c4920cca25524908815430b0",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/filemanagement/dfs_service",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/filemanagement_dfs_service"
+    },
+    {
+      "git_tree": "9fa2b304c0cbd0640f7078b057c04b8120042a47",
+      "head": "77918ca4bca54ec8a69e03cb9fc268ca6c63eb4a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/filemanagement/storage_service",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/filemanagement_storage_service"
+    },
+    {
+      "git_tree": "36a2adbbb92b0a77c3b01070e2694deadcea8573",
+      "head": "a6f0d0cb3922a6b4922b5e4980e5e23d3f5a7644",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/resourceschedule/memmgr",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/resourceschedule_memmgr"
+    },
+    {
+      "git_tree": "a00abd50ddeb33690124d38b83270d58ae8f08ba",
+      "head": "52c0ea2ae1fffcc3f12a0c4cb9c417b31651a716",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/exfatprogs",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_exfatprogs"
+    },
+    {
+      "git_tree": "df116e6fe4308b5784a4d1966b1884b67f08339e",
+      "head": "88f5f9c0002ed400a2418b41550fa73076f9be7d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/gptfdisk",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_gptfdisk"
+    },
+    {
+      "git_tree": "83d6fd057e7229aa8079021fca02c2155fd2dd2c",
+      "head": "fd0dd9d9182d75e378467720a75d385cdefc88fc",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/libfuse",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_libfuse"
+    },
+    {
+      "git_tree": "8fe2df71c845ae1d1cf8d04587a1f5307a93b5a7",
+      "head": "c1fc6e9de8fc3a7f2e4c6ff8cafbf50bb3a2cc50",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/ntfs-3g",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_ntfs-3g"
     }
   ],
   "public_sources_only": true,
   "rust_layout_bytes": 349008915,
   "schema": "remeizu.free-hosted-native-public-inputs.v1",
-  "selected_part_count": 95,
-  "source_bytes": 2417336233,
-  "source_projects": 110,
+  "selected_part_count": 109,
+  "source_bytes": 2463660886,
+  "source_projects": 123,
   "tools": [
     {
       "archive_bytes": 8961587,
