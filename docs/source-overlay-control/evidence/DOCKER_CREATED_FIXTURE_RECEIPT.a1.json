@@ -1,0 +1,26 @@
+{
+  "schema": "remeizu.actual-source-Docker-start-refusal.v1",
+  "containers": [
+    {
+      "id": "825d058944c5e7d0468ffd00bb4bec5249d39b5e02bc577eb8c66cce19bea0f5",
+      "name": "remeizu-full375-source-fixture-199316",
+      "state": "created",
+      "running": false,
+      "image": "sha256:47e90fb8e5a6d1aef5a7e917e2b019ada77d81d20e9c88b57cd6b3d31450b8fe",
+      "owned_label": "full375-overlay",
+      "state_error_bytes": 0
+    },
+    {
+      "id": "aabb554d5ba2c33cd001083cc32c7eacf455684d911479224eb384d353328f4d",
+      "name": "remeizu-full375-source-fixture-239375",
+      "state": "created",
+      "running": false,
+      "image": "sha256:47e90fb8e5a6d1aef5a7e917e2b019ada77d81d20e9c88b57cd6b3d31450b8fe",
+      "owned_label": "full375-overlay",
+      "state_error_bytes": 0
+    }
+  ],
+  "Docker_recursive_visibility_proven": false,
+  "target_compilation": false,
+  "entrypoint_cause_proven": false
+}

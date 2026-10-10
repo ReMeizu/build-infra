@@ -1,0 +1,37 @@
+{
+  "schema": "remeizu.actual-RAM-source-overlay-fixture.v1",
+  "actual_source_readonly_lower_preserved": true,
+  "actual_lower_source_rows_before": {
+    "lower_inventory_sha256": "1588a803c03d40dc71fb33f96661fc55676c8a1beb4a1569c9c8a94b1cb8515d",
+    "source_files": 1,
+    "source_identity_verified": true,
+    "full375_dependency_closure": false,
+    "full375_images": false
+  },
+  "actual_lower_source_rows_after": {
+    "lower_inventory_sha256": "1588a803c03d40dc71fb33f96661fc55676c8a1beb4a1569c9c8a94b1cb8515d",
+    "source_files": 1,
+    "source_identity_verified": true,
+    "full375_dependency_closure": false,
+    "full375_images": false
+  },
+  "original_source_sha256": "8088122e3d62280c341795fae659999727a3676b9b6544c64b6e5ac66153435f",
+  "copied_up_source_sha256": "a3573f3a5caf49462c54ea7d7ab583c24768ec331c6f715450b685c1f34cec16",
+  "actual_upper_files_bytes": 80,
+  "actual_mount_types": {
+    "lower": "ext4",
+    "upper": "tmpfs",
+    "work": "tmpfs",
+    "merged": "overlay"
+  },
+  "actual_worker": {
+    "actual_worker_uid": 1000,
+    "lower_write_denied_EROFS": true,
+    "merged_write_pass": true
+  },
+  "private_mount_namespace": true,
+  "target_compilation": false,
+  "Docker_bind_visibility_tested": false,
+  "full375_fit_proven": false,
+  "official_Forge_or_worker_modified": false
+}

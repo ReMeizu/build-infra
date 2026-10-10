@@ -1,0 +1,169 @@
+{
+  "actual_run_id": 38049622408,
+  "exact_head_sha": "e91cd762803a273ce2695398bcb9fbfee2a6bbbd",
+  "actual_public_result": {
+    "Docker_recursive_visibility_proven": true,
+    "actual_Forge_returncode": 0,
+    "actual_artifact_manifest_sha256": "2195e953ec53512aef25053b071191f19a1c37f79d8942b20eaa9fce7f0e023b",
+    "actual_artifacts": {
+      "SOURCE_WORKER_PROOF.json": "ea8ec570b728dda12d1758bd05e5cb722de366c7338d4574abfd0e7504eb02b8",
+      "retained/probe.txt": "453d6c11971e72ef80b6df39af96a88e8121d42e340b80975cdddba3e11b2f87"
+    },
+    "actual_control_Git": {
+      "head": "f5d9f75cd0a76b777a068017b04e6f5f6c330cee",
+      "tree": "91804faeb18c3cd2a6978b56d4eed3da51a3bde6"
+    },
+    "actual_image_id": "sha256:76bd9fb89ce82b46ff072b58b60fa19b058b3e899de160852caf59daf5963d7c",
+    "fixed_bounded_log_reason_codes": [],
+    "full375_fit_proven": false,
+    "full375_images": false,
+    "independent_lower_after": {
+      "full375_dependency_closure": false,
+      "full375_images": false,
+      "lower_inventory_sha256": "ce71b9886e4cf46b491bd58a0149436e34ed4b16bcbca3e1aeba974e4dda702d",
+      "source_files": 2,
+      "source_identity_verified": true
+    },
+    "lower_after": {
+      "full375_dependency_closure": false,
+      "full375_images": false,
+      "lower_inventory_sha256": "ce71b9886e4cf46b491bd58a0149436e34ed4b16bcbca3e1aeba974e4dda702d",
+      "source_files": 2,
+      "source_identity_verified": true
+    },
+    "lower_before": {
+      "full375_dependency_closure": false,
+      "full375_images": false,
+      "lower_inventory_sha256": "ce71b9886e4cf46b491bd58a0149436e34ed4b16bcbca3e1aeba974e4dda702d",
+      "source_files": 2,
+      "source_identity_verified": true
+    },
+    "official_Dockerfile_sha256": "bdaa70b28298b269a8009335a9e90987fde0dd1ff08dad5369d133aeb0aadf3b",
+    "official_Forge_sha256": "9a01d1c452ecf14674a9df1f7512176f30b1fe2949660e2ea743960e7d400bb8",
+    "official_Forge_submitted": true,
+    "official_owned_closure": {
+      "all_owned_container_closure_pass": true,
+      "owned_states": [
+        {
+          "invocation": "20246b972303167ce2878a71a3162779",
+          "known_container_absent": true,
+          "owned_client_reaped": true,
+          "owned_closed": true
+        }
+      ],
+      "producer_history_rewritten": false,
+      "recipe_hash": "b320d860dd908dd2c1582d34373cffeb0e034dc89b3d0da5403aaabc363dd1cf",
+      "schema": "remeizu.source-control-owned-closure.v1"
+    },
+    "owned_RAM_log_witnesses": [
+      {
+        "bytes": 1718,
+        "name": "FORGE.stderr",
+        "sha256": "76d4de31c9aa0a03bf8a4a94d6121a69955296c18e7385bb054e07533452b240"
+      },
+      {
+        "bytes": 469,
+        "name": "FORGE.stdout",
+        "sha256": "0bcdf5e19b8c3cf62ae6f637f65d3337ba291f36e76ef9fbc4ed10be29a82428"
+      },
+      {
+        "bytes": 0,
+        "name": "lower-bind.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 0,
+        "name": "lower-bind.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 0,
+        "name": "lower-readonly.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 0,
+        "name": "lower-readonly.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 112562,
+        "name": "official-Docker-build.stderr",
+        "sha256": "a9df6c2e102547b6f1c171d28c73ae13d2f9154a9826ec314bae0aff3a4635de"
+      },
+      {
+        "bytes": 0,
+        "name": "official-Docker-build.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 0,
+        "name": "official-image-inspect.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 72,
+        "name": "official-image-inspect.stdout",
+        "sha256": "81d5bc4e8946ac62bbc1550e8e670db5566798d8e649005251522220e72c44b2"
+      },
+      {
+        "bytes": 0,
+        "name": "prelaunch-image-inspect.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 72,
+        "name": "prelaunch-image-inspect.stdout",
+        "sha256": "81d5bc4e8946ac62bbc1550e8e670db5566798d8e649005251522220e72c44b2"
+      },
+      {
+        "bytes": 0,
+        "name": "source-overlay-mount.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 0,
+        "name": "source-overlay-mount.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "private_android_inputs": false,
+    "recipe_hash": "b320d860dd908dd2c1582d34373cffeb0e034dc89b3d0da5403aaabc363dd1cf",
+    "run_id": "38049622408",
+    "schema": "remeizu.standard-public-source-overlay-control.v1",
+    "status": "ACTUAL_SOURCE_FILESYSTEM_CONTROL_PASS_NOT_FULL375",
+    "target_compilation": false,
+    "worker": {
+      "actual_gid": 1001,
+      "actual_overlay_type": "overlay",
+      "actual_uid": 1001,
+      "actual_upper_type": "tmpfs",
+      "actual_work_type": "tmpfs",
+      "full375_fit_proven": false,
+      "full375_images": false,
+      "private_android_inputs": false,
+      "same_RAM_artifact": {
+        "actual_same_inode_RAM_hardlink": true,
+        "artifact_bytes": 34,
+        "artifact_sha256": "453d6c11971e72ef80b6df39af96a88e8121d42e340b80975cdddba3e11b2f87",
+        "target_compilation_proven_by_filesystem_control": false
+      },
+      "schema": "remeizu.cloud-source-overlay-worker-control.v1",
+      "source_after": {
+        "full375_dependency_closure": false,
+        "full375_images": false,
+        "lower_inventory_sha256": "ce71b9886e4cf46b491bd58a0149436e34ed4b16bcbca3e1aeba974e4dda702d",
+        "source_files": 2,
+        "source_identity_verified": true
+      },
+      "source_before": {
+        "full375_dependency_closure": false,
+        "full375_images": false,
+        "lower_inventory_sha256": "ce71b9886e4cf46b491bd58a0149436e34ed4b16bcbca3e1aeba974e4dda702d",
+        "source_files": 2,
+        "source_identity_verified": true
+      },
+      "target_compilation": false
+    }
+  }
+}

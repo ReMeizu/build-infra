@@ -1,0 +1,27 @@
+# Source-overlay control on the standard public runner
+
+This is a source-filesystem control for the full375 continuation. Actual measured source already exceeds the unchanged whole-shadow allocator. The control uses only literal fixture text and a source symlink; it never executes GN, Ninja or Clang or claims native images/full375 fit. Current native103/88 source, selectors, SDK archives, flags, labels and policy are unchanged.
+
+An owned host-visible readonly disk lower bind and RAM upper/work/merged are mounted before unchanged Forge creates its container. The original Local Forge recipe mounts the control source readonly, output in RAM, and the same owned RAM root at /workspace/ram. The worker validates exact source SHA/size/mode/link before and after copy-up, writes generated fixture output in RAM and creates a same-inode RAM hardlink into the genuine Forge output directory. Actual SUCCESS/artifacts/recipe and full two-file readbacks are required. Private unshare source controls cannot establish Docker daemon visibility.
+
+The workflow uses only ubuntu-24.04 public GitHub compute, exact repository/branch/first attempt, contents read and pinned checkout; job25m/outer20m. Official Android9 Dockerfile and Forge SHA are checked before/after. Docker environment build10m maximum, source worker120s and controller180s with35s Forge SIGINT cleanup. Only exact official ownership metadata can trigger container cleanup; only the three owned mountpoints are unmounted. No private inputs, secrets, raw artifacts/cache/Release uploads, host installs, paid budgets or current native branch changes. Root owns commit/publication; first push of this exact new branch starts the authorized control.
+
+Eleven local controls passed: exact public branch, lower-byte/mode/extra-file refusal, real same-RAM hardlink, byte-exact Forge artifact enumeration, real original Forge Docker argv construction and wrong-SHA/disk-output refusal. Copied evidence contains genuine host readonly-lower/RAM-upper controls and the honest local Docker Created-state failure. The embedded RAM controller Git commits exactly three verified control files after PLAN, and actual Forge source provenance is bound before/after/SUCCESS. Independent source-control cleanup through the unchanged one-state Forge guard preserves original state JSON and requires both client_reaped and cleanup_needed=false plus independently absent exact full ID; it rejects unresolved late creation before any owned unmount. Native finish_attempt.py is not imported or changed. Fixed source-owned phase/code, actual exit and bounded known-log reason codes are printed before RAM teardown; arbitrary stderr is never printed. Local Docker recursion has not passed. The next reviewed standard-runner control must prove visibility, ownership, cleanup and artifact semantics; it is not a full native producer.
+
+The proposed full route retains original allocation refusal and independently measures copy-up/Rust/generated objects/images/retention RAM. It must not count large readonly lower bytes as physical copied shadow, but must still verify every source row and preserve all375 features/syscap/dynamicparts and real GN target bindings. A positive small fixture does not certify full source closure, full outputs or full fit.
+
+Primary semantics: [Linux OverlayFS](https://docs.kernel.org/filesystems/overlayfs.html) and [Docker bind mounts](https://docs.docker.com/engine/storage/bind-mounts/).
+
+The resource successor measures actual runner disk availability, inode counters,
+kernel memory/swap counters and available logical CPUs before the official
+environment build, after the environment build and after the filesystem control.
+It records which labeled paths share a filesystem so their capacities cannot be
+added twice. Measurements are read-only and expose no environment secrets or
+host identity. No package, image or foreign directory is removed to obtain space.
+The separately tested disk lower-bound helper refuses insufficient measured source storage;
+its success never proves full source acquisition, compiler peak, RAM output or
+full375 fit. This tiny control does not invoke that helper for a full source set;
+actual complete source bytes are still pending. All three resource measurements
+are required for control success; a failed final measurement preserves the real
+filesystem producer evidence and returns a resource refusal. The earlier actual
+control run remains a filesystem result only.
