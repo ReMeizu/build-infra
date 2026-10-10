@@ -11,6 +11,7 @@ import signal
 import subprocess
 import sys
 import ram_overlay_protocol as model
+import resources
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
@@ -68,6 +69,12 @@ def checked_job(env):
     if event['repository'].get('private') is not False or os.geteuid()==0 or env.get('RUNNER_ARCH')!='X64':raise ValueError('public non-root x64 standard runner required')
     if not re.fullmatch('[0-9]+',env.get('GITHUB_RUN_ID','')):raise ValueError('actual control run identity required')
 
+def final_resources(result,paths):
+    """Require the final counters without discarding actual filesystem evidence."""
+    try:result['resources_after_control']=resources.snapshot(paths)
+    except Exception as error:
+        result.update(resources_after_control_refused=type(error).__name__,status='SOURCE_CONTROL_REFUSED',fixed_phase='resource-after-control',fixed_error_code='RUNNER_RESOURCE_MEASUREMENT_REFUSED')
+
 def main():
     checked_job(os.environ)
     if model.sha(FORGE)!=FORGE_SHA or model.sha(DOCKERFILE)!=DOCKER_SHA:raise ValueError('byte-exact official source references required')
@@ -76,6 +83,7 @@ def main():
     job.mkdir(mode=0o700);ram=job/'ram';ram.mkdir();disk=job/'literal-lower';disk.mkdir()
     uid,gid=os.getuid(),os.getgid();mounts=[];forge=None;actual=None;phase='RAM-mount';rows=None;inventory=None;git_identity=None;control=None
     result={'schema':'remeizu.standard-public-source-overlay-control.v1','run_id':os.environ['GITHUB_RUN_ID'],'target_compilation':False,'private_android_inputs':False,'full375_images':False,'full375_fit_proven':False,'Docker_recursive_visibility_proven':False}
+    result['resources_before_environment']=resources.snapshot({'runner_temp':job,'workspace':ROOT})
     def command(argv,timeout=30):
         with (ram/(phase+'.stdout')).open('wb') as out,(ram/(phase+'.stderr')).open('wb') as err:
             p=subprocess.Popen([str(x) for x in argv],stdout=out,stderr=err,start_new_session=True)
@@ -97,6 +105,7 @@ def main():
         image=(ram/(phase+'.stdout')).read_text().strip()
         if not re.fullmatch('sha256:[a-f0-9]{64}',image):raise ValueError('actual immutable source control image required')
         result['actual_image_id']=image
+        result['resources_after_environment']=resources.snapshot({'runner_temp':job,'workspace':ROOT,'ram':ram})
         (disk/'source.txt').write_text('immutable literal source fixture\n');(disk/'source.txt').chmod(0o644);(disk/'.gn').symlink_to('source.txt')
         rows=[{'path':'source.txt','bytes':(disk/'source.txt').stat().st_size,'mode':'0o644','sha256':model.sha(disk/'source.txt')},{'path':'.gn','symlink':'source.txt'}]
         inventory=hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
@@ -146,6 +155,7 @@ def main():
         result.update(status='SOURCE_CONTROL_REFUSED',fixed_phase=phase,error_type=type(error).__name__,fixed_error_code=failure_code(error))
         if isinstance(error,subprocess.CalledProcessError):result['actual_setup_exit_code']=error.returncode
     finally:
+        final_resources(result,{'runner_temp':job,'workspace':ROOT,'ram':ram})
         # Preserve source-owned diagnosis before volatile RAM disappears.
         result['owned_RAM_log_witnesses']=[{'name':p.name,'bytes':p.stat().st_size,'sha256':model.sha(p)} for p in sorted(ram.glob('*')) if p.is_file() and p.suffix in ('.stdout','.stderr')]
         logpaths=[p for p in ram.glob('*') if p.suffix in ('.stdout','.stderr')]

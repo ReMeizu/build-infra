@@ -11,3 +11,17 @@ Eleven local controls passed: exact public branch, lower-byte/mode/extra-file re
 The proposed full route retains original allocation refusal and independently measures copy-up/Rust/generated objects/images/retention RAM. It must not count large readonly lower bytes as physical copied shadow, but must still verify every source row and preserve all375 features/syscap/dynamicparts and real GN target bindings. A positive small fixture does not certify full source closure, full outputs or full fit.
 
 Primary semantics: [Linux OverlayFS](https://docs.kernel.org/filesystems/overlayfs.html) and [Docker bind mounts](https://docs.docker.com/engine/storage/bind-mounts/).
+
+The resource successor measures actual runner disk availability, inode counters,
+kernel memory/swap counters and available logical CPUs before the official
+environment build, after the environment build and after the filesystem control.
+It records which labeled paths share a filesystem so their capacities cannot be
+added twice. Measurements are read-only and expose no environment secrets or
+host identity. No package, image or foreign directory is removed to obtain space.
+The separately tested disk lower-bound helper refuses insufficient measured source storage;
+its success never proves full source acquisition, compiler peak, RAM output or
+full375 fit. This tiny control does not invoke that helper for a full source set;
+actual complete source bytes are still pending. All three resource measurements
+are required for control success; a failed final measurement preserves the real
+filesystem producer evidence and returns a resource refusal. The earlier actual
+control run remains a filesystem result only.
