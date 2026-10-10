@@ -1,0 +1,3 @@
+# Raw patch context whitespace
+
+Root full staged diff-check reports two trailing-space context rows in the new19-A13_HEADER_GN_PREPEND.a12.patch at lines11 and26. Those are unchanged original-source context bytes retained for exact patch application; no authored added GN statement contains trailing whitespace. The raw patch stays SHA b40f52b5209b987579669f15b68694d148b275e3e25df2c004d10adfc609bfcf and six focused exact-application/order/guard controls passed. Root authored-file staged diff-check excluding only this raw hash-bound patch passes; a whole-patch whitespace PASS is not claimed. Original source/old patch bytes and all frozen authored hashes remain unchanged.

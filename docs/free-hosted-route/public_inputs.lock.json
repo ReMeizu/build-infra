@@ -12,8 +12,12 @@
       "target": "build/core/gn/dotfile.gn"
     }
   ],
-  "gn_inputs_sha256": "3a2b05b6d5c2e0493b494d816fa52ea5b2d82042b464ad8b47e0655fd5ea90eb",
+  "gn_inputs_sha256": "c84761f5a94a3370aca702e6bdea222b3049b626ecfce9fc8987e6467ad26aa4",
   "native_compile_executed": false,
+  "patch_source_correction": {
+    "path": "inputs/LIBHYBRIS_GN_PREPEND_PROOF.a12.json",
+    "sha256": "6f3638c36a21c60f63fd5c552c2f91e9bbf0b8867ec98c9028bea7c4f32bc374"
+  },
   "private_android_inputs": false,
   "projects": [
     {

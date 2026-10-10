@@ -114,7 +114,7 @@ def validate_lock(lock,inputs):
         raise ValueError('reviewed source-only public acquisition lock required')
     if lock.get('source_projects')!=136 or lock.get('selected_part_count')!=110 or len(inputs['projects'])!=136 or lock.get('source_bytes')!=inputs.get('source_bytes'):
         raise ValueError('genuine reviewed 136/110 intermediate required; full375 not admitted')
-    if lock.get('gn_inputs_sha256')!='3a2b05b6d5c2e0493b494d816fa52ea5b2d82042b464ad8b47e0655fd5ea90eb':
+    if lock.get('gn_inputs_sha256')!='c84761f5a94a3370aca702e6bdea222b3049b626ecfce9fc8987e6467ad26aa4':
         raise ValueError('reviewed measured cohort GN identity differs')
     proof_row=lock.get('cohort_proof',{})
     if proof_row!={'path':'inputs/RUST_CXX_COHORT_PROOF.a1.json','sha256':'e9bfe8607eaf598afa02a1b0c642c7a9a9010fd6ebe58e4452bf68f47bcd2b8e'}:
@@ -316,6 +316,8 @@ def validate_cohort_proof(lock,inputs,thin):
     final=[r for r in inputs['overlay_files'] if r['target']=='vendor/oniro/m5c/config.json'][-1]
     if final['path']!=proof['final_selector']['path'] or final['sha256']!=proof['final_selector']['sha256']:
         raise ValueError('reviewed actual final selector overlay differs')
+    from libhybris_patch_guard import validate_patch_source_correction
+    validate_patch_source_correction(lock,inputs,thin)
     return proof
 
 def acquire(lock,thin,dest):
