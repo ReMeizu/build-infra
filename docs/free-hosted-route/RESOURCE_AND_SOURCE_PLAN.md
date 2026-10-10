@@ -180,3 +180,7 @@ The [SDK source state](SDK_PRODUCTION_COHORT_STATE.a1.md) binds the authenticate
 ## Storage production source successor
 
 The [storage source state](STORAGE_PRODUCTION_COHORT_STATE.a1.md) binds the authenticated A9 missing storage component and the original default-enabled production dependency batch. Exact123/109 source is290070 files/2463660886 bytes; expanded5869658565 bytes. The preparation source+Rust+6GiB floor is9255120745 bytes, below the unchanged10GiB RAM allocation. All110/95 source/features and earlier ancestry remain guarded; no thermal/battery/device-profile conditional feature activation or full375/image claim is made.
+
+## Original CXX host-tool source successor
+
+The [CXX source state](RUST_CXX_COHORT_STATE.a1.md) binds authenticated A10's actual rust_cxx host-tool failure and its thirteen original source dependency providers. Onlyrust_cxx adds a selected OS part; source136/110 is291935 members/2502212846 regular bytes, expanded5908210525 bytes. The unchanged source+Rust+6GiB preparation floor is9293672705 bytes within10GiB. Original parent123/109 source/features and all ancestry remain guarded. Optional Buck and original runtime-core Gitlinks remain explicitly uninitialized in this intermediate; no full recursive source/image/runtime claim is made.

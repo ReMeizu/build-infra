@@ -1,10 +1,10 @@
 {
   "cohort_proof": {
-    "path": "inputs/STORAGE_PRODUCTION_COHORT_PROOF.a1.json",
-    "sha256": "a72a3cba20cf2e1ae2d386631ac67b867bcdf224909347a1f025d41bfc1a689c"
+    "path": "inputs/RUST_CXX_COHORT_PROOF.a1.json",
+    "sha256": "e9bfe8607eaf598afa02a1b0c642c7a9a9010fd6ebe58e4452bf68f47bcd2b8e"
   },
   "controller_path": "docs/free-hosted-route/controller",
-  "expanded_bytes": 5869658565,
+  "expanded_bytes": 5908210525,
   "full375_phone": false,
   "global_source_links": [
     {
@@ -12,7 +12,7 @@
       "target": "build/core/gn/dotfile.gn"
     }
   ],
-  "gn_inputs_sha256": "a0fff331eac3f3594631b39be05b8f75f78dbfc87ba23798146db926f1ac0ba6",
+  "gn_inputs_sha256": "3a2b05b6d5c2e0493b494d816fa52ea5b2d82042b464ad8b47e0655fd5ea90eb",
   "native_compile_executed": false,
   "private_android_inputs": false,
   "projects": [
@@ -1156,14 +1156,140 @@
       "path": "third_party/ntfs-3g",
       "uninitialized_gitlinks": [],
       "url": "https://github.com/eclipse-oniro-mirrors/third_party_ntfs-3g"
+    },
+    {
+      "git_tree": "fa0833038665fb8443e76a718a83550f07794d1c",
+      "head": "838c2274fe36df840031993db258bdcfdd5b7098",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/cxx",
+      "uninitialized_gitlinks": [
+        {
+          "directory_mode": 493,
+          "git_mode": "160000",
+          "git_object": "37752b6ec36a68c169053cb3f7ba359b677a22b6",
+          "materialized": false,
+          "path": "third_party/rust/crates/cxx/tools/buck/prelude",
+          "recursive_source_closure": false
+        }
+      ],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_cxx"
+    },
+    {
+      "git_tree": "a7eb46e9227d3274c7be0aaae7626ae427860ba9",
+      "head": "1b0f031d0ec2873a876c1efcdf705f3f5af2d64c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/clap",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_clap"
+    },
+    {
+      "git_tree": "7c148dcc41918a0f7fc1bb3b5678e790a9d5ddc0",
+      "head": "b329b01331254dc55d0f03c24adb057105a5ef3c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/codespan",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_codespan"
+    },
+    {
+      "git_tree": "44607a2d634a28d8200af64be023e15e925c3634",
+      "head": "bc2a12f195a49df8d96b0ecc064f84a573036f25",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/is-terminal",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_is-terminal"
+    },
+    {
+      "git_tree": "fd88e6be5dd9659c6ad64cbc184c6ace22771fda",
+      "head": "8b3d0327ce29b4bfd1287a7e4348888b8e6b02d0",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/strsim-rs",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_strsim-rs"
+    },
+    {
+      "git_tree": "f798d362df15e79b9f909cfd87ac2e25f8365cb7",
+      "head": "283917a41c9b4e58fafc2c766afb5ac34995e01f",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/termcolor",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_termcolor"
+    },
+    {
+      "git_tree": "d5bcfbbefffdd0cdd06e921a6f6ecc8fe3ab61d7",
+      "head": "25fef0069852cc112ba97ba369c66690f2d90328",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/heck",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_heck"
+    },
+    {
+      "git_tree": "8704525c1a033a5cf5bb1ea687e9355c68f35f99",
+      "head": "7275f6b27f289bd857bc0b42b69991f6322e798c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/unicode-width",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_unicode-width"
+    },
+    {
+      "git_tree": "e3be3404ab4083056c6c93ce6a0273560a4054d9",
+      "head": "0012d5c1d0a837f05407eafcb79d9fdac7dfea32",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/os_str_bytes",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_os_str_bytes"
+    },
+    {
+      "git_tree": "267cf7e39506ba363b8dda359ac7f08bab90e151",
+      "head": "09da1a5ec1c7fcca15ab36cc1ffe7e41fc700a5d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/io-lifetimes",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_io-lifetimes"
+    },
+    {
+      "git_tree": "db9f5edb83d94574c9a075d1ec34074c24675566",
+      "head": "7765a61d9eedb488c3583a2019941ffe1dc67a9e",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/rustix",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_rustix"
+    },
+    {
+      "git_tree": "b3972f6c5beca142634a7b2532d3a2d24ea9e493",
+      "head": "44004ce2adbaef034f2598680d3d2ba6819097b6",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/memchr",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_memchr"
+    },
+    {
+      "git_tree": "d214b1b9bfb8e333b5b01d99fb1f496fceac0482",
+      "head": "69ed916408b32330f7835a341448106e98e688d5",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/linux-raw-sys",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_linux-raw-sys"
     }
   ],
   "public_sources_only": true,
   "rust_layout_bytes": 349008915,
   "schema": "remeizu.free-hosted-native-public-inputs.v1",
-  "selected_part_count": 109,
-  "source_bytes": 2463660886,
-  "source_projects": 123,
+  "selected_part_count": 110,
+  "source_bytes": 2502212846,
+  "source_projects": 136,
   "tools": [
     {
       "archive_bytes": 8961587,
