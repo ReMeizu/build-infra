@@ -1,10 +1,10 @@
 {
   "cohort_proof": {
-    "path": "inputs/MEMORYTRACKER_COHORT_PROOF.a1.json",
-    "sha256": "bdef08ae8117c56669e4d359003b398e17d87d0e2f02f8937804dd925f14b840"
+    "path": "inputs/SDK_PRODUCTION_COHORT_PROOF.a1.json",
+    "sha256": "08e0c21c70bd0c61b08d0078a34475cc088308f8fb3a96936fa42871e33b9965"
   },
   "controller_path": "docs/free-hosted-route/controller",
-  "expanded_bytes": 5273371070,
+  "expanded_bytes": 5823333912,
   "full375_phone": false,
   "global_source_links": [
     {
@@ -12,7 +12,7 @@
       "target": "build/core/gn/dotfile.gn"
     }
   ],
-  "gn_inputs_sha256": "6718cc2eec672b640c46cd1c03ab353485d02b000887e26e1e90b831d344a022",
+  "gn_inputs_sha256": "f4f6a616da4127f3a1a137ac5a936d0ce8561a82d557d1a6b078bb6819e40eab",
   "native_compile_executed": false,
   "private_android_inputs": false,
   "projects": [
@@ -976,14 +976,77 @@
       "path": "commonlibrary/memory_utils",
       "uninitialized_gitlinks": [],
       "url": "https://github.com/eclipse-oniro-mirrors/commonlibrary_memory_utils"
+    },
+    {
+      "git_tree": "947f2ffa6af47abff3678fc240b23cabfc258dcc",
+      "head": "2d51aa4b21b83e92ac8c59ce5ff9fc4289128847",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "interface/sdk-js",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/interface_sdk-js"
+    },
+    {
+      "git_tree": "56d6137be889a9741b8b7b1edb54b55e8fcb971a",
+      "head": "c52960f7bdc653a7fcd64e5839f332c0833a157a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "arkcompiler/ets_frontend",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/arkcompiler_ets_frontend"
+    },
+    {
+      "git_tree": "be1afce6af9746d8a762ffae1ad33e4bb39e0d96",
+      "head": "0ece7e63d168b0a2f435ae0e3b3145b4f6b16d26",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/zlib",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_zlib"
+    },
+    {
+      "git_tree": "4d158bf4d6f14eb0835e8072b9059f38bc0b4b60",
+      "head": "0bdb3b7832f52dc5793da2fb67b260ef0eb97f4b",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/protobuf",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_protobuf"
+    },
+    {
+      "git_tree": "1f979f069e594aa972c060a4950762e3ef4acf0f",
+      "head": "67fd0c80ba1ba2546f8a0cec31286923f5a5a3dd",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/typescript",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_typescript"
+    },
+    {
+      "git_tree": "dba735fe3c1177e360466b65b6f5f5fe0534b8a0",
+      "head": "b2d29b3d9ab18ff9d51af6b37829ed188ba12cfb",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "developtools/ace_ets2bundle",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/developtools_ace_ets2bundle"
+    },
+    {
+      "git_tree": "86b3bc0ce22820f61a04835a8460a564c98f771c",
+      "head": "853d60fd68b012ebabd1f5858d9f754835252a0c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/abseil-cpp",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_abseil-cpp"
     }
   ],
   "public_sources_only": true,
   "rust_layout_bytes": 349008915,
   "schema": "remeizu.free-hosted-native-public-inputs.v1",
-  "selected_part_count": 88,
-  "source_bytes": 1867373391,
-  "source_projects": 103,
+  "selected_part_count": 95,
+  "source_bytes": 2417336233,
+  "source_projects": 110,
   "tools": [
     {
       "archive_bytes": 8961587,

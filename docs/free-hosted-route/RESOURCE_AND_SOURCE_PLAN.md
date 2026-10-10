@@ -172,3 +172,7 @@ and lock75694eb3607edd20ad452a05882576552e0186ce64cf969c128437f8612e0bee
 replace only the source admission. All102/86 records/features and prior
 101/85/original88/72 chains remain checked. SDK, jobs, RAM floors,
 compiler labels, test dependencies and the full375 boundary are unchanged.
+
+## SDK production source successor
+
+The [SDK source state](SDK_PRODUCTION_COHORT_STATE.a1.md) binds the authenticated A8 missing SDK component and seven original production providers. Exact110/95 source is282999 members/2417336233 bytes; expanded5823333912 bytes. All prior103/88 inputs/features and earlier ancestry remain guarded. The source+Rust+6GiB preparation floor is9208796092 bytes, below the existing10GiB RAM allocation; the12GiB available-memory floor and later phase gates are unchanged. This is a measured source admission, not a full375 or image/runtime claim.
