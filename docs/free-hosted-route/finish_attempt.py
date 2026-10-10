@@ -57,6 +57,8 @@ def closed_containers(forge,actual,recipe_hash):
             cidpath=metadata/(inv+'.cid')
             if cidpath.is_file() and not cidpath.is_symlink():cid=cidpath.read_text().strip()
         if cid and re.fullmatch('[a-f0-9]{64}',cid):
+            if cleanup.get('cleanup_needed') is not False or state.get('client_reaped') is not True:
+                raise ValueError('known owned container client reap or cleanup unresolved')
             inspected=subprocess.run(['docker','container','inspect',cid],capture_output=True,text=True,timeout=10)
             absent=inspected.returncode!=0 and ('No such object' in inspected.stderr or 'No such container' in inspected.stderr)
             if not absent:
