@@ -1,0 +1,2 @@
+#include "device_info.selected-m5c60.hcs"
+root { module = "default"; }

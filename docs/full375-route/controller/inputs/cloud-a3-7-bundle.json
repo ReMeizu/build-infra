@@ -1,0 +1,54 @@
+{
+  "component": {
+    "adapted_system_type": [],
+    "build": {
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": "//third_party/libhybris/hybris/platforms/common",
+            "header_files": [
+              "server_wlegl.h",
+              "server_wlegl_buffer.h",
+              "windowbuffer.h"
+            ]
+          },
+          "name": "//third_party/libhybris/hybris/platforms:libhybris-platformcommon"
+        }
+      ],
+      "sub_component": [
+        "//third_party/libhybris:libhybris",
+        "//third_party/libhybris/hybris/egl/platforms/ohos:eglplatform_ohos"
+      ],
+      "test": []
+    },
+    "deps": {
+      "components": [
+        "c_utils",
+        "graphic_surface",
+        "hilog",
+        "wayland"
+      ],
+      "third_party": []
+    },
+    "features": [
+      "libhybris_enable_wayland",
+      "libhybris_android_version_major",
+      "libhybris_android_header_overlay"
+    ],
+    "name": "libhybris",
+    "ram": "",
+    "rom": "",
+    "subsystem": "thirdparty",
+    "syscap": []
+  },
+  "description": "libhybris allows to use bionic-based HW adaptations in glibc systems",
+  "dirs": {},
+  "license": "Apache-2.0 AND BSD-2-Clause AND ISC AND MIT",
+  "name": "@ohos/libhybris",
+  "publishAs": "code-segment",
+  "scripts": {},
+  "segment": {
+    "destPath": "third_party/libhybris"
+  },
+  "version": "3.0"
+}

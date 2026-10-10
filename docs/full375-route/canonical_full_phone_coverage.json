@@ -1,0 +1,5248 @@
+{
+  "schema": "remeizu.canonical-full-GUI-phone-source-selector-coverage.v1",
+  "original375_requests": {
+    "arkui:ace_engine": {
+      "features": {
+        "ace_engine_feature_enable_accessibility": true,
+        "ace_engine_feature_enable_web": true,
+        "ace_engine_feature_enable_upgrade_skia": true
+      }
+    },
+    "arkui:advanced_ui_component": {},
+    "arkui:napi": {},
+    "arkui:ui_lite": {},
+    "account:os_account": {
+      "features": {
+        "os_account_multiple_active_accounts": false
+      }
+    },
+    "barrierfree:accessibility": {},
+    "distributeddatamgr:relational_store": {},
+    "distributeddatamgr:preferences": {},
+    "distributeddatamgr:data_share": {},
+    "distributeddatamgr:datamgr_service": {
+      "features": {
+        "datamgr_service_udmf": true
+      }
+    },
+    "distributeddatamgr:kv_store": {},
+    "distributeddatamgr:data_object": {},
+    "distributeddatamgr:pasteboard": {},
+    "distributeddatamgr:udmf": {},
+    "filemanagement:user_file_service": {},
+    "filemanagement:file_api": {},
+    "filemanagement:storage_service": {},
+    "filemanagement:dfs_service": {},
+    "filemanagement:app_file_service": {},
+    "build:build_framework": {},
+    "security:appverify": {},
+    "security:huks": {},
+    "security:asset": {},
+    "security:certificate_manager": {},
+    "security:certificate_framework": {},
+    "security:device_auth": {},
+    "security:crypto_framework": {},
+    "security:access_token": {},
+    "security:device_security_level": {},
+    "security:dataclassification": {},
+    "security:dlp_permission_service": {},
+    "security:security_component_manager": {},
+    "security:code_signature": {
+      "features": {
+        "code_signature_support_oh_code_sign": false,
+        "code_signature_support_oh_release_app": true,
+        "code_signature_support_app_allow_list": false
+      }
+    },
+    "security:security_guard": {},
+    "startup:startup_l2": {},
+    "startup:appspawn": {},
+    "startup:init": {
+      "features": {
+        "init_feature_ab_partition": false
+      }
+    },
+    "hiviewdfx:hilog": {},
+    "hiviewdfx:hisysevent": {},
+    "hiviewdfx:hiappevent": {},
+    "hiviewdfx:hichecker": {},
+    "hiviewdfx:hidumper": {},
+    "hiviewdfx:hiview": {
+      "features": {
+        "hiview_feature_bbox_userspace": true,
+        "hiview_enable_leak_detector": true,
+        "hiview_enable_performance_monitor": true
+      }
+    },
+    "hiviewdfx:faultloggerd": {},
+    "hiviewdfx:hitrace": {},
+    "hiviewdfx:hicollie": {},
+    "commonlibrary:c_utils": {},
+    "commonlibrary:ets_utils": {},
+    "commonlibrary:memory_utils": {},
+    "commonlibrary:ylong_runtime": {},
+    "commonlibrary:ylong_http": {},
+    "commonlibrary:ylong_json": {},
+    "bundlemanager:bundle_framework": {},
+    "bundlemanager:bundle_tool": {},
+    "bundlemanager:distributed_bundle_framework": {},
+    "bundlemanager:ecological_rule_manager": {},
+    "bundlemanager:app_domain_verify": {},
+    "ability:ability_runtime": {},
+    "ability:idl_tool": {},
+    "ability:form_fwk": {},
+    "ability:ability_base": {},
+    "ability:dmsfwk": {},
+    "notification:common_event_service": {},
+    "notification:distributed_notification_service": {},
+    "notification:eventhandler": {},
+    "communication:bluetooth": {},
+    "communication:bluetooth_service": {},
+    "communication:ipc": {},
+    "communication:net_manager": {},
+    "communication:netmanager_base": {},
+    "communication:netmanager_ext": {
+      "syscap": {
+        "SystemCapability.Communication.NetManager.NetFirewall": false
+      }
+    },
+    "communication:netstack": {},
+    "communication:t2stack": {
+      "features": {
+        "t2stack_feature_vtp": true,
+        "t2stack_feature_coap": true,
+        "t2stack_feature_dfile": true
+      }
+    },
+    "communication:dsoftbus": {
+      "features": {
+        "dsoftbus_feature_coap": true,
+        "dsoftbus_feature_vtp": true,
+        "dsoftbus_feature_dfile": true,
+        "dsoftbus_feature_disc_ble": true,
+        "dsoftbus_feature_disc_coap": true,
+        "dsoftbus_feature_disc_lnn_coap": true,
+        "dsoftbus_feature_conn_pv1": true,
+        "dsoftbus_feature_conn_br": true,
+        "dsoftbus_feature_conn_ble": true,
+        "dsoftbus_feature_conn_tcp_proxy": true,
+        "dsoftbus_feature_conn_tcp_comm": true,
+        "dsoftbus_feature_trans_udp_stream": true,
+        "dsoftbus_feature_trans_udp_file": true,
+        "dsoftbus_feature_trans_udp": true,
+        "dsoftbus_feature_trans_proxy_file": true,
+        "dsoftbus_feature_trans_qos": true,
+        "dsoftbus_feature_trans_br_proxy": true,
+        "dsoftbus_feature_lnn_ble": true,
+        "dsoftbus_feature_lnn_wifi": true,
+        "dsoftbus_feature_lnn_cloud_sync": true,
+        "dsoftbus_feature_lnn_channel_rating": true,
+        "dsoftbus_feature_lnn_lane_mgr": true,
+        "dsoftbus_feature_lnn_lane_qos": true,
+        "dsoftbus_feature_lnn_frame": true
+      }
+    },
+    "communication:wifi": {
+      "features": {
+        "wifi_feature_non_seperate_p2p": true,
+        "wifi_feature_non_hdf_driver": true,
+        "wifi_feature_p2p_random_mac_addr": true
+      }
+    },
+    "communication:dhcp": {},
+    "communication:bluetooth_native_js": {},
+    "communication:fusion_connectivity": {
+      "features": {
+        "fusion_connectivity_partner_agent_feature": true
+      }
+    },
+    "location:location": {},
+    "location:location_common": {},
+    "location:location_locator": {},
+    "location:location_network": {},
+    "location:location_gnss": {},
+    "location:location_passive": {},
+    "location:location_geocode": {},
+    "customization:config_policy": {},
+    "customization:enterprise_device_management": {},
+    "systemabilitymgr:samgr": {},
+    "systemabilitymgr:safwk": {},
+    "systemabilitymgr:selectionfwk": {},
+    "updater:updater": {
+      "features": {
+        "updater_feature_use_ptable": false,
+        "updater_feature_updater_gen_executable": true,
+        "updater_feature_sign_on_server": false
+      }
+    },
+    "updater:update_service": {},
+    "updater:sys_installer": {
+      "features": {
+        "sys_installer_feature_ohos_cfg": true
+      }
+    },
+    "developtools:hdc": {},
+    "developtools:hiprofiler": {},
+    "developtools:hiperf": {},
+    "developtools:syscap_codec": {},
+    "developtools:packing_tool": {},
+    "sensors:miscdevice": {},
+    "sensors:sensor": {},
+    "sensors:start": {},
+    "graphic:graphic_2d": {
+      "features": {
+        "graphic_2d_feature_rs_enable_eglimage": true,
+        "graphic_2d_feature_rs_enable_uni_render": true,
+        "graphic_2d_feature_use_texgine": true,
+        "graphic_2d_feature_upgrade_skia": true
+      }
+    },
+    "graphic:graphic_surface": {},
+    "window:window_manager": {
+      "features": {
+        "window_manager_use_sceneboard": true
+      },
+      "syscap": {
+        "SystemCapability.Window.SessionManager": true
+      }
+    },
+    "useriam:pin_auth": {},
+    "useriam:user_auth_framework": {},
+    "useriam:face_auth": {},
+    "useriam:fingerprint_auth": {},
+    "useriam:companion_device_auth": {},
+    "time:time_service": {},
+    "request:request": {},
+    "inputmethod:imf": {},
+    "theme:screenlock_mgr": {},
+    "theme:wallpaper_mgr": {},
+    "multimedia:media_foundation": {},
+    "multimedia:player_framework": {},
+    "multimedia:av_codec": {},
+    "multimedia:audio_framework": {
+      "features": {
+        "audio_framework_feature_dtmf_tone": true,
+        "audio_framework_feature_opensl_es": true,
+        "audio_framework_feature_support_os_account": false,
+        "audio_framework_feature_audiosuite_support": true
+      }
+    },
+    "multimedia:camera_framework": {},
+    "multimedia:drm_framework": {},
+    "multimedia:image_framework": {
+      "features": {
+        "image_framework_feature_upgrade_skia": true
+      }
+    },
+    "multimedia:image_effect": {},
+    "multimedia:av_session": {
+      "syscap": {
+        "SystemCapability.Multimedia.AVSession.ExtendedDisplayCast": false
+      }
+    },
+    "multimedia:media_library": {},
+    "multimedia:ringtone_library": {},
+    "multimedia:midi_framework": {},
+    "multimodalinput:input": {
+      "features": {
+        "input_feature_combination_key": true,
+        "input_feature_pointer_drawing": true,
+        "input_feature_interceptor": true,
+        "input_feature_monitor": true,
+        "input_feature_keyboard": true,
+        "input_feature_mouse": true,
+        "input_feature_touchscreen": true,
+        "input_feature_input_device": true
+      }
+    },
+    "telephony:core_service": {
+      "syscap": {
+        "SystemCapability.Telephony.CoreService.Esim": false
+      }
+    },
+    "telephony:telephony_data": {},
+    "telephony:state_registry": {},
+    "telephony:cellular_call": {},
+    "telephony:cellular_data": {},
+    "telephony:sms_mms": {},
+    "telephony:call_manager": {},
+    "global:i18n": {},
+    "global:timezone": {},
+    "global:resource_management": {},
+    "global:system_resources": {},
+    "powermgr:power_manager": {
+      "features": {
+        "power_manager_feature_disable_auto_displayoff": true
+      }
+    },
+    "powermgr:battery_manager": {
+      "features": {
+        "battery_manager_feature_enable_charger": true
+      }
+    },
+    "powermgr:battery_statistics": {},
+    "powermgr:display_manager": {},
+    "powermgr:thermal_manager": {},
+    "applications:prebuilt_hap": {},
+    "applications:calendar_data": {},
+    "applications:dlp_manager": {},
+    "applications:user_certificate_manager": {},
+    "applications:auth_widget": {},
+    "contacts_data:contacts_data": {},
+    "applications:settings": {},
+    "applications:permission_manager": {},
+    "xts:acts": {},
+    "xts:hats": {},
+    "xts:dcts": {},
+    "xts:device_attest": {},
+    "ostest:wukong": {},
+    "testfwk:arkxtest": {},
+    "distributedhardware:device_manager": {},
+    "distributedhardware:distributed_hardware_fwk": {},
+    "distributedhardware:distributed_camera": {},
+    "distributedhardware:distributed_screen": {},
+    "distributedhardware:distributed_audio": {},
+    "distributedhardware:distributed_input": {},
+    "distributedhardware:mechbody_controller": {},
+    "arkcompiler:runtime_core": {},
+    "arkcompiler:ets_runtime": {},
+    "arkcompiler:ets_frontend": {},
+    "arkcompiler:toolchain": {},
+    "deviceprofile:device_info_manager": {},
+    "resourceschedule:resource_schedule_service": {},
+    "resourceschedule:soc_perf": {},
+    "resourceschedule:background_task_mgr": {},
+    "resourceschedule:work_scheduler": {},
+    "resourceschedule:memmgr": {
+      "features": {
+        "memmgr_purgeable_memory": true,
+        "memmgr_hyperhold_memory": true
+      }
+    },
+    "resourceschedule:frame_aware_sched": {},
+    "resourceschedule:device_usage_statistics": {},
+    "resourceschedule:ffrt": {},
+    "resourceschedule:qos_manager": {},
+    "resourceschedule:device_standby": {},
+    "usb:usb_manager": {
+      "features": {
+        "usb_manager_feature_pop_up_func_switch_model": false,
+        "usb_manager_feature_host": true,
+        "usb_manager_feature_device": true,
+        "usb_manager_feature_port": true
+      }
+    },
+    "thirdparty:bounds_checking_function": {},
+    "thirdparty:egl": {},
+    "thirdparty:FreeBSD": {},
+    "thirdparty:fsverity-utils": {},
+    "thirdparty:gptfdisk": {},
+    "thirdparty:jsframework": {},
+    "thirdparty:json": {},
+    "thirdparty:lame": {},
+    "thirdparty:libbpf": {},
+    "thirdparty:libcoap": {},
+    "thirdparty:libevdev": {},
+    "thirdparty:libfuse": {},
+    "thirdparty:lz4": {},
+    "thirdparty:mksh": {},
+    "thirdparty:nghttp2": {},
+    "thirdparty:node": {},
+    "thirdparty:opencl-headers": {},
+    "thirdparty:opengles": {},
+    "thirdparty:openmax": {},
+    "thirdparty:opensles": {},
+    "thirdparty:re2": {},
+    "thirdparty:rust_bindgen": {},
+    "thirdparty:rust_cxx": {},
+    "thirdparty:rust_rust-openssl": {},
+    "thirdparty:toybox": {},
+    "thirdparty:vixl": {},
+    "thirdparty:meshoptimizer": {},
+    "msdp:device_status": {
+      "features": {
+        "device_status_interaction_coordination": false
+      }
+    },
+    "web:webview": {},
+    "thirdparty:musl": {},
+    "thirdparty:tzdata": {},
+    "thirdparty:wpa_supplicant": {
+      "features": {
+        "wpa_supplicant_driver_nl80211": true
+      }
+    },
+    "thirdparty:skia": {
+      "features": {
+        "skia_feature_upgrade": true
+      }
+    },
+    "thirdparty:libtiff": {},
+    "thirdparty:jsoncpp": {},
+    "thirdparty:icu": {},
+    "thirdparty:cJSON": {},
+    "thirdparty:openssl": {},
+    "thirdparty:libxml2": {},
+    "thirdparty:cups": {},
+    "thirdparty:cups-filters": {},
+    "thirdparty:libphonenumber": {},
+    "thirdparty:libpng": {},
+    "thirdparty:zlib": {},
+    "thirdparty:protobuf": {},
+    "thirdparty:libjpeg-turbo": {},
+    "thirdparty:libdrm": {},
+    "thirdparty:ffmpeg": {},
+    "thirdparty:freetype": {},
+    "thirdparty:libwebsockets": {},
+    "thirdparty:sqlite": {},
+    "thirdparty:mbedtls": {},
+    "thirdparty:abseil-cpp": {},
+    "thirdparty:astc-encoder": {},
+    "thirdparty:brotli": {},
+    "thirdparty:bzip2": {},
+    "thirdparty:cares": {},
+    "thirdparty:curl": {},
+    "thirdparty:decimal.js": {},
+    "thirdparty:exfatprogs": {},
+    "thirdparty:f2fs-tools": {},
+    "thirdparty:flatbuffers": {},
+    "thirdparty:popt": {},
+    "thirdparty:grpc": {},
+    "thirdparty:elfio": {},
+    "thirdparty:libexif": {},
+    "thirdparty:libinput": {},
+    "thirdparty:libnl": {},
+    "thirdparty:libunwind": {},
+    "thirdparty:lzma": {},
+    "thirdparty:mtdev": {},
+    "thirdparty:ntfs-3g": {},
+    "thirdparty:pulseaudio": {},
+    "thirdparty:selinux": {},
+    "thirdparty:e2fsprogs": {},
+    "thirdparty:libuv": {
+      "features": {
+        "libuv_use_ffrt": true
+      }
+    },
+    "thirdparty:vk-gl-cts": {},
+    "thirdparty:spirv-tools": {},
+    "thirdparty:harfbuzz": {},
+    "thirdparty:qrcodegen": {
+      "features": {
+        "qrcodegen_feature_ace_engine_qrcode_able": true
+      }
+    },
+    "thirdparty:jerryscript": {},
+    "thirdparty:liburing": {},
+    "thirdparty:backends": {},
+    "thirdparty:sane-airscan": {},
+    "thirdparty:openhitls": {},
+    "thirdparty:optimized_routines": {},
+    "thirdparty:libvpx": {},
+    "thirdparty:dav1d": {},
+    "hdf:hdf_core": {
+      "features": {
+        "hdf_core_platform_test_support": false,
+        "hdf_core_default_peripheral_config": false
+      }
+    },
+    "hdf:external_device_manager": {},
+    "hdf:drivers_interface_sensor": {},
+    "hdf:drivers_interface_camera": {},
+    "hdf:drivers_interface_codec": {},
+    "hdf:drivers_interface_drm": {},
+    "hdf:drivers_interface_motion": {},
+    "hdf:drivers_interface_light": {},
+    "hdf:drivers_interface_vibrator": {},
+    "hdf:drivers_interface_power": {},
+    "hdf:drivers_interface_battery": {},
+    "hdf:drivers_interface_thermal": {},
+    "hdf:drivers_interface_pin_auth": {},
+    "hdf:drivers_interface_face_auth": {},
+    "hdf:drivers_interface_user_auth": {},
+    "hdf:drivers_interface_fingerprint_auth": {},
+    "hdf:drivers_interface_huks": {
+      "feature": []
+    },
+    "hdf:drivers_interface_input": {},
+    "hdf:drivers_interface_memorytracker": {},
+    "hdf:drivers_interface_wlan": {},
+    "hdf:drivers_interface_location_agnss": {},
+    "hdf:drivers_interface_location_geofence": {},
+    "hdf:drivers_interface_location_gnss": {},
+    "hdf:drivers_interface_usb": {},
+    "hdf:ril_device_driver_interface": {},
+    "hdf:drivers_interface_display": {
+      "features": {
+        "drivers_interface_display_community": true,
+        "drivers_interface_display_vdi_default": true
+      }
+    },
+    "hdf:drivers_interface_distributed_camera": {},
+    "hdf:drivers_interface_distributed_audio": {},
+    "hdf:drivers_interface_ril": {},
+    "hdf:drivers_interface_partitionslot": {},
+    "hdf:drivers_interface_nnrt": {},
+    "hdf:drivers_interface_ethernet": {},
+    "hdf:drivers_peripheral_ethernet": {},
+    "hdf:drivers_interface_intelligent_voice": {
+      "feature": []
+    },
+    "hdf:drivers_interface_midi": {},
+    "hdf:drivers_peripheral_midi": {},
+    "ai:neural_network_runtime": {},
+    "ai:mindspore": {},
+    "ai:intelligent_voice_framework": {},
+    "print:print_fwk": {},
+    "advertising:oaid": {},
+    "advertising:advertising": {},
+    "accesscontrol:sandbox_manager": {},
+    "global:font_manager": {},
+    "game:game_controller_framework": {},
+    "hdf:drivers_peripheral_bluetooth": {},
+    "hdf:drivers_peripheral_input": {
+      "features": {
+        "drivers_peripheral_input_feature_model": true,
+        "drivers_peripheral_input_feature_support_ddk": true
+      }
+    },
+    "hdf:drivers_peripheral_display": {
+      "features": {
+        "drivers_peripheral_display_community": true,
+        "drivers_peripheral_display_vdi_default": true
+      }
+    },
+    "hdf:drivers_peripheral_thermal": {},
+    "hdf:drivers_peripheral_wlan": {
+      "features": {
+        "drivers_peripheral_wlan_feature_enable_HDF_NL80211": true,
+        "drivers_peripheral_wlan_feature_enable_HDF_UT": false,
+        "drivers_peripheral_wlan_feature_vendor": "hybris",
+        "drivers_peripheral_wlan_p2p_name": "p2p-dev-wlan0"
+      }
+    },
+    "hdf:drivers_peripheral_sensor": {
+      "features": {
+        "drivers_peripheral_sensor_feature_community": false
+      }
+    },
+    "hdf:drivers_peripheral_motion": {},
+    "hdf:drivers_peripheral_audio": {
+      "features": {
+        "drivers_peripheral_audio_feature_full_test_suite": true,
+        "drivers_peripheral_audio_feature_alsa_lib": true,
+        "drivers_peripheral_audio_feature_effect": true
+      }
+    },
+    "hdf:drivers_peripheral_usb": {},
+    "hdf:drivers_peripheral_camera": {},
+    "hdf:drivers_peripheral_clearplay": {},
+    "hdf:drivers_peripheral_light": {
+      "features": {
+        "drivers_peripheral_light_feature_community": false
+      }
+    },
+    "hdf:drivers_peripheral_vibrator": {
+      "features": {
+        "drivers_peripheral_vibrator_feature_community": false
+      }
+    },
+    "hdf:drivers_peripheral_codec": {
+      "features": {
+        "drivers_peripheral_codec_feature_support_omx_extend_test": true,
+        "drivers_peripheral_codec_feature_support_hdi_v1": true
+      }
+    },
+    "hdf:drivers_peripheral_power": {},
+    "hdf:drivers_peripheral_battery": {},
+    "hdf:drivers_peripheral_pin_auth": {},
+    "hdf:drivers_peripheral_face_auth": {},
+    "hdf:drivers_peripheral_user_auth": {},
+    "hdf:drivers_peripheral_fingerprint_auth": {},
+    "hdf:drivers_peripheral_huks": {},
+    "hdf:drivers_peripheral_memorytracker": {},
+    "hdf:drivers_peripheral_location_agnss": {},
+    "hdf:drivers_peripheral_location_geofence": {},
+    "hdf:drivers_peripheral_location_gnss": {},
+    "hdf:drivers_peripheral_distributed_camera": {},
+    "hdf:drivers_peripheral_distributed_audio": {},
+    "hdf:drivers_peripheral_partitionslot": {},
+    "hdf:drivers_peripheral_ril": {},
+    "hdf:drivers_peripheral_intelligent_voice": {},
+    "telephony:ril_adapter": {},
+    "security:selinux_adapter": {},
+    "oniro_soc_products:hybris_generic_soc": {},
+    "device_hybris_generic:device_hybris_generic": {
+      "features": {
+        "oniro_androidd_static_binder": true,
+        "oniro_androidd_legacy_cmdline_boot": true
+      }
+    },
+    "product_hybris_generic:product_hybris_generic": {},
+    "arkui:ui_appearance": {},
+    "developtools:smartperf_host": {
+      "features": {
+        "smartperf_host_device": true
+      }
+    },
+    "hdf:drivers_interface_lpplayer": {},
+    "hdf:drivers_interface_bluetooth": {},
+    "hdf:drivers_interface_audio": {
+      "features": {
+        "drivers_interface_audio_community": true
+      }
+    },
+    "hdf:drivers_tools": {},
+    "hdf:drivers_adapter": {},
+    "multimedia:video_processing_engine": {},
+    "castplus:sharing_framework": {},
+    "castplus:cast_engine": {},
+    "thirdparty:libhybris": {},
+    "thirdparty:rust_libc": {},
+    "thirdparty:pcre2": {},
+    "thirdparty:noto-cjk": {},
+    "thirdparty:notofonts": {},
+    "thirdparty:tex-hyphen": {},
+    "thirdparty:alsa-lib": {
+      "features": {
+        "alsa_lib_feature_config_enable": true
+      }
+    },
+    "thirdparty:libusb": {},
+    "thirdparty:typescript": {},
+    "tee:tee_client": {},
+    "graphic:graphics_effect": {},
+    "graphic:graphic_3d": {},
+    "graphic:graphic_utils_lite": {},
+    "graphic:vulkan-loader": {},
+    "graphic:vulkan-headers": {},
+    "sdk:sdk": {},
+    "developtools:ace_ets2bundle": {}
+  },
+  "original_requested_count": 375,
+  "actual_canonical_component_count": 365,
+  "actual_parsed_selected_count_including_dynamic2": 366,
+  "actual_selected_parts": {
+    "ability:ability_base": {},
+    "ability:ability_runtime": {},
+    "ability:dmsfwk": {},
+    "ability:form_fwk": {},
+    "ability:idl_tool": {},
+    "accesscontrol:sandbox_manager": {},
+    "account:os_account": {
+      "features": {
+        "os_account_multiple_active_accounts": false
+      }
+    },
+    "advertising:advertising": {},
+    "advertising:oaid": {},
+    "ai:intelligent_voice_framework": {},
+    "ai:neural_network_runtime": {},
+    "applications:auth_widget": {},
+    "applications:calendar_data": {},
+    "applications:contacts_data": {},
+    "applications:dlp_manager": {},
+    "applications:permission_manager": {},
+    "applications:prebuilt_hap": {},
+    "applications:settings": {},
+    "applications:user_certificate_manager": {},
+    "arkcompiler:ets_frontend": {},
+    "arkcompiler:ets_runtime": {},
+    "arkcompiler:runtime_core": {},
+    "arkcompiler:toolchain": {},
+    "arkui:ace_engine": {
+      "features": {
+        "ace_engine_feature_enable_accessibility": true,
+        "ace_engine_feature_enable_web": true,
+        "ace_engine_feature_enable_upgrade_skia": true
+      }
+    },
+    "arkui:advanced_ui_component": {},
+    "arkui:napi": {},
+    "arkui:ui_appearance": {},
+    "arkui:ui_lite": {},
+    "barrierfree:accessibility": {},
+    "build:build_framework": {},
+    "bundlemanager:app_domain_verify": {},
+    "bundlemanager:bundle_framework": {},
+    "bundlemanager:bundle_tool": {},
+    "bundlemanager:distributed_bundle_framework": {},
+    "bundlemanager:ecological_rule_manager": {},
+    "castplus:cast_engine": {},
+    "castplus:sharing_framework": {},
+    "commonlibrary:c_utils": {},
+    "commonlibrary:ets_utils": {},
+    "commonlibrary:memory_utils": {},
+    "commonlibrary:ylong_http": {},
+    "commonlibrary:ylong_json": {},
+    "commonlibrary:ylong_runtime": {},
+    "communication:bluetooth": {},
+    "communication:bluetooth_service": {},
+    "communication:dhcp": {},
+    "communication:dsoftbus": {
+      "features": {
+        "dsoftbus_feature_coap": true,
+        "dsoftbus_feature_vtp": true,
+        "dsoftbus_feature_dfile": true,
+        "dsoftbus_feature_disc_ble": true,
+        "dsoftbus_feature_disc_coap": true,
+        "dsoftbus_feature_disc_lnn_coap": true,
+        "dsoftbus_feature_conn_pv1": true,
+        "dsoftbus_feature_conn_br": true,
+        "dsoftbus_feature_conn_ble": true,
+        "dsoftbus_feature_conn_tcp_proxy": true,
+        "dsoftbus_feature_conn_tcp_comm": true,
+        "dsoftbus_feature_trans_udp_stream": true,
+        "dsoftbus_feature_trans_udp_file": true,
+        "dsoftbus_feature_trans_udp": true,
+        "dsoftbus_feature_trans_proxy_file": true,
+        "dsoftbus_feature_trans_qos": true,
+        "dsoftbus_feature_trans_br_proxy": true,
+        "dsoftbus_feature_lnn_ble": true,
+        "dsoftbus_feature_lnn_wifi": true,
+        "dsoftbus_feature_lnn_cloud_sync": true,
+        "dsoftbus_feature_lnn_channel_rating": true,
+        "dsoftbus_feature_lnn_lane_mgr": true,
+        "dsoftbus_feature_lnn_lane_qos": true,
+        "dsoftbus_feature_lnn_frame": true
+      }
+    },
+    "communication:fusion_connectivity": {
+      "features": {
+        "fusion_connectivity_partner_agent_feature": true
+      }
+    },
+    "communication:ipc": {},
+    "communication:netmanager_base": {},
+    "communication:netmanager_ext": {
+      "syscap": {
+        "SystemCapability.Communication.NetManager.NetFirewall": false
+      }
+    },
+    "communication:netstack": {},
+    "communication:t2stack": {
+      "features": {
+        "t2stack_feature_vtp": true,
+        "t2stack_feature_coap": true,
+        "t2stack_feature_dfile": true
+      }
+    },
+    "communication:wifi": {
+      "features": {
+        "wifi_feature_non_seperate_p2p": true,
+        "wifi_feature_non_hdf_driver": true,
+        "wifi_feature_p2p_random_mac_addr": true
+      }
+    },
+    "customization:config_policy": {},
+    "customization:enterprise_device_management": {},
+    "developtools:ace_ets2bundle": {},
+    "developtools:hdc": {},
+    "developtools:hiperf": {},
+    "developtools:hiprofiler": {},
+    "developtools:packing_tool": {},
+    "developtools:smartperf_host": {
+      "features": {
+        "smartperf_host_device": true
+      }
+    },
+    "developtools:syscap_codec": {},
+    "device_hybris_generic:device_hybris_generic": {
+      "features": {
+        "oniro_androidd_static_binder": true,
+        "oniro_androidd_legacy_cmdline_boot": true
+      }
+    },
+    "deviceprofile:device_info_manager": {},
+    "distributeddatamgr:data_object": {},
+    "distributeddatamgr:data_share": {},
+    "distributeddatamgr:datamgr_service": {
+      "features": {
+        "datamgr_service_udmf": true
+      }
+    },
+    "distributeddatamgr:kv_store": {},
+    "distributeddatamgr:pasteboard": {},
+    "distributeddatamgr:preferences": {},
+    "distributeddatamgr:relational_store": {},
+    "distributeddatamgr:udmf": {},
+    "distributedhardware:device_manager": {},
+    "distributedhardware:distributed_audio": {},
+    "distributedhardware:distributed_camera": {},
+    "distributedhardware:distributed_hardware_fwk": {},
+    "distributedhardware:distributed_input": {},
+    "distributedhardware:distributed_screen": {},
+    "distributedhardware:mechbody_controller": {},
+    "filemanagement:app_file_service": {},
+    "filemanagement:dfs_service": {},
+    "filemanagement:file_api": {},
+    "filemanagement:storage_service": {},
+    "filemanagement:user_file_service": {},
+    "game:game_controller_framework": {},
+    "global:font_manager": {},
+    "global:i18n": {},
+    "global:resource_management": {},
+    "global:system_resources": {},
+    "global:timezone": {},
+    "graphic:graphic_2d": {
+      "features": {
+        "graphic_2d_feature_rs_enable_eglimage": true,
+        "graphic_2d_feature_rs_enable_uni_render": true,
+        "graphic_2d_feature_use_texgine": true,
+        "graphic_2d_feature_upgrade_skia": true
+      }
+    },
+    "graphic:graphic_3d": {},
+    "graphic:graphic_surface": {},
+    "graphic:graphic_utils_lite": {},
+    "graphic:graphics_effect": {},
+    "hdf:drivers_adapter": {},
+    "hdf:drivers_interface_audio": {
+      "features": {
+        "drivers_interface_audio_community": true
+      }
+    },
+    "hdf:drivers_interface_battery": {},
+    "hdf:drivers_interface_bluetooth": {},
+    "hdf:drivers_interface_camera": {},
+    "hdf:drivers_interface_codec": {},
+    "hdf:drivers_interface_display": {
+      "features": {
+        "drivers_interface_display_community": true,
+        "drivers_interface_display_vdi_default": true
+      }
+    },
+    "hdf:drivers_interface_distributed_audio": {},
+    "hdf:drivers_interface_distributed_camera": {},
+    "hdf:drivers_interface_drm": {},
+    "hdf:drivers_interface_ethernet": {},
+    "hdf:drivers_interface_face_auth": {},
+    "hdf:drivers_interface_fingerprint_auth": {},
+    "hdf:drivers_interface_huks": {
+      "feature": []
+    },
+    "hdf:drivers_interface_input": {},
+    "hdf:drivers_interface_intelligent_voice": {
+      "feature": []
+    },
+    "hdf:drivers_interface_light": {},
+    "hdf:drivers_interface_location_agnss": {},
+    "hdf:drivers_interface_location_geofence": {},
+    "hdf:drivers_interface_location_gnss": {},
+    "hdf:drivers_interface_lpplayer": {},
+    "hdf:drivers_interface_memorytracker": {},
+    "hdf:drivers_interface_midi": {},
+    "hdf:drivers_interface_motion": {},
+    "hdf:drivers_interface_nnrt": {},
+    "hdf:drivers_interface_partitionslot": {},
+    "hdf:drivers_interface_pin_auth": {},
+    "hdf:drivers_interface_power": {},
+    "hdf:drivers_interface_ril": {},
+    "hdf:drivers_interface_sensor": {},
+    "hdf:drivers_interface_thermal": {},
+    "hdf:drivers_interface_usb": {},
+    "hdf:drivers_interface_user_auth": {},
+    "hdf:drivers_interface_vibrator": {},
+    "hdf:drivers_interface_wlan": {},
+    "hdf:drivers_peripheral_audio": {
+      "features": {
+        "drivers_peripheral_audio_feature_full_test_suite": true,
+        "drivers_peripheral_audio_feature_alsa_lib": true,
+        "drivers_peripheral_audio_feature_effect": true
+      }
+    },
+    "hdf:drivers_peripheral_battery": {},
+    "hdf:drivers_peripheral_bluetooth": {},
+    "hdf:drivers_peripheral_camera": {},
+    "hdf:drivers_peripheral_clearplay": {},
+    "hdf:drivers_peripheral_codec": {
+      "features": {
+        "drivers_peripheral_codec_feature_support_omx_extend_test": true,
+        "drivers_peripheral_codec_feature_support_hdi_v1": true
+      }
+    },
+    "hdf:drivers_peripheral_display": {
+      "features": {
+        "drivers_peripheral_display_community": true,
+        "drivers_peripheral_display_vdi_default": true
+      }
+    },
+    "hdf:drivers_peripheral_distributed_audio": {},
+    "hdf:drivers_peripheral_distributed_camera": {},
+    "hdf:drivers_peripheral_ethernet": {},
+    "hdf:drivers_peripheral_face_auth": {},
+    "hdf:drivers_peripheral_fingerprint_auth": {},
+    "hdf:drivers_peripheral_huks": {},
+    "hdf:drivers_peripheral_input": {
+      "features": {
+        "drivers_peripheral_input_feature_model": true,
+        "drivers_peripheral_input_feature_support_ddk": true
+      }
+    },
+    "hdf:drivers_peripheral_intelligent_voice": {},
+    "hdf:drivers_peripheral_light": {
+      "features": {
+        "drivers_peripheral_light_feature_community": false
+      }
+    },
+    "hdf:drivers_peripheral_location_agnss": {},
+    "hdf:drivers_peripheral_location_geofence": {},
+    "hdf:drivers_peripheral_location_gnss": {},
+    "hdf:drivers_peripheral_memorytracker": {},
+    "hdf:drivers_peripheral_midi": {},
+    "hdf:drivers_peripheral_motion": {},
+    "hdf:drivers_peripheral_partitionslot": {},
+    "hdf:drivers_peripheral_pin_auth": {},
+    "hdf:drivers_peripheral_power": {},
+    "hdf:drivers_peripheral_ril": {},
+    "hdf:drivers_peripheral_sensor": {
+      "features": {
+        "drivers_peripheral_sensor_feature_community": false
+      }
+    },
+    "hdf:drivers_peripheral_thermal": {},
+    "hdf:drivers_peripheral_usb": {},
+    "hdf:drivers_peripheral_user_auth": {},
+    "hdf:drivers_peripheral_vibrator": {
+      "features": {
+        "drivers_peripheral_vibrator_feature_community": false
+      }
+    },
+    "hdf:drivers_peripheral_wlan": {
+      "features": {
+        "drivers_peripheral_wlan_feature_enable_HDF_NL80211": true,
+        "drivers_peripheral_wlan_feature_enable_HDF_UT": false,
+        "drivers_peripheral_wlan_feature_vendor": "hybris",
+        "drivers_peripheral_wlan_p2p_name": "p2p-dev-wlan0"
+      }
+    },
+    "hdf:drivers_tools": {},
+    "hdf:external_device_manager": {},
+    "hdf:hdf_core": {
+      "features": {
+        "hdf_core_platform_test_support": false,
+        "hdf_core_default_peripheral_config": false
+      }
+    },
+    "hiviewdfx:faultloggerd": {},
+    "hiviewdfx:hiappevent": {},
+    "hiviewdfx:hichecker": {},
+    "hiviewdfx:hicollie": {},
+    "hiviewdfx:hidumper": {},
+    "hiviewdfx:hilog": {},
+    "hiviewdfx:hisysevent": {},
+    "hiviewdfx:hitrace": {},
+    "hiviewdfx:hiview": {
+      "features": {
+        "hiview_feature_bbox_userspace": true,
+        "hiview_enable_leak_detector": true,
+        "hiview_enable_performance_monitor": true
+      }
+    },
+    "inputmethod:imf": {},
+    "location:location": {},
+    "msdp:device_status": {
+      "features": {
+        "device_status_interaction_coordination": false
+      }
+    },
+    "multimedia:audio_framework": {
+      "features": {
+        "audio_framework_feature_dtmf_tone": true,
+        "audio_framework_feature_opensl_es": true,
+        "audio_framework_feature_support_os_account": false,
+        "audio_framework_feature_audiosuite_support": true
+      }
+    },
+    "multimedia:av_codec": {},
+    "multimedia:av_session": {
+      "syscap": {
+        "SystemCapability.Multimedia.AVSession.ExtendedDisplayCast": false
+      }
+    },
+    "multimedia:camera_framework": {},
+    "multimedia:drm_framework": {},
+    "multimedia:image_effect": {},
+    "multimedia:image_framework": {
+      "features": {
+        "image_framework_feature_upgrade_skia": true
+      }
+    },
+    "multimedia:media_foundation": {},
+    "multimedia:media_library": {},
+    "multimedia:midi_framework": {},
+    "multimedia:player_framework": {},
+    "multimedia:ringtone_library": {},
+    "multimedia:video_processing_engine": {},
+    "multimodalinput:input": {
+      "features": {
+        "input_feature_combination_key": true,
+        "input_feature_pointer_drawing": true,
+        "input_feature_interceptor": true,
+        "input_feature_monitor": true,
+        "input_feature_keyboard": true,
+        "input_feature_mouse": true,
+        "input_feature_touchscreen": true,
+        "input_feature_input_device": true
+      }
+    },
+    "notification:common_event_service": {},
+    "notification:distributed_notification_service": {},
+    "notification:eventhandler": {},
+    "oniro_soc_products:hybris_generic_soc": {},
+    "ostest:wukong": {},
+    "powermgr:battery_manager": {
+      "features": {
+        "battery_manager_feature_enable_charger": true
+      }
+    },
+    "powermgr:battery_statistics": {},
+    "powermgr:display_manager": {},
+    "powermgr:power_manager": {
+      "features": {
+        "power_manager_feature_disable_auto_displayoff": true
+      }
+    },
+    "powermgr:thermal_manager": {},
+    "print:print_fwk": {},
+    "product_hybris_generic:product_hybris_generic": {},
+    "product_m5c:product_m5c": {},
+    "request:request": {},
+    "resourceschedule:background_task_mgr": {},
+    "resourceschedule:device_standby": {},
+    "resourceschedule:device_usage_statistics": {},
+    "resourceschedule:ffrt": {},
+    "resourceschedule:frame_aware_sched": {},
+    "resourceschedule:memmgr": {
+      "features": {
+        "memmgr_purgeable_memory": true,
+        "memmgr_hyperhold_memory": true
+      }
+    },
+    "resourceschedule:qos_manager": {},
+    "resourceschedule:resource_schedule_service": {},
+    "resourceschedule:soc_perf": {},
+    "resourceschedule:work_scheduler": {},
+    "sdk:sdk": {},
+    "security:access_token": {},
+    "security:appverify": {},
+    "security:asset": {},
+    "security:certificate_framework": {},
+    "security:certificate_manager": {},
+    "security:code_signature": {
+      "features": {
+        "code_signature_support_oh_code_sign": false,
+        "code_signature_support_oh_release_app": true,
+        "code_signature_support_app_allow_list": false
+      }
+    },
+    "security:crypto_framework": {},
+    "security:dataclassification": {},
+    "security:device_auth": {},
+    "security:device_security_level": {},
+    "security:dlp_permission_service": {},
+    "security:huks": {},
+    "security:security_component_manager": {},
+    "security:security_guard": {},
+    "security:selinux_adapter": {},
+    "sensors:miscdevice": {},
+    "sensors:sensor": {},
+    "sensors:start": {},
+    "startup:appspawn": {},
+    "startup:init": {
+      "features": {
+        "init_feature_ab_partition": false
+      }
+    },
+    "systemabilitymgr:safwk": {},
+    "systemabilitymgr:samgr": {},
+    "systemabilitymgr:selectionfwk": {},
+    "tee:tee_client": {},
+    "telephony:call_manager": {},
+    "telephony:cellular_call": {},
+    "telephony:cellular_data": {},
+    "telephony:core_service": {
+      "syscap": {
+        "SystemCapability.Telephony.CoreService.Esim": false
+      }
+    },
+    "telephony:ril_adapter": {},
+    "telephony:sms_mms": {},
+    "telephony:state_registry": {},
+    "telephony:telephony_data": {},
+    "testfwk:arkxtest": {},
+    "theme:screenlock_mgr": {},
+    "theme:wallpaper_mgr": {},
+    "thirdparty:FreeBSD": {},
+    "thirdparty:abseil-cpp": {},
+    "thirdparty:alsa-lib": {
+      "features": {
+        "alsa_lib_feature_config_enable": true
+      }
+    },
+    "thirdparty:astc-encoder": {},
+    "thirdparty:backends": {},
+    "thirdparty:bounds_checking_function": {},
+    "thirdparty:brotli": {},
+    "thirdparty:bzip2": {},
+    "thirdparty:cJSON": {},
+    "thirdparty:cares": {},
+    "thirdparty:cups": {},
+    "thirdparty:cups-filters": {},
+    "thirdparty:curl": {},
+    "thirdparty:dav1d": {},
+    "thirdparty:decimal.js": {},
+    "thirdparty:e2fsprogs": {},
+    "thirdparty:egl": {},
+    "thirdparty:elfio": {},
+    "thirdparty:exfatprogs": {},
+    "thirdparty:f2fs-tools": {},
+    "thirdparty:ffmpeg": {},
+    "thirdparty:flatbuffers": {},
+    "thirdparty:freetype": {},
+    "thirdparty:fsverity-utils": {},
+    "thirdparty:gptfdisk": {},
+    "thirdparty:grpc": {},
+    "thirdparty:harfbuzz": {},
+    "thirdparty:icu": {},
+    "thirdparty:jerryscript": {},
+    "thirdparty:jsframework": {},
+    "thirdparty:json": {},
+    "thirdparty:jsoncpp": {},
+    "thirdparty:lame": {},
+    "thirdparty:libbpf": {},
+    "thirdparty:libcoap": {},
+    "thirdparty:libdrm": {},
+    "thirdparty:libevdev": {},
+    "thirdparty:libexif": {},
+    "thirdparty:libfuse": {},
+    "thirdparty:libhybris": {},
+    "thirdparty:libinput": {},
+    "thirdparty:libjpeg-turbo": {},
+    "thirdparty:libnl": {},
+    "thirdparty:libphonenumber": {},
+    "thirdparty:libpng": {},
+    "thirdparty:libtiff": {},
+    "thirdparty:libunwind": {},
+    "thirdparty:liburing": {},
+    "thirdparty:libusb": {},
+    "thirdparty:libuv": {
+      "features": {
+        "libuv_use_ffrt": true
+      }
+    },
+    "thirdparty:libvpx": {},
+    "thirdparty:libwebsockets": {},
+    "thirdparty:libxml2": {},
+    "thirdparty:lz4": {},
+    "thirdparty:lzma": {},
+    "thirdparty:mbedtls": {},
+    "thirdparty:meshoptimizer": {},
+    "thirdparty:mindspore": {},
+    "thirdparty:mksh": {},
+    "thirdparty:mtdev": {},
+    "thirdparty:musl": {},
+    "thirdparty:nghttp2": {},
+    "thirdparty:node": {},
+    "thirdparty:noto-cjk": {},
+    "thirdparty:notofonts": {},
+    "thirdparty:ntfs-3g": {},
+    "thirdparty:opencl-headers": {},
+    "thirdparty:opengles": {},
+    "thirdparty:openhitls": {},
+    "thirdparty:openmax": {},
+    "thirdparty:opensles": {},
+    "thirdparty:openssl": {},
+    "thirdparty:optimized_routines": {},
+    "thirdparty:pcre2": {},
+    "thirdparty:popt": {},
+    "thirdparty:protobuf": {},
+    "thirdparty:pulseaudio": {},
+    "thirdparty:qrcodegen": {
+      "features": {
+        "qrcodegen_feature_ace_engine_qrcode_able": true
+      }
+    },
+    "thirdparty:re2": {},
+    "thirdparty:rust_bindgen": {},
+    "thirdparty:rust_cxx": {},
+    "thirdparty:rust_libc": {},
+    "thirdparty:rust_rust-openssl": {},
+    "thirdparty:sane-airscan": {},
+    "thirdparty:selinux": {},
+    "thirdparty:skia": {
+      "features": {
+        "skia_feature_upgrade": true
+      }
+    },
+    "thirdparty:spirv-tools": {},
+    "thirdparty:sqlite": {},
+    "thirdparty:tex-hyphen": {},
+    "thirdparty:toybox": {},
+    "thirdparty:typescript": {},
+    "thirdparty:tzdata": {},
+    "thirdparty:vixl": {},
+    "thirdparty:vk-gl-cts": {},
+    "thirdparty:vulkan-headers": {},
+    "thirdparty:vulkan-loader": {},
+    "thirdparty:wpa_supplicant": {
+      "features": {
+        "wpa_supplicant_driver_nl80211": true
+      }
+    },
+    "thirdparty:zlib": {},
+    "time:time_service": {},
+    "updater:sys_installer": {
+      "features": {
+        "sys_installer_feature_ohos_cfg": true
+      }
+    },
+    "updater:update_service": {},
+    "updater:updater": {
+      "features": {
+        "updater_feature_use_ptable": false,
+        "updater_feature_updater_gen_executable": true,
+        "updater_feature_sign_on_server": false
+      }
+    },
+    "usb:usb_manager": {
+      "features": {
+        "usb_manager_feature_pop_up_func_switch_model": false,
+        "usb_manager_feature_host": true,
+        "usb_manager_feature_device": true,
+        "usb_manager_feature_port": true
+      }
+    },
+    "useriam:companion_device_auth": {},
+    "useriam:face_auth": {},
+    "useriam:fingerprint_auth": {},
+    "useriam:pin_auth": {},
+    "useriam:user_auth_framework": {},
+    "web:webview": {},
+    "window:window_manager": {
+      "features": {
+        "window_manager_use_sceneboard": true
+      },
+      "syscap": {
+        "SystemCapability.Window.SessionManager": true
+      }
+    },
+    "xts:acts": {},
+    "xts:dcts": {},
+    "xts:device_attest": {},
+    "xts:hats": {}
+  },
+  "original_dynamic_parts": [
+    "product_m5c:product_m5c",
+    "device_hybris_generic:device_hybris_generic"
+  ],
+  "coverage": [
+    {
+      "original_request": "arkui:ace_engine",
+      "canonical_component": "arkui:ace_engine",
+      "original_features_syscap_record": {
+        "features": {
+          "ace_engine_feature_enable_accessibility": true,
+          "ace_engine_feature_enable_web": true,
+          "ace_engine_feature_enable_upgrade_skia": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "ace_engine_feature_enable_accessibility": true,
+          "ace_engine_feature_enable_web": true,
+          "ace_engine_feature_enable_upgrade_skia": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "arkui:advanced_ui_component",
+      "canonical_component": "arkui:advanced_ui_component",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "arkui:napi",
+      "canonical_component": "arkui:napi",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "arkui:ui_lite",
+      "canonical_component": "arkui:ui_lite",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "account:os_account",
+      "canonical_component": "account:os_account",
+      "original_features_syscap_record": {
+        "features": {
+          "os_account_multiple_active_accounts": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "os_account_multiple_active_accounts": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "barrierfree:accessibility",
+      "canonical_component": "barrierfree:accessibility",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributeddatamgr:relational_store",
+      "canonical_component": "distributeddatamgr:relational_store",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributeddatamgr:preferences",
+      "canonical_component": "distributeddatamgr:preferences",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributeddatamgr:data_share",
+      "canonical_component": "distributeddatamgr:data_share",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributeddatamgr:datamgr_service",
+      "canonical_component": "distributeddatamgr:datamgr_service",
+      "original_features_syscap_record": {
+        "features": {
+          "datamgr_service_udmf": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "datamgr_service_udmf": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributeddatamgr:kv_store",
+      "canonical_component": "distributeddatamgr:kv_store",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributeddatamgr:data_object",
+      "canonical_component": "distributeddatamgr:data_object",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributeddatamgr:pasteboard",
+      "canonical_component": "distributeddatamgr:pasteboard",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributeddatamgr:udmf",
+      "canonical_component": "distributeddatamgr:udmf",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "filemanagement:user_file_service",
+      "canonical_component": "filemanagement:user_file_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "filemanagement:file_api",
+      "canonical_component": "filemanagement:file_api",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "filemanagement:storage_service",
+      "canonical_component": "filemanagement:storage_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "filemanagement:dfs_service",
+      "canonical_component": "filemanagement:dfs_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "filemanagement:app_file_service",
+      "canonical_component": "filemanagement:app_file_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "build:build_framework",
+      "canonical_component": "build:build_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:appverify",
+      "canonical_component": "security:appverify",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:huks",
+      "canonical_component": "security:huks",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:asset",
+      "canonical_component": "security:asset",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:certificate_manager",
+      "canonical_component": "security:certificate_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:certificate_framework",
+      "canonical_component": "security:certificate_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:device_auth",
+      "canonical_component": "security:device_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:crypto_framework",
+      "canonical_component": "security:crypto_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:access_token",
+      "canonical_component": "security:access_token",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:device_security_level",
+      "canonical_component": "security:device_security_level",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:dataclassification",
+      "canonical_component": "security:dataclassification",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:dlp_permission_service",
+      "canonical_component": "security:dlp_permission_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:security_component_manager",
+      "canonical_component": "security:security_component_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:code_signature",
+      "canonical_component": "security:code_signature",
+      "original_features_syscap_record": {
+        "features": {
+          "code_signature_support_oh_code_sign": false,
+          "code_signature_support_oh_release_app": true,
+          "code_signature_support_app_allow_list": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "code_signature_support_oh_code_sign": false,
+          "code_signature_support_oh_release_app": true,
+          "code_signature_support_app_allow_list": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:security_guard",
+      "canonical_component": "security:security_guard",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "startup:startup_l2",
+      "canonical_component": "startup:init",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "startup:appspawn",
+      "canonical_component": "startup:appspawn",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "startup:init",
+      "canonical_component": "startup:init",
+      "original_features_syscap_record": {
+        "features": {
+          "init_feature_ab_partition": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "init_feature_ab_partition": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:hilog",
+      "canonical_component": "hiviewdfx:hilog",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:hisysevent",
+      "canonical_component": "hiviewdfx:hisysevent",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:hiappevent",
+      "canonical_component": "hiviewdfx:hiappevent",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:hichecker",
+      "canonical_component": "hiviewdfx:hichecker",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:hidumper",
+      "canonical_component": "hiviewdfx:hidumper",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:hiview",
+      "canonical_component": "hiviewdfx:hiview",
+      "original_features_syscap_record": {
+        "features": {
+          "hiview_feature_bbox_userspace": true,
+          "hiview_enable_leak_detector": true,
+          "hiview_enable_performance_monitor": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "hiview_feature_bbox_userspace": true,
+          "hiview_enable_leak_detector": true,
+          "hiview_enable_performance_monitor": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:faultloggerd",
+      "canonical_component": "hiviewdfx:faultloggerd",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:hitrace",
+      "canonical_component": "hiviewdfx:hitrace",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hiviewdfx:hicollie",
+      "canonical_component": "hiviewdfx:hicollie",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "commonlibrary:c_utils",
+      "canonical_component": "commonlibrary:c_utils",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "commonlibrary:ets_utils",
+      "canonical_component": "commonlibrary:ets_utils",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "commonlibrary:memory_utils",
+      "canonical_component": "commonlibrary:memory_utils",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "commonlibrary:ylong_runtime",
+      "canonical_component": "commonlibrary:ylong_runtime",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "commonlibrary:ylong_http",
+      "canonical_component": "commonlibrary:ylong_http",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "commonlibrary:ylong_json",
+      "canonical_component": "commonlibrary:ylong_json",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "bundlemanager:bundle_framework",
+      "canonical_component": "bundlemanager:bundle_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "bundlemanager:bundle_tool",
+      "canonical_component": "bundlemanager:bundle_tool",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "bundlemanager:distributed_bundle_framework",
+      "canonical_component": "bundlemanager:distributed_bundle_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "bundlemanager:ecological_rule_manager",
+      "canonical_component": "bundlemanager:ecological_rule_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "bundlemanager:app_domain_verify",
+      "canonical_component": "bundlemanager:app_domain_verify",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "ability:ability_runtime",
+      "canonical_component": "ability:ability_runtime",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "ability:idl_tool",
+      "canonical_component": "ability:idl_tool",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "ability:form_fwk",
+      "canonical_component": "ability:form_fwk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "ability:ability_base",
+      "canonical_component": "ability:ability_base",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "ability:dmsfwk",
+      "canonical_component": "ability:dmsfwk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "notification:common_event_service",
+      "canonical_component": "notification:common_event_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "notification:distributed_notification_service",
+      "canonical_component": "notification:distributed_notification_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "notification:eventhandler",
+      "canonical_component": "notification:eventhandler",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:bluetooth",
+      "canonical_component": "communication:bluetooth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:bluetooth_service",
+      "canonical_component": "communication:bluetooth_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:ipc",
+      "canonical_component": "communication:ipc",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:net_manager",
+      "canonical_component": "communication:netmanager_base",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "communication:netmanager_base",
+      "canonical_component": "communication:netmanager_base",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:netmanager_ext",
+      "canonical_component": "communication:netmanager_ext",
+      "original_features_syscap_record": {
+        "syscap": {
+          "SystemCapability.Communication.NetManager.NetFirewall": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "syscap": {
+          "SystemCapability.Communication.NetManager.NetFirewall": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:netstack",
+      "canonical_component": "communication:netstack",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:t2stack",
+      "canonical_component": "communication:t2stack",
+      "original_features_syscap_record": {
+        "features": {
+          "t2stack_feature_vtp": true,
+          "t2stack_feature_coap": true,
+          "t2stack_feature_dfile": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "t2stack_feature_vtp": true,
+          "t2stack_feature_coap": true,
+          "t2stack_feature_dfile": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:dsoftbus",
+      "canonical_component": "communication:dsoftbus",
+      "original_features_syscap_record": {
+        "features": {
+          "dsoftbus_feature_coap": true,
+          "dsoftbus_feature_vtp": true,
+          "dsoftbus_feature_dfile": true,
+          "dsoftbus_feature_disc_ble": true,
+          "dsoftbus_feature_disc_coap": true,
+          "dsoftbus_feature_disc_lnn_coap": true,
+          "dsoftbus_feature_conn_pv1": true,
+          "dsoftbus_feature_conn_br": true,
+          "dsoftbus_feature_conn_ble": true,
+          "dsoftbus_feature_conn_tcp_proxy": true,
+          "dsoftbus_feature_conn_tcp_comm": true,
+          "dsoftbus_feature_trans_udp_stream": true,
+          "dsoftbus_feature_trans_udp_file": true,
+          "dsoftbus_feature_trans_udp": true,
+          "dsoftbus_feature_trans_proxy_file": true,
+          "dsoftbus_feature_trans_qos": true,
+          "dsoftbus_feature_trans_br_proxy": true,
+          "dsoftbus_feature_lnn_ble": true,
+          "dsoftbus_feature_lnn_wifi": true,
+          "dsoftbus_feature_lnn_cloud_sync": true,
+          "dsoftbus_feature_lnn_channel_rating": true,
+          "dsoftbus_feature_lnn_lane_mgr": true,
+          "dsoftbus_feature_lnn_lane_qos": true,
+          "dsoftbus_feature_lnn_frame": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "dsoftbus_feature_coap": true,
+          "dsoftbus_feature_vtp": true,
+          "dsoftbus_feature_dfile": true,
+          "dsoftbus_feature_disc_ble": true,
+          "dsoftbus_feature_disc_coap": true,
+          "dsoftbus_feature_disc_lnn_coap": true,
+          "dsoftbus_feature_conn_pv1": true,
+          "dsoftbus_feature_conn_br": true,
+          "dsoftbus_feature_conn_ble": true,
+          "dsoftbus_feature_conn_tcp_proxy": true,
+          "dsoftbus_feature_conn_tcp_comm": true,
+          "dsoftbus_feature_trans_udp_stream": true,
+          "dsoftbus_feature_trans_udp_file": true,
+          "dsoftbus_feature_trans_udp": true,
+          "dsoftbus_feature_trans_proxy_file": true,
+          "dsoftbus_feature_trans_qos": true,
+          "dsoftbus_feature_trans_br_proxy": true,
+          "dsoftbus_feature_lnn_ble": true,
+          "dsoftbus_feature_lnn_wifi": true,
+          "dsoftbus_feature_lnn_cloud_sync": true,
+          "dsoftbus_feature_lnn_channel_rating": true,
+          "dsoftbus_feature_lnn_lane_mgr": true,
+          "dsoftbus_feature_lnn_lane_qos": true,
+          "dsoftbus_feature_lnn_frame": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:wifi",
+      "canonical_component": "communication:wifi",
+      "original_features_syscap_record": {
+        "features": {
+          "wifi_feature_non_seperate_p2p": true,
+          "wifi_feature_non_hdf_driver": true,
+          "wifi_feature_p2p_random_mac_addr": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "wifi_feature_non_seperate_p2p": true,
+          "wifi_feature_non_hdf_driver": true,
+          "wifi_feature_p2p_random_mac_addr": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:dhcp",
+      "canonical_component": "communication:dhcp",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "communication:bluetooth_native_js",
+      "canonical_component": "communication:bluetooth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "communication:fusion_connectivity",
+      "canonical_component": "communication:fusion_connectivity",
+      "original_features_syscap_record": {
+        "features": {
+          "fusion_connectivity_partner_agent_feature": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "fusion_connectivity_partner_agent_feature": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "location:location",
+      "canonical_component": "location:location",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "location:location_common",
+      "canonical_component": "location:location",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "location:location_locator",
+      "canonical_component": "location:location",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "location:location_network",
+      "canonical_component": "location:location",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "location:location_gnss",
+      "canonical_component": "location:location",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "location:location_passive",
+      "canonical_component": "location:location",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "location:location_geocode",
+      "canonical_component": "location:location",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "customization:config_policy",
+      "canonical_component": "customization:config_policy",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "customization:enterprise_device_management",
+      "canonical_component": "customization:enterprise_device_management",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "systemabilitymgr:samgr",
+      "canonical_component": "systemabilitymgr:samgr",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "systemabilitymgr:safwk",
+      "canonical_component": "systemabilitymgr:safwk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "systemabilitymgr:selectionfwk",
+      "canonical_component": "systemabilitymgr:selectionfwk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "updater:updater",
+      "canonical_component": "updater:updater",
+      "original_features_syscap_record": {
+        "features": {
+          "updater_feature_use_ptable": false,
+          "updater_feature_updater_gen_executable": true,
+          "updater_feature_sign_on_server": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "updater_feature_use_ptable": false,
+          "updater_feature_updater_gen_executable": true,
+          "updater_feature_sign_on_server": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "updater:update_service",
+      "canonical_component": "updater:update_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "updater:sys_installer",
+      "canonical_component": "updater:sys_installer",
+      "original_features_syscap_record": {
+        "features": {
+          "sys_installer_feature_ohos_cfg": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "sys_installer_feature_ohos_cfg": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "developtools:hdc",
+      "canonical_component": "developtools:hdc",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "developtools:hiprofiler",
+      "canonical_component": "developtools:hiprofiler",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "developtools:hiperf",
+      "canonical_component": "developtools:hiperf",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "developtools:syscap_codec",
+      "canonical_component": "developtools:syscap_codec",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "developtools:packing_tool",
+      "canonical_component": "developtools:packing_tool",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "sensors:miscdevice",
+      "canonical_component": "sensors:miscdevice",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "sensors:sensor",
+      "canonical_component": "sensors:sensor",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "sensors:start",
+      "canonical_component": "sensors:start",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "graphic:graphic_2d",
+      "canonical_component": "graphic:graphic_2d",
+      "original_features_syscap_record": {
+        "features": {
+          "graphic_2d_feature_rs_enable_eglimage": true,
+          "graphic_2d_feature_rs_enable_uni_render": true,
+          "graphic_2d_feature_use_texgine": true,
+          "graphic_2d_feature_upgrade_skia": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "graphic_2d_feature_rs_enable_eglimage": true,
+          "graphic_2d_feature_rs_enable_uni_render": true,
+          "graphic_2d_feature_use_texgine": true,
+          "graphic_2d_feature_upgrade_skia": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "graphic:graphic_surface",
+      "canonical_component": "graphic:graphic_surface",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "window:window_manager",
+      "canonical_component": "window:window_manager",
+      "original_features_syscap_record": {
+        "features": {
+          "window_manager_use_sceneboard": true
+        },
+        "syscap": {
+          "SystemCapability.Window.SessionManager": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "window_manager_use_sceneboard": true
+        },
+        "syscap": {
+          "SystemCapability.Window.SessionManager": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "useriam:pin_auth",
+      "canonical_component": "useriam:pin_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "useriam:user_auth_framework",
+      "canonical_component": "useriam:user_auth_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "useriam:face_auth",
+      "canonical_component": "useriam:face_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "useriam:fingerprint_auth",
+      "canonical_component": "useriam:fingerprint_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "useriam:companion_device_auth",
+      "canonical_component": "useriam:companion_device_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "time:time_service",
+      "canonical_component": "time:time_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "request:request",
+      "canonical_component": "request:request",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "inputmethod:imf",
+      "canonical_component": "inputmethod:imf",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "theme:screenlock_mgr",
+      "canonical_component": "theme:screenlock_mgr",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "theme:wallpaper_mgr",
+      "canonical_component": "theme:wallpaper_mgr",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:media_foundation",
+      "canonical_component": "multimedia:media_foundation",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:player_framework",
+      "canonical_component": "multimedia:player_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:av_codec",
+      "canonical_component": "multimedia:av_codec",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:audio_framework",
+      "canonical_component": "multimedia:audio_framework",
+      "original_features_syscap_record": {
+        "features": {
+          "audio_framework_feature_dtmf_tone": true,
+          "audio_framework_feature_opensl_es": true,
+          "audio_framework_feature_support_os_account": false,
+          "audio_framework_feature_audiosuite_support": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "audio_framework_feature_dtmf_tone": true,
+          "audio_framework_feature_opensl_es": true,
+          "audio_framework_feature_support_os_account": false,
+          "audio_framework_feature_audiosuite_support": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:camera_framework",
+      "canonical_component": "multimedia:camera_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:drm_framework",
+      "canonical_component": "multimedia:drm_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:image_framework",
+      "canonical_component": "multimedia:image_framework",
+      "original_features_syscap_record": {
+        "features": {
+          "image_framework_feature_upgrade_skia": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "image_framework_feature_upgrade_skia": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:image_effect",
+      "canonical_component": "multimedia:image_effect",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:av_session",
+      "canonical_component": "multimedia:av_session",
+      "original_features_syscap_record": {
+        "syscap": {
+          "SystemCapability.Multimedia.AVSession.ExtendedDisplayCast": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "syscap": {
+          "SystemCapability.Multimedia.AVSession.ExtendedDisplayCast": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:media_library",
+      "canonical_component": "multimedia:media_library",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:ringtone_library",
+      "canonical_component": "multimedia:ringtone_library",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:midi_framework",
+      "canonical_component": "multimedia:midi_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimodalinput:input",
+      "canonical_component": "multimodalinput:input",
+      "original_features_syscap_record": {
+        "features": {
+          "input_feature_combination_key": true,
+          "input_feature_pointer_drawing": true,
+          "input_feature_interceptor": true,
+          "input_feature_monitor": true,
+          "input_feature_keyboard": true,
+          "input_feature_mouse": true,
+          "input_feature_touchscreen": true,
+          "input_feature_input_device": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "input_feature_combination_key": true,
+          "input_feature_pointer_drawing": true,
+          "input_feature_interceptor": true,
+          "input_feature_monitor": true,
+          "input_feature_keyboard": true,
+          "input_feature_mouse": true,
+          "input_feature_touchscreen": true,
+          "input_feature_input_device": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "telephony:core_service",
+      "canonical_component": "telephony:core_service",
+      "original_features_syscap_record": {
+        "syscap": {
+          "SystemCapability.Telephony.CoreService.Esim": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "syscap": {
+          "SystemCapability.Telephony.CoreService.Esim": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "telephony:telephony_data",
+      "canonical_component": "telephony:telephony_data",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "telephony:state_registry",
+      "canonical_component": "telephony:state_registry",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "telephony:cellular_call",
+      "canonical_component": "telephony:cellular_call",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "telephony:cellular_data",
+      "canonical_component": "telephony:cellular_data",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "telephony:sms_mms",
+      "canonical_component": "telephony:sms_mms",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "telephony:call_manager",
+      "canonical_component": "telephony:call_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "global:i18n",
+      "canonical_component": "global:i18n",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "global:timezone",
+      "canonical_component": "global:timezone",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "global:resource_management",
+      "canonical_component": "global:resource_management",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "global:system_resources",
+      "canonical_component": "global:system_resources",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "powermgr:power_manager",
+      "canonical_component": "powermgr:power_manager",
+      "original_features_syscap_record": {
+        "features": {
+          "power_manager_feature_disable_auto_displayoff": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "power_manager_feature_disable_auto_displayoff": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "powermgr:battery_manager",
+      "canonical_component": "powermgr:battery_manager",
+      "original_features_syscap_record": {
+        "features": {
+          "battery_manager_feature_enable_charger": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "battery_manager_feature_enable_charger": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "powermgr:battery_statistics",
+      "canonical_component": "powermgr:battery_statistics",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "powermgr:display_manager",
+      "canonical_component": "powermgr:display_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "powermgr:thermal_manager",
+      "canonical_component": "powermgr:thermal_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "applications:prebuilt_hap",
+      "canonical_component": "applications:prebuilt_hap",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "applications:calendar_data",
+      "canonical_component": "applications:calendar_data",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "applications:dlp_manager",
+      "canonical_component": "applications:dlp_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "applications:user_certificate_manager",
+      "canonical_component": "applications:user_certificate_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "applications:auth_widget",
+      "canonical_component": "applications:auth_widget",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "contacts_data:contacts_data",
+      "canonical_component": "applications:contacts_data",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "wrong-namespace"
+    },
+    {
+      "original_request": "applications:settings",
+      "canonical_component": "applications:settings",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "applications:permission_manager",
+      "canonical_component": "applications:permission_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "xts:acts",
+      "canonical_component": "xts:acts",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "xts:hats",
+      "canonical_component": "xts:hats",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "xts:dcts",
+      "canonical_component": "xts:dcts",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "xts:device_attest",
+      "canonical_component": "xts:device_attest",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "ostest:wukong",
+      "canonical_component": "ostest:wukong",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "testfwk:arkxtest",
+      "canonical_component": "testfwk:arkxtest",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributedhardware:device_manager",
+      "canonical_component": "distributedhardware:device_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributedhardware:distributed_hardware_fwk",
+      "canonical_component": "distributedhardware:distributed_hardware_fwk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributedhardware:distributed_camera",
+      "canonical_component": "distributedhardware:distributed_camera",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributedhardware:distributed_screen",
+      "canonical_component": "distributedhardware:distributed_screen",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributedhardware:distributed_audio",
+      "canonical_component": "distributedhardware:distributed_audio",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributedhardware:distributed_input",
+      "canonical_component": "distributedhardware:distributed_input",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "distributedhardware:mechbody_controller",
+      "canonical_component": "distributedhardware:mechbody_controller",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "arkcompiler:runtime_core",
+      "canonical_component": "arkcompiler:runtime_core",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "arkcompiler:ets_runtime",
+      "canonical_component": "arkcompiler:ets_runtime",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "arkcompiler:ets_frontend",
+      "canonical_component": "arkcompiler:ets_frontend",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "arkcompiler:toolchain",
+      "canonical_component": "arkcompiler:toolchain",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "deviceprofile:device_info_manager",
+      "canonical_component": "deviceprofile:device_info_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:resource_schedule_service",
+      "canonical_component": "resourceschedule:resource_schedule_service",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:soc_perf",
+      "canonical_component": "resourceschedule:soc_perf",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:background_task_mgr",
+      "canonical_component": "resourceschedule:background_task_mgr",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:work_scheduler",
+      "canonical_component": "resourceschedule:work_scheduler",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:memmgr",
+      "canonical_component": "resourceschedule:memmgr",
+      "original_features_syscap_record": {
+        "features": {
+          "memmgr_purgeable_memory": true,
+          "memmgr_hyperhold_memory": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "memmgr_purgeable_memory": true,
+          "memmgr_hyperhold_memory": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:frame_aware_sched",
+      "canonical_component": "resourceschedule:frame_aware_sched",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:device_usage_statistics",
+      "canonical_component": "resourceschedule:device_usage_statistics",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:ffrt",
+      "canonical_component": "resourceschedule:ffrt",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:qos_manager",
+      "canonical_component": "resourceschedule:qos_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "resourceschedule:device_standby",
+      "canonical_component": "resourceschedule:device_standby",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "usb:usb_manager",
+      "canonical_component": "usb:usb_manager",
+      "original_features_syscap_record": {
+        "features": {
+          "usb_manager_feature_pop_up_func_switch_model": false,
+          "usb_manager_feature_host": true,
+          "usb_manager_feature_device": true,
+          "usb_manager_feature_port": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "usb_manager_feature_pop_up_func_switch_model": false,
+          "usb_manager_feature_host": true,
+          "usb_manager_feature_device": true,
+          "usb_manager_feature_port": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:bounds_checking_function",
+      "canonical_component": "thirdparty:bounds_checking_function",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:egl",
+      "canonical_component": "thirdparty:egl",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:FreeBSD",
+      "canonical_component": "thirdparty:FreeBSD",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:fsverity-utils",
+      "canonical_component": "thirdparty:fsverity-utils",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:gptfdisk",
+      "canonical_component": "thirdparty:gptfdisk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:jsframework",
+      "canonical_component": "thirdparty:jsframework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:json",
+      "canonical_component": "thirdparty:json",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:lame",
+      "canonical_component": "thirdparty:lame",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libbpf",
+      "canonical_component": "thirdparty:libbpf",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libcoap",
+      "canonical_component": "thirdparty:libcoap",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libevdev",
+      "canonical_component": "thirdparty:libevdev",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libfuse",
+      "canonical_component": "thirdparty:libfuse",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:lz4",
+      "canonical_component": "thirdparty:lz4",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:mksh",
+      "canonical_component": "thirdparty:mksh",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:nghttp2",
+      "canonical_component": "thirdparty:nghttp2",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:node",
+      "canonical_component": "thirdparty:node",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:opencl-headers",
+      "canonical_component": "thirdparty:opencl-headers",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:opengles",
+      "canonical_component": "thirdparty:opengles",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:openmax",
+      "canonical_component": "thirdparty:openmax",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:opensles",
+      "canonical_component": "thirdparty:opensles",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:re2",
+      "canonical_component": "thirdparty:re2",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:rust_bindgen",
+      "canonical_component": "thirdparty:rust_bindgen",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:rust_cxx",
+      "canonical_component": "thirdparty:rust_cxx",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:rust_rust-openssl",
+      "canonical_component": "thirdparty:rust_rust-openssl",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:toybox",
+      "canonical_component": "thirdparty:toybox",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:vixl",
+      "canonical_component": "thirdparty:vixl",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:meshoptimizer",
+      "canonical_component": "thirdparty:meshoptimizer",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "msdp:device_status",
+      "canonical_component": "msdp:device_status",
+      "original_features_syscap_record": {
+        "features": {
+          "device_status_interaction_coordination": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "device_status_interaction_coordination": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "web:webview",
+      "canonical_component": "web:webview",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:musl",
+      "canonical_component": "thirdparty:musl",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:tzdata",
+      "canonical_component": "thirdparty:tzdata",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:wpa_supplicant",
+      "canonical_component": "thirdparty:wpa_supplicant",
+      "original_features_syscap_record": {
+        "features": {
+          "wpa_supplicant_driver_nl80211": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "wpa_supplicant_driver_nl80211": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:skia",
+      "canonical_component": "thirdparty:skia",
+      "original_features_syscap_record": {
+        "features": {
+          "skia_feature_upgrade": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "skia_feature_upgrade": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libtiff",
+      "canonical_component": "thirdparty:libtiff",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:jsoncpp",
+      "canonical_component": "thirdparty:jsoncpp",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:icu",
+      "canonical_component": "thirdparty:icu",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:cJSON",
+      "canonical_component": "thirdparty:cJSON",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:openssl",
+      "canonical_component": "thirdparty:openssl",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libxml2",
+      "canonical_component": "thirdparty:libxml2",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:cups",
+      "canonical_component": "thirdparty:cups",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:cups-filters",
+      "canonical_component": "thirdparty:cups-filters",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libphonenumber",
+      "canonical_component": "thirdparty:libphonenumber",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libpng",
+      "canonical_component": "thirdparty:libpng",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:zlib",
+      "canonical_component": "thirdparty:zlib",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:protobuf",
+      "canonical_component": "thirdparty:protobuf",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libjpeg-turbo",
+      "canonical_component": "thirdparty:libjpeg-turbo",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libdrm",
+      "canonical_component": "thirdparty:libdrm",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:ffmpeg",
+      "canonical_component": "thirdparty:ffmpeg",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:freetype",
+      "canonical_component": "thirdparty:freetype",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libwebsockets",
+      "canonical_component": "thirdparty:libwebsockets",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:sqlite",
+      "canonical_component": "thirdparty:sqlite",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:mbedtls",
+      "canonical_component": "thirdparty:mbedtls",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:abseil-cpp",
+      "canonical_component": "thirdparty:abseil-cpp",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:astc-encoder",
+      "canonical_component": "thirdparty:astc-encoder",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:brotli",
+      "canonical_component": "thirdparty:brotli",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:bzip2",
+      "canonical_component": "thirdparty:bzip2",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:cares",
+      "canonical_component": "thirdparty:cares",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:curl",
+      "canonical_component": "thirdparty:curl",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:decimal.js",
+      "canonical_component": "thirdparty:decimal.js",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:exfatprogs",
+      "canonical_component": "thirdparty:exfatprogs",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:f2fs-tools",
+      "canonical_component": "thirdparty:f2fs-tools",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:flatbuffers",
+      "canonical_component": "thirdparty:flatbuffers",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:popt",
+      "canonical_component": "thirdparty:popt",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:grpc",
+      "canonical_component": "thirdparty:grpc",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:elfio",
+      "canonical_component": "thirdparty:elfio",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libexif",
+      "canonical_component": "thirdparty:libexif",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libinput",
+      "canonical_component": "thirdparty:libinput",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libnl",
+      "canonical_component": "thirdparty:libnl",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libunwind",
+      "canonical_component": "thirdparty:libunwind",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:lzma",
+      "canonical_component": "thirdparty:lzma",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:mtdev",
+      "canonical_component": "thirdparty:mtdev",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:ntfs-3g",
+      "canonical_component": "thirdparty:ntfs-3g",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:pulseaudio",
+      "canonical_component": "thirdparty:pulseaudio",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:selinux",
+      "canonical_component": "thirdparty:selinux",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:e2fsprogs",
+      "canonical_component": "thirdparty:e2fsprogs",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libuv",
+      "canonical_component": "thirdparty:libuv",
+      "original_features_syscap_record": {
+        "features": {
+          "libuv_use_ffrt": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "libuv_use_ffrt": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:vk-gl-cts",
+      "canonical_component": "thirdparty:vk-gl-cts",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:spirv-tools",
+      "canonical_component": "thirdparty:spirv-tools",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:harfbuzz",
+      "canonical_component": "thirdparty:harfbuzz",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:qrcodegen",
+      "canonical_component": "thirdparty:qrcodegen",
+      "original_features_syscap_record": {
+        "features": {
+          "qrcodegen_feature_ace_engine_qrcode_able": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "qrcodegen_feature_ace_engine_qrcode_able": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:jerryscript",
+      "canonical_component": "thirdparty:jerryscript",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:liburing",
+      "canonical_component": "thirdparty:liburing",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:backends",
+      "canonical_component": "thirdparty:backends",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:sane-airscan",
+      "canonical_component": "thirdparty:sane-airscan",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:openhitls",
+      "canonical_component": "thirdparty:openhitls",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:optimized_routines",
+      "canonical_component": "thirdparty:optimized_routines",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libvpx",
+      "canonical_component": "thirdparty:libvpx",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:dav1d",
+      "canonical_component": "thirdparty:dav1d",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:hdf_core",
+      "canonical_component": "hdf:hdf_core",
+      "original_features_syscap_record": {
+        "features": {
+          "hdf_core_platform_test_support": false,
+          "hdf_core_default_peripheral_config": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "hdf_core_platform_test_support": false,
+          "hdf_core_default_peripheral_config": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:external_device_manager",
+      "canonical_component": "hdf:external_device_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_sensor",
+      "canonical_component": "hdf:drivers_interface_sensor",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_camera",
+      "canonical_component": "hdf:drivers_interface_camera",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_codec",
+      "canonical_component": "hdf:drivers_interface_codec",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_drm",
+      "canonical_component": "hdf:drivers_interface_drm",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_motion",
+      "canonical_component": "hdf:drivers_interface_motion",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_light",
+      "canonical_component": "hdf:drivers_interface_light",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_vibrator",
+      "canonical_component": "hdf:drivers_interface_vibrator",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_power",
+      "canonical_component": "hdf:drivers_interface_power",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_battery",
+      "canonical_component": "hdf:drivers_interface_battery",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_thermal",
+      "canonical_component": "hdf:drivers_interface_thermal",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_pin_auth",
+      "canonical_component": "hdf:drivers_interface_pin_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_face_auth",
+      "canonical_component": "hdf:drivers_interface_face_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_user_auth",
+      "canonical_component": "hdf:drivers_interface_user_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_fingerprint_auth",
+      "canonical_component": "hdf:drivers_interface_fingerprint_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_huks",
+      "canonical_component": "hdf:drivers_interface_huks",
+      "original_features_syscap_record": {
+        "feature": []
+      },
+      "canonical_requested_features_syscap": {
+        "feature": []
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_input",
+      "canonical_component": "hdf:drivers_interface_input",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_memorytracker",
+      "canonical_component": "hdf:drivers_interface_memorytracker",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_wlan",
+      "canonical_component": "hdf:drivers_interface_wlan",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_location_agnss",
+      "canonical_component": "hdf:drivers_interface_location_agnss",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_location_geofence",
+      "canonical_component": "hdf:drivers_interface_location_geofence",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_location_gnss",
+      "canonical_component": "hdf:drivers_interface_location_gnss",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_usb",
+      "canonical_component": "hdf:drivers_interface_usb",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:ril_device_driver_interface",
+      "canonical_component": "hdf:drivers_interface_ril",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "obsolete-role-covered-by-existing-provider"
+    },
+    {
+      "original_request": "hdf:drivers_interface_display",
+      "canonical_component": "hdf:drivers_interface_display",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_interface_display_community": true,
+          "drivers_interface_display_vdi_default": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_interface_display_community": true,
+          "drivers_interface_display_vdi_default": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_distributed_camera",
+      "canonical_component": "hdf:drivers_interface_distributed_camera",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_distributed_audio",
+      "canonical_component": "hdf:drivers_interface_distributed_audio",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_ril",
+      "canonical_component": "hdf:drivers_interface_ril",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_partitionslot",
+      "canonical_component": "hdf:drivers_interface_partitionslot",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_nnrt",
+      "canonical_component": "hdf:drivers_interface_nnrt",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_ethernet",
+      "canonical_component": "hdf:drivers_interface_ethernet",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_ethernet",
+      "canonical_component": "hdf:drivers_peripheral_ethernet",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_intelligent_voice",
+      "canonical_component": "hdf:drivers_interface_intelligent_voice",
+      "original_features_syscap_record": {
+        "feature": []
+      },
+      "canonical_requested_features_syscap": {
+        "feature": []
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_midi",
+      "canonical_component": "hdf:drivers_interface_midi",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_midi",
+      "canonical_component": "hdf:drivers_peripheral_midi",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "ai:neural_network_runtime",
+      "canonical_component": "ai:neural_network_runtime",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "ai:mindspore",
+      "canonical_component": "thirdparty:mindspore",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "wrong-namespace"
+    },
+    {
+      "original_request": "ai:intelligent_voice_framework",
+      "canonical_component": "ai:intelligent_voice_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "print:print_fwk",
+      "canonical_component": "print:print_fwk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "advertising:oaid",
+      "canonical_component": "advertising:oaid",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "advertising:advertising",
+      "canonical_component": "advertising:advertising",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "accesscontrol:sandbox_manager",
+      "canonical_component": "accesscontrol:sandbox_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "global:font_manager",
+      "canonical_component": "global:font_manager",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "game:game_controller_framework",
+      "canonical_component": "game:game_controller_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_bluetooth",
+      "canonical_component": "hdf:drivers_peripheral_bluetooth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_input",
+      "canonical_component": "hdf:drivers_peripheral_input",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_peripheral_input_feature_model": true,
+          "drivers_peripheral_input_feature_support_ddk": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_peripheral_input_feature_model": true,
+          "drivers_peripheral_input_feature_support_ddk": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_display",
+      "canonical_component": "hdf:drivers_peripheral_display",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_peripheral_display_community": true,
+          "drivers_peripheral_display_vdi_default": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_peripheral_display_community": true,
+          "drivers_peripheral_display_vdi_default": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_thermal",
+      "canonical_component": "hdf:drivers_peripheral_thermal",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_wlan",
+      "canonical_component": "hdf:drivers_peripheral_wlan",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_peripheral_wlan_feature_enable_HDF_NL80211": true,
+          "drivers_peripheral_wlan_feature_enable_HDF_UT": false,
+          "drivers_peripheral_wlan_feature_vendor": "hybris",
+          "drivers_peripheral_wlan_p2p_name": "p2p-dev-wlan0"
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_peripheral_wlan_feature_enable_HDF_NL80211": true,
+          "drivers_peripheral_wlan_feature_enable_HDF_UT": false,
+          "drivers_peripheral_wlan_feature_vendor": "hybris",
+          "drivers_peripheral_wlan_p2p_name": "p2p-dev-wlan0"
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_sensor",
+      "canonical_component": "hdf:drivers_peripheral_sensor",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_peripheral_sensor_feature_community": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_peripheral_sensor_feature_community": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_motion",
+      "canonical_component": "hdf:drivers_peripheral_motion",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_audio",
+      "canonical_component": "hdf:drivers_peripheral_audio",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_peripheral_audio_feature_full_test_suite": true,
+          "drivers_peripheral_audio_feature_alsa_lib": true,
+          "drivers_peripheral_audio_feature_effect": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_peripheral_audio_feature_full_test_suite": true,
+          "drivers_peripheral_audio_feature_alsa_lib": true,
+          "drivers_peripheral_audio_feature_effect": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_usb",
+      "canonical_component": "hdf:drivers_peripheral_usb",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_camera",
+      "canonical_component": "hdf:drivers_peripheral_camera",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_clearplay",
+      "canonical_component": "hdf:drivers_peripheral_clearplay",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_light",
+      "canonical_component": "hdf:drivers_peripheral_light",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_peripheral_light_feature_community": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_peripheral_light_feature_community": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_vibrator",
+      "canonical_component": "hdf:drivers_peripheral_vibrator",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_peripheral_vibrator_feature_community": false
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_peripheral_vibrator_feature_community": false
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_codec",
+      "canonical_component": "hdf:drivers_peripheral_codec",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_peripheral_codec_feature_support_omx_extend_test": true,
+          "drivers_peripheral_codec_feature_support_hdi_v1": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_peripheral_codec_feature_support_omx_extend_test": true,
+          "drivers_peripheral_codec_feature_support_hdi_v1": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_power",
+      "canonical_component": "hdf:drivers_peripheral_power",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_battery",
+      "canonical_component": "hdf:drivers_peripheral_battery",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_pin_auth",
+      "canonical_component": "hdf:drivers_peripheral_pin_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_face_auth",
+      "canonical_component": "hdf:drivers_peripheral_face_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_user_auth",
+      "canonical_component": "hdf:drivers_peripheral_user_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_fingerprint_auth",
+      "canonical_component": "hdf:drivers_peripheral_fingerprint_auth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_huks",
+      "canonical_component": "hdf:drivers_peripheral_huks",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_memorytracker",
+      "canonical_component": "hdf:drivers_peripheral_memorytracker",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_location_agnss",
+      "canonical_component": "hdf:drivers_peripheral_location_agnss",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_location_geofence",
+      "canonical_component": "hdf:drivers_peripheral_location_geofence",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_location_gnss",
+      "canonical_component": "hdf:drivers_peripheral_location_gnss",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_distributed_camera",
+      "canonical_component": "hdf:drivers_peripheral_distributed_camera",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_distributed_audio",
+      "canonical_component": "hdf:drivers_peripheral_distributed_audio",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_partitionslot",
+      "canonical_component": "hdf:drivers_peripheral_partitionslot",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_ril",
+      "canonical_component": "hdf:drivers_peripheral_ril",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_peripheral_intelligent_voice",
+      "canonical_component": "hdf:drivers_peripheral_intelligent_voice",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "telephony:ril_adapter",
+      "canonical_component": "telephony:ril_adapter",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "security:selinux_adapter",
+      "canonical_component": "security:selinux_adapter",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "oniro_soc_products:hybris_generic_soc",
+      "canonical_component": "oniro_soc_products:hybris_generic_soc",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "device_hybris_generic:device_hybris_generic",
+      "canonical_component": "device_hybris_generic:device_hybris_generic",
+      "original_features_syscap_record": {
+        "features": {
+          "oniro_androidd_static_binder": true,
+          "oniro_androidd_legacy_cmdline_boot": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "oniro_androidd_static_binder": true,
+          "oniro_androidd_legacy_cmdline_boot": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "product_hybris_generic:product_hybris_generic",
+      "canonical_component": "product_hybris_generic:product_hybris_generic",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "arkui:ui_appearance",
+      "canonical_component": "arkui:ui_appearance",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "developtools:smartperf_host",
+      "canonical_component": "developtools:smartperf_host",
+      "original_features_syscap_record": {
+        "features": {
+          "smartperf_host_device": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "smartperf_host_device": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_lpplayer",
+      "canonical_component": "hdf:drivers_interface_lpplayer",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_bluetooth",
+      "canonical_component": "hdf:drivers_interface_bluetooth",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_interface_audio",
+      "canonical_component": "hdf:drivers_interface_audio",
+      "original_features_syscap_record": {
+        "features": {
+          "drivers_interface_audio_community": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "drivers_interface_audio_community": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_tools",
+      "canonical_component": "hdf:drivers_tools",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "hdf:drivers_adapter",
+      "canonical_component": "hdf:drivers_adapter",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "multimedia:video_processing_engine",
+      "canonical_component": "multimedia:video_processing_engine",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "castplus:sharing_framework",
+      "canonical_component": "castplus:sharing_framework",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "castplus:cast_engine",
+      "canonical_component": "castplus:cast_engine",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libhybris",
+      "canonical_component": "thirdparty:libhybris",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:rust_libc",
+      "canonical_component": "thirdparty:rust_libc",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:pcre2",
+      "canonical_component": "thirdparty:pcre2",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:noto-cjk",
+      "canonical_component": "thirdparty:noto-cjk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:notofonts",
+      "canonical_component": "thirdparty:notofonts",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:tex-hyphen",
+      "canonical_component": "thirdparty:tex-hyphen",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:alsa-lib",
+      "canonical_component": "thirdparty:alsa-lib",
+      "original_features_syscap_record": {
+        "features": {
+          "alsa_lib_feature_config_enable": true
+        }
+      },
+      "canonical_requested_features_syscap": {
+        "features": {
+          "alsa_lib_feature_config_enable": true
+        }
+      },
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:libusb",
+      "canonical_component": "thirdparty:libusb",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "thirdparty:typescript",
+      "canonical_component": "thirdparty:typescript",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "tee:tee_client",
+      "canonical_component": "tee:tee_client",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "graphic:graphics_effect",
+      "canonical_component": "graphic:graphics_effect",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "graphic:graphic_3d",
+      "canonical_component": "graphic:graphic_3d",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "graphic:graphic_utils_lite",
+      "canonical_component": "graphic:graphic_utils_lite",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "graphic:vulkan-loader",
+      "canonical_component": "thirdparty:vulkan-loader",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "wrong-namespace"
+    },
+    {
+      "original_request": "graphic:vulkan-headers",
+      "canonical_component": "thirdparty:vulkan-headers",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "wrong-namespace"
+    },
+    {
+      "original_request": "sdk:sdk",
+      "canonical_component": "sdk:sdk",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    },
+    {
+      "original_request": "developtools:ace_ets2bundle",
+      "canonical_component": "developtools:ace_ets2bundle",
+      "original_features_syscap_record": {},
+      "canonical_requested_features_syscap": {},
+      "normalization_witness": [],
+      "compatibility_kind": "unchanged-component"
+    }
+  ],
+  "real_legacy_role_source_witnesses": [
+    {
+      "original_role": "startup:startup_l2",
+      "canonical_component": "startup:init",
+      "source_witnesses": [
+        {
+          "path": "base/startup/init/BUILD.gn",
+          "sha256": "b6d72756e27ac64f8df4c9226fd410e4c3bfba538ec0f1b3d3921039c3dc0bc2",
+          "line": 15,
+          "anchor": "group(\"init_fwk_group\")"
+        },
+        {
+          "path": "base/startup/init/begetd.gni",
+          "sha256": "ab56f7ca1d0bcd7d769fb77660dc391c036b93562873a7e0437dc1fe1de366b5",
+          "line": 96,
+          "anchor": "init_feature_group_type = true"
+        },
+        {
+          "path": "base/startup/init/services/BUILD.gn",
+          "sha256": "9505781c596224baec670754b96ffecd0e60c02e2c5dd211eebefe660919d91b",
+          "line": 31,
+          "anchor": "if (!defined(ohos_lite))"
+        },
+        {
+          "path": "base/startup/init/services/init/standard/BUILD.gn",
+          "sha256": "5710830ce15111972801a9d566c47024701e4032b918e1849a9987b173c1d534",
+          "line": 72,
+          "anchor": "ohos_executable(\"init\")"
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "communication:net_manager",
+      "canonical_component": "communication:netmanager_base",
+      "source_witnesses": [
+        {
+          "path": "foundation/communication/netmanager_base/services/netconnmanager/BUILD.gn",
+          "sha256": "a29e95cc1c0506aadf9887fe145b02df2d98f8a452ff6a2cc29378e8567bf3ae",
+          "line": 34,
+          "anchor": "ohos_shared_library(\"net_conn_manager\")"
+        },
+        {
+          "path": "foundation/communication/netmanager_base/services/netpolicymanager/BUILD.gn",
+          "sha256": "db1637b6426fa6bcb7338158a8ccf42a42f9fc074b8fbc8df6b4f0b1ea5acf80",
+          "line": 28,
+          "anchor": "ohos_shared_library(\"net_policy_manager\")"
+        },
+        {
+          "path": "foundation/communication/netmanager_base/services/netstatsmanager/BUILD.gn",
+          "sha256": "c2a69445081b220c947cde67ca537e661500fd76777a9a44b13918e77d63d37c",
+          "line": 34,
+          "anchor": "ohos_shared_library(\"net_stats_manager\")"
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "communication:bluetooth_native_js",
+      "canonical_component": "communication:bluetooth",
+      "source_witnesses": [
+        {
+          "path": "foundation/communication/bluetooth/frameworks/js/napi/BUILD.gn",
+          "sha256": "ec09e7214b7fc59d146251072e4c31b01c7f6fc5d6e19a889818b1ca0565d1a7",
+          "line": 229,
+          "anchor": "group(\"bluetooth_napi\")"
+        },
+        {
+          "path": "foundation/communication/bluetooth/frameworks/js/napi/BUILD.gn",
+          "sha256": "ec09e7214b7fc59d146251072e4c31b01c7f6fc5d6e19a889818b1ca0565d1a7",
+          "line": 19,
+          "anchor": "ohos_shared_library(\"bluetooth\")"
+        },
+        {
+          "path": "foundation/communication/bluetooth/frameworks/js/napi/BUILD.gn",
+          "sha256": "ec09e7214b7fc59d146251072e4c31b01c7f6fc5d6e19a889818b1ca0565d1a7",
+          "line": 83,
+          "anchor": "\"src/native_module.cpp\""
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "hdf:ril_device_driver_interface",
+      "canonical_component": "hdf:drivers_interface_ril",
+      "source_witnesses": [
+        {
+          "path": "drivers/interface/ril/v1_5/BUILD.gn",
+          "sha256": "a64a5bd46220644607736837377093ab03d49a24c3e2096308919351e02255d2",
+          "line": 15,
+          "anchor": "if (defined(ohos_lite))"
+        },
+        {
+          "path": "drivers/interface/ril/v1_5/BUILD.gn",
+          "sha256": "a64a5bd46220644607736837377093ab03d49a24c3e2096308919351e02255d2",
+          "line": 21,
+          "anchor": "hdi(\"ril\")"
+        },
+        {
+          "path": "drivers/interface/ril/v1_5/BUILD.gn",
+          "sha256": "a64a5bd46220644607736837377093ab03d49a24c3e2096308919351e02255d2",
+          "line": 33,
+          "anchor": "\"IRil.idl\""
+        },
+        {
+          "path": "drivers/interface/ril/v1_5/BUILD.gn",
+          "sha256": "a64a5bd46220644607736837377093ab03d49a24c3e2096308919351e02255d2",
+          "line": 39,
+          "anchor": "part_name = \"drivers_interface_ril\""
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "location:location_common",
+      "canonical_component": "location:location",
+      "source_witnesses": [
+        {
+          "path": "base/location/location/frameworks/location_common/common/BUILD.gn",
+          "sha256": "8676117871190c579df339e10e8bf3b0de8a4b8ab1fc2968a88eeddba6e9c429",
+          "line": 49,
+          "anchor": "ohos_shared_library(\"lbsservice_common\")"
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "location:location_locator",
+      "canonical_component": "location:location",
+      "source_witnesses": [
+        {
+          "path": "base/location/location/services/location_locator/locator/BUILD.gn",
+          "sha256": "899e7570333aee2e5a88546eff245007a32d27297715c4e7187ebcd11425195c",
+          "line": 51,
+          "anchor": "ohos_shared_library(\"lbsservice_locator\")"
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "location:location_geocode",
+      "canonical_component": "location:location",
+      "source_witnesses": [
+        {
+          "path": "base/location/location/config.gni",
+          "sha256": "a2bd49cdb960252b5c5d3d6d6507ede9db32f7fdb719f10c7f976fab559c81df",
+          "line": 39,
+          "anchor": "location_feature_with_geocode = true"
+        },
+        {
+          "path": "base/location/location/services/location_geocode/geocode/BUILD.gn",
+          "sha256": "2c646939fac6298a3d4b1f0446102d8d5e97b4209470d4dfaaa0c60ce6eada21",
+          "line": 24,
+          "anchor": "if (location_feature_with_geocode)"
+        },
+        {
+          "path": "base/location/location/services/location_geocode/geocode/BUILD.gn",
+          "sha256": "2c646939fac6298a3d4b1f0446102d8d5e97b4209470d4dfaaa0c60ce6eada21",
+          "line": 25,
+          "anchor": "ohos_shared_library(\"lbsservice_geocode\")"
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "location:location_gnss",
+      "canonical_component": "location:location",
+      "source_witnesses": [
+        {
+          "path": "base/location/location/config.gni",
+          "sha256": "a2bd49cdb960252b5c5d3d6d6507ede9db32f7fdb719f10c7f976fab559c81df",
+          "line": 40,
+          "anchor": "location_feature_with_gnss = true"
+        },
+        {
+          "path": "base/location/location/services/location_gnss/gnss/BUILD.gn",
+          "sha256": "185cc93a849688edbbc73b1993f8822d60f9e8017d0ffe53df673439cec46a1f",
+          "line": 17,
+          "anchor": "if (location_feature_with_gnss)"
+        },
+        {
+          "path": "base/location/location/services/location_gnss/gnss/BUILD.gn",
+          "sha256": "185cc93a849688edbbc73b1993f8822d60f9e8017d0ffe53df673439cec46a1f",
+          "line": 38,
+          "anchor": "ohos_shared_library(\"lbsservice_gnss\")"
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "location:location_network",
+      "canonical_component": "location:location",
+      "source_witnesses": [
+        {
+          "path": "base/location/location/config.gni",
+          "sha256": "a2bd49cdb960252b5c5d3d6d6507ede9db32f7fdb719f10c7f976fab559c81df",
+          "line": 41,
+          "anchor": "location_feature_with_network = true"
+        },
+        {
+          "path": "base/location/location/services/location_network/network/BUILD.gn",
+          "sha256": "acc605ece23f7979678e257a5e934c346814a1bbeb4482f2bd25f1148d69d56f",
+          "line": 26,
+          "anchor": "if (location_feature_with_network)"
+        },
+        {
+          "path": "base/location/location/services/location_network/network/BUILD.gn",
+          "sha256": "acc605ece23f7979678e257a5e934c346814a1bbeb4482f2bd25f1148d69d56f",
+          "line": 27,
+          "anchor": "ohos_shared_library(\"lbsservice_network\")"
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    },
+    {
+      "original_role": "location:location_passive",
+      "canonical_component": "location:location",
+      "source_witnesses": [
+        {
+          "path": "base/location/location/config.gni",
+          "sha256": "a2bd49cdb960252b5c5d3d6d6507ede9db32f7fdb719f10c7f976fab559c81df",
+          "line": 42,
+          "anchor": "location_feature_with_passive = true"
+        },
+        {
+          "path": "base/location/location/services/location_passive/passive/BUILD.gn",
+          "sha256": "e6715dac39a66a19dac5f30c2791035ab487bc74b383b0380ebf45609b42f3bb",
+          "line": 24,
+          "anchor": "if (location_feature_with_passive)"
+        },
+        {
+          "path": "base/location/location/services/location_passive/passive/BUILD.gn",
+          "sha256": "e6715dac39a66a19dac5f30c2791035ab487bc74b383b0380ebf45609b42f3bb",
+          "line": 25,
+          "anchor": "ohos_shared_library(\"lbsservice_passive\")"
+        }
+      ],
+      "actual_compilation_or_hardware_claimed": false
+    }
+  ],
+  "namespace_owner_audit_sha256": "36f9bcf54bda90765d6aa480d1b345cd534e40b02cf6a57256bac0bb03c4e5e7",
+  "actual_pinned_parser_sha256": "630a055003364757e9b0cca75056d96eb1b7e361e5ddb6cca7586f4987cb3b36",
+  "selector_sha256": "9b04d8ae5fa3c0f1426c3b20ca113131f659037a280189e084ea71bea264d381",
+  "source_version_compatibility_fix": true,
+  "original_receipts_or_profile_mutated": false,
+  "nonempty_original_scalar_feature_syscap_values_preserved": true,
+  "new_alias_groups_or_target_stubs": false,
+  "source_default_guard_review_complete": true,
+  "canonical_full_phone_source_bindings_verified": true,
+  "full_source_materialization_complete": false,
+  "actual_GN_invoked": false,
+  "native_images_built": false,
+  "full375_physical_parts_claimed": false,
+  "runtime": false,
+  "parent_coverage_sha256": "64cd8ca00e38699ed40a432feac7bc6de265231979c961edab1fbb95d282e4a7",
+  "real_legacy_role_source_export_default_API_reviews": [
+    {
+      "original_role": "startup:startup_l2",
+      "canonical_component": "startup:init",
+      "real_exported_build_targets": [
+        "//base/startup/init:init_fwk_group"
+      ],
+      "real_api_implementation": {
+        "path": "base/startup/init/services/init/main.c",
+        "sha256": "a769af267e314afa847f672001bd7933c95cb18102b3b8bf87fb5aba9bc27057",
+        "line": 30,
+        "anchor": "int main("
+      },
+      "default_guards": [
+        {
+          "argument": "init_feature_group_type",
+          "source_default": true,
+          "canonical_explicit_override_disables_role": false,
+          "source": {
+            "path": "base/startup/init/begetd.gni",
+            "sha256": "ab56f7ca1d0bcd7d769fb77660dc391c036b93562873a7e0437dc1fe1de366b5",
+            "line": 96,
+            "anchor": "init_feature_group_type = true"
+          }
+        }
+      ],
+      "configured_standard_context": "standard product; mini/small=false so lite variable import is inactive; real standard implementation branch",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "communication:net_manager",
+      "canonical_component": "communication:netmanager_base",
+      "real_exported_build_targets": [
+        "//foundation/communication/netmanager_base/services/netconnmanager:net_conn_manager",
+        "//foundation/communication/netmanager_base/services/netpolicymanager:net_policy_manager",
+        "//foundation/communication/netmanager_base/services/netstatsmanager:net_stats_manager"
+      ],
+      "real_api_implementation": {
+        "path": "foundation/communication/netmanager_base/services/netconnmanager/include/net_conn_service.h",
+        "sha256": "c665a890a820a48f9db2d08985991f62e44274776ea4b95651770fdba83b568d",
+        "line": 63,
+        "anchor": "class NetConnService"
+      },
+      "default_guards": [],
+      "configured_standard_context": "production library/group declaration has no enclosing conditional; internal optional dependencies do not erase target",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "communication:bluetooth_native_js",
+      "canonical_component": "communication:bluetooth",
+      "real_exported_build_targets": [
+        "//foundation/communication/bluetooth/frameworks/js/napi:bluetooth_napi"
+      ],
+      "real_api_implementation": {
+        "path": "foundation/communication/bluetooth/frameworks/js/napi/src/native_module.cpp",
+        "sha256": "a9e0f28d4ced92f3da5481a1faa9b95b687f16aff6c57bbbfd61f94b703ff8f2",
+        "line": 109,
+        "anchor": "napi_module_register(&bluetoothModule)"
+      },
+      "default_guards": [],
+      "configured_standard_context": "production library/group declaration has no enclosing conditional; internal optional dependencies do not erase target",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "hdf:ril_device_driver_interface",
+      "canonical_component": "hdf:drivers_interface_ril",
+      "real_exported_build_targets": [
+        "//drivers/interface/ril/v1_5:ril_idl_target"
+      ],
+      "real_api_implementation": {
+        "path": "drivers/interface/ril/v1_5/IRil.idl",
+        "sha256": "e8af22c0d839964c58d376a818e2fd028eb658091300459d83b87068c7076f26",
+        "line": 59,
+        "anchor": "interface IRil"
+      },
+      "default_guards": [],
+      "configured_standard_context": "standard product; mini/small=false so lite variable import is inactive; real standard implementation branch",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "location:location_common",
+      "canonical_component": "location:location",
+      "real_exported_build_targets": [
+        "//base/location/location/frameworks/location_common/common:lbsservice_common"
+      ],
+      "real_api_implementation": {
+        "path": "base/location/location/frameworks/base_module/source/location.cpp",
+        "sha256": "734776a01a705c2b4af55dcc8780c0ac187329626fff08d39c715e768edfcc9f",
+        "line": 39,
+        "anchor": "Location::"
+      },
+      "default_guards": [],
+      "configured_standard_context": "production library/group declaration has no enclosing conditional; internal optional dependencies do not erase target",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "location:location_locator",
+      "canonical_component": "location:location",
+      "real_exported_build_targets": [
+        "//base/location/location/services/location_locator/locator:lbsservice_locator"
+      ],
+      "real_api_implementation": {
+        "path": "base/location/location/services/location_locator/locator/source/locator_ability.cpp",
+        "sha256": "305fdb3d2418255c45a1c9eb780cbeb5010c816a8f1a959685c181a3df4e9427",
+        "line": 75,
+        "anchor": "LocatorAbility::"
+      },
+      "default_guards": [],
+      "configured_standard_context": "production library/group declaration has no enclosing conditional; internal optional dependencies do not erase target",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "location:location_geocode",
+      "canonical_component": "location:location",
+      "real_exported_build_targets": [
+        "//base/location/location/services/location_geocode/geocode:lbsservice_geocode"
+      ],
+      "real_api_implementation": {
+        "path": "base/location/location/services/location_geocode/geocode/source/geo_convert_service.cpp",
+        "sha256": "7a7b1781850105e2dc546557c75ec300cd5b4b7fe26c592d9b7f2c3f9ee2a031",
+        "line": 36,
+        "anchor": "GeoConvertService::"
+      },
+      "default_guards": [
+        {
+          "argument": "location_feature_with_geocode",
+          "source_default": true,
+          "canonical_explicit_override_disables_role": false,
+          "source": {
+            "path": "base/location/location/config.gni",
+            "sha256": "a2bd49cdb960252b5c5d3d6d6507ede9db32f7fdb719f10c7f976fab559c81df",
+            "line": 39,
+            "anchor": "location_feature_with_geocode = true"
+          }
+        }
+      ],
+      "configured_standard_context": "real source default=true; original selected feature values contain no false override",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "location:location_gnss",
+      "canonical_component": "location:location",
+      "real_exported_build_targets": [
+        "//base/location/location/services/location_gnss/gnss:lbsservice_gnss"
+      ],
+      "real_api_implementation": {
+        "path": "base/location/location/services/location_gnss/gnss/source/gnss_ability.cpp",
+        "sha256": "d74315a619633dc049e3a036a54f5deb3662d63c6528fde92627dd8ccc1daee1",
+        "line": 106,
+        "anchor": "GnssAbility::"
+      },
+      "default_guards": [
+        {
+          "argument": "location_feature_with_gnss",
+          "source_default": true,
+          "canonical_explicit_override_disables_role": false,
+          "source": {
+            "path": "base/location/location/config.gni",
+            "sha256": "a2bd49cdb960252b5c5d3d6d6507ede9db32f7fdb719f10c7f976fab559c81df",
+            "line": 40,
+            "anchor": "location_feature_with_gnss = true"
+          }
+        }
+      ],
+      "configured_standard_context": "real source default=true; original selected feature values contain no false override",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "location:location_network",
+      "canonical_component": "location:location",
+      "real_exported_build_targets": [
+        "//base/location/location/services/location_network/network:lbsservice_network"
+      ],
+      "real_api_implementation": {
+        "path": "base/location/location/services/location_network/network/source/network_ability.cpp",
+        "sha256": "0fb6501a3bdd2ce8a056961a683d942932238070cac136f19afe04ac941f79eb",
+        "line": 60,
+        "anchor": "NetworkAbility::"
+      },
+      "default_guards": [
+        {
+          "argument": "location_feature_with_network",
+          "source_default": true,
+          "canonical_explicit_override_disables_role": false,
+          "source": {
+            "path": "base/location/location/config.gni",
+            "sha256": "a2bd49cdb960252b5c5d3d6d6507ede9db32f7fdb719f10c7f976fab559c81df",
+            "line": 41,
+            "anchor": "location_feature_with_network = true"
+          }
+        }
+      ],
+      "configured_standard_context": "real source default=true; original selected feature values contain no false override",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    },
+    {
+      "original_role": "location:location_passive",
+      "canonical_component": "location:location",
+      "real_exported_build_targets": [
+        "//base/location/location/services/location_passive/passive:lbsservice_passive"
+      ],
+      "real_api_implementation": {
+        "path": "base/location/location/services/location_passive/passive/source/passive_ability.cpp",
+        "sha256": "5adeb55f79a5cd984f29d59bf0f61c9d45cf82dcd610cc7a5c3e6559ca23cf8c",
+        "line": 39,
+        "anchor": "PassiveAbility::"
+      },
+      "default_guards": [
+        {
+          "argument": "location_feature_with_passive",
+          "source_default": true,
+          "canonical_explicit_override_disables_role": false,
+          "source": {
+            "path": "base/location/location/config.gni",
+            "sha256": "a2bd49cdb960252b5c5d3d6d6507ede9db32f7fdb719f10c7f976fab559c81df",
+            "line": 42,
+            "anchor": "location_feature_with_passive = true"
+          }
+        }
+      ],
+      "configured_standard_context": "real source default=true; original selected feature values contain no false override",
+      "source_default_API_target_review_pass": true,
+      "actual_GN_or_runtime_claimed": false
+    }
+  ],
+  "configured_standard_context_source_witnesses": [
+    {
+      "path": "build/config/BUILDCONFIG.gn",
+      "sha256": "068e37b0c9d7d4acb45a4d52a6f567c3bf1807906f82f90637728c1846375038",
+      "line": 287,
+      "anchor": "is_lite_system = is_mini_system || is_small_system"
+    },
+    {
+      "path": "build/config/BUILDCONFIG.gn",
+      "sha256": "068e37b0c9d7d4acb45a4d52a6f567c3bf1807906f82f90637728c1846375038",
+      "line": 850,
+      "anchor": "if (is_lite_system)"
+    },
+    {
+      "path": "build/lite/ohos_var.gni",
+      "sha256": "a5e9e72f1f390f17db206940052e60431670b88d258f6a9c5e872243b6959bc0",
+      "line": 98,
+      "anchor": "ohos_lite = true"
+    },
+    {
+      "path": "build/ohos.gni",
+      "sha256": "a9cdfb97dd6ba12d89ae7bc7464f0fc0395e4b49469c882c226212e140947ced",
+      "line": 18,
+      "anchor": "import(\"//build/ohos_var.gni\")"
+    },
+    {
+      "path": "build/config/components/hdi/hdi.gni",
+      "sha256": "b75ebe62d2ea60d35a3f943df6da0c256a0f7a0b9eb0af244f2714b1e6f774d1",
+      "line": 367,
+      "anchor": "group(\"$target_name\" + \"_idl_target\")"
+    }
+  ],
+  "original375_source_bindings_verified": false,
+  "historical_literal375_acceptance_relabelled": false
+}

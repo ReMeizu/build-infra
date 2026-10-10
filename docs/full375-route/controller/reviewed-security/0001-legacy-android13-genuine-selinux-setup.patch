@@ -1,0 +1,55 @@
+--- a/androidd.c
++++ b/androidd.c
+@@ -1054,6 +1054,36 @@
+         legacy_cmdline[n] = '\0';
+         if (meizu_legacy_hardware(legacy_cmdline, hardware, sizeof hardware) < 0)
+             die("legacy cmdline hardware missing/ambiguous or slot_suffix present");
++        /* ISOLATION mode gate: this profile intentionally runs one global,
++         * genuine Android13 policy in permissive mode. A mount namespace
++         * does not isolate SELinux. Never synthesize this boot permission. */
++        {
++            const char *p = legacy_cmdline;
++            unsigned int permissive_count = 0;
++            while (*p) {
++                const char *start;
++                size_t len;
++                while (*p && isspace((unsigned char)*p)) ++p;
++                if (!*p) break;
++                start = p;
++                while (*p && !isspace((unsigned char)*p)) ++p;
++                len = (size_t)(p - start);
++                if (len >= sizeof("androidboot.selinux=") - 1 &&
++                    !memcmp(start, "androidboot.selinux=",
++                            sizeof("androidboot.selinux=") - 1)) {
++                    if (len != sizeof("androidboot.selinux=permissive") - 1 ||
++                        memcmp(start, "androidboot.selinux=permissive", len))
++                        die("M5C_SELINUX experiment requires explicit permissive boot contract");
++                    ++permissive_count;
++                }
++                if (len >= sizeof("selinux=") - 1 &&
++                    !memcmp(start, "selinux=", sizeof("selinux=") - 1) &&
++                    (len != sizeof("selinux=1") - 1 || memcmp(start, "selinux=1", len)))
++                    die("M5C_SELINUX kernel SELinux must remain enabled");
++            }
++            if (permissive_count != 1)
++                die("M5C_SELINUX missing or duplicated permissive boot contract");
++        }
+         const char *slot = getenv("androidboot.slot_suffix");
+         if (slot && *slot) die("legacy A-only boot inherited slot_suffix");
+         if (setenv("androidboot.hardware", hardware, 1) < 0)
+@@ -1341,7 +1371,15 @@
+     /* /system/bin/init is Halium's stage-2 init binary.  Halium 12's
+      * boot.img ramdisk's /init is a separate stage-1 (not used here —
+      * we've already done partition/mount setup via the chainload). */
++#ifdef ONIRO_LEGACY_CMDLINE_BOOT
++    /* Actual A13 SetupSelinux loads the real global policy, sets enforcement,
++     * restorecons init and execs second_stage itself. Do not call first-stage
++     * partition mounting and do not bypass the SELinux setup phase. */
++    logmsg("M5C_SELINUX exec genuine selinux_setup; global experimental permissive policy");
++    char *argv[] = { (char *)"init", (char *)"selinux_setup", NULL };
++#else
+     char *argv[] = { (char *)"init", (char *)"second_stage", NULL };
++#endif
+     execv("/system/bin/init", argv);
+     /* On exec failure logmsg falls back to the parent's /dev/kmsg path
+      * (different mount NS, but it can still open() the kernel device). */

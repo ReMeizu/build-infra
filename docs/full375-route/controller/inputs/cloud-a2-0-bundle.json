@@ -1,0 +1,34 @@
+{
+  "component": {
+    "build": {
+      "sub_component": [
+        "//device/board/oniro/hybris_generic:hybris_generic_group"
+      ],
+      "test": []
+    },
+    "deps": {
+      "components": [
+        "hilog"
+      ],
+      "third_party": [
+        "alsa-lib",
+        "libhybris"
+      ]
+    },
+    "features": [
+      "oniro_androidd_static_binder",
+      "oniro_androidd_legacy_cmdline_boot"
+    ],
+    "name": "device_hybris_generic",
+    "subsystem": "device_hybris_generic",
+    "syscap": []
+  },
+  "dirs": [
+    ""
+  ],
+  "license": "Apache License 2.0",
+  "name": "@ohos/device_hybris_generic",
+  "private": false,
+  "scripts": {},
+  "version": "3.1"
+}

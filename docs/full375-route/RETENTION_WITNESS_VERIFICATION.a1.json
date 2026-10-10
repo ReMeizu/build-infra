@@ -1,0 +1,64 @@
+{
+  "actual_corrected_cloud_run_pending": true,
+  "base_commit": "46f351f2d54fad82aca1eb1cceeee90a0e14dbbe",
+  "derived_worker_sha256": "9d5820422722460e8321f17b2f77bfc61010cce4ab5a19859dc8b0abdb3deaeb",
+  "files": [
+    {
+      "bytes": 19861,
+      "path": "docs/full375-route/run_full_phone.py",
+      "sha256": "528e71389e967522beca94d94f923621c97348b5c92cd14eb6b4a396aceacb0f"
+    },
+    {
+      "bytes": 19546,
+      "path": "docs/full375-route/retain_full_phone.py",
+      "sha256": "ff5a116acee555b7a96e9d7d6d164904a156da8e2a471a483dc3cb7595d8eff5"
+    },
+    {
+      "bytes": 3897,
+      "path": "docs/full375-route/make_overlay_worker.py",
+      "sha256": "092117464da29232f2eb9c41090c962afd9dc4bc0b9fc5f71c1fe536264ce59c"
+    },
+    {
+      "bytes": 4928,
+      "path": "docs/full375-route/container_image_witness.py",
+      "sha256": "58286b64de68023454a2a2448b14e510e0dbc322a9d46a6071052a8f0ec79200"
+    },
+    {
+      "bytes": 6461,
+      "path": "docs/full375-route/producer_metadata.py",
+      "sha256": "08a6795457684460f3ce9e86b74247b92466dbb5dd9987253e73b41bf75f64c1"
+    },
+    {
+      "bytes": 4870,
+      "path": "docs/full375-route/native_target_witness.py",
+      "sha256": "041fd3a11e0e8f10a5de772e48fc99ba88b1d83c648602b000cf0a5346f554a5"
+    },
+    {
+      "bytes": 13992,
+      "path": "docs/full375-route/test_full_producer.py",
+      "sha256": "ae80e3bbd34b41fc22ecac202831d51ad41772e61263a2011dda95f39bb8fbec"
+    },
+    {
+      "bytes": 7209,
+      "path": "docs/full375-route/test_retention_witness.py",
+      "sha256": "e9db698535810d6c7a9757cacb861ed6766ae134d36174d663558346a2d0a5a8"
+    },
+    {
+      "bytes": 3549,
+      "path": "docs/full375-route/README.md",
+      "sha256": "8589032eec6144a44da7af2f62cd84ab71a197d428eab7b7bb8c385261b7ddb7"
+    }
+  ],
+  "live_run_source_or_branch_changed": false,
+  "local_target_compilation": false,
+  "original_targets_flags_SDK_and_source_selection_changed": false,
+  "schema": "remeizu.corrected-full-phone-retention-witness-source-freeze.v1",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest test_acquire_full_phone test_full_profile test_nonproduction_scope test_overlay_worker test_full_producer test_retention_witness -v",
+    "controls": 37,
+    "cwd": "docs/full375-route",
+    "result": "PASS"
+  },
+  "unchanged_official_forge_sha256": "9a01d1c452ecf14674a9df1f7512176f30b1fe2949660e2ea743960e7d400bb8",
+  "unchanged_original_worker_sha256": "196b46fc755f5ef77eeca02dc81c448f46f3f70daf095f3997624ec2583bc9be"
+}

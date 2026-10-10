@@ -1,0 +1,86 @@
+{
+  "schema": "remeizu.exact-source-nonproduction-Gitlink-scope.v1",
+  "profile_kind": "canonical-full-gui-a2",
+  "parent_project": "arkcompiler/runtime_core",
+  "parent_head": "59a33d7a52602c90a1772d0e9b5d2a539c9effbc",
+  "parent_git_tree": "a370df660b7bfb9629a6fa1dc31fc25b339d49aa",
+  "gitlink": {
+    "path": "arkcompiler/runtime_core/static_core/tools/plugins/ecmascript",
+    "git_mode": "160000",
+    "git_object": "cc2552eb551e806e6892fe6871de7b173943afb6",
+    "materialized": false,
+    "recursive_source_closure": false
+  },
+  "actual_plugin_parent": "arkcompiler/runtime_core/static_core/plugins",
+  "actual_enabled_default_plugins": [
+    "ets"
+  ],
+  "selected_standalone_overrides": [],
+  "ets_runtime_JS_component_selected": true,
+  "cpp_include_and_build_source_scan_files": 7104,
+  "cpp_include_and_build_source_scan_inventory_sha256": "a92e46374d0e9c92c08ec96e99700aba6e4700fc6271b330849cf6d5fddaf0cd",
+  "tools_plugins_references_found": [],
+  "source_route_witnesses": [
+    {
+      "path": "arkcompiler/runtime_core/static_core/ark_root.gni",
+      "sha256": "e3359a020c4baa4d83261cde1f7f71b12ccee2cffc6330146836f16edfc611ed",
+      "line": 27,
+      "anchor": "ark_root = \"//arkcompiler/runtime_core/static_core\""
+    },
+    {
+      "path": "arkcompiler/runtime_core/static_core/ark_root.gni",
+      "sha256": "e3359a020c4baa4d83261cde1f7f71b12ccee2cffc6330146836f16edfc611ed",
+      "line": 15,
+      "anchor": "ark_static_standalone_build = false"
+    },
+    {
+      "path": "arkcompiler/runtime_core/static_core/ark_root.gni",
+      "sha256": "e3359a020c4baa4d83261cde1f7f71b12ccee2cffc6330146836f16edfc611ed",
+      "line": 18,
+      "anchor": "ark_standalone_build = false"
+    },
+    {
+      "path": "arkcompiler/runtime_core/static_core/plugins/plugins.gni",
+      "sha256": "0a180008a09407da77b28b2ecad05d3c7fa320c7f25f71601098c9ee327312b3",
+      "line": 71,
+      "anchor": "foreach(plugin, ark_enabled_plugins)"
+    },
+    {
+      "path": "arkcompiler/runtime_core/static_core/plugins/plugins.gni",
+      "sha256": "0a180008a09407da77b28b2ecad05d3c7fa320c7f25f71601098c9ee327312b3",
+      "line": 73,
+      "anchor": "_plugin_dir = \"$ark_root/plugins/$plugin\""
+    },
+    {
+      "path": "arkcompiler/runtime_core/static_core/platforms/ohos/ark_config.gni",
+      "sha256": "d15493253ab82fc12377b05d66aa8bd02b2462126856344d175d12704ed50376",
+      "line": 14,
+      "anchor": "default_ark_enabled_plugins = [ \"ets\" ]"
+    },
+    {
+      "path": "arkcompiler/runtime_core/static_core/platforms/common/ark_config.gni",
+      "sha256": "069646238aab4ac5f13d687df78d4415c2c4859a52c7efce9c23c0a83a26ab44",
+      "line": 14,
+      "anchor": "default_ark_enabled_plugins = [ \"ets\" ]"
+    },
+    {
+      "path": "arkcompiler/runtime_core/static_core/ark_config.gni",
+      "sha256": "4226452deb419f0c4f35ab67452e68e724e58ac7431409601e9033b2a94e0a04",
+      "line": 90,
+      "anchor": "ark_enabled_plugins = default_ark_enabled_plugins"
+    },
+    {
+      "path": "arkcompiler/runtime_core/arkplatform/hybrid_config.gni",
+      "sha256": "a86bb962923d14a57710db489e5ffa891af907ccceadf6e562cb009745dd9205",
+      "line": 23,
+      "anchor": "ark_ets_hybrid = !ark_standalone_build && !is_mac"
+    }
+  ],
+  "nonproduction_path_scope_proven_from_exact_source": true,
+  "actual_generated_GN_graph_verified": false,
+  "child_source_fabricated": false,
+  "original_empty_pointer_record_preserved": true,
+  "all506_recursive_checkout_claimed": false,
+  "target_compilation": false,
+  "images_or_runtime_claimed": false
+}
