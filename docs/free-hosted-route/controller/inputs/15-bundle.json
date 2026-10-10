@@ -1,0 +1,25 @@
+{
+  "name": "@ohos/product_m5c",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "private": false,
+  "scripts": {},
+  "dirs": [
+    ""
+  ],
+  "component": {
+    "name": "product_m5c",
+    "subsystem": "product_m5c",
+    "syscap": [],
+    "features": [],
+    "deps": {
+      "components": [],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//vendor/oniro/m5c:m5c_product"
+      ]
+    }
+  }
+}

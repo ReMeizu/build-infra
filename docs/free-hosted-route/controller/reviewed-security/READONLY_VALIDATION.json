@@ -1,0 +1,14 @@
+{
+  "compiled": false,
+  "full_os_verified": false,
+  "kernel_policy_load_verified": false,
+  "negative_checks": 9,
+  "original_audit_sha256": "487db2db407daf12dd6f4aa532507b90d0d0156e6c3261cff99a751ec500cb3f",
+  "output_source_sha256": "0670969c8918144e37b9ee17d174857ef638fb1a5e1f53582c0518b72fccd8fe",
+  "publication_scope": "source-only privacy-reviewed summary; original private audit not exported",
+  "runtime_verified": false,
+  "schema": "remeizu.m5c-selinux-bootstrap-readonly-validation.v1",
+  "source_patch_applied": true,
+  "status": "PASS",
+  "whole_child_security_isolation_verified": false
+}

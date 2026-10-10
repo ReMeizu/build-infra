@@ -1,0 +1,11 @@
+# Storage production dependency successor
+
+Authenticated run38051574061 reached genuine GN with all110 source providers/SDKs unchanged. The first fatal edge was app_file_service/interfaces/innerkits/native/BUILD.gn169: storage_service:storage_manager_sa_proxy. This source-only successor registers the real original storage component and its bounded production neighbors. It does not claim complete graph closure.
+
+The exact batch adds storage_service,dfs_service,exfatprogs,gptfdisk,ntfs-3g,tee_client,libfuse,memmgr,netmanager_base,preferences,power_manager,dataclassification,device_manager and the already admitted f2fs-tools component. All thirteen new repositories were reused read-only at original manifest HEAD/tree identities, with complete byte/mode/link inventory checks. No repository fetch or existing f2fs source-row duplication occurred.
+
+Storage's original cloud-fuse/external-storage/fstools defaults and DFS distributed-ability/daemon defaults stay true. Their actual production GN declarations require the listed neighbors; the unchanged oniro/arm64 product remains a nonemulator for the tee-client edge. Power-manager comes from the unconditional production cloudsync_sa_static declaration in the same loaded BUILD, rather than the cloudsync_sa service target itself. Thermal/battery/device-profile conditional neighbors are not activated. No original compiler,SDK,Rust,libhybris,worker,Forge,container cleanup guard,feature override,test or target is dropped or replaced.
+
+The cohort is123 projects/109 selected parts,290070 source files/2463660886 bytes, including7071 added files/46324653 bytes. Expanded source/tools/wheels are5869658565 bytes. The GNI serialized size is79381340 bytes. Lock9a110423d47de74e663cc4d504f95303a5f97bb62a88e502423cfdae0a43da0d binds GNIa0fff331eac3f3594631b39be05b8f75f78dbfc87ba23798146db926f1ac0ba6 and proofa72a3cba20cf2e1ae2d386631ac67b867bcdf224909347a1f025d41bfc1a689c.
+
+Exact fixed guards preserve all110/95 project/source rows and part feature maps, plus the103/88,102/86,101/85 and original88/72 ancestry. Source/Rust/RAM capacity floors and two compiler jobs are unchanged. Actual next GN/Ninja/image packaging remain the execution gates. Full375 completeness,flashability and phone runtime are still unverified.

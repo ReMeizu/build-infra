@@ -1,0 +1,3 @@
+# ISOLATION/DRAFT: no physical partition mounts or format policy.
+# Requires proven legacy initramfs pre-mounted system/vendor/sys_prod/android.
+# Data is ephemeral tmpfs from the M5c-selected system init.cfg.

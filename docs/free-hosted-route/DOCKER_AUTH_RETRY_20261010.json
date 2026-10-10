@@ -1,0 +1,20 @@
+{
+  "schema": "remeizu.actual-docker-auth-failure-retry.v1",
+  "checked_at": "2026-10-10T09:54:10.323883+00:00",
+  "failed_run": "37994042934",
+  "actual_failed_phase": "docker-build",
+  "actual_exit_code": 1,
+  "authenticated_error": "Docker Hub OAuth token POST returned HTTP504 Gateway Timeout loading eclipse-temurin:8-jdk-focal",
+  "current_host_anonymous_auth_http": 200,
+  "current_host_manifest_head_http": 200,
+  "current_manifest_digest": "sha256:24dd0ef75eadf6107a0620471ce106d5df9716a2d4d54f2ac0f7cc16b144d823",
+  "probe_token_persisted": false,
+  "cloud_success_inferred_from_host_probe": false,
+  "source_lock_sha256": "cd0fd17d93ddf0c7f4cd2da211fafb746cca9aaf8e16e8a9f4867e9700cce4c0",
+  "gn_inputs_sha256": "bc5b4da2894494c066978098d9e811cb208fca87588c1e73c0dea4f45e4d4e06",
+  "official_dockerfile_sha256": "bdaa70b28298b269a8009335a9e90987fde0dd1ff08dad5369d133aeb0aadf3b",
+  "code_source_sdk_or_dockerfile_changed": false,
+  "new_paid_allocation": false,
+  "full375_image_proven": false,
+  "runtime": false
+}

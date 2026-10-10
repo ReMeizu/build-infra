@@ -1,0 +1,8 @@
+{
+  "project": "base/update/updater",
+  "original_url": "https://gitcode.com/openharmony/update_updater",
+  "http_status": 200,
+  "content_type": "application/x-git-upload-pack-advertisement",
+  "git_upload_pack_advertisement": true,
+  "response_prefix_sha256": "68116e95a1a3b1391f19a0099cc5e826c660199448a8f6431c14404f5ee63f91"
+}

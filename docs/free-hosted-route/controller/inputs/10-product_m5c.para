@@ -1,0 +1,38 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+const.product.brand=Meizu
+const.build.product=m5c
+
+# HDC (OpenHarmony Device Connector). These are base defaults; on native boot
+# hybris_native.para (loaded from /sys_prod/etc/param/, first-write-wins) flips
+# usb to "enable" for USB hdc — see phase_n7_hdc_usb.md.
+const.security.developermode.state = "true"
+persist.hdc.mode.usb = "disable"
+persist.hdc.mode.tcp = "enable"
+persist.hdc.port = "8712"
+
+# Disable seccomp — the Halium vendor HALs invoked over libhybris trip the
+# default OHOS seccomp filters.
+persist.init.debug.seccomp.enable = 0
+
+# Disable screen timeout — keep display on indefinitely
+const.settings.screen_never_sleep=true
+
+# Default UI language / locale — English (UK) for European formatting
+# (metric units, DD/MM dates, 24h time). Overrides base zh-Hans default
+# from base/global/i18n/frameworks/intl/etc/i18n.para via first-write-wins
+# (sys_prod loads before /system/etc/param).
+const.global.language=en-Latn-GB
+const.global.locale=en-Latn-GB
+const.global.region=GB

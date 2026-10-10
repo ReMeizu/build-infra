@@ -1,0 +1,11 @@
+import("//build/ohos.gni")
+
+ohos_copy("image_conf") {
+  sources = [
+    "system_image_conf.txt",
+    "vendor_image_conf.txt",
+    "sys_prod_image_conf.txt",
+    "chip_prod_image_conf.txt",
+  ]
+  outputs = [ "${product_output_dir}/imagesconf/{{source_file_part}}" ]
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "remeizu.public-input-functional-flag-preservation.v1",
+  "original87_source_member_rows_exactly_preserved": true,
+  "original_patches_overlays_tools_wheels_features_and_gitlink_gates_preserved": true,
+  "original_worker_bytes_preserved": true,
+  "only_real_libusb_part_and19_members_added": true,
+  "historical_carrier_and_host_audit_data_removed": true,
+  "compiler_or_workflow_executed": false,
+  "full375_phone": false
+}

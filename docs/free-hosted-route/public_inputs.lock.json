@@ -1,0 +1,1505 @@
+{
+  "cohort_proof": {
+    "path": "inputs/RUST_CXX_COHORT_PROOF.a1.json",
+    "sha256": "e9bfe8607eaf598afa02a1b0c642c7a9a9010fd6ebe58e4452bf68f47bcd2b8e"
+  },
+  "controller_path": "docs/free-hosted-route/controller",
+  "expanded_bytes": 5908210525,
+  "full375_phone": false,
+  "global_source_links": [
+    {
+      "path": ".gn",
+      "target": "build/core/gn/dotfile.gn"
+    }
+  ],
+  "gn_inputs_sha256": "c84761f5a94a3370aca702e6bdea222b3049b626ecfce9fc8987e6467ad26aa4",
+  "native_compile_executed": false,
+  "patch_source_correction": {
+    "path": "inputs/LIBHYBRIS_GN_PREPEND_PROOF.a12.json",
+    "sha256": "6f3638c36a21c60f63fd5c552c2f91e9bbf0b8867ec98c9028bea7c4f32bc374"
+  },
+  "private_android_inputs": false,
+  "projects": [
+    {
+      "git_tree": "a160821cbfdfe751bee4a50664327b9a195b46f4",
+      "head": "5597122415cad169c3564c0baf16074ca4bbc393",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/customization/config_policy",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/customization_config_policy"
+    },
+    {
+      "git_tree": "8f479946eea8a11ee62c8ad398e754db7f4e07b5",
+      "head": "5c3d0e593d5bf662a374045f9f043bf020876d28",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/hiviewdfx/faultloggerd",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/hiviewdfx_faultloggerd"
+    },
+    {
+      "git_tree": "2a0f3dbe8867e312648d79b0131b8ef4df4a8c34",
+      "head": "cbc2c42489b64979f7ab98188f45fc39813180ae",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/hiviewdfx/hicollie",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/hiviewdfx_hicollie"
+    },
+    {
+      "git_tree": "c42f8f5490a8dd5c54676c1f50dfd725d5abdbf5",
+      "head": "cee2823a711cb17de536bb0e33397170458b7a9d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/hiviewdfx/hidumper",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/hiviewdfx_hidumper"
+    },
+    {
+      "git_tree": "cca126db204ff682e325f9a3d330c1aef8f788d8",
+      "head": "72bcf6c12c1229774cdb8a3b3a8a6c8fb7767fad",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/hiviewdfx/hilog",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/hiviewdfx_hilog"
+    },
+    {
+      "git_tree": "5002058459f78bbfaac719a43da10d9fa9c5ec64",
+      "head": "32d6c372407eeaf8c1fa22190bef60a735bc8be1",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/hiviewdfx/hisysevent",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/hiviewdfx_hisysevent"
+    },
+    {
+      "git_tree": "cbf6605446e848855f08942e672d0a35c833f89a",
+      "head": "faf8460b3a9e672894299b7a836bb0c59c3ea76e",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/hiviewdfx/hitrace",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/hiviewdfx_hitrace"
+    },
+    {
+      "git_tree": "aca58a91601880e57cca051e16b566968dfeac7e",
+      "head": "b6dbe337dee47a8567faa21214fb7ef1f342de6d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/notification/eventhandler",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/notification_eventhandler"
+    },
+    {
+      "git_tree": "6482516d4aa4c637ee9cee1a0e783f344222ead4",
+      "head": "9e819c8933db91055b2962c3f244b17dfa6f6085",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/security/access_token",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/security_access_token"
+    },
+    {
+      "git_tree": "0b18697040e83cf2ae2e59c92951396a881cb145",
+      "head": "3a2bcb3057c16ea9f274f916bcecd18ddb198f35",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/security/certificate_framework",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/security_certificate_framework"
+    },
+    {
+      "git_tree": "e92bc720282ac3238ed7d256399bd320403a3754",
+      "head": "77fc5dae7075b3a1dea3a2cbe5dd704e5974e9ee",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/security/device_auth",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/security_device_auth"
+    },
+    {
+      "git_tree": "b25254631194fc744cd61adb6105adc607465bb5",
+      "head": "57fbbe33d5ade25ca01a32a2b2aeda7d350bb5ee",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/security/huks",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/security_huks"
+    },
+    {
+      "git_tree": "626919682d1c16a8aa9b9e09003291f584de13cb",
+      "head": "2302212046bfdd5d235bbebfe98aa7644aa63414",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/security/selinux_adapter",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/security_selinux_adapter"
+    },
+    {
+      "git_tree": "e4ae2b44aca127ee7a17a8db86267ffd989c4c3f",
+      "head": "1f0ac5a68509cb12653eb636d3b4fb45b9eb6681",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/startup/appspawn",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/startup_appspawn"
+    },
+    {
+      "git_tree": "a4da13a0b5a5f748ab0ea873ebc3adbc63879bb5",
+      "head": "fdea3b690622b67c454a34d5bf7a79cf104b2394",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/startup/init",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/startup_init"
+    },
+    {
+      "git_tree": "453bbcb06b790f3aeb0eef2f6d76a75b3bd8fe99",
+      "head": "e6a6226e2be5e5ba81e654bb916e93e0f13f615d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/update/updater",
+      "uninitialized_gitlinks": [],
+      "url": "https://gitcode.com/openharmony/update_updater"
+    },
+    {
+      "git_tree": "da55c157f5a5c3c7e1a2f580ddb31aa04f465ad7",
+      "head": "06bb4a27efac09c173e7cc0ac83a5f0ff3f37f47",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/update/updateservice",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/update_update_service"
+    },
+    {
+      "git_tree": "46055d7961dc6166a7478089f39e1be3517a85c0",
+      "head": "80df60cf6eaf72fe542a50c72f1802d7e5193d8a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "build",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/build"
+    },
+    {
+      "git_tree": "6cc44b53b5f99e3ebd806d4cf744749d2c4f8a09",
+      "head": "e01ffbfc3d9e621f11f8780b38e6cc92d1248ee2",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "commonlibrary/c_utils",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/commonlibrary_c_utils"
+    },
+    {
+      "git_tree": "2f9ff93586ee27b4d353db5fbcbad6262501149d",
+      "head": "7a66525fe75ac8ecffb356ddae3bb45ffe9453d8",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "commonlibrary/rust/ylong_http",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/commonlibrary_rust_ylong_http"
+    },
+    {
+      "git_tree": "e34ec7ddcc52537680219c1efa2b655bdcddc15c",
+      "head": "a5584287347fab4178485f190e8416e2ddf68d24",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "commonlibrary/rust/ylong_json",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/commonlibrary_rust_ylong_json"
+    },
+    {
+      "git_tree": "380ed16c9693833112f3a533a9504a7190c94ba1",
+      "head": "c9bb0e3a20554995847983bca558f6c6c36ebad5",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "commonlibrary/rust/ylong_runtime",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/commonlibrary_rust_ylong_runtime"
+    },
+    {
+      "git_tree": "45f0fa4af1ade8eab1112df5276d988bd1023d8a",
+      "head": "51794b3efb6b8eaf2b06776403c30e1b91c6b4fd",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "developtools/hdc",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/developtools_hdc"
+    },
+    {
+      "git_tree": "2854b4011d2797121184e7beacef4d8c92949784",
+      "head": "3028f284272da1cc31aa163c95dc2632d0c92132",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "developtools/syscap_codec",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/developtools_syscap_codec"
+    },
+    {
+      "git_tree": "0c7837d8789298a2b5bc23f9ec37fb4a7b266e06",
+      "head": "798369193f3cac22f21cc35cd8189f10b12d6fef",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "device/board/oniro",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro4openharmony/device_board_oniro"
+    },
+    {
+      "git_tree": "9b7774407c0ee86a4d41bcf40fdabd44119aa249",
+      "head": "29d0efef7cb8edfefa5c5b7c08a4562d1d7c1c63",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "device/soc/oniro",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro4openharmony/device_soc_oniro"
+    },
+    {
+      "git_tree": "cfc53183cef414f10e5253b9553876826051db3d",
+      "head": "a0e77ad177150b2e60f72ca8d783f0c2b370d8f4",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "drivers/hdf_core",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/drivers_hdf_core"
+    },
+    {
+      "git_tree": "91d423f194b65c268504964dbc16f9be8c4ac6c8",
+      "head": "a969b1936b4dbb79982cb79564a482f3f927cefa",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "drivers/interface",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/drivers_interface"
+    },
+    {
+      "git_tree": "e0954ba239cc7d69b17c2469d09367913ac0ccdc",
+      "head": "f103502bf80974b3441b785c8ebdbf60e78c36e0",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "drivers/peripheral",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/drivers_peripheral"
+    },
+    {
+      "git_tree": "38fc7cc8cd54a2ba400d984cece2b3723dd917f6",
+      "head": "74fec5206f9cde507cd7f84320181121c4a3cef4",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/communication/dsoftbus",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/communication_dsoftbus"
+    },
+    {
+      "git_tree": "dffe9ae08234907ba9be92f12c7d53fa6e096b07",
+      "head": "1711ab6bb3c67d12290f123d70bbcdd4c6c772c6",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/communication/ipc",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/communication_ipc"
+    },
+    {
+      "git_tree": "34ba87cf2d87ab97909e5ef554c0eabf381e8655",
+      "head": "a6ab6de86deda4cd0922ce4fc37c7427931b6a0d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/graphic/graphic_2d",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/graphic_graphic_2d"
+    },
+    {
+      "git_tree": "ee1808e1fc34fde4830388b83de6a99e9d2a561c",
+      "head": "3cc2c206dd179314182fa5a8468963be1d12da79",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/graphic/graphic_surface",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/graphic_graphic_surface"
+    },
+    {
+      "git_tree": "d9397819b693d0e498c9a2d711b1323232641a62",
+      "head": "f221146a4e39b17fb1ffe2a8ea153aa45e0cb544",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/graphic/graphic_utils_lite",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/graphic_graphic_utils_lite"
+    },
+    {
+      "git_tree": "e899a18eec192a3d48c85c05fd817c3db46f95a7",
+      "head": "2de3a67f9597fac48de0123ae73151af0f590a78",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/graphic/graphics_effect",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/graphic_graphics_effect"
+    },
+    {
+      "git_tree": "856b8ff6019c32b21025444bc110a086258d8477",
+      "head": "ecfc70a6d4f5ac900e19bd19e40e9169292ff3fd",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/resourceschedule/ffrt",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/resourceschedule_ffrt"
+    },
+    {
+      "git_tree": "721f25be0e3197fd9faca116bf0909c2d3814ece",
+      "head": "c4702543e39a456c1bbf3fa967a882312647c7af",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/systemabilitymgr/safwk",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/systemabilitymgr_safwk"
+    },
+    {
+      "git_tree": "a470f6b0f777e08650cfce85b405c0afb6bb0baa",
+      "head": "e04a4f89bb6ee3e0c1ea88b2b204e62e89f72d71",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/systemabilitymgr/samgr",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/systemabilitymgr_samgr"
+    },
+    {
+      "git_tree": "02be5021808cacf3809eca5c1ca7dafdcafca36a",
+      "head": "49ab756402ca0fdda4b44ff98c0d1064ae58106c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "kernel/linux/patches",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/kernel_linux_patches"
+    },
+    {
+      "git_tree": "d006e86c75ca69d7fd43a8a2467022968f58d541",
+      "head": "a152764b15236b2ad842846a3a9a8439715ad46a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "productdefine/common",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/productdefine_common"
+    },
+    {
+      "git_tree": "43eaa5d322acd457fe5e8a14239f62a5ba0cfd9e",
+      "head": "8de28ca3e3dc9951f880a4826b8ccd70a2e7810e",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/FreeBSD",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_FreeBSD"
+    },
+    {
+      "git_tree": "b5c701a34c088ae1cdc4d1394b7e38b445c18db1",
+      "head": "217a38e92cc64a96b4d1ac7469f30827d84485d3",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/android-headers",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/Halium/android-headers"
+    },
+    {
+      "git_tree": "99609d60f58d96a846104652d5f03201b20460bc",
+      "head": "2ae82839ecaaa7d031e66ccbd2076d671acfd615",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/bounds_checking_function",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_bounds_checking_function"
+    },
+    {
+      "git_tree": "9ad2e1d5df593eaf162e83cfb0924dc59b6fcc2f",
+      "head": "e8e3b464e0b4f89e1f56ba10d7c29654043db91d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/bzip2",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_bzip2"
+    },
+    {
+      "git_tree": "36d30e5721a460fc204cba889a8716312609225d",
+      "head": "ed51a490e22e7120be055a8b2fdb2a0a7f8676a7",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/cJSON",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_cJSON"
+    },
+    {
+      "git_tree": "3539a455661e2ea53a08d52b91728e12d7338684",
+      "head": "9e5fa8a8c50c243b6ad2e847c44448374d0ece28",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/e2fsprogs",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_e2fsprogs"
+    },
+    {
+      "git_tree": "aee65b26269c4516bce6183c9094aa89834a2d50",
+      "head": "e7dc850c25fc69109275ee2f80f6e68c05c6dd47",
+      "lfs_objects": [
+        {
+          "bytes": 9713,
+          "committed_pointer_sha256": "eb234fb843bcef80721a89b5711ac1b753da2f332b8fffa9ee6339eefc0de8c1",
+          "git_index_may_be_materialized": true,
+          "material_sha256": "215e9cc66b7962f53a08db564558553366f06f64eb6d8508a3ff2dac47c90cb6",
+          "path": "tools/multi/proj/icu4cscan/old-xmls.tar.bz2"
+        }
+      ],
+      "lfs_required": true,
+      "path": "third_party/icu",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_icu"
+    },
+    {
+      "git_tree": "f57a2c5e4b5335aafb98030d6f66791a0f65fde8",
+      "head": "1611aa4447699769435f913a3c3753d259c76fdb",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/jinja2",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_jinja2"
+    },
+    {
+      "git_tree": "e4686fdfeffdf912074b4d3c237c87ecf04e753f",
+      "head": "9e1906a3ddf971853551bfa5b58ac8a5c946075c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/json",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_json"
+    },
+    {
+      "git_tree": "c0d98c9788a1ace8282aa178179640669db4ad3c",
+      "head": "24cc8282a123a537e02ef31886974bf8f5a960b1",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/jsoncpp",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_jsoncpp"
+    },
+    {
+      "git_tree": "21e70bd5f2c9a14d06ce4a71810844c10278aa22",
+      "head": "f58139dbcb72402d460fec3c106bb1f9fbc5e3fe",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/libcoap",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_libcoap"
+    },
+    {
+      "git_tree": "dc4ac400fa42a7bc735b551d34dfb066eae6bfb2",
+      "head": "7138be2fd91fbec191d1b44dbfea3969ddf3aedd",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/libhybris",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro4openharmony/libhybris"
+    },
+    {
+      "git_tree": "93f81487211531aa9d76fbf8e05c560e443aa5db",
+      "head": "b6eaefcef8a3fb284d60c60a7662d65ca734e5c6",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/libunwind",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_libunwind"
+    },
+    {
+      "git_tree": "ec0b0851768eb9984bd9e9c50f93660be0d18612",
+      "head": "0d918d0f3b1401c75c4a258974e9404a323775b4",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/libuv",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_libuv"
+    },
+    {
+      "git_tree": "b21745795775e85ed317a77e4c216a05b40cfc68",
+      "head": "6c222b52978e704ac12d278a76e95023a9b82f72",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/libxml2",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_libxml2"
+    },
+    {
+      "git_tree": "cb3ecbb64e742558d34091d90aecbdc2321e7547",
+      "head": "cf560ea0757c6d839e48f959044f9e74b41b3817",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/lz4",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_lz4"
+    },
+    {
+      "git_tree": "171ab571df0f11c07778f26fc98b386bc7d17309",
+      "head": "c44ef7f93941faa504d3adb230c74e7d195a0f35",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/markupsafe",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_markupsafe"
+    },
+    {
+      "git_tree": "bba8d780a876289ed358ef40ba2755e3744cc424",
+      "head": "d0c326ed322b1fbcc32da46690c9bf4022039d4a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/mbedtls",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_mbedtls"
+    },
+    {
+      "git_tree": "8f59e8364f8e3b415643d4b006d4793d64d4d5b9",
+      "head": "7c9a99aae096ace2a88255923d59cda7a2326a9a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/musl",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_musl"
+    },
+    {
+      "git_tree": "1d17be89d02b8870beed5537dc8f350e6b241e6e",
+      "head": "f0ee54afed3499ac74196d50c990a153f3506c28",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/openssl",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_openssl"
+    },
+    {
+      "git_tree": "ded5ecee8f94de0040f608760a88e86f8b181279",
+      "head": "a52a7d4792ef1618a854271e2421e2ab66d24f99",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/optimized-routines",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_optimized_routines"
+    },
+    {
+      "git_tree": "07955d7032f0ef97172f916fb1d91dbfbf00562c",
+      "head": "b7ef4e17956fda3174147a6e3f3835515f546435",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/selinux",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_selinux"
+    },
+    {
+      "git_tree": "7208266608cbf4ac57e00d038c3428c915914095",
+      "head": "927b3aebdd0d83ce82dee6e37562c719e51fc623",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/toybox",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_toybox"
+    },
+    {
+      "git_tree": "0f557f17be18b7c16dd8cf61386584f66da987a7",
+      "head": "2badf04b69f8fee77f087991b7978dac46b369ee",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "vendor/oniro",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro4openharmony/vendor_oniro"
+    },
+    {
+      "git_tree": "0c56460baa6e13bd13cf8444ba549145543b2ceb",
+      "head": "939c5d8293c5870286a7143b7de88a50ea3fb5de",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "developtools/integration_verification",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/developtools_integration_verification"
+    },
+    {
+      "git_tree": "755c3234744d4c91b57eb56ed5fa840a648928f9",
+      "head": "1e70dc18d451e21311a8f0efa2a144148fc1a103",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "test/testfwk/developer_test",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/testfwk_developer_test"
+    },
+    {
+      "git_tree": "657b0e5baa20b7166f7dd54ea06b410c21a2b666",
+      "head": "dc13b9a207d24ec24d2e474b22ad766c459fb5e5",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/security/crypto_framework",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/security_crypto_framework"
+    },
+    {
+      "git_tree": "c2af4d2088d9524eb7b2be1287808f989a8d814a",
+      "head": "c15616e4b5b7d990ada6fb12b8b26f65cdb91580",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/googletest",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_googletest"
+    },
+    {
+      "git_tree": "a370df660b7bfb9629a6fa1dc31fc25b339d49aa",
+      "head": "59a33d7a52602c90a1772d0e9b5d2a539c9effbc",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "arkcompiler/runtime_core",
+      "uninitialized_gitlinks": [
+        {
+          "directory_mode": 493,
+          "git_mode": "160000",
+          "git_object": "cc2552eb551e806e6892fe6871de7b173943afb6",
+          "materialized": false,
+          "path": "arkcompiler/runtime_core/static_core/tools/plugins/ecmascript",
+          "recursive_source_closure": false
+        }
+      ],
+      "url": "https://github.com/eclipse-oniro-mirrors/arkcompiler_runtime_core"
+    },
+    {
+      "git_tree": "d680efb23452e792abafed63438278a97a8add71",
+      "head": "1b4d20b0a195d7dabf0667b226623707aa472b6c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/serde",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_serde"
+    },
+    {
+      "git_tree": "f590275d6d35217535a699cc7bb9b72604a5548c",
+      "head": "cd4bb56d02c8d3b35aab19bd69d4b1a7082856fb",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/rust-openssl",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_rust-openssl"
+    },
+    {
+      "git_tree": "1924de3dc9c4d2cdfbddf3b71b9ed8b4e3bc2dd9",
+      "head": "685a0b9f4f667f2f1d855e6e725cf6fbf3028e79",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/unicode-ident",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_unicode-ident"
+    },
+    {
+      "git_tree": "15c96bac208e49fff566342812dbb0dd0e4c4ea4",
+      "head": "d6bfaf5c015d29fee58e3c94f01d463fb87a9497",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/node",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_node"
+    },
+    {
+      "git_tree": "e00802e37291e2938bc8ebf196343d93ff35eea4",
+      "head": "94c4c7098f5385a49b955a243656355b14429604",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/resourceschedule/resource_schedule_service",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/resourceschedule_resource_schedule_service"
+    },
+    {
+      "git_tree": "9f7716f3531c88c1f8cd8b28e2b137a52d44add4",
+      "head": "0e26439461838b542018d1e1f3fdae20bde5fa5b",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/quote",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_quote"
+    },
+    {
+      "git_tree": "f7fb6e2627dabf17986333f0087348fcac8fb66b",
+      "head": "e9bf0f2adc08e1a72220156b299fc65e24d22298",
+      "lfs_objects": [
+        {
+          "materialised": true,
+          "object_bytes": 4134168,
+          "object_sha256": "0fb1078d1c76f16b0efc7a3434751baa4e6054699c2a0749798f18506daee81c",
+          "path": "test/component_test/test_cases/components/image_video_and_media/entry/src/main/resources/rawfile/video1.mp4",
+          "pointer_bytes": 132,
+          "pointer_sha256": "7591d90ad813675211e803c1ca130dc9999d53d69e835422142b7c4c042c5847"
+        },
+        {
+          "materialised": true,
+          "object_bytes": 3121524,
+          "object_sha256": "42a7b55e21829cb903d523f639ff1671ba960c814c3c41155111dcdeea061a1b",
+          "path": "test/component_test/test_cases/components/image_video_and_media/entry/src/main/resources/rawfile/video2.mp4",
+          "pointer_bytes": 132,
+          "pointer_sha256": "50fb02d1981703a06dd76965c9a2576675aa8a564df297bbaf952fa50c140ac7"
+        }
+      ],
+      "lfs_required": true,
+      "path": "foundation/arkui/ace_engine",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/arkui_ace_engine"
+    },
+    {
+      "git_tree": "488c72140a123eb38a026333485d993df2624297",
+      "head": "7f58fce8c9191a37799a24e40d488a6978f25c98",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/libc",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_libc"
+    },
+    {
+      "git_tree": "7be5a0f5a2a078368d1dd36d2d9985616bb78707",
+      "head": "ea63c0b49611845eb038c9f36d63fcdaa756e06c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/once_cell",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_once_cell"
+    },
+    {
+      "git_tree": "54a9ea05e9424ce63372645ed0b4cc8e38b8ac81",
+      "head": "615f28490a068b8be31f4912b072a028eaf36a0f",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/proc-macro2",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_proc-macro2"
+    },
+    {
+      "git_tree": "96d92effa1b54fd2ecf562d313f8a168deaf7050",
+      "head": "e0fc17a76410e0f60a4120efb8cc7120beca7e18",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/foreign-types",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_foreign-types"
+    },
+    {
+      "git_tree": "fef0a17a3d0e7efc52690d0eeeb05e70295dc28a",
+      "head": "65ed3a7d917102f642497e1d46addc7ab2b46aab",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/f2fs-tools",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_f2fs-tools"
+    },
+    {
+      "git_tree": "b440f366ae9f9683bb4bfb50a416b730aea95a6e",
+      "head": "1ef9ea1b39a3cf4d521111fe10eb4d6a33b167bc",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/bitflags",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_bitflags"
+    },
+    {
+      "git_tree": "a2fcea2e5f6b4ec9af409feec7613ac5cc42bcd7",
+      "head": "d04f0842144ddfc3fb6e0dafdcfe411c03e11f8c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/cfg-if",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_cfg-if"
+    },
+    {
+      "git_tree": "50243a6b2792decc2f4dab718e3fe374ca85b3d8",
+      "head": "bef2e4e0e5d3b89684b7b741f7825f08a757713a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/syn",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_syn"
+    },
+    {
+      "git_tree": "4f064d09d103d10bc7443312b297ab7571846240",
+      "head": "dd11d23c7f37ad074d4184f79645d6cbdb260ffd",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/hiviewdfx/hiview",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/hiviewdfx_hiview"
+    },
+    {
+      "git_tree": "db23609defb28797836546a482fadbbeb6f09482",
+      "head": "a0bb572150a8431b99a4ab7f829e803dbac77d88",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "arkcompiler/ets_runtime",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/arkcompiler_ets_runtime"
+    },
+    {
+      "git_tree": "094fa8fd87c4da29c75c0c5e5875e9e34403a088",
+      "head": "c24f5a9c18e63d0baadfccbba1dd1c6029b63eb2",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/arkui/napi",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/arkui_napi"
+    },
+    {
+      "git_tree": "4315fd68d92450ffdb917ef34b87bdb4145eb4b6",
+      "head": "b982552012b9faf15db3bd5c714594da91df33b0",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/libusb",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_libusb"
+    },
+    {
+      "git_tree": "7480a7cb05f6319b29fcfaa9bf269c96c8457fec",
+      "head": "50284aa0166c112cb7232f9c937ba842d380d3c2",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/ability/ability_base",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/ability_ability_base"
+    },
+    {
+      "git_tree": "48f04d805e31bc080f01cc329e7fc8befc330706",
+      "head": "2a0e4115dfe4599e2b67bb38b4bb096e20298ffb",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/ability/ability_runtime",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/ability_ability_runtime"
+    },
+    {
+      "git_tree": "b0532cf23048d1c44b575076f990ec123923b896",
+      "head": "5138567c9436f3771cc4ed85bd140fe02b570b63",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/filemanagement/app_file_service",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/filemanagement_app_file_service"
+    },
+    {
+      "git_tree": "57950503f500e0f32655623e7982430e2db481aa",
+      "head": "ef924ea4198befa65a088863d9812b7f872e4bbc",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/bundlemanager/bundle_framework",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/bundlemanager_bundle_framework"
+    },
+    {
+      "git_tree": "2858e6986b7a5404c24d19ba370b0adce9076325",
+      "head": "73eb4197cdfc5d6abcb1b69cbc158ba82f864128",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/notification/common_event_service",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/notification_common_event_service"
+    },
+    {
+      "git_tree": "a6cc3789482346d4b2bc9743f56ac3aa7863d794",
+      "head": "94a082b8ab66b4b9e383ce3f2bc92a4a1bc901d1",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/distributeddatamgr/data_share",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/distributeddatamgr_data_share"
+    },
+    {
+      "git_tree": "eea9fccc0986e331a9bae5563a7f5476f59ca3ff",
+      "head": "141f1897f81153188e42154a1b9752de375ae183",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/filemanagement/file_api",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/filemanagement_file_api"
+    },
+    {
+      "git_tree": "434dfb13bcbb6a409cbe5095d1f05c02cf905df0",
+      "head": "d5fed0d543f5434bc69af3d8f0b1edd81e763de9",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/distributeddatamgr/kv_store",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/distributeddatamgr_kv_store"
+    },
+    {
+      "git_tree": "f2c4874ef76a937fcbe898652b9eba72609a311b",
+      "head": "7f97687cd0e0e2d1ed1e2a78bb41cb406f374346",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/account/os_account",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/account_os_account"
+    },
+    {
+      "git_tree": "09e896f3b046e708358a2fb7aac9600a6f4bde6a",
+      "head": "65f6a661fb589b062148a39fc56c317bd3545296",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/distributeddatamgr/relational_store",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/distributeddatamgr_relational_store"
+    },
+    {
+      "git_tree": "cfbdc6f5ba00ee6e591bb4bf3138994167508c59",
+      "head": "17424744e2f9a9bd4ef75dc20a0a9bf4fc8f898d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/global/resource_management",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/global_resource_management"
+    },
+    {
+      "git_tree": "1fba9213f7eaf77d04c2d558805af961e926fa45",
+      "head": "71cfef28f84b6bd0603dfb2eb28f436294992bbd",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/sqlite",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_sqlite"
+    },
+    {
+      "git_tree": "6e7d4b95b885d7aa8ff1a358cb775c449d59539c",
+      "head": "0c6a4c583ff02478da6c7092cc6d66b0d9e3b509",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/window/window_manager",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/window_window_manager"
+    },
+    {
+      "git_tree": "1dd9720778afa0e372686fb6a8f6a4404c3e8f4e",
+      "head": "afbaf94ee3a8d3b1bc5d4995bda335257670e3d2",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/ability/idl_tool",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/ability_idl_tool"
+    },
+    {
+      "git_tree": "2a023982106186c8aba10a200e046a85778ad1a3",
+      "head": "651da30d5e980fcc01b923389c4c41202e76ba7e",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "commonlibrary/memory_utils",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/commonlibrary_memory_utils"
+    },
+    {
+      "git_tree": "947f2ffa6af47abff3678fc240b23cabfc258dcc",
+      "head": "2d51aa4b21b83e92ac8c59ce5ff9fc4289128847",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "interface/sdk-js",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/interface_sdk-js"
+    },
+    {
+      "git_tree": "56d6137be889a9741b8b7b1edb54b55e8fcb971a",
+      "head": "c52960f7bdc653a7fcd64e5839f332c0833a157a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "arkcompiler/ets_frontend",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/arkcompiler_ets_frontend"
+    },
+    {
+      "git_tree": "be1afce6af9746d8a762ffae1ad33e4bb39e0d96",
+      "head": "0ece7e63d168b0a2f435ae0e3b3145b4f6b16d26",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/zlib",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_zlib"
+    },
+    {
+      "git_tree": "4d158bf4d6f14eb0835e8072b9059f38bc0b4b60",
+      "head": "0bdb3b7832f52dc5793da2fb67b260ef0eb97f4b",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/protobuf",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_protobuf"
+    },
+    {
+      "git_tree": "1f979f069e594aa972c060a4950762e3ef4acf0f",
+      "head": "67fd0c80ba1ba2546f8a0cec31286923f5a5a3dd",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/typescript",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_typescript"
+    },
+    {
+      "git_tree": "dba735fe3c1177e360466b65b6f5f5fe0534b8a0",
+      "head": "b2d29b3d9ab18ff9d51af6b37829ed188ba12cfb",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "developtools/ace_ets2bundle",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/developtools_ace_ets2bundle"
+    },
+    {
+      "git_tree": "86b3bc0ce22820f61a04835a8460a564c98f771c",
+      "head": "853d60fd68b012ebabd1f5858d9f754835252a0c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/abseil-cpp",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_abseil-cpp"
+    },
+    {
+      "git_tree": "a421d0561e0b059c29d2959c8ab822b22726fc42",
+      "head": "51abc35b057bf8dd2591df1c3ab5f60a1f3e2bc3",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/powermgr/power_manager",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/powermgr_power_manager"
+    },
+    {
+      "git_tree": "e5e749165b94d4c17d28a48796fc8f3b8d0ed310",
+      "head": "b3bd60c67ef18b12a8574cbe0aae1fcc51dd1ddb",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/security/dataclassification",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/security_dataclassification"
+    },
+    {
+      "git_tree": "0e458da0ec61898fca0af1dbfcdef38a35e066a8",
+      "head": "b1d59fdb4a80f1490b736ff5ef86bb7b831dd1f9",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "base/tee/tee_client",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/tee_tee_client"
+    },
+    {
+      "git_tree": "137ac2f5d982753197646cd48c41e644d19339e3",
+      "head": "8b7d4ca598afcb797c5d63e98b9655c652cc1494",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/communication/netmanager_base",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/communication_netmanager_base"
+    },
+    {
+      "git_tree": "56053870e340279344eeec320c4058c68a165486",
+      "head": "603bc35347eb88f69174c65b064e821fb382f7d3",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/distributeddatamgr/preferences",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/distributeddatamgr_preferences"
+    },
+    {
+      "git_tree": "b815cb12288d25d495cec079abc0bfb5b8a3a9c7",
+      "head": "c434623edf31d89f07b8e497a9c61e8b5e2dbada",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/distributedhardware/device_manager",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/distributedhardware_device_manager"
+    },
+    {
+      "git_tree": "ce5bc4580b883f683e7cc5258be9412380f5e1f2",
+      "head": "c5db881ae9848152c4920cca25524908815430b0",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/filemanagement/dfs_service",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/filemanagement_dfs_service"
+    },
+    {
+      "git_tree": "9fa2b304c0cbd0640f7078b057c04b8120042a47",
+      "head": "77918ca4bca54ec8a69e03cb9fc268ca6c63eb4a",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/filemanagement/storage_service",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/filemanagement_storage_service"
+    },
+    {
+      "git_tree": "36a2adbbb92b0a77c3b01070e2694deadcea8573",
+      "head": "a6f0d0cb3922a6b4922b5e4980e5e23d3f5a7644",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "foundation/resourceschedule/memmgr",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/resourceschedule_memmgr"
+    },
+    {
+      "git_tree": "a00abd50ddeb33690124d38b83270d58ae8f08ba",
+      "head": "52c0ea2ae1fffcc3f12a0c4cb9c417b31651a716",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/exfatprogs",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_exfatprogs"
+    },
+    {
+      "git_tree": "df116e6fe4308b5784a4d1966b1884b67f08339e",
+      "head": "88f5f9c0002ed400a2418b41550fa73076f9be7d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/gptfdisk",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_gptfdisk"
+    },
+    {
+      "git_tree": "83d6fd057e7229aa8079021fca02c2155fd2dd2c",
+      "head": "fd0dd9d9182d75e378467720a75d385cdefc88fc",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/libfuse",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_libfuse"
+    },
+    {
+      "git_tree": "8fe2df71c845ae1d1cf8d04587a1f5307a93b5a7",
+      "head": "c1fc6e9de8fc3a7f2e4c6ff8cafbf50bb3a2cc50",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/ntfs-3g",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_ntfs-3g"
+    },
+    {
+      "git_tree": "fa0833038665fb8443e76a718a83550f07794d1c",
+      "head": "838c2274fe36df840031993db258bdcfdd5b7098",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/cxx",
+      "uninitialized_gitlinks": [
+        {
+          "directory_mode": 493,
+          "git_mode": "160000",
+          "git_object": "37752b6ec36a68c169053cb3f7ba359b677a22b6",
+          "materialized": false,
+          "path": "third_party/rust/crates/cxx/tools/buck/prelude",
+          "recursive_source_closure": false
+        }
+      ],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_cxx"
+    },
+    {
+      "git_tree": "a7eb46e9227d3274c7be0aaae7626ae427860ba9",
+      "head": "1b0f031d0ec2873a876c1efcdf705f3f5af2d64c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/clap",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_clap"
+    },
+    {
+      "git_tree": "7c148dcc41918a0f7fc1bb3b5678e790a9d5ddc0",
+      "head": "b329b01331254dc55d0f03c24adb057105a5ef3c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/codespan",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_codespan"
+    },
+    {
+      "git_tree": "44607a2d634a28d8200af64be023e15e925c3634",
+      "head": "bc2a12f195a49df8d96b0ecc064f84a573036f25",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/is-terminal",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_is-terminal"
+    },
+    {
+      "git_tree": "fd88e6be5dd9659c6ad64cbc184c6ace22771fda",
+      "head": "8b3d0327ce29b4bfd1287a7e4348888b8e6b02d0",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/strsim-rs",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_strsim-rs"
+    },
+    {
+      "git_tree": "f798d362df15e79b9f909cfd87ac2e25f8365cb7",
+      "head": "283917a41c9b4e58fafc2c766afb5ac34995e01f",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/termcolor",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_termcolor"
+    },
+    {
+      "git_tree": "d5bcfbbefffdd0cdd06e921a6f6ecc8fe3ab61d7",
+      "head": "25fef0069852cc112ba97ba369c66690f2d90328",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/heck",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_heck"
+    },
+    {
+      "git_tree": "8704525c1a033a5cf5bb1ea687e9355c68f35f99",
+      "head": "7275f6b27f289bd857bc0b42b69991f6322e798c",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/unicode-width",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_unicode-width"
+    },
+    {
+      "git_tree": "e3be3404ab4083056c6c93ce6a0273560a4054d9",
+      "head": "0012d5c1d0a837f05407eafcb79d9fdac7dfea32",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/os_str_bytes",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_os_str_bytes"
+    },
+    {
+      "git_tree": "267cf7e39506ba363b8dda359ac7f08bab90e151",
+      "head": "09da1a5ec1c7fcca15ab36cc1ffe7e41fc700a5d",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/io-lifetimes",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_io-lifetimes"
+    },
+    {
+      "git_tree": "db9f5edb83d94574c9a075d1ec34074c24675566",
+      "head": "7765a61d9eedb488c3583a2019941ffe1dc67a9e",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/rustix",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_rustix"
+    },
+    {
+      "git_tree": "b3972f6c5beca142634a7b2532d3a2d24ea9e493",
+      "head": "44004ce2adbaef034f2598680d3d2ba6819097b6",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/memchr",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_memchr"
+    },
+    {
+      "git_tree": "d214b1b9bfb8e333b5b01d99fb1f496fceac0482",
+      "head": "69ed916408b32330f7835a341448106e98e688d5",
+      "lfs_objects": [],
+      "lfs_required": false,
+      "path": "third_party/rust/crates/linux-raw-sys",
+      "uninitialized_gitlinks": [],
+      "url": "https://github.com/eclipse-oniro-mirrors/third_party_rust_linux-raw-sys"
+    }
+  ],
+  "public_sources_only": true,
+  "rust_layout_bytes": 349008915,
+  "schema": "remeizu.free-hosted-native-public-inputs.v1",
+  "selected_part_count": 110,
+  "source_bytes": 2502212846,
+  "source_projects": 136,
+  "tools": [
+    {
+      "archive_bytes": 8961587,
+      "archive_sha256": "0ce77c9c9c864e0f34e939a8ecbeae75a2245c9ffec4ee8f2b311f0c8d56c470",
+      "kind": "tar",
+      "payload_root": "tools/official-python",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/openharmony/compiler/python/3.11.4/linux/python-linux-x86-GLIBC2.27-3.11.4_20251107.tar.gz"
+    },
+    {
+      "archive_bytes": 35031005,
+      "archive_sha256": "8ae854dac7fa5e7dfd5dae8fe8e001c0599821705f650b32c4819149cfda1d0e",
+      "kind": "tar",
+      "payload_root": "tools/official-node14",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/nodejs/v14.21.1/node-v14.21.1-linux-x64.tar.gz"
+    },
+    {
+      "archive_bytes": 52840113,
+      "archive_sha256": "6635900983a247bd3eab8fa524c824019ee8f90200f0e772ff5ca86dce05f35c",
+      "kind": "tar",
+      "payload_root": "tools/official-cmake",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/openharmony/compiler/cmake/3.28.2/cmake-linux-x86-3.28.2.tar.gz"
+    },
+    {
+      "archive_bytes": 99758853,
+      "archive_sha256": "7f9266abb82dc5080cbe074dbfd6baa735973cf950c49d642ca639f28f5f990e",
+      "kind": "tar",
+      "payload_root": "tools/official-rust-host",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/openharmony/compiler/rust/1.72.0-20250515/rust-nightly-x86_64-unknown-linux-gnu.tar.gz"
+    },
+    {
+      "archive_bytes": 36182712,
+      "archive_sha256": "67079af8865aac7b209cdeabe65343e674303685ae354d2ce5aa9920b78a6a2d",
+      "kind": "tar",
+      "payload_root": "tools/official-rust-arm64",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/openharmony/compiler/rust/1.72.0-20250515/rust-std-nightly-aarch64-unknown-linux-ohos.tar.gz"
+    },
+    {
+      "archive_bytes": 44343888,
+      "archive_sha256": "d226c39c5546dca97567db8f8ca7f92fca6572d44f181b1f85af83eee5d6f9e1",
+      "kind": "tar",
+      "payload_root": "tools/official-node18",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/nodejs/v18.20.1/node-v18.20.1-linux-x64.tar.gz"
+    },
+    {
+      "archive_bytes": 787632085,
+      "archive_sha256": "804c5820b5f2c68c14834adf96a66ec23087b247f90d74ac7e44d79355d563c1",
+      "kind": "tar",
+      "payload_root": "tools/official-clang",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/openharmony/compiler/clang/15.0.4-feef13/linux/clang_linux-x86_64-feef13-20251209.tar.gz"
+    },
+    {
+      "archive_bytes": 1184356,
+      "archive_sha256": "c06bb5fb0cf33804a023fa145a15e43d20a457045c05708dd4c827f32118f4da",
+      "kind": "tar",
+      "member_map": {
+        "gn": "gn"
+      },
+      "payload_root": "tools/official-build-tools",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/openharmony/compiler/gn/20260122/gn-linux-x86-20260122.tar.gz"
+    },
+    {
+      "archive_bytes": 128365,
+      "archive_sha256": "78d489c3dd53cbc93ab2c1c51c0ce459379c70365d0f5bfad807d0df0c0e2280",
+      "kind": "tar",
+      "member_map": {
+        "ninja": "ninja"
+      },
+      "payload_root": "tools/official-build-tools",
+      "strip_components": 0,
+      "url": "https://repo.huaweicloud.com/openharmony/compiler/ninja/1.12.0/linux/ninja-linux-x86-1.12.0-20240523.tar.gz"
+    }
+  ],
+  "wheels": [
+    {
+      "bytes": 105045,
+      "path": "asn1crypto-1.5.1-py2.py3-none-any.whl",
+      "sha256": "db4e40728b728508912cbb3d44f19ce188f218e9eba635821bb4b68564f8fd67",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/c9/7f/09065fd9e27da0eda08b4d6897f1c13535066174cc023af248fc2a8d5e5a/asn1crypto-1.5.1-py2.py3-none-any.whl"
+    },
+    {
+      "bytes": 26577,
+      "path": "boolean_py-5.0-py3-none-any.whl",
+      "sha256": "ef28a70bd43115208441b53a045d1549e2f0ec6e3d08a9d142cbc41c1938e8d9",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/e5/ca/78d423b324b8d77900030fa59c4aa9054261ef0925631cd2501dd015b7b7/boolean_py-5.0-py3-none-any.whl"
+    },
+    {
+      "bytes": 136983,
+      "path": "certifi-2026.7.22-py3-none-any.whl",
+      "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl"
+    },
+    {
+      "bytes": 217807,
+      "path": "cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "34e261f78cb6ceaaa36f42f2613f4380d94d9c759a9c73c769ee6e0247364632",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/f7/a4/4399daaf8f7dfee9d7c3327fdb0426ee041cc63edc358b93911ceb2bfc7a/cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "bytes": 269972,
+      "path": "charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "211d5a3eb6af8f513b8d4ca19a8c1b7accab1b5f0d3175f9826b03c1a920dc1f",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/e4/ed/cf505d3011ffceb12c2067a7a5d3cfe92b875d4d44bb0ff0d69375e2c184/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "bytes": 4753050,
+      "path": "cryptography-50.0.2-cp311-abi3-manylinux_2_28_x86_64.whl",
+      "sha256": "4061c0079120205fb760c58acab6443e217307dcf05e3702cf970e0689972856",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/1a/f1/b474e930c4d910328780e3940da76f5aa5cbc48ce1fc14e44d239d9ea9db/cryptography-50.0.2-cp311-abi3-manylinux_2_28_x86_64.whl"
+    },
+    {
+      "bytes": 69583,
+      "path": "idna-3.20-py3-none-any.whl",
+      "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl"
+    },
+    {
+      "bytes": 18102,
+      "path": "json5-0.9.6-py2.py3-none-any.whl",
+      "sha256": "823e510eb355949bed817e1f3e2d682455dc6af9daf6066d5698d6a2ca4481c2",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/7e/8e/ebde0a31c71e7098b3014faf46c80bdbcadb3c23b0ac7c7646b2af7d302e/json5-0.9.6-py2.py3-none-any.whl"
+    },
+    {
+      "bytes": 21526869,
+      "path": "libclang-15.0.6.1-py2.py3-none-manylinux2010_x86_64.whl",
+      "sha256": "69b01a23ab543908a661532595daa23cf88bd96d80e41f58ba0eaa6a378fe0d8",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/bd/ec/55f01bbee070d574c47bb602d8dc17ac3b804e007d4949a8b414e75b7812/libclang-15.0.6.1-py2.py3-none-manylinux2010_x86_64.whl"
+    },
+    {
+      "bytes": 120615,
+      "path": "license_expression-30.4.4-py3-none-any.whl",
+      "sha256": "421788fdcadb41f049d2dc934ce666626265aeccefddd25e162a26f23bcbf8a4",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/af/40/791891d4c0c4dab4c5e187c17261cedc26285fd41541577f900470a45a4d/license_expression-30.4.4-py3-none-any.whl"
+    },
+    {
+      "bytes": 1647772,
+      "path": "networkx-3.2.1-py3-none-any.whl",
+      "sha256": "f18c69adc97877c42332c170849c96cefa91881c99a7cb3e95b7c659ebdc1ec2",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/d5/f0/8fbc882ca80cf077f1b246c0e3c3465f7f415439bdea6b899f6b19f61f70/networkx-3.2.1-py3-none-any.whl"
+    },
+    {
+      "bytes": 24659,
+      "path": "packageurl_python-0.9.8-py3-none-any.whl",
+      "sha256": "9a56aed5fc1a2e735053208b4176e4f20c0a1d176d6e8af2abe8ffc2d91911d8",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/97/ca/98b4603fbae438e30f5cb9f5626d530fa2ad76711957789e1fbfd14d929a/packageurl_python-0.9.8-py3-none-any.whl"
+    },
+    {
+      "bytes": 248251,
+      "path": "prompt_toolkit-1.0.14-py3-none-any.whl",
+      "sha256": "7281b5199235adaef6980942840c43753e4ab20dfe41338da634fb41c194f9d8",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/ee/3d/b25d35a9f0d381dd1c02d8e04b37c353caaaff4bc32150328eeebe4931f5/prompt_toolkit-1.0.14-py3-none-any.whl"
+    },
+    {
+      "bytes": 155560,
+      "path": "psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "076a2d2f923fd4821644f5ba89f059523da90dc9014e85f8e45a5774ca5bc6f9",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/b5/70/5d8df3b09e25bce090399cf48e452d25c935ab72dad19406c77f4e828045/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "bytes": 48172,
+      "path": "pycparser-3.0-py3-none-any.whl",
+      "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl"
+    },
+    {
+      "bytes": 806638,
+      "path": "pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "b8bb0864c5a28024fac8a632c443c87c5aa6f215c0b126c449ae1a150412f31d",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/71/60/917329f640924b18ff085ab889a11c763e0b573da888e8404ff486657602/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "bytes": 73075,
+      "path": "requests-2.34.2-py3-none-any.whl",
+      "sha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl"
+    },
+    {
+      "bytes": 11050,
+      "path": "six-1.17.0-py2.py3-none-any.whl",
+      "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl"
+    },
+    {
+      "bytes": 45571,
+      "path": "typing_extensions-4.16.0-py3-none-any.whl",
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl"
+    },
+    {
+      "bytes": 135717,
+      "path": "urllib3-2.8.0-py3-none-any.whl",
+      "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl"
+    },
+    {
+      "bytes": 769763,
+      "path": "wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "751bef0ab404b6a1dc028b56b4b85d46486be1c55833f80da533e42dc691f389",
+      "url": "https://repo.huaweicloud.com/repository/pypi/packages/db/6c/f940133c71427c208575910e981942bd78c98b1f7cd0d1425ca4b7457c04/wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "actual_failed_head": "b40d0e9a0e994343630c6732ef1ab24410364a5e",
+  "actual_failed_line": 30,
+  "actual_failed_run": 38063474737,
+  "actual_failed_source": "third_party/libhybris/BUILD.gn",
+  "actual_gn_error": "Replacing nonempty list",
+  "all_other_patch_rows_unchanged": true,
+  "android13_version_flags_unchanged": true,
+  "corrected_patch_row": {
+    "path": "inputs/19-A13_HEADER_GN_PREPEND.a12.patch",
+    "sha256": "b40f52b5209b987579669f15b68694d148b275e3e25df2c004d10adfc609bfcf",
+    "target": "third_party/libhybris"
+  },
+  "full375_phone": false,
+  "gn_generated": false,
+  "host_target_compilation": false,
+  "old_patch_file_retained_unchanged": true,
+  "original_patch_row": {
+    "path": "inputs/19-A13_HEADER_GN.patch",
+    "sha256": "151744bbd90fe24b992417fc8ea0a4ca344fa7c96b35b94f7230ac9e71975259",
+    "target": "third_party/libhybris"
+  },
+  "original_worker_source_unchanged": true,
+  "overlay_first_order_preserved": true,
+  "parent_gn_inputs_sha256": "3a2b05b6d5c2e0493b494d816fa52ea5b2d82042b464ad8b47e0655fd5ea90eb",
+  "parent_patches_sha256": "b7048ee44fbf61cd4e441106179e87906558bc88b5665d9834f95cc71c2677b0",
+  "parent_public_lock_sha256": "adc7e7ed1cc120c06cffcec30ad713efa5b35a0d414c52e48310ce6e99c8db6e",
+  "project_rows_sha256": "e7b3938e6f32facb5936d705d12633f9285d6f41465dd4604573411b11ad2b0c",
+  "runtime": false,
+  "schema": "remeizu.libhybris-gn-list-prepend-source-correction.v1",
+  "selected_cohort_proof": {
+    "path": "inputs/RUST_CXX_COHORT_PROOF.a1.json",
+    "sha256": "e9bfe8607eaf598afa02a1b0c642c7a9a9010fd6ebe58e4452bf68f47bcd2b8e"
+  },
+  "source_file_map_sha256": "0d0c87444c1aa5137b8fdb1b98aec9704d8a1e743dde5acdfa838ed87948a0bf"
+}

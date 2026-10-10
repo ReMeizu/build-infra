@@ -1,7 +1,8 @@
 # ReMeizu build infrastructure
 
-Manual CI for kernel development and Android ROM build workers for older Meizu
-phones. Builds use bounded execution and the Forge Docker launcher.
+CI for kernel development, Android ROM workers and public OpenHarmony native
+intermediate builds for older Meizu phones. Builds use bounded execution and
+the Forge Docker launcher.
 
 ## Run a job
 
@@ -30,11 +31,29 @@ A shared BSP directory name does not identify the physical chipset.
 The component scratch volume is 12 GiB, with at least 2 GiB of host disk headroom;
 it uses a new file on the disposable runner and leaves existing storage untouched.
 
-There are no automatic triggers. Jobs run sequentially; GitHub may replace an
-older pending request with a newer queued request. Use a new dispatch to retry:
+The Blacksmith workflow has no automatic triggers. Its jobs run sequentially;
+GitHub may replace an older pending request with a newer queued request. Use a new dispatch to retry:
 workflow reruns are rejected before runner allocation. Logs and artifacts are
 kept for seven days, including failed jobs. ROM mode uploads only worker metadata;
 the operator retrieves ROMs and private build logs over SSH before releasing it.
+
+## Public OpenHarmony native intermediate
+
+The [public native route](docs/free-hosted-route/RESOURCE_AND_SOURCE_PLAN.md)
+uses a standard GitHub runner, anonymous pinned public sources, two compiler
+jobs and RAM build outputs. Its push trigger accepts only
+`codex/free-native-20261009`; the first reviewed run uses 88 source projects and
+72 selected parts. The current reviewed successor has 136 projects /110 parts,
+adding the genuinely required database/framework, SDK, storage and Rust host-tool source providers while preserving all
+prior source, feature and SDK bindings. See the
+[measured cohort](docs/free-hosted-route/MEASURED_COHORT_GUARD_STATE.a1.md).
+The job allows 330 minutes including bounded acquisition,
+compilation and encrypted Release retention. It has no Blacksmith reservation.
+
+This is an intermediate build. The full 375-component GUI phone profile,
+complete flashable image and hardware runtime remain unverified. Only explicit
+public native output and separately admitted setup-failure evidence are retained
+as ciphertext; private Android inputs are excluded. See the linked plan for actual source tests and acceptance gates.
 
 ## Budget limits
 

@@ -1,0 +1,23 @@
+{
+  "schema": "remeizu.declared-lfs-materializer-verification.v1",
+  "checked_at": "2026-10-09T20:16:50.234776+00:00",
+  "actual_prior_failure_run": "37983424862",
+  "source_only_reproduction_pass": true,
+  "exact_material_no_op_pass": true,
+  "focused_controls": 4,
+  "focused_exit_code": 0,
+  "all_original_source_acceptance_guards_preserved": true,
+  "ci_environment_cause_proven": false,
+  "source_pin_or_sdk_changed": false,
+  "target_compilation": false,
+  "full375_phone": false,
+  "runtime": false,
+  "files": {
+    "materialize_lfs.py": "facbc3d5afba4cdfaec0af800aae4d58b27502376854f42eea9dd73f562f3e9e",
+    "acquire.py": "2c2116f296ce3905d81c86e77c94bfed776f4ba86b0af9ef4c2fde9e30e1890e",
+    "diagnostics.py": "22c1d4c73f2591ff4b65b508d75cb743d9943c6c26cef6b64b8def297a276bb7",
+    "test_route.py": "dd3c08b9d54baa7e8e4d61f1d24155ddbf57a3656ef55c425f60de02e5f41eda",
+    "LFS_MATERIALIZATION_STATE.a1.md": "9e710c2ec314ce4fe14cc244fa78d8a7950ad8462d9349b721f9910c307d51db",
+    "LFS_MATERIALIZER_REPRO.a1.json": "a3327e540d6b1c18c6bbc709a221080de95ac139343ffd593669d2e38a500c1a"
+  }
+}

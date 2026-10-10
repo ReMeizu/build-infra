@@ -1,0 +1,91 @@
+ root {
+    device_info {
+        match_attr = "hdf_manager";
+        template host {
+            hostName = "";
+            priority = 100;
+            uid = "";
+            gid = [""];
+            caps = [""];
+            critical = [];
+            template device {
+                template deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    preload = 0;
+                    permission = 0664;
+                    moduleName = "";
+                    serviceName = "";
+                    deviceMatchAttr = "";
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        display_composer :: host {
+            hostName = "composer_host";
+            priority = 40;
+            processPriority = -8;
+            threadPriority = 1;
+            /* DAC_OVERRIDE: the panel backlight sysfs node on Halium kernels
+             * is typically root:system 0664 (e.g. /sys/class/leds/lcd-backlight/
+             * brightness).  composer_host runs as uid/gid composer_host and is
+             * not in the system group, so it needs DAC_OVERRIDE to write the
+             * backlight level.  Without it SetDisplayBacklight (hybris VDI)
+             * would silently fail, leaving the panel lit after power-off. */
+            caps = ["SYS_NICE", "DAC_OVERRIDE"];
+            uid = ["composer_host"];
+            gid = ["composer_host", "graphics", "vendor_mpp_driver"];
+	        composer_device :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 160;
+                    moduleName = "libdisplay_composer_driver_1.0.z.so";
+                    serviceName = "display_composer_service";
+                }
+            }
+        }
+        allocator :: host {
+            hostName = "allocator_host";
+            priority = 40;
+            allocator_device :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 160;
+                    moduleName = "liballocator_driver_1.0.z.so";
+                    serviceName = "allocator_service";
+                }
+            }
+        }
+        
+        
+        
+
+        
+
+        
+		
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "remeizu.public-lfs-anonymous-review.v1",
+  "projects": [
+    {
+      "project": "third_party/icu",
+      "anonymous_lfs_batch_available": true,
+      "objects": [
+        {
+          "oid": "215e9cc66b7962f53a08db564558553366f06f64eb6d8508a3ff2dac47c90cb6",
+          "size": 9713,
+          "download_action_present": true,
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "project": "foundation/arkui/ace_engine",
+      "anonymous_lfs_batch_available": true,
+      "objects": [
+        {
+          "oid": "0fb1078d1c76f16b0efc7a3434751baa4e6054699c2a0749798f18506daee81c",
+          "size": 4134168,
+          "download_action_present": true,
+          "error_code": null
+        },
+        {
+          "oid": "42a7b55e21829cb903d523f639ff1671ba960c814c3c41155111dcdeea061a1b",
+          "size": 3121524,
+          "download_action_present": true,
+          "error_code": null
+        }
+      ]
+    }
+  ],
+  "signed_download_urls_or_tokens_exported": false,
+  "actual_object_download_or_compilation": false
+}

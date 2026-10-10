@@ -1,0 +1,22 @@
+{
+  "schema": "remeizu.public-native-acquisition-diagnostics.v1",
+  "actual_prior_run": "37981972232",
+  "observed_frontier": "all88 original Git project pins passed; ValueError during source materialization/verification before tool downloads",
+  "root_cause_proven": false,
+  "behavior_relaxed": false,
+  "official_launcher_changed": false,
+  "new_checks": 3,
+  "exit_code": 0,
+  "diagnostic_policy": "fixed whitelisted codes and canonical declared source member only; no arbitrary exception body, stderr, URL or token",
+  "files": {
+    "diagnostics.py": "eedc6064052263ee05e4ba2d439c40dd723cd608c8e3cb6bd7e32bc975508659",
+    "acquire.py": "9bf40bfc7e0f5f4a5352bf13559b75f4da840dae54965692ba801dc6b9a00ad5",
+    "free_native_run.py": "a61e6bd1ae577b2959179f85ac320349caa956c24102200c201be4d6d2d76587",
+    "test_route.py": "000b6976d812a63fa505da6407cd18db2d9d41a7c49b0b772bb912d0ab349ddc",
+    "ACQUISITION_DIAGNOSTIC_STATE.a1.md": "932ea5848c0030600aed218b00f73c7ecd28de09dde86893b3b3f157b2b01bad"
+  },
+  "checked_at": "2026-10-09T19:51:48.991871+00:00",
+  "target_compilation": false,
+  "full375_phone": false,
+  "runtime": false
+}
